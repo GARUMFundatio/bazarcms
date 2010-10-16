@@ -1,0 +1,39 @@
+* Intro
+	
+	Este engine se instala como una gema de ruby. 
+
+* Requisitos: 
+
+	Para poder crear la gema es necesaria jeweler. 
+	
+	Se instala[1] con:
+	
+	gem install jeweler
+
+
+* Compilación de bazar_cms 	
+
+	En el directorio de bazar_cms ejecutar: 
+	
+	rake install 
+	
+	Para desinstalarla: 
+	
+	gem uninstall bazar_cms 
+	
+* Como incluir el engine en bazar_cms
+
+	De momento no existe una instalación automátizada y hay que 
+editar el fichero Gemfile: 
+
+	gem "bazar_cms", :require => "bazar_cms", :path => "/path/to/bazar_cms"
+
+	Ejecutar Bundle en el directorio de la aplicación bazar: 
+	
+	bundle install 
+	
+
+TODO: mejor poner como bajarse la gema de github directamente
+	
+
+[1] Require permisos de administrador. 
