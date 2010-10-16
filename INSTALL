@@ -8,25 +8,25 @@
 	
 	Se instala[1] con:
 	
-	gem install jeweler
+	sudo gem install jeweler
 
 
-* Compilación de bazar_cms 	
+* Compilación de bazarcms 	
 
-	En el directorio de bazar_cms ejecutar: 
+	En el directorio de bazarcms ejecutar: 
 	
-	rake install 
+	sudo rake install 
 	
 	Para desinstalarla: 
 	
-	gem uninstall bazar_cms 
+	gem uninstall bazarcms 
 	
-* Como incluir el engine en bazar_cms
+* Como incluir el engine en bazarcms
 
 	De momento no existe una instalación automátizada y hay que 
 editar el fichero Gemfile: 
 
-	gem "bazar_cms", :require => "bazar_cms", :path => "/path/to/bazar_cms"
+	gem "bazarcms", :require => "bazarcms", :path => "/path/to/bazarcms"
 
 	Ejecutar Bundle en el directorio de la aplicación bazar: 
 	
@@ -36,4 +36,3 @@ editar el fichero Gemfile:
 TODO: mejor poner como bajarse la gema de github directamente
 	
 
-[1] Require permisos de administrador. 

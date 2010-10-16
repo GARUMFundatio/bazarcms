@@ -1,12 +1,17 @@
 Rails.application.routes.draw do |map|
 
-  montar_en = Cheese::Engine.config.montar_en
+  montar_en = Bazarcms::Engine.config.montar_en
 
-  match montar_en => 'bazar_cms/bazarcms#index'
+  match "/bazarcms" => 'bazarcms/empresas#index'
 
-  map.resources :bazarcms, :only => [ :index, :show ],
-                          :controller => "bazar_cms/bazarcms",
-                          :path_prefix => montar_en,
-                          :name_prefix => "bazar_cms_"
+  map.resources :empresas, :only => [ :index, :show ],
+                          :controller => "bazarcms/empresas",
+                          :path_prefix => "/bazarcms/",
+                          :name_prefix => "bazarcms_"
+ 
+  map.resources :empresasdatos, :only => [ :index, :show ],
+                        :controller => "bazarcms/empresasdatos",
+                        :path_prefix => "/bazarcms/",
+                        :name_prefix => "bazarcms_"
 
 end
