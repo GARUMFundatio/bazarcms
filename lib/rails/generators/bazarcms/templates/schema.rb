@@ -1,6 +1,6 @@
 ActiveRecord::Schema.define(:version => 0) do
 
-    create_table :bazar_cms, :force => true do |t|
+    create_table :empresas, :force => true do |t|
       t.integer :user_id
       t.string  :nombre
       t.text    :desc
@@ -9,10 +9,10 @@ ActiveRecord::Schema.define(:version => 0) do
       t.datetime  :updated_at
     end
 
-    add_index :bazar_cms, [:user_id]
+    add_index :empresas, [:user_id]
     
-    create_table  :bazar_cms_data, :force => true do |t|
-      t.integer   :bazarcms_id
+    create_table  :empresasdatos, :force => true do |t|
+      t.integer   :empresa_id
       t.integer   :periodo
       t.float     :ventas
       t.float     :compras  
@@ -20,6 +20,6 @@ ActiveRecord::Schema.define(:version => 0) do
       t.datetime  :updated_at
     end
 
-    add_index :bazar_cms_data, [:bazar_cms_id]
+    add_index :empresasdatos, [:empresa_id]
 
 end

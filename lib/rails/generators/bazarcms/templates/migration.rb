@@ -4,6 +4,8 @@ class CreateBazarCMSTables < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :bazar_cms
+    drop_table :empresas
+    drop_table :empresasdatos
+    
   end
 end
