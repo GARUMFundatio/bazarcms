@@ -1,7 +1,7 @@
 require 'rails/generators'
 require 'rails/generators/migration'
 
-class BazarCMSGenerator < Rails::Generators::Base
+class BazarcmsGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
 
   def self.source_root

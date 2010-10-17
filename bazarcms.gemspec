@@ -8,28 +8,34 @@ Gem::Specification.new do |s|
   s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.date = %q{2010-10-16}
+  s.date = %q{2010-10-17}
   s.extra_rdoc_files = [
     "README"
   ]
   s.files = [
-    "app/controllers/bazarcms/empresas_controller.rb",
+    "app/controllers/bazar_cms/bazarcms_controller.rb",
+     "app/controllers/bazarcms/empresas_controller.rb",
      "app/helpers/application_helper.rb",
+     "app/helpers/bazar_cms/bazarcms_helper.rb",
      "app/helpers/bazarcms/bazarcms_helper.rb",
+     "app/models/bazar_cms/bazarcms.rb",
      "app/models/bazarcms/empresa.rb",
      "app/models/bazarcms/empresasdatos.rb",
+     "app/views/bazar_cms/bazarcms/index.html.erb",
+     "app/views/bazar_cms/bazarcms/show.html.erb",
+     "app/views/bazar_cms/layouts/bazarcms.html.erb",
      "app/views/bazarcms/empresas/index.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",
      "app/views/bazarcms/layouts/bazarcms.html.erb",
      "config/routes.rb",
      "lib/application_helper.rb",
      "lib/bazarcms.rb",
-     "lib/bazarcms/engine.rb",
-     "lib/bazarcms/rails/generators/bazar_cms/bazarcms_generator.rb",
-     "lib/bazarcms/rails/generators/templates/initializer.rb",
-     "lib/bazarcms/rails/generators/templates/migration.rb",
-     "lib/bazarcms/rails/generators/templates/schema.rb",
-     "lib/bazarcms/rails/railties/tasks.rake"
+     "lib/engine.rb",
+     "lib/rails/generators/bazarcms/bazarcms_generator.rb",
+     "lib/rails/generators/bazarcms/templates/initializer.rb",
+     "lib/rails/generators/bazarcms/templates/migration.rb",
+     "lib/rails/generators/bazarcms/templates/schema.rb",
+     "lib/rails/railties/tasks.rake"
   ]
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]

@@ -1,3 +1,3 @@
 module Bazarcms
-   require 'bazarcms/engine' if defined?(Rails)
+   require 'engine' if defined?(Rails)
 end
