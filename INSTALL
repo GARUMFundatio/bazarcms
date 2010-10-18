@@ -32,6 +32,10 @@ editar el fichero Gemfile:
 	
 	bundle install 
 	
+        rails generate bazarcms
+        
+        rake db:migrate 
+
 
 TODO: mejor poner como bajarse la gema de github directamente
 	
