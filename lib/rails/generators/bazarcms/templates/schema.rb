@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(:version => 0) do
     create_table  :empresasdatos, :force => true do |t|
       t.integer   :empresa_id
       t.integer   :periodo
-      t.float     :ventas
-      t.float     :compras  
+      t.integer     :ventas
+      t.integer     :compras  
       t.datetime  :created_at
       t.datetime  :updated_at
     end

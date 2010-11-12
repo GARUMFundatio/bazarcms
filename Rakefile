@@ -2,7 +2,7 @@ begin
   require "jeweler"
   Jeweler::Tasks.new do |gem|
     gem.name = "bazarcms"
-    gem.summary = "bazar_CMS engine  for Rails 3"
+    gem.summary = "bazarcms engine  for Rails 3"
     gem.files = Dir["{lib}/**/*", "{app}/**/*", "{config}/**/*"]
 
   end
