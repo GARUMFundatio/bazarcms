@@ -34,9 +34,24 @@ class BazarcmsGenerator < Rails::Generators::Base
     tmp.write migration
     tmp.close
 
-    migration_template  '../../../tmp/~migration_ready.rb',
-                        'db/migrate/create_bazarcms_tables.rb'
-    remove_file 'tmp/~migration_ready.rb'
+    existe = false; 
+
+    Dir.foreach("db/migrate") { |f|
+      puts f
+      if File.fnmatch('*_create_bazarcms_tables.rb', f) then
+        puts 'existe!!!!'
+        existe = true
+        end
+
+      }
+    
+
+    if (existe == false) then
+      migration_template  '../../../tmp/~migration_ready.rb','db/migrate/create_bazarcms_tables.rb'
+      remove_file 'tmp/~migration_ready.rb'      
+    end
+
+
   end
 
   def copy_initializer_file
@@ -44,7 +59,19 @@ class BazarcmsGenerator < Rails::Generators::Base
   end
 
 
-#  def update_application_template
+def update_application_template
+
+
+layout = '<%= yield %> ';
+tmp = File.open "tmp/~application.html.erb", "w"
+tmp.write layout; tmp.close
+
+# remove_file 'app/views/layouts/application.html.erb'
+copy_file '../../../tmp/~application.html.erb', 'app/views/layouts/bazarcms.html.erb'
+remove_file 'tmp/~application.html.erb'
+
+
+
 #    f = File.open "app/views/layouts/application.html.erb"
 #    layout = f.read; f.close
     
@@ -71,6 +98,7 @@ class BazarcmsGenerator < Rails::Generators::Base
 #    else
 #      puts "    \e[1m\e[31mconflict\e[0m  The gem is confused by your layouts/application.html.erb. It does not contain the default line <%= yield %>, you may need to make manual changes to get this gem's nested layouts working. Visit ###### for details."
 #    end
-#  end
+
+end
   
 end

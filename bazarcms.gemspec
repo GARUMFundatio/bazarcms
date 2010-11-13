@@ -5,10 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bazarcms}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.date = %q{2010-10-17}
+  s.authors = ["Garum Fundatio"]
+  s.date = %q{2010-11-13}
   s.extra_rdoc_files = [
     "README"
   ]
@@ -21,26 +22,32 @@ Gem::Specification.new do |s|
      "app/models/bazar_cms/bazarcms.rb",
      "app/models/bazarcms/empresa.rb",
      "app/models/bazarcms/empresasdatos.rb",
-     "app/views/bazar_cms/bazarcms/index.html.erb",
-     "app/views/bazar_cms/bazarcms/show.html.erb",
-     "app/views/bazar_cms/layouts/bazarcms.html.erb",
      "app/views/bazarcms/empresas/index.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",
      "app/views/bazarcms/layouts/bazarcms.html.erb",
      "config/routes.rb",
      "lib/application_helper.rb",
+     "lib/bazar_cms.rb",
      "lib/bazarcms.rb",
+     "lib/bazarcms/engine.rb",
+     "lib/bazarcms/rails/generators/bazar_cms/bazarcms_generator.rb",
+     "lib/bazarcms/rails/generators/templates/initializer.rb",
+     "lib/bazarcms/rails/generators/templates/migration.rb",
+     "lib/bazarcms/rails/generators/templates/schema.rb",
+     "lib/bazarcms/rails/railties/tasks.rake",
      "lib/engine.rb",
      "lib/rails/generators/bazarcms/bazarcms_generator.rb",
      "lib/rails/generators/bazarcms/templates/initializer.rb",
      "lib/rails/generators/bazarcms/templates/migration.rb",
      "lib/rails/generators/bazarcms/templates/schema.rb",
-     "lib/rails/railties/tasks.rake"
+     "lib/rails/railties/tasks.rake",
+     "public/stylesheets/bazar_cms.css",
+     "public/stylesheets/bazarcms.css"
   ]
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{bazar_CMS engine  for Rails 3}
+  s.summary = %q{bazarcms engine for Rails 3}
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

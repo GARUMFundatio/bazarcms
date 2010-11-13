@@ -1,6 +1,8 @@
 #lib/authr/engine.rb
 require "bazarcms"
 require "rails"
+require 'action_controller'
+require 'application_helper'
 
 module Bazarcms
   class Engine < Rails::Engine
