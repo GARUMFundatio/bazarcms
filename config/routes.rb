@@ -4,14 +4,14 @@ Rails.application.routes.draw do |map|
 
   match "/bazarcms" => 'bazarcms/empresas#index'
 
-  map.resources :empresas, :only => [ :index, :show ],
+  map.resources :empresas, :only => [ :index, :show, :edit ],
                           :controller => "bazarcms/empresas",
                           :path_prefix => "/bazarcms/",
                           :name_prefix => "bazarcms_"
  
-  map.resources :empresasdatos, :only => [ :index, :show ],
+  map.resources :empresasdatos, :only => [ :index, :show, :edit ],
                         :controller => "bazarcms/empresasdatos",
-                        :path_prefix => "/bazarcms/",
-                        :name_prefix => "bazarcms_"
+                        :path_prefix => "/bazarcmsdatos/",
+                        :name_prefix => "bazarcmsdatos_"
 
 end

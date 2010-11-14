@@ -62,7 +62,22 @@ class BazarcmsGenerator < Rails::Generators::Base
 def update_application_template
 
 
-layout = '<%= yield %> ';
+layout = '  <% content_for :bazarcontent do %>
+
+    <%= stylesheet_link_tag("bazarcms") %>
+
+    <div> 
+          layout bazarcms 
+
+      <%= yield %>
+
+    </div>
+
+  <% end -%>
+
+<%= render :file => "layouts/bazar" %>
+';
+  
 tmp = File.open "tmp/~application.html.erb", "w"
 tmp.write layout; tmp.close
 

@@ -3,12 +3,15 @@ module Bazarcms
 
     unloadable
     
-    layout 'bazarcms'  # this allows you to have a gem-wide layout
+    layout 'bazarcms' 
     
     def index
     end
     
     def show
+    end
+    
+    def edit 
     end
     
   end
