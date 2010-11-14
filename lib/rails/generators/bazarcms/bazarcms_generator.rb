@@ -63,18 +63,11 @@ def update_application_template
 
 
 layout = '  <% content_for :bazarcontent do %>
-
     <%= stylesheet_link_tag("bazarcms") %>
-
     <div> 
-          layout bazarcms 
-
       <%= yield %>
-
     </div>
-
   <% end -%>
-
 <%= render :file => "layouts/bazar" %>
 ';
   
