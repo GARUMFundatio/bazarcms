@@ -21,7 +21,8 @@
 
   <div class="field">
     <%= f.label :Descripción %><br />
-    <%= f.text_field :desc %>
+    <%= f.text_area(:desc, :size => "60x15") %>
+ 
   </div>
 
   <div class="field">
@@ -32,7 +33,7 @@
 
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Guardar" %>
   </div>
 <% end %>
 

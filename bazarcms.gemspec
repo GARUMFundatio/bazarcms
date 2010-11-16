@@ -9,25 +9,23 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Garum Fundatio"]
-  s.date = %q{2010-11-13}
+  s.date = %q{2010-11-16}
   s.extra_rdoc_files = [
     "README"
   ]
   s.files = [
-    "app/controllers/bazar_cms/bazarcms_controller.rb",
-     "app/controllers/bazarcms/empresas_controller.rb",
+    "app/controllers/bazarcms/empresas_controller.rb",
+     "app/controllers/bazarcms/empresas_controller.rb.old",
      "app/helpers/application_helper.rb",
-     "app/helpers/bazar_cms/bazarcms_helper.rb",
      "app/helpers/bazarcms/bazarcms_helper.rb",
-     "app/models/bazar_cms/bazarcms.rb",
      "app/models/bazarcms/empresa.rb",
      "app/models/bazarcms/empresasdatos.rb",
+     "app/views/bazarcms/empresas/edit.html.erb",
      "app/views/bazarcms/empresas/index.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",
      "app/views/bazarcms/layouts/bazarcms.html.erb",
      "config/routes.rb",
      "lib/application_helper.rb",
-     "lib/bazar_cms.rb",
      "lib/bazarcms.rb",
      "lib/bazarcms/engine.rb",
      "lib/bazarcms/rails/generators/bazar_cms/bazarcms_generator.rb",
