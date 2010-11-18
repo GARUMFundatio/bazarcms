@@ -1,6 +1,8 @@
 module Bazarcms
   class EmpresasController < ApplicationController
 
+  unloadable
+
   layout "bazar"
   def index
     @empresas = Empresa.all
@@ -33,16 +35,43 @@ module Bazarcms
   def edit
     puts "paso por el edit"
     puts params.inspect
+
     @empresa = Empresa.find_by_id(params[:id])
-       if (@empresa.nil?) then
-         @empresa = Empresa.new
-         @empresa.id = params[:id]
-         @empresa.user_id = params[:id]
-         @empresa.nombre  = 'Escriba su nombre Aquí'
-         @empresa.desc    = 'Describa su empresa'
-         @empresa.fundada = 2010 
-       end
+    if (@empresa.nil?) then
+      @empresa = Empresa.new
+      @empresa.id = params[:id]
+      @empresa.user_id = params[:id]
+      @empresa.nombre  = 'Escriba su nombre Aquí'
+      @empresa.desc    = 'Describa su empresa'
+      @empresa.fundada = 2005 
+      @empresa.moneda = 0
+    end
+    
+    $i = @empresa.fundada;
+    $num = DateTime.now.year-1;
+
+# relleno los datos financieros si no existen
+    while $i < $num  do
+      @eb = Bazarcms::Empresasdato.find_by_empresa_id_and_periodo(params[:id], $i)
+      
+      if (@eb.nil?) then
+        @eb = Bazarcms::Empresasdato.new
+        @eb.empresa_id = params[:id];
+        @eb.periodo = $i
+        @eb.empleados = 0
+        @eb.ventas = 0
+        @eb.compras = 0
+        @eb.save
+      end
+      $i +=1;
+    end
+    
+    
+    @empresasdatos = Bazarcms::Empresasdato.find_by_empresa_id(params[:id])
+       
     puts @empresa.inspect
+    puts @empresasdatos.inspect
+
   end
 
   def create

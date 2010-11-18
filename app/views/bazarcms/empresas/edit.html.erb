@@ -14,25 +14,55 @@
     </div>
   <% end %>
 
+<table>
+	<tr>
+		<td>
+    		<%= f.label :Nombre %>
+		</td>
+		<td colspan="2">
+		    <%= f.text_field :nombre, :size => 40 %>			
+		</td>
+ 	</tr>
+	<tr>
+		<td colspan='4'>
+    		<%= f.label :Descripción %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='4'>
+    		<%= f.text_area(:desc, :size => "60x15") %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+    		<%= f.label :Fundada %><br />
+		</td>
+		<td>
+    		<%= f.text_field :fundada %>
+		</td>
+  		<td>
+    		<%= f.label :Moneda %><br />
+    	</td>
+		<td>
+			<%= f.select :moneda, options_for_select(Bazarcms::Empresa.Monedas, @empresa.moneda) %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			Información Financiera
+		</td>
+	</tr>	
+	
+</table>
+
+<%= f.fields_for @empresasdatos do |ed|%>
   <div class="field">
-    <%= f.label :Nombre %><br />
-    <%= f.text_field :nombre %>
+  <%= ed.label :Periodo %>
+  <%= ed.text_field :periodo %>
   </div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :Descripción %><br />
-    <%= f.text_area(:desc, :size => "60x15") %>
- 
-  </div>
-
-  <div class="field">
-    <%= f.label :Fundada %><br />
-    <%= f.text_field :fundada %>
-  </div>
-  </div>
-
-
-  <div class="actions">
+ <div class="actions">
     <%= f.submit "Guardar" %>
   </div>
 <% end %>
