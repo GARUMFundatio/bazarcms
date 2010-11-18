@@ -51,7 +51,7 @@ module Bazarcms
     $num = DateTime.now.year-1;
 
 # relleno los datos financieros si no existen
-    while $i < $num  do
+    while $i <= $num  do
       @eb = Bazarcms::Empresasdato.find_by_empresa_id_and_periodo(params[:id], $i)
       
       if (@eb.nil?) then
@@ -65,10 +65,11 @@ module Bazarcms
       end
       $i +=1;
     end
+     
+    # TODO JT gestionar cuando solo hay un dato o ninguno (no debería)
     
-    
-    @empresasdatos = Bazarcms::Empresasdato.find_by_empresa_id(params[:id])
-       
+    @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
+    puts "datos de las empresas"
     puts @empresa.inspect
     puts @empresasdatos.inspect
 
@@ -80,6 +81,7 @@ module Bazarcms
     @empresa = Empresa.new(params[:bazarcms_empresa])
     @empresa.user_id = current_user.id
     @empresa.id = current_user.id
+    @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
     
     respond_to do |format|
       if @empresa.save
@@ -96,6 +98,7 @@ module Bazarcms
   def update
     puts params.inspect
     @empresa = Empresa.find(params[:id])
+    @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
     
     respond_to do |format|
       if @empresa.update_attributes(params[:bazarcms_empresa])

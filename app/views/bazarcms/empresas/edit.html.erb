@@ -7,7 +7,7 @@
       <h2><%= pluralize(@user.errors.count, "error") %> No se ha podido salvar los datos de la empresa:</h2>
 
       <ul>
-      <% @user.errors.full_messages.each do |msg| %>
+      <% @empresa.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -20,7 +20,7 @@
     		<%= f.label :Nombre %>
 		</td>
 		<td colspan="2">
-		    <%= f.text_field :nombre, :size => 40 %>			
+		    <%= f.text_field :nombre, :size => "40" %>			
 		</td>
  	</tr>
 	<tr>
@@ -47,24 +47,38 @@
 			<%= f.select :moneda, options_for_select(Bazarcms::Empresa.Monedas, @empresa.moneda) %>
 		</td>
 	</tr>
-	<tr>
-		<td colspan="4">
-			Información Financiera
-		</td>
-	</tr>	
-	
 </table>
 
-<%= f.fields_for @empresasdatos do |ed|%>
-  <div class="field">
-  <%= ed.label :Periodo %>
-  <%= ed.text_field :periodo %>
-  </div>
-<% end %>
-
- <div class="actions">
+<div class="actions">
     <%= f.submit "Guardar" %>
   </div>
 <% end %>
+
+Información Económica
+
+<table class="tabla">	
+	<tr>
+		<th>Año</th>
+		<th>Empleados</th>
+		<th>Compras</th>
+		<th>Ventas</th>
+		<th>Acción</th>
+			
+	</tr>
+
+	<% for emp in @empresasdatos do %>
+		
+	<tr>
+		<td> <%= emp.periodo %> </td>
+		<td> <%= emp.empleados %> </td>
+		<td> <%= emp.compras %> </td>
+		<td> <%= emp.ventas %> </td>
+		<td><%= link_to (image_tag("pencil.png", :border => "0"), edit_bazarcms_empresasdato_path(emp))  %></td>
+	</tr>
+	
+	<% end %>
+</table>
+
+
 
 </div>
