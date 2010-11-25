@@ -1,5 +1,5 @@
 module Bazarcms
-  class EmpresasDatosController < ApplicationController
+  class EmpresasdatosController < ApplicationController
 
   unloadable
   layout "bazar"
@@ -36,7 +36,7 @@ module Bazarcms
       puts "paso por el edit"
       puts params.inspect
 
-      @empresasdatos = Bazarcms::Empresasdato.find_by_empresa_id(params[:id])
+      @empresasdatos = Bazarcms::Empresasdato.find(params[:id])
 
       puts @empresasdatos.inspect
 
@@ -60,12 +60,14 @@ module Bazarcms
 
     def update
       puts params.inspect
+      puts "------------"
       @empresasdatos = Empresasdato.find(params[:id])
+      puts "datos --->"+@empresasdatos.inspect
 
       respond_to do |format|
-        if @empresa.update_attributes(params[:bazarcms_empresasdatos])
-          # format.html { redirect_to(@empresa, :notice => 'Se ha actualizado correctamente la empresa.') }
-          format.html { render :action => "edit" }
+        if @empresasdatos.update_attributes(params[:bazarcms_empresasdato])
+          format.html { redirect_to(edit_bazarcms_empresa_path(@empresasdatos.empresa_id)) }
+          # format.html { render :controller => "empresas", :action => "edit", :id => @empresasdatos.empresa_id }
           format.xml  { head :ok }
         else
           format.html { render :action => "edit" }

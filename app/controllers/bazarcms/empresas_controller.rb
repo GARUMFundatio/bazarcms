@@ -45,10 +45,11 @@ module Bazarcms
       @empresa.desc    = 'Describa su empresa'
       @empresa.fundada = 2005 
       @empresa.moneda = 0
+      @empresa.save
     end
     
     $i = @empresa.fundada;
-    $num = DateTime.now.year-1;
+    $num = DateTime.now.year;
 
 # relleno los datos financieros si no existen
     while $i <= $num  do
@@ -61,6 +62,7 @@ module Bazarcms
         @eb.empleados = 0
         @eb.ventas = 0
         @eb.compras = 0
+        @eb.resultados = 0
         @eb.save
       end
       $i +=1;

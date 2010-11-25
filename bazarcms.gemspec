@@ -9,20 +9,21 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Garum Fundatio"]
-  s.date = %q{2010-11-16}
+  s.date = %q{2010-11-25}
   s.extra_rdoc_files = [
     "README"
   ]
   s.files = [
     "app/controllers/bazarcms/empresas_controller.rb",
-     "app/controllers/bazarcms/empresas_controller.rb.old",
+     "app/controllers/bazarcms/empresasdatos_controller.rb",
      "app/helpers/application_helper.rb",
      "app/helpers/bazarcms/bazarcms_helper.rb",
      "app/models/bazarcms/empresa.rb",
-     "app/models/bazarcms/empresasdatos.rb",
+     "app/models/bazarcms/empresasdato.rb",
      "app/views/bazarcms/empresas/edit.html.erb",
      "app/views/bazarcms/empresas/index.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",
+     "app/views/bazarcms/empresasdatos/edit.html.erb",
      "app/views/bazarcms/layouts/bazarcms.html.erb",
      "config/routes.rb",
      "lib/application_helper.rb",
@@ -39,7 +40,6 @@ Gem::Specification.new do |s|
      "lib/rails/generators/bazarcms/templates/migration.rb",
      "lib/rails/generators/bazarcms/templates/schema.rb",
      "lib/rails/railties/tasks.rake",
-     "public/stylesheets/bazar_cms.css",
      "public/stylesheets/bazarcms.css"
   ]
   s.rdoc_options = ["--charset=UTF-8"]

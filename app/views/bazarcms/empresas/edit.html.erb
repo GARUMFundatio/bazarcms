@@ -62,23 +62,23 @@ Información Económica
 		<th>Empleados</th>
 		<th>Compras</th>
 		<th>Ventas</th>
+		<th>Resultados</th>
 		<th>Acción</th>
-			
 	</tr>
 
 	<% for emp in @empresasdatos do %>
-		
+
 	<tr>
 		<td> <%= emp.periodo %> </td>
-		<td> <%= emp.empleados %> </td>
-		<td> <%= emp.compras %> </td>
-		<td> <%= emp.ventas %> </td>
+		<td> <%= Bazarcms::Empresasdato.REtexto(emp.empleados) %> </td>
+		
+		<td> <%= Bazarcms::Empresasdato.RDtexto(emp.compras) %> </td>
+		<td> <%= Bazarcms::Empresasdato.RDtexto(emp.ventas) %> </td>
+		<td> <%= Bazarcms::Empresasdato.RDtexto(emp.resultados) %> </td>
 		<td><%= link_to (image_tag("pencil.png", :border => "0"), edit_bazarcms_empresasdato_path(emp))  %></td>
 	</tr>
 	
 	<% end %>
 </table>
-
-
 
 </div>

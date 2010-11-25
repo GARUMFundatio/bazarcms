@@ -1,0 +1,66 @@
+<div>
+
+<%= form_for(@empresasdatos) do |f| %>
+
+  <% if @empresasdatos.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> No se ha podido salvar los datos de este periodo:</h2>
+
+      <ul>
+      <% @empresasdatos.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<table class="tabla">
+	<tr>
+		<th>
+    		<%= f.label :Periodo %>
+		</th>
+		<td colspan="2">
+		    <%= f.label @empresasdatos.periodo %>			
+		</td>
+ 	</tr>
+	<tr>
+  		<td>
+    		<%= f.label :Empleados %><br />
+    	</td>
+		<td>
+			<%= f.select :empleados, options_for_select(Bazarcms::Empresasdato.RangoEmpleados.sort{|a,b| a[1]<=>b[1]}, @empresasdatos.empleados) %>
+		</td>
+	</tr>
+	<tr>
+  		<td>
+    		<%= f.label :Compras %><br />
+    	</td>
+		<td>
+			<%= f.select :compras, options_for_select(Bazarcms::Empresasdato.RangoDatos.sort{|a,b| a[1]<=>b[1]}, @empresasdatos.compras) %>
+		</td>
+	</tr>
+	<tr>
+  		<td>
+    		<%= f.label :Ventas %><br />
+    	</td>
+		<td>
+			<%= f.select :ventas, options_for_select(Bazarcms::Empresasdato.RangoDatos.sort{|a,b| a[1]<=>b[1]}, @empresasdatos.ventas) %>
+		</td>
+	</tr>
+	<tr>
+  		<td>
+    		<%= f.label :Resultados %><br />
+    	</td>
+		<td>
+			<%= f.select :resultados, options_for_select(Bazarcms::Empresasdato.RangoDatos.sort{|a,b| a[1]<=>b[1]}, @empresasdatos.resultados) %>
+		</td>
+	</tr>
+	
+</table>
+
+ <div class="actions">
+    <%= f.submit "Guardar" %>
+  </div>
+<% end %>
+
+</div>
