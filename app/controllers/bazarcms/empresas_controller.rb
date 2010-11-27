@@ -1,8 +1,9 @@
 module Bazarcms
+  
   class EmpresasController < ApplicationController
 
   unloadable
-
+  
   layout "bazar"
   def index
     @empresas = Empresa.all

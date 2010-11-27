@@ -2,8 +2,12 @@ module Bazarcms
   
   unloadable
   
+  
   class Empresa < ActiveRecord::Base
     set_table_name "empresas"
+
+    acts_as_taggable
+    acts_as_taggable_on :actividades, :intereses
 
     def self.Monedas
         {

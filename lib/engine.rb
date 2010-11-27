@@ -4,6 +4,7 @@ require "rails"
 require 'action_controller'
 require 'application_helper'
 
+
 module Bazarcms
   class Engine < Rails::Engine
    
@@ -19,6 +20,7 @@ module Bazarcms
     # Check the gem config
     initializer "check config" do |app|
 
+      
       # make sure mount_at ends with trailing slash
       config.montar_en += '/'  unless config.montar_en.last == '/'
     end
