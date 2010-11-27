@@ -18,7 +18,7 @@ module Bazarcms
     @empresa = Empresa.find(params[:id])
 
     respond_to do |format|
-      format.html { render :action => "edit" }
+      format.html { render :action => "show" }
       format.xml  { render :xml => @empresa }
     end
     
@@ -124,6 +124,18 @@ module Bazarcms
       format.xml  { head :ok }
     end
   end
+  
+  def dashboard 
+
+    @ultimas = Empresa.ultimascreadas
+    @actualizadas = Empresa.ultimasactualizadas
+    @total = Empresa.count
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+    
+  end 
+  
 end
 
 end

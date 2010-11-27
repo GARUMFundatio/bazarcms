@@ -1,5 +1,5 @@
 module Bazarcms
-  module BazarCMSHelper
+  module BazarcmsHelper
   
     def helper_for_widgets_view
       "esta salida viene del BazarCMSHelper"

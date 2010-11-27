@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
      "app/helpers/bazarcms/bazarcms_helper.rb",
      "app/models/bazarcms/empresa.rb",
      "app/models/bazarcms/empresasdato.rb",
+     "app/views/bazarcms/empresas/dashboard.html.erb",
      "app/views/bazarcms/empresas/edit.html.erb",
      "app/views/bazarcms/empresas/index.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",

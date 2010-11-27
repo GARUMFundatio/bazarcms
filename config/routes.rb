@@ -5,6 +5,7 @@ Rails.application.routes.draw do |map|
   # match "/bazarcms" => 'bazarcms/empresas#index'
 
   match "/bazarcms/datos" => "bazarcms/empresasdatos#index"
+  match "/bazarcms/dashboard" => "bazarcms/empresas#dashboard"
   
   map.resources :empresas, #:only => [ :index, :show, :edit, :update ],
                           :controller => "bazarcms/empresas",

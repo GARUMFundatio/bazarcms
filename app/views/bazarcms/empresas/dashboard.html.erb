@@ -1,0 +1,41 @@
+<b>Empresas</b>
+<br/>
+<table class="tabla">
+<tr>
+	<td>
+		<table>
+		<tr>
+			<th>
+				Ultimas Empresas
+			</th>
+		</tr>	
+		<% for emp in @ultimas %>
+		<tr>
+			<td>
+				<%= emp.nombre %>
+			</td>
+		</tr>
+		<% end %>
+		</table>
+	</td>
+	<td>
+		<table>
+		<tr>
+			<th>
+				Ultimas Actualizadas
+			</th>
+		</tr>	
+		<% for emp in @actualizadas %>
+		<tr>
+			<td>
+				<%= link_to emp.nombre, bazarcms_empresa_path(emp.id) %>
+			</td>
+		</tr>
+		<% end %>
+		</table>
+
+	
+	</td>	
+</tr>	
+</table>
+Total: <%= @total %>
