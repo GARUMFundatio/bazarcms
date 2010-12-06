@@ -12,7 +12,8 @@
 		<% for emp in @ultimas %>
 		<tr>
 			<td>
-				<%= emp.nombre %>
+				<%= link_to emp.nombre, bazarcms_empresa_path(emp.id) %> 
+				<%= link_to image_tag("lupa.png"), bazarcms_empresa_path(emp.id) %>
 			</td>
 		</tr>
 		<% end %>
@@ -29,6 +30,7 @@
 		<tr>
 			<td>
 				<%= link_to emp.nombre, bazarcms_empresa_path(emp.id) %>
+				<%= link_to image_tag("lupa.png"), bazarcms_empresa_path(emp.id) %>
 			</td>
 		</tr>
 		<% end %>

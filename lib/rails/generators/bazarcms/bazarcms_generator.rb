@@ -20,6 +20,7 @@ class BazarcmsGenerator < Rails::Generators::Base
   # Every method that is declared below will be automatically executed when the generator is run
   
   def create_migration_file
+  
     f = File.open File.join(File.dirname(__FILE__), 'templates', 'schema.rb')
     schema = f.read; f.close
     
@@ -44,8 +45,7 @@ class BazarcmsGenerator < Rails::Generators::Base
         end
 
       }
-    
-
+  
     if (existe == false) then
       migration_template  '../../../tmp/~migration_ready.rb','db/migrate/create_bazarcms_tables.rb'
       remove_file 'tmp/~migration_ready.rb'      

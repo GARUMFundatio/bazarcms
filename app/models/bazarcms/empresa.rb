@@ -8,7 +8,8 @@ module Bazarcms
 
     acts_as_taggable
     acts_as_taggable_on :actividades, :intereses
-
+    acts_as_ferret :fields => [ :nombre, :desc, :actividades, :intereses ]
+    
     scope :ultimascreadas, order("empresas.created_at DESC").limit(5)
     scope :ultimasactualizadas, order("empresas.updated_at DESC").limit(5)
     
