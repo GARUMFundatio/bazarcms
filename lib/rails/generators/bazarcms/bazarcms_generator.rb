@@ -64,10 +64,6 @@ class BazarcmsGenerator < Rails::Generators::Base
       migration_template  File.join(File.dirname(__FILE__), 'templates', 'schema2.rb'),'db/migrate/create_bazarcms_tables2.rb'
     end
 
-
-
-
-
   end
 
   def copy_initializer_file

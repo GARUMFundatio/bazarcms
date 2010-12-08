@@ -9,37 +9,40 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Garum Fundatio"]
-  s.date = %q{2010-11-27}
+  s.date = %q{2010-12-08}
   s.extra_rdoc_files = [
     "README"
   ]
   s.files = [
     "app/controllers/bazarcms/empresas_controller.rb",
      "app/controllers/bazarcms/empresasdatos_controller.rb",
+     "app/controllers/bazarcms/ubicaciones_controller.rb",
      "app/helpers/application_helper.rb",
      "app/helpers/bazarcms/bazarcms_helper.rb",
      "app/models/bazarcms/empresa.rb",
      "app/models/bazarcms/empresasdato.rb",
+     "app/models/bazarcms/ubicacion.rb",
      "app/views/bazarcms/empresas/dashboard.html.erb",
      "app/views/bazarcms/empresas/edit.html.erb",
      "app/views/bazarcms/empresas/index.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",
      "app/views/bazarcms/empresasdatos/edit.html.erb",
      "app/views/bazarcms/layouts/bazarcms.html.erb",
+     "app/views/bazarcms/ubicaciones/_form.html.erb",
+     "app/views/bazarcms/ubicaciones/edit.html.erb",
+     "app/views/bazarcms/ubicaciones/index.html.erb",
+     "app/views/bazarcms/ubicaciones/new.html.erb",
+     "app/views/bazarcms/ubicaciones/show.html.erb",
      "config/routes.rb",
      "lib/application_helper.rb",
      "lib/bazarcms.rb",
      "lib/bazarcms/engine.rb",
-     "lib/bazarcms/rails/generators/bazar_cms/bazarcms_generator.rb",
-     "lib/bazarcms/rails/generators/templates/initializer.rb",
-     "lib/bazarcms/rails/generators/templates/migration.rb",
-     "lib/bazarcms/rails/generators/templates/schema.rb",
-     "lib/bazarcms/rails/railties/tasks.rake",
      "lib/engine.rb",
      "lib/rails/generators/bazarcms/bazarcms_generator.rb",
      "lib/rails/generators/bazarcms/templates/initializer.rb",
      "lib/rails/generators/bazarcms/templates/migration.rb",
      "lib/rails/generators/bazarcms/templates/schema.rb",
+     "lib/rails/generators/bazarcms/templates/schema2.rb",
      "lib/rails/railties/tasks.rake",
      "public/stylesheets/bazarcms.css"
   ]

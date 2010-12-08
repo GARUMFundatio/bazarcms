@@ -2,10 +2,9 @@ module Bazarcms
   
   unloadable
   
-
   class Empresa < ActiveRecord::Base
     set_table_name "empresas"
-    has_many :empresas
+    # has_many :ubicaciones
 
     acts_as_taggable
     acts_as_taggable_on :actividades, :intereses

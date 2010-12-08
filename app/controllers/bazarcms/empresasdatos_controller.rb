@@ -5,7 +5,7 @@ module Bazarcms
   layout "bazar"
   
   def index
-    @empresasdatos = Empresadato.all
+    @empresasdatos = Empresasdato.all
     puts @empresasdatos.size
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ module Bazarcms
   end
 
     def show
-      @empresasdatos = Empresadato.find(params[:id])
+      @empresasdatos = Empresasdato.find(params[:id])
 
       respond_to do |format|
         format.html { render :action => "edit" }
@@ -24,7 +24,7 @@ module Bazarcms
     end
 
     def new
-      @empresasdatos = Empresadato.new
+      @empresasdatos = Empresasdato.new
 
       respond_to do |format|
         format.html # new.html.erb
@@ -45,7 +45,7 @@ module Bazarcms
     def create
       puts "pasa por el create "
       puts params.inspect
-      @empresasdatos = Empresadato.new(params[:bazarcms_empresasdato])
+      @empresasdatos = Empresasdato.new(params[:bazarcms_empresasdato])
 
       respond_to do |format|
         if @empresasdatos.save
@@ -77,7 +77,7 @@ module Bazarcms
     end
 
     def destroy
-      @empresasdatos = Empresadato.find(params[:id])
+      @empresasdatos = Empresasdato.find(params[:id])
       @empresasdatos.destroy
 
       respond_to do |format|

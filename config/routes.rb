@@ -24,9 +24,16 @@
 Bazar::Application.routes.draw do
   scope(:path => 'bazarcms', :module => 'bazarcms', :name_path => 'bazarcms', :name_prefix => 'bazarcms' ) do
     resources :empresas
+  end
+
+  scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
     resources :empresasdatos
+  end
+
+  scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
     resources :ubicaciones
   end
+ 
   
   match "/bazarcms/datos" => "bazarcms/empresasdatos#index"
   match "/bazarcms/ubicacionedit" => "bazarcms/ubicaciones#index"

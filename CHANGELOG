@@ -1,4 +1,11 @@
 
+2010-12-08 
+---------- 
+
+* Ubicaciones 
+* Nuevas rutas acordes a rails3
+* Eliminado el bug del helper que daba error en las ubicaciones
+
 2010-11-27 
 ---------- 
 
