@@ -1,6 +1,7 @@
+module Bazarcms
+
 class UbicacionesController < ApplicationController
-  # GET /ubicaciones
-  # GET /ubicaciones.xml
+
   def index
     @ubicaciones = Ubicacion.all
 
@@ -10,8 +11,6 @@ class UbicacionesController < ApplicationController
     end
   end
 
-  # GET /ubicaciones/1
-  # GET /ubicaciones/1.xml
   def show
     @ubicacion = Ubicacion.find(params[:id])
 
@@ -21,8 +20,6 @@ class UbicacionesController < ApplicationController
     end
   end
 
-  # GET /ubicaciones/new
-  # GET /ubicaciones/new.xml
   def new
     @ubicacion = Ubicacion.new
 
@@ -32,13 +29,10 @@ class UbicacionesController < ApplicationController
     end
   end
 
-  # GET /ubicaciones/1/edit
   def edit
     @ubicacion = Ubicacion.find(params[:id])
   end
 
-  # POST /ubicaciones
-  # POST /ubicaciones.xml
   def create
     @ubicacion = Ubicacion.new(params[:ubicacion])
 
@@ -53,8 +47,6 @@ class UbicacionesController < ApplicationController
     end
   end
 
-  # PUT /ubicaciones/1
-  # PUT /ubicaciones/1.xml
   def update
     @ubicacion = Ubicacion.find(params[:id])
 
@@ -69,8 +61,6 @@ class UbicacionesController < ApplicationController
     end
   end
 
-  # DELETE /ubicaciones/1
-  # DELETE /ubicaciones/1.xml
   def destroy
     @ubicacion = Ubicacion.find(params[:id])
     @ubicacion.destroy
@@ -80,4 +70,6 @@ class UbicacionesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+end
+
 end

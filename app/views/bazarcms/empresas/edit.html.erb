@@ -67,6 +67,22 @@
 		    <%= f.text_area :interes_list, :size => "60x4" %>			
 		</td>
  	</tr>
+	<tr>
+		<td colspan="3">
+    		<b>Ubicaciones: </b>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<%= edit_bazarcms_empresa_path %>
+			<%= edit_bazarcms_empresadato_path %>
+			<%= edit_bazarcms_ubicacion_path %>
+			
+			<div id="addubi">
+			</div>
+		Añadir una nueva Ubicación <a href="#" onclick="$('#addubi').load('/bazarcms/ubicaciones/new?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png")%></a>
+		</td>
+ 	</tr>
 
 </table>
 
