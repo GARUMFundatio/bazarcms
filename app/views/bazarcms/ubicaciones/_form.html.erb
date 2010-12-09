@@ -11,7 +11,26 @@
     </div>
   <% end %>
 
+<table class="tabla">
+<tr>
+  <td>
+  <b><%= f.label :Descripción %>:</b>
+  </td>
+  <td>
+  <%= f.text_field :desc %>
+  </td>
+</tr>
+<tr>
+  <td>
+  <b><%= f.label :Ciudad %>:</b>
+  </td>
+  <td>
+  <%= f.text_field :ciudad_id %>
+  </td>
+</tr>
+</table>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Guardar" %> <a href="#" onclick="$('#nuevaubicacion').css('display','none');">Cerrar<%= image_tag('delete.png')%></a>
   </div>
 <% end %>

@@ -1,5 +1,17 @@
 <div>
+	<ul class="tabs">
+	    <li><a href="#tab1">Información</a></li>
+	    <li><a href="#tab2">Datos</a></li>
+	    <li><a href="#tab3">Ubicaciones</a></li>
+	    <li><a href="#tab4">Perfiles</a></li>
+	    <li><a href="#tab5">Actividad</a></li>
+	</ul>
+</div>
 
+<div class="tab_container">
+
+<div id="tab1" class="tab_content">
+	
 <%= form_for(@empresa) do |f| %>
 
   <% if @empresa.errors.any? %>
@@ -67,22 +79,8 @@
 		    <%= f.text_area :interes_list, :size => "60x4" %>			
 		</td>
  	</tr>
-	<tr>
-		<td colspan="3">
-    		<b>Ubicaciones: </b>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="4">
-			<%= edit_bazarcms_empresa_path %>
-			<% # edit_bazarcms_empresadato_path %>
-			<% # edit_bazarcms_ubicacion_path %>
-			
-			<div id="addubi">
-			</div>
-		Añadir una nueva Ubicación <a href="#" onclick="$('#addubi').load('/bazarcms/ubicaciones/new?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png")%></a>
-		</td>
- 	</tr>
+	
+
 
 </table>
 
@@ -91,6 +89,10 @@
   </div>
 <% end %>
 
+</div>
+
+
+<div id="tab2" class="tab_content">
 <br/>
 <b>Información Económica</b>
 <br />
@@ -114,10 +116,73 @@
 		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.compras) %> </td>
 		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.ventas) %> </td>
 		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.resultados) %> </td>
-		<td><%= link_to (image_tag("pencil.png", :border => "0"), edit_bazarcms_empresasdato_path(emp))  %></td>
+		<td><%= link_to(image_tag("pencil.png", :border => "0"), edit_bazarcms_empresasdato_path(emp))  %></td>
 	</tr>
 	
 	<% end %>
 </table>
+</div>
+
+<div id="tab3" class="tab_content">
+
+<table class="tabla">
+<tr>
+  <td colspan="3">
+    <b>Ubicaciones: </b>
+  </td>
+</tr>
+	
+<% for ubi in @empresa.ubicaciones %>
+<tr>
+<td>
+	<b><%= ubi.desc %></b>
+</td>
+<td>
+	<%= ubi.ciudad_id %>
+</td>
+</tr>
+<% end %>
+
+<tr>
+	<td colspan="4">
+		<div id="addubi">
+		</div>
+	Añadir una nueva Ubicación <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png")%></a>
+	</td>
+</tr>
+</table>
+</div>
+
+<div id="tab4" class="tab_content">
+  <br/>Coming Soon!!!
+</div>
+	
+<div id="tab5" class="tab_content">
+  <br/>Coming Soon!!!
+</div>
+
 
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$(".tab_content").hide();
+	$("ul.tabs li:first").addClass("active").show(); 
+	$(".tab_content:first").show(); 
+
+	$("ul.tabs li").click(function() {
+
+		$("ul.tabs li").removeClass("active");
+		$(this).addClass("active"); 
+		$(".tab_content").hide();
+
+		var activeTab = $(this).find("a").attr("href"); 
+		$(activeTab).fadeIn(); 
+		return false;
+	});
+
+});
+</script>
+
+

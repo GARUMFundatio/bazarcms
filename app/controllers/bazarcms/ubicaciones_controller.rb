@@ -27,17 +27,22 @@ module Bazarcms
       @ubicacion = Ubicacion.new
 
       respond_to do |format|
-        format.html # new.html.erb
+        format.html { render :layout => false }
         format.xml  { render :xml => @ubicacion }
       end
     end
 
     def edit
       @ubicacion = Ubicacion.find(params[:id])
+      
     end
 
     def create
-      @ubicacion = Ubicacion.new(params[:ubicacion])
+      @ubicacion = Ubicacion.new(params[:bazarcms_ubicacion])
+      @ubicacion.empresa_id = params[:empresa]
+
+      puts "empresa id: "+params.inspect
+      puts "ubicacion : "+@ubicacion.inspect
 
       respond_to do |format|
         if @ubicacion.save
@@ -54,7 +59,7 @@ module Bazarcms
       @ubicacion = Ubicacion.find(params[:id])
 
       respond_to do |format|
-        if @ubicacion.update_attributes(params[:ubicacion])
+        if @ubicacion.update_attributes(params[:bazarcms_ubicacion])
           format.html { redirect_to(@ubicacion, :notice => 'Ubicacion was successfully updated.') }
           format.xml  { head :ok }
         else

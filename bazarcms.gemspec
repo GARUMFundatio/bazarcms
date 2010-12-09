@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Garum Fundatio"]
-  s.date = %q{2010-12-08}
+  s.date = %q{2010-12-09}
   s.extra_rdoc_files = [
     "README"
   ]
@@ -36,7 +36,6 @@ Gem::Specification.new do |s|
      "config/routes.rb",
      "lib/application_helper.rb",
      "lib/bazarcms.rb",
-     "lib/bazarcms/engine.rb",
      "lib/engine.rb",
      "lib/rails/generators/bazarcms/bazarcms_generator.rb",
      "lib/rails/generators/bazarcms/templates/initializer.rb",

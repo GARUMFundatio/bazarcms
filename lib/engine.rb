@@ -7,7 +7,7 @@ require 'application_helper'
 
 module Bazarcms
   class Engine < Rails::Engine
-   
+   puts "Bazarcms:: inicializo el engine 1 <---------------------------"
     # Configuracion por defecto 
     config.bazarcms_factory_name = "Bazarcms"
     config.montar_en = '/'
