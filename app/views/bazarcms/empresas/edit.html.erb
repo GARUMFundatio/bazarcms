@@ -29,7 +29,7 @@
 <table>
 	<tr>
 		<td>
-    		<%= f.label :Nombre %>
+    		<b><%= f.label :Nombre %></b>
 		</td>
 		<td colspan="2">
 		    <%= f.text_field :nombre, :size => "40" %>			
@@ -37,7 +37,7 @@
  	</tr>
 	<tr>
 		<td colspan='4'>
-    		<%= f.label :Descripción %>
+    		<b><%= f.label :Descripción %></b>
 		</td>
 	</tr>
 	<tr>
@@ -47,13 +47,13 @@
 	</tr>
 	<tr>
 		<td>
-    		<%= f.label :Fundada %><br />
+    		<b><%= f.label :Fundada %><br /></b>
 		</td>
 		<td>
     		<%= f.text_field :fundada %>
 		</td>
   		<td>
-    		<%= f.label :Moneda %><br />
+    		<b><%= f.label :Moneda %><br /></b>
     	</td>
 		<td>
 			<%= f.select :moneda, options_for_select(Bazarcms::Empresa.Monedas, @empresa.moneda) %>
@@ -80,8 +80,6 @@
 		</td>
  	</tr>
 	
-
-
 </table>
 
 <div class="actions">
@@ -90,7 +88,6 @@
 <% end %>
 
 </div>
-
 
 <div id="tab2" class="tab_content">
 <br/>
