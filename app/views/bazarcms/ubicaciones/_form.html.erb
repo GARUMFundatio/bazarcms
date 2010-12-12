@@ -27,7 +27,7 @@
   <b><%= f.label :Ciudad %>:</b>
   </td>
   <td>
-  <%= f.autocomplete_field :ciudad_id, autocomplete_ciudad_descripcion_bazarcms_ubicaciones_path %>
+  <%= text_field(:ciudad, :id, :value => "MadXX" ,:class => "auto_search_complete") %>
   </td>
 </tr>
 </table>
@@ -36,3 +36,15 @@
     <%= f.submit "Guardar" %> <a href="#" onclick="$('#nuevaubicacion').css('display','none');">Cerrar<%= image_tag('delete.png')%></a>
   </div>
 <% end %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$(".auto_search_complete").autocomplete({
+	    source: "/busquedaciudades.json",
+	    minLength: 2
+	});
+
+});
+</script>
+
