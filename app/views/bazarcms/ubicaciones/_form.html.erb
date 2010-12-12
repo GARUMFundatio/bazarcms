@@ -1,3 +1,4 @@
+<br/>
 <%= form_for(@ubicacion) do |f| %>
   <% if @ubicacion.errors.any? %>
     <div id="error_explanation">
@@ -24,16 +25,24 @@
 </tr>
 <tr>
   <td>
-  <b><%= f.label :Ciudad %>:</b>
+    <b><%= f.label :Ciudad %>:</b>
   </td>
   <td>
-  <%= text_field(:ciudad, :id, :value => "MadXX" ,:class => "auto_search_complete") %>
+    <%= f.hidden_field :ciudad_id %>
+	<% 
+	if !@ubicacion.ciudad.nil?
+		ciudad = @ubicacion.ciudad.descripcion
+	else 
+		ciudad = ""
+	end
+	%>
+    <%= text_field(:ciudad, :id, :value => ciudad ,:class => "auto_search_complete") %>
   </td>
 </tr>
 </table>
 
   <div class="actions">
-    <%= f.submit "Guardar" %> <a href="#" onclick="$('#nuevaubicacion').css('display','none');">Cerrar<%= image_tag('delete.png')%></a>
+    <%= f.submit "Guardar" %> <a href="#" onclick="$('#nuevaubicacion').css('display','none');"><%= image_tag('delete.png')%></a>
   </div>
 <% end %>
 
@@ -42,7 +51,13 @@ $(document).ready(function() {
 	
 	$(".auto_search_complete").autocomplete({
 	    source: "/busquedaciudades.json",
-	    minLength: 2
+	    minLength: 2,
+		select: function(event, ui) {
+			$("#ciudad_id").val( ui.item.label );
+			$("#bazarcms_ubicacion_ciudad_id" ).val( ui.item.id );
+			return false;
+		}
+	
 	});
 
 });

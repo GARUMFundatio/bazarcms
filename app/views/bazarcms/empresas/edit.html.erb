@@ -137,7 +137,7 @@
 </td>
 
 <td>
-	<%= ubi.ciudad_id %>
+	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
 </td>
 
 <td>
@@ -152,15 +152,13 @@
 <% end %>
 </table>
 
-<table class="tabla">
-<tr>
-	<td colspan="4">
-		<div id="addubi">
-		</div>
-	Añadir una nueva Ubicación <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png")%></a>
-	</td>
-</tr>
-</table>
+
+<div id="addubi">
+</div>
+
+<br/>
+Añadir una nueva Ubicación <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png")%></a>
+
 </div>
 
 <div id="tabperfiles" class="tab_content">
