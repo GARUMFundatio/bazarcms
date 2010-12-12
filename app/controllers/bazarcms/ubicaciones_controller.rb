@@ -25,7 +25,7 @@ module Bazarcms
 
     def new
       @ubicacion = Ubicacion.new
-
+      @ubicacion.empresa_id = params[:empresa]
       respond_to do |format|
         format.html { render :layout => false }
         format.xml  { render :xml => @ubicacion }
@@ -34,19 +34,22 @@ module Bazarcms
 
     def edit
       @ubicacion = Ubicacion.find(params[:id])
+      respond_to do |format|
+        format.html { render :layout => false }
+        format.xml  { render :xml => @ubicacion }
+      end
       
     end
 
     def create
       @ubicacion = Ubicacion.new(params[:bazarcms_ubicacion])
-      @ubicacion.empresa_id = params[:empresa]
 
       puts "empresa id: "+params.inspect
       puts "ubicacion : "+@ubicacion.inspect
 
       respond_to do |format|
         if @ubicacion.save
-          format.html { redirect_to(@ubicacion, :notice => 'Ubicacion was successfully created.') }
+          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
           format.xml  { render :xml => @ubicacion, :status => :created, :location => @ubicacion }
         else
           format.html { render :action => "new" }
@@ -60,7 +63,7 @@ module Bazarcms
 
       respond_to do |format|
         if @ubicacion.update_attributes(params[:bazarcms_ubicacion])
-          format.html { redirect_to(@ubicacion, :notice => 'Ubicacion was successfully updated.') }
+          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
           format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
@@ -74,7 +77,7 @@ module Bazarcms
       @ubicacion.destroy
 
       respond_to do |format|
-        format.html { redirect_to(ubicaciones_url) }
+        format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
         format.xml  { head :ok }
       end
     end

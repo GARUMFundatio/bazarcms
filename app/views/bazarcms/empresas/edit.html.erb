@@ -1,16 +1,17 @@
 <div>
 	<ul class="tabs">
-	    <li><a href="#tab1">Información</a></li>
-	    <li><a href="#tab2">Datos</a></li>
-	    <li><a href="#tab3">Ubicaciones</a></li>
-	    <li><a href="#tab4">Perfiles</a></li>
-	    <li><a href="#tab5">Actividad</a></li>
+	    <li id="info"><a href="#tabinfo">Información</a></li>
+	    <li id="datos"><a href="#tabdatos">Datos</a></li>
+	    <li id="ubicaciones"><a href="#tabubicaciones">Ubicaciones</a></li>
+	    <li id="perfiles"><a href="#tabperfiles">Perfiles</a></li>
+	    <li id="ficheros"><a href="#tabficheros">Ficheros</a></li>
+	    <li id="actividad"><a href="#tabactividades">Actividad</a></li>
 	</ul>
 </div>
 
 <div class="tab_container">
 
-<div id="tab1" class="tab_content">
+<div id="tabinfo" class="tab_content">
 	
 <%= form_for(@empresa) do |f| %>
 
@@ -89,7 +90,7 @@
 
 </div>
 
-<div id="tab2" class="tab_content">
+<div id="tabdatos" class="tab_content">
 <br/>
 <b>Información Económica</b>
 <br />
@@ -120,7 +121,7 @@
 </table>
 </div>
 
-<div id="tab3" class="tab_content">
+<div id="tabubicaciones" class="tab_content">
 
 <table class="tabla">
 <tr>
@@ -134,9 +135,19 @@
 <td>
 	<b><%= ubi.desc %></b>
 </td>
+
 <td>
 	<%= ubi.ciudad_id %>
 </td>
+
+<td>
+	<a href="#" onclick="$('#addubi').load('<%= edit_bazarcms_ubicacion_path(ubi) -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("pencil.png")%></a>
+</td>
+
+<td>
+    <%= link_to image_tag("delete.png"), ubi, :confirm => 'Está seguro?', :method => :delete %>
+</td>
+
 </tr>
 <% end %>
 </table>
@@ -152,23 +163,39 @@
 </table>
 </div>
 
-<div id="tab4" class="tab_content">
+<div id="tabperfiles" class="tab_content">
   <br/>Coming Soon!!!
 </div>
 	
-<div id="tab5" class="tab_content">
+<div id="tabficheros" class="tab_content">
   <br/>Coming Soon!!!
 </div>
 
+<div id="tabactividad" class="tab_content">
+  <br/>Coming Soon!!!
+</div>
 
 </div>
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
+	var tab ='<%= params[:tab]-%>';
+	
+	if (tab =="") 
+		tab = 'info';
+		
 	$(".tab_content").hide();
-	$("ul.tabs li:first").addClass("active").show(); 
-	$(".tab_content:first").show(); 
+	
+	if (tab != '') {
+		$("#"+tab).addClass("active").show(); 
+		$("#tab"+tab).show(); 		
+	}
+	else  {
+		$("ul.tabs li:first").addClass("active").show(); 
+		$(".tab_content:first").show(); 				
+	}
+	
 
 	$("ul.tabs li").click(function() {
 
