@@ -6,7 +6,7 @@ module Bazarcms
     set_table_name "ubicaciones"
     
     belongs_to :empresa
-  
+        
   end
 
 end

@@ -5,6 +5,8 @@ module Bazarcms
   unloadable 
   layout "bazar"
   
+  autocomplete :ciudad, :descripcion
+  
   def index
     @ubicaciones = Ubicacion.all
 
