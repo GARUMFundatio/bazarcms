@@ -1,0 +1,40 @@
+
+<div id="cajabusqueda">
+<b>Busqueda en empresas:</b><br/>
+<input id="busca" name="busqueda" size="30" type="text" />
+</div>
+
+<script>
+	$(function() {
+
+		$("button", ".demo").button();
+		$("button", ".demo").click(function() {
+			$("#lista").toggle();
+			$("#lista").append(" ---> "); 
+			$("#lista").append($("#busca").val());
+			$("#lista").append("<br/>Enviando peticiones a: <br/>"); 
+			<% for cluster in @clusters -%>
+			$("#lista").append("<div id='cid<%= cluster.id -%>'> <%= cluster.nombre-%> (<%= cluster.url-%>) <br/></div>");
+			
+			$.ajax({
+			  url: '<%= cluster.url -%>/bazarcms/buscaempresa',
+			  success: function(data) {
+			    $('#cid<%= cluster.id -%>').html('<%= cluster.nombre -%> '+data+'<br/>');
+			    alert('encolado ..');
+			  }
+			});
+			
+			<% end -%>
+			 
+			return false; 
+		});
+	});
+</script>
+
+<div class="demo">
+<button>Buscar</button>
+</div><!-- End demo -->
+
+<div id="lista" style="display:none">
+Buscando 
+</div>
