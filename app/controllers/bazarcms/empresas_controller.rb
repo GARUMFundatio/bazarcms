@@ -126,14 +126,30 @@ module Bazarcms
   end
   
   def dashboard 
-
     @ultimas = Empresa.ultimascreadas
     @actualizadas = Empresa.ultimasactualizadas
     @total = Empresa.count
     respond_to do |format|
       format.html { render :layout => false }
     end
-    
+  end 
+  
+  def enviabusqueda(cluster)
+    puts "Ejecutando #{cluster.nombre}"
+  end
+   
+  # handle_asynchronously :enviabusqueda
+  
+  def buscador
+    @clusters = Cluster.where("activo = 'S'")
+  end 
+
+  def busca 
+    render :layout => false 
+  end 
+  
+  def resultado 
+    render :layout => false
   end 
   
 end
