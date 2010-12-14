@@ -5,15 +5,18 @@
 	<td>
 		<table>
 		<tr>
-			<th>
+			<th colspan="2">
 				Ultimas Empresas
 			</th>
 		</tr>	
 		<% for emp in @ultimas %>
 		<tr>
 			<td>
-				<%= link_to emp.nombre, bazarcms_empresa_path(emp.id) %> 
+				<%= link_to emp.nombre, bazarcms_empresa_path(emp.id) %>
+			</td>
+			<td> 
 				<%= link_to image_tag("lupa.png"), bazarcms_empresa_path(emp.id) %>
+				<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{emp.id}&tipo=M" %>
 			</td>
 		</tr>
 		<% end %>
@@ -22,7 +25,7 @@
 	<td>
 		<table>
 		<tr>
-			<th>
+			<th colspan="2">
 				Ultimas Actualizadas
 			</th>
 		</tr>	
@@ -30,12 +33,14 @@
 		<tr>
 			<td>
 				<%= link_to emp.nombre, bazarcms_empresa_path(emp.id) %>
+			</td>
+			<td>
 				<%= link_to image_tag("lupa.png"), bazarcms_empresa_path(emp.id) %>
+				<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{emp.id}&tipo=M" %>
 			</td>
 		</tr>
 		<% end %>
 		</table>
-
 	
 	</td>	
 </tr>	

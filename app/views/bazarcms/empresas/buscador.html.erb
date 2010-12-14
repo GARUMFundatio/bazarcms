@@ -17,7 +17,7 @@
 			$("#lista").append("<div id='cid<%= cluster.id -%>'> <%= cluster.nombre-%> (<%= cluster.url-%>) <br/></div>");
 			
 			$.ajax({
-			  url: '<%= cluster.url -%>/bazarcms/buscaempresa',
+			  url: '<%= cluster.url -%>/bazarcms/buscaempresas',
 			  success: function(data) {
 			    $('#cid<%= cluster.id -%>').html('<%= cluster.nombre -%> '+data+'<br/>');
 			    alert('encolado ..');
