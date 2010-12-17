@@ -9,7 +9,7 @@
 
 		$("button", ".demo").button();
 		$("button", ".demo").click(function() {
-			$('#lista').toggle();
+			$('#lista').html('Enviando peticiones a los bazares');
 			$('#lista').load('/bazarcms/enviabusqueda?q='+$("#busca").val());
 			return false; 
 		});
@@ -20,6 +20,6 @@
 <button>Buscar</button>
 </div><!-- End demo -->
 
-<div id="lista" style="display:none">
-Buscando 
+<div id="lista">
+Introduzca el termino a buscar en empresas
 </div>
