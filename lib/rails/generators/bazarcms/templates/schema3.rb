@@ -6,6 +6,7 @@ class CreateBazarcmsTables3 < ActiveRecord::Migration
       t.string   :desc
       t.integer  :total_consultas
       t.integer  :total_respuestas
+      t.integer  :total_resultados
       t.datetime :fecha_inicio
       t.datetime :fecha_fin
       t.text     :sql
