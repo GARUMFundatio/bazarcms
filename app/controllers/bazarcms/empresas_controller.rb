@@ -155,12 +155,12 @@ module Bazarcms
     puts "ID de mi cluster #{micluster} <------"
 
     for cluster in @clusters
-      puts "Enviando Petición a #{cluster.nombre} #{cluster.url}/bazarcms/buscaempresas buscando: (#{params[:q]})"
+      puts "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{params[:q]}&bid=#{@consulta.id}&cid=#{micluster}"
 
       
       if micluster != cluster.id 
         
-        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q=#{params[:q]}")
+        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q=#{params[:q]}&bid=#{@consulta.id}&cid=#{micluster}")
 
         post_body = []
         post_body << "Content-Type: text/plain\r\n"
@@ -179,7 +179,17 @@ module Bazarcms
           puts res.error!
         end
       else 
+        
+        # TODO optimizar para que primero busque en local y saque los primeros 
+        # resultados y luego mande las peticiones remotas. 
+        
         puts "busco en local"
+        conta += 1 
+
+
+        @consulta.total_respuestas = @consulta.total_respuestas + 1;
+        @consulta.save
+        
       end 
       
     end 
