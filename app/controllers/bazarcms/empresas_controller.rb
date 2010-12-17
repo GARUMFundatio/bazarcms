@@ -164,7 +164,7 @@ module Bazarcms
       request.body = post_body.join
       request["Content-Type"] = "text/plain"
       
-      res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(req) }
+      res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
       case res
       when Net::HTTPSuccess, Net::HTTPRedirection
         conta += 1
