@@ -15,12 +15,16 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "app/controllers/bazarcms/empresas_controller.rb",
+     "app/controllers/bazarcms/empresasconsultas_controller.rb",
      "app/controllers/bazarcms/empresasdatos_controller.rb",
+     "app/controllers/bazarcms/empresasresultados_controller.rb",
      "app/controllers/bazarcms/ubicaciones_controller.rb",
      "app/helpers/application_helper.rb",
      "app/helpers/bazarcms/bazarcms_helper.rb",
      "app/models/bazarcms/empresa.rb",
+     "app/models/bazarcms/empresasconsulta.rb",
      "app/models/bazarcms/empresasdato.rb",
+     "app/models/bazarcms/empresasresultado.rb",
      "app/models/bazarcms/ubicacion.rb",
      "app/views/bazarcms/empresas/busca.html.erb",
      "app/views/bazarcms/empresas/buscador.html.erb",
@@ -29,6 +33,7 @@ Gem::Specification.new do |s|
      "app/views/bazarcms/empresas/enviabusqueda.html.erb",
      "app/views/bazarcms/empresas/index.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",
+     "app/views/bazarcms/empresasconsultas/index.html.erb",
      "app/views/bazarcms/empresasdatos/edit.html.erb",
      "app/views/bazarcms/layouts/bazarcms.html.erb",
      "app/views/bazarcms/ubicaciones/_form.html.erb",
@@ -45,6 +50,7 @@ Gem::Specification.new do |s|
      "lib/rails/generators/bazarcms/templates/migration.rb",
      "lib/rails/generators/bazarcms/templates/schema.rb",
      "lib/rails/generators/bazarcms/templates/schema2.rb",
+     "lib/rails/generators/bazarcms/templates/schema3.rb",
      "lib/rails/railties/tasks.rake",
      "public/stylesheets/bazarcms.css"
   ]

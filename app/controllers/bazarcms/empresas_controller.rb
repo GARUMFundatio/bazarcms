@@ -136,9 +136,26 @@ module Bazarcms
   
   def enviabusqueda()
     @clusters = Cluster.where("activo = 'S'")
+    
+    @consulta = Empresasconsulta.new
+    @consulta.empresa_id = current_user.id 
+    @consulta.desc = params[:q]
+    @consulta.total_consultas = @clusters.count()
+    @consulta.total_respuestas = 0
+    @consulta.total_resultados = 0
+    @consulta.fecha_inicio = DateTime::now
+    @consulta.fecha_fin = DateTime::now
+    @consulta.sql = params[:q]
+    @consulta.save
+    
+    conta = 0
     for cluster in @clusters
-      puts "Ejecutando #{cluster.nombre} #{cluster.url}/bazarcms/buscaempresas buscando: (#{params[:q]})"
+      puts "Enviando Petición a #{cluster.nombre} #{cluster.url}/bazarcms/buscaempresas buscando: (#{params[:q]})"
+      conta += 1
     end 
+    
+    @consulta.total_consultas = conta;
+    @consulta.save
 
     respond_to do |format|
       format.html { render :layout => false }

@@ -10,6 +10,15 @@ Bazar::Application.routes.draw do
   end
 
   scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
+    resources :empresasconsultas
+  end
+
+  scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
+    resources :empresasresultados
+  end
+
+
+  scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
     # resources :ubicaciones
     resources :ubicaciones do
       get :autocomplete_ciudad_descripcion, :on => :collection
