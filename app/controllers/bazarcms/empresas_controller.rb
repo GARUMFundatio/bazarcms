@@ -8,7 +8,7 @@ module Bazarcms
   
   layout "bazar"
   def index
-    @empresas = Empresa.all
+    @empresas = Empresa.all.paginate(:page => params[:page], :per_page => 15)
     puts @empresas.size
     respond_to do |format|
       format.html # index.html.erb

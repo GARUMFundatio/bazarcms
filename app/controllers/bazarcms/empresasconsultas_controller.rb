@@ -9,13 +9,29 @@ module Bazarcms
   # registrado 
   
   def index
-    @empresasconsultas = Empresasconsulta.all
+    @empresasconsultas = Empresasconsulta.where('empresa_id = ?', current_user.id).order('fecha_inicio desc').paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.xml  { render :xml => @empresasconsultas }
     end
   end
+
+  def borrartodas
+    
+    @empresasconsultas = Empresasconsulta.where('empresa_id = ?', current_user.id)  
+    for empre in @empresasconsultas
+      puts "borrando #{empre.id}"
+      empre.empresasresultados.delete
+      empre.delete
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to('/bazarcms/buscadorempresas') }
+      format.xml  { render :xml => @empresasconsultas }
+    end
+      
+  end 
 
 end 
 

@@ -1,6 +1,6 @@
 <b>Consultas</b>
 
-<table>
+<table class="tabla">
   <tr>
     <th>Empresa</th>
     <th>Desc</th>
@@ -28,7 +28,8 @@
   </tr>
 <% end %>
 </table>
-
+<br />
+<%= will_paginate @empresasconsultas %>
 <br />
 
 <%= link_to 'Nueva Consulta de Empresas', new_bazarcms_ubicacion_path %>
