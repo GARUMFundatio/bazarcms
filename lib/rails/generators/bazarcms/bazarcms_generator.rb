@@ -38,7 +38,6 @@ class BazarcmsGenerator < Rails::Generators::Base
 # vemos si ya existe un fichero de migracion v1
     existe = false; 
     Dir.foreach("db/migrate") { |f|
-      puts f
       if File.fnmatch('*_create_bazarcms_tables.rb', f) then
         puts 'existe!!!!'
         existe = true
@@ -53,7 +52,6 @@ class BazarcmsGenerator < Rails::Generators::Base
 # vemos si ya existe un fichero de migracion v2 ubicaciones
     existe = false; 
     Dir.foreach("db/migrate") { |f|
-      puts f
       if File.fnmatch('*_create_bazarcms_tables2.rb', f) then
         puts 'existe!!!!'
         existe = true
@@ -62,6 +60,21 @@ class BazarcmsGenerator < Rails::Generators::Base
 
     if (existe == false) then
       migration_template  File.join(File.dirname(__FILE__), 'templates', 'schema2.rb'),'db/migrate/create_bazarcms_tables2.rb'
+    end
+
+
+# vemos si ya existe un fichero de migracion v3 consultas
+
+    existe = false; 
+    Dir.foreach("db/migrate") { |f|
+      if File.fnmatch('*_create_bazarcms_tables3.rb', f) then
+        puts 'existe!!!!'
+        existe = true
+        end
+      }
+
+    if (existe == false) then
+      migration_template  File.join(File.dirname(__FILE__), 'templates', 'schema3.rb'),'db/migrate/create_bazarcms_tables3.rb'
     end
 
   end

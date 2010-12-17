@@ -22,5 +22,6 @@ Bazar::Application.routes.draw do
   match "/bazarcms/buscadorempresas" => "bazarcms/empresas#buscador"
   match "/bazarcms/buscaempresas" => "bazarcms/empresas#busca"
   match "/bazarcms/resultadoempresas" => "bazarcms/empresas#resultado"
+  match "/bazarcms/enviabusqueda" => "bazarcms/empresas#enviabusqueda"
   
 end

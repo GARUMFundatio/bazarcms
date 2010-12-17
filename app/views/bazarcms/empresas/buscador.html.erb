@@ -9,23 +9,7 @@
 
 		$("button", ".demo").button();
 		$("button", ".demo").click(function() {
-			$("#lista").toggle();
-			$("#lista").append(" ---> "); 
-			$("#lista").append($("#busca").val());
-			$("#lista").append("<br/>Enviando peticiones a: <br/>"); 
-			<% for cluster in @clusters -%>
-			$("#lista").append("<div id='cid<%= cluster.id -%>'> <%= cluster.nombre-%> (<%= cluster.url-%>) <br/></div>");
-			
-			$.ajax({
-			  url: '<%= cluster.url -%>/bazarcms/buscaempresas',
-			  success: function(data) {
-			    $('#cid<%= cluster.id -%>').html('<%= cluster.nombre -%> '+data+'<br/>');
-			    alert('encolado ..');
-			  }
-			});
-			
-			<% end -%>
-			 
+			$.ajax('/bazarcms/enviabusqueda?q='+$("#busca").val());
 			return false; 
 		});
 	});

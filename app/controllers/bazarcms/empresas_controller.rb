@@ -134,14 +134,22 @@ module Bazarcms
     end
   end 
   
-  def enviabusqueda(cluster)
-    puts "Ejecutando #{cluster.nombre}"
+  def enviabusqueda()
+    @clusters = Cluster.where("activo = 'S'")
+    for cluster in @clusters
+      puts "Ejecutando #{cluster.nombre} #{cluster.url}/bazarcms/buscaempresas buscando: (#{params[:q]})"
+    end 
+
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+    
   end
    
   # handle_asynchronously :enviabusqueda
   
   def buscador
-    @clusters = Cluster.where("activo = 'S'")
+    
   end 
 
   def busca 
