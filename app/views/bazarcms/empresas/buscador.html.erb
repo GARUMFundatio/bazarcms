@@ -9,7 +9,8 @@
 
 		$("button", ".demo").button();
 		$("button", ".demo").click(function() {
-			$.ajax('/bazarcms/enviabusqueda?q='+$("#busca").val());
+			$('#lista').toggle();
+			$('#lista').load('/bazarcms/enviabusqueda?q='+$("#busca").val());
 			return false; 
 		});
 	});
