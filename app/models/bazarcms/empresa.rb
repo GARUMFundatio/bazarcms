@@ -5,7 +5,8 @@ module Bazarcms
   class Empresa < ActiveRecord::Base
     set_table_name "empresas"
     has_many :ubicaciones
-
+    has_many :empresas_consultas
+    
     acts_as_taggable
     acts_as_taggable_on :actividades, :intereses
     
