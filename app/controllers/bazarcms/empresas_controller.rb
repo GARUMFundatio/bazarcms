@@ -1,7 +1,9 @@
 module Bazarcms
   
   class EmpresasController < ApplicationController
-
+  require "net/http"
+  require "uri"
+  
   unloadable
   
   layout "bazar"
@@ -151,7 +153,26 @@ module Bazarcms
     conta = 0
     for cluster in @clusters
       puts "Enviando Petición a #{cluster.nombre} #{cluster.url}/bazarcms/buscaempresas buscando: (#{params[:q]})"
-      conta += 1
+
+      uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q=#{params[:q]}")
+
+      post_body = []
+      post_body << "Content-Type: text/plain\r\n"
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      request.body = post_body.join
+      request["Content-Type"] = "text/plain"
+      
+      res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(req) }
+      case res
+      when Net::HTTPSuccess, Net::HTTPRedirection
+        conta += 1
+        puts "fue bien (#{res.body})"
+      else
+        puts res.error!
+      end
+      
     end 
     
     @consulta.total_consultas = conta;
@@ -170,6 +191,7 @@ module Bazarcms
   end 
 
   def busca 
+    puts "he recibido una peticion de busqueda #{params[:q]}"
     render :layout => false 
   end 
   
