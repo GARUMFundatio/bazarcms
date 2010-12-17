@@ -1,0 +1,21 @@
+<h1>Consultas</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @empresasconsultas.each do |empresasconsulta| %>
+  <tr>
+    <td><%= link_to 'Show', empresasconsulta %></td>
+    <td><%= link_to 'Edit', edit_bazarcms_empresasconsulta_path(empresasconsulta) %></td>
+    <td><%= link_to 'Destroy', empresasconsulta, :confirm => 'Seguro?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nueva Consulta de Empresas', new_bazarcms_ubicacion_path %>
