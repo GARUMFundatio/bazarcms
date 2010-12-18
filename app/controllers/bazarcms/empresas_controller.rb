@@ -225,12 +225,10 @@ module Bazarcms
   end 
 
   def busca 
+
     puts "he recibido una peticion de busqueda #{params[:q]}"
-    puts "suelto la repuesta"
     render :layout => false
-    puts "se supone que ya lo ha recibido el otro"
-    sleep 30 
-    puts "ahora salgo de verdad"
+
   end 
   
   def resultado 
