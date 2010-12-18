@@ -1,0 +1,24 @@
+<b>Resultados busqueda: <%= @consulta.desc %></b>
+
+<table class="tabla">
+<tr>
+  <th>Bazar</th>
+  <th>Empresa</th>
+  <th>Enlace</th>
+</tr>	
+
+<% for resu in @consulta.empresasresultados %>
+<tr>
+  <td>
+	<%= resu.cluster_id %>
+  </td>
+  <td>
+	<%= resu.info %>
+  </td>
+  <td>
+	<%= resu.enlace %>
+  </td>
+</tr>	
+<% end%>
+
+</table>

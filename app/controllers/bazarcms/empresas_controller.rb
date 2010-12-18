@@ -185,11 +185,26 @@ module Bazarcms
         
         puts "busco en local"
         conta += 1 
-
-
         @consulta.total_respuestas = @consulta.total_respuestas + 1;
         @consulta.save
+
+        resultados = Empresa.find_with_ferret(params[:q])
+        puts "resu: (#{resultados.inspect}) <-------"
         
+        conta2 = 0
+        for resu in resultados 
+          @res = Empresasresultado.new(); 
+          @res.empresasconsulta_id = @consulta.id
+          @res.cluster_id = micluster
+          @res.empresa_id = resu.id 
+          @res.orden = resu.nombre
+          @res.enlace = "poner la url bien"
+          @res.info = "#{resu.nombre}"
+          @res.save
+          conta2 += 1 
+        end 
+        @consulta.total_resultados = @consulta.total_resultados + conta2;
+        @consulta.save
       end 
       
     end 

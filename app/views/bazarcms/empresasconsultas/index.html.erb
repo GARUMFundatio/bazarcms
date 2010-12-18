@@ -2,29 +2,23 @@
 
 <table class="tabla">
   <tr>
-    <th>Empresa</th>
     <th>Desc</th>
     <th>Consultados</th>
     <th>Resultados</th>
     <th>SQL</th>
-    <th>Inicio</th>
-    <th>Fin</th>
-
+    <th>Lanzada</th>
     <th colspan="3">Acciones</th>
   </tr>
 
 <% @empresasconsultas.each do |empresasconsulta| %>
   <tr>
-  	<td><%= empresasconsulta.empresa_id %></td>
   	<td><%= empresasconsulta.desc %></td>
   	<td><%= empresasconsulta.total_consultas %>/<%= empresasconsulta.total_respuestas %></td>
   	<td><%= empresasconsulta.total_resultados %></td>
   	<td><%= empresasconsulta.sql %></td>
-  	<td><%= empresasconsulta.fecha_inicio %></td>
-  	<td><%= empresasconsulta.fecha_fin %></td>
-  	<td><%= link_to 'Show', empresasconsulta %></td>
-    <td><%= link_to 'Edit', edit_bazarcms_empresasconsulta_path(empresasconsulta) %></td>
-    <td><%= link_to 'Destroy', empresasconsulta, :confirm => 'Seguro?', :method => :delete %></td>
+  	<td><%= empresasconsulta.fecha_inicio.strftime("%Y-%m-%d %H:%M") -%>-<%= empresasconsulta.fecha_fin.strftime("%H:%M") %></td>
+  	<td><%= link_to image_tag('lupa.png'), empresasconsulta %></td>
+    <td><%= link_to image_tag('delete.png'), empresasconsulta, :confirm => 'Seguro?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -32,4 +26,5 @@
 <%= will_paginate @empresasconsultas %>
 <br />
 
-<%= link_to 'Nueva Consulta de Empresas', new_bazarcms_ubicacion_path %>
+<%= link_to 'Buscar Empresas', '/bazarcms/buscadorempresas' %> | 
+<%= link_to 'Borrar consultas realizadas', '/bazarcms/borrarconsultas', :confirm => 'Seguro?' %>
