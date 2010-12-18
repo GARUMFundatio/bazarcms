@@ -10,7 +10,7 @@
 <% for resu in @consulta.empresasresultados %>
 <tr>
   <td>
-	<%= resu.cluster_id %>
+	<%= Cluster::find_by_id(resu.cluster_id).nombre %>
   </td>
   <td>
 	<%= resu.info %>

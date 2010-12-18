@@ -42,6 +42,21 @@ module Bazarcms
     end
       
   end 
+  
+  def destroy
+    
+    @empresasconsultas = Empresasconsulta.find_by_empresa_id_and_id(current_user.id, params[:id])
+    puts "#{@empresasconsultas.inspect} <----------------"
+    if (@empresasconsultas.total_resultados != 0)
+      @empresasconsultas.empresasresultados.destroy 
+    end
+    @empresasconsultas.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(bazarcms_empresasconsultas_url) }
+      format.xml  { head :ok }
+    end
+  end
 
 end 
 

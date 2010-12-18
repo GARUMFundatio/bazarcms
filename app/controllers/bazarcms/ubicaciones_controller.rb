@@ -72,6 +72,9 @@ module Bazarcms
       end
     end
 
+    # TODO proteger todos los destroy para que solo puedan ser ejecutados por un usuarios 
+    # en este caso cuestionarse si debe existir incluso la opción de borrado 
+    
     def destroy
       @ubicacion = Ubicacion.find(params[:id])
       @ubicacion.destroy
