@@ -226,8 +226,33 @@ module Bazarcms
 
   def busca 
 
-    puts "he recibido una peticion de busqueda #{params[:q]}"
+    puts "he recibido una peticion de busqueda #{params[:q]} "
     render :layout => false
+  
+    resultados = Empresa.find_with_ferret(params[:q])
+    
+    if (resultados.count)
+      cluster = Cluster.find_by_id(params[:cid])
+      uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
+
+      post_body = []
+      post_body << "Content-Type: text/plain\r\n"
+      post_body << resultados.to_json
+    
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      request.body = post_body.join
+      request["Content-Type"] = "text/plain"
+  
+      res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
+      case res
+      when Net::HTTPSuccess, Net::HTTPRedirection
+        conta += 1
+        puts "fue bien (#{res.body})"
+      else
+        puts res.error!
+      end
+    end
 
   end 
   
