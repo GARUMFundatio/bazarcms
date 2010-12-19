@@ -233,8 +233,8 @@ module Bazarcms
      puts "envío el resultado de la busqueda"
       
      cluster = Cluster.find_by_id(params[:cid])
-     puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
-#      uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
+     puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
+#      uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
 
 #      post_body = []
 #      post_body << "Content-Type: text/plain\r\n"
