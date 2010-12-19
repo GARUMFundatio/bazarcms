@@ -230,32 +230,33 @@ module Bazarcms
   
     resultados = Empresa.find_with_ferret(params[:q])
     
-    if (resultados.count)
+#    if (resultados.count)
       
-      puts "envío el resultado de la busqueda"
+#      puts "envío el resultado de la busqueda"
       
-      cluster = Cluster.find_by_id(params[:cid])
-      puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
-      uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
+#      cluster = Cluster.find_by_id(params[:cid])
+#      puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
+#      uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
 
-      post_body = []
-      post_body << "Content-Type: text/plain\r\n"
+#      post_body = []
+#      post_body << "Content-Type: text/plain\r\n"
       # post_body << resultados.to_json
     
-      http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Get.new(uri.request_uri)
-      request.body = post_body.join
-      request["Content-Type"] = "text/plain"
+#      http = Net::HTTP.new(uri.host, uri.port)
+#      request = Net::HTTP::Get.new(uri.request_uri)
+#      request.body = post_body.join
+#      request["Content-Type"] = "text/plain"
   
-      res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
-      case res
-      when Net::HTTPSuccess, Net::HTTPRedirection
-        conta += 1
-        puts "fue bien (#{res.body})"
-      else
-        puts res.error!
-      end
-    end
+#      res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
+#      case res
+#      when Net::HTTPSuccess, Net::HTTPRedirection
+#        conta += 1
+#        puts "fue bien (#{res.body})"
+#      else
+#        puts res.error!
+#      end
+#    end
+    
     render :layout => false
 
   end 
