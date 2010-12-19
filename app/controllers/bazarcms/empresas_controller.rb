@@ -227,12 +227,15 @@ module Bazarcms
   def busca 
 
     puts "he recibido una peticion de busqueda #{params[:q]} "
-    render :layout => false
   
     resultados = Empresa.find_with_ferret(params[:q])
     
     if (resultados.count)
+      
+      puts "envío el resultado de la busqueda"
+      
       cluster = Cluster.find_by_id(params[:cid])
+      puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
       uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
 
       post_body = []
@@ -253,10 +256,15 @@ module Bazarcms
         puts res.error!
       end
     end
+    render :layout => false
 
   end 
   
+  # TODO desactivada la respuesta asincrona que solo hay una máquina externa 
+  # para hacer pruebas y está detrás de un NAT
+  
   def resultado 
+    puts "recibiendo resultado de la busqueda (#{params[:bid]})"
     render :layout => false
   end 
   
