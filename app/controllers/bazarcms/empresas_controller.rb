@@ -257,10 +257,7 @@ module Bazarcms
 #      end
 #   end
    
-    respond_to do |format|
-      format.html { render :layout => false }
-      format.json { render :json => resultados }
-    end
+  render :json => resultados
 
   end 
   
