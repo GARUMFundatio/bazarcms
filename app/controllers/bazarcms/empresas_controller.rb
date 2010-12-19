@@ -228,33 +228,39 @@ module Bazarcms
     puts "he recibido una peticion de busqueda #{params[:q]} "
   
     resultados = Empresa.find_with_ferret(params[:q])
-    
-   if (resultados.count)
-     puts "envío el resultado de la busqueda"
-      
-     cluster = Cluster.find_by_id(params[:cid])
-     puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
-     uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
 
-    post_body = []
-    post_body << "Content-Type: text/plain\r\n"
+# TODO en la siguiente versión debería ser algo así
+# de momento va bién así, pero se puede optimizar ...
+    
+#   if (resultados.count)
+#     puts "envío el resultado de la busqueda"
+      
+#     cluster = Cluster.find_by_id(params[:cid])
+#     puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
+#     uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
+
+#    post_body = []
+#    post_body << "Content-Type: text/plain\r\n"
       # post_body << resultados.to_json
     
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
-    request.body = post_body.join
-    request["Content-Type"] = "text/plain"
+#    http = Net::HTTP.new(uri.host, uri.port)
+#    request = Net::HTTP::Post.new(uri.request_uri)
+#    request.body = post_body.join
+#    request["Content-Type"] = "text/plain"
   
-    res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
-    case res
-      when Net::HTTPSuccess, Net::HTTPRedirection
-        puts "fue bien (#{res.body})"
-      else
-        puts res.error!
-      end
-   end
-    
-    render :layout => false
+#    res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
+#    case res
+#      when Net::HTTPSuccess, Net::HTTPRedirection
+#        puts "fue bien (#{res.body})"
+#      else
+#        puts res.error!
+#      end
+#   end
+   
+    respond_to do |format|
+      format.html { render :layout => false }
+      format.json { render :json => resultados }
+    end
 
   end 
   
