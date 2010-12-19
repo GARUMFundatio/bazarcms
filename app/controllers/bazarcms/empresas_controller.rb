@@ -229,12 +229,11 @@ module Bazarcms
   
     resultados = Empresa.find_with_ferret(params[:q])
     
-#    if (resultados.count)
+   if (resultados.count)
+     puts "envío el resultado de la busqueda"
       
-#      puts "envío el resultado de la busqueda"
-      
-#      cluster = Cluster.find_by_id(params[:cid])
-#      puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
+     cluster = Cluster.find_by_id(params[:cid])
+     puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
 #      uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{@consulta.id}")
 
 #      post_body = []
@@ -254,7 +253,7 @@ module Bazarcms
 #      else
 #        puts res.error!
 #      end
-#    end
+   end
     
     render :layout => false
 
