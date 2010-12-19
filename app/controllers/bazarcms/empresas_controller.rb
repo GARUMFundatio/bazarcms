@@ -173,8 +173,7 @@ module Bazarcms
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
           conta += 1
-          # puts "fue bien (#{res.body})"
-          
+          conta2 = 0
           empresas = JSON.parse(res.body)
 
           puts "#{empresas.inspect} <-----------"
@@ -189,9 +188,12 @@ module Bazarcms
             resu.orden = key['empresa']['nombre']
             resu.info = key['empresa']['nombre']
             resu.save
+            conta2 += 1
             }
             
           @consulta.total_respuestas = @consulta.total_respuestas + 1;
+          @consulta.total_resultados = @consulta.total_resultados + conta2;
+
           @consulta.save
         else
           puts res.error!
