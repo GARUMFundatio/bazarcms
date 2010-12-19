@@ -248,7 +248,6 @@ module Bazarcms
     res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
     case res
       when Net::HTTPSuccess, Net::HTTPRedirection
-        conta += 1
         puts "fue bien (#{res.body})"
       else
         puts res.error!
