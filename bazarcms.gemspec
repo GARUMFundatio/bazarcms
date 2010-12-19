@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Garum Fundatio"]
-  s.date = %q{2010-12-18}
+  s.date = %q{2010-12-19}
   s.extra_rdoc_files = [
     "README"
   ]
@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
      "app/views/bazarcms/empresas/edit.html.erb",
      "app/views/bazarcms/empresas/enviabusqueda.html.erb",
      "app/views/bazarcms/empresas/index.html.erb",
+     "app/views/bazarcms/empresas/resultado.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",
      "app/views/bazarcms/empresasconsultas/index.html.erb",
      "app/views/bazarcms/empresasconsultas/show.html.erb",

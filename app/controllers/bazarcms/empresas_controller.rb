@@ -156,8 +156,7 @@ module Bazarcms
 
     for cluster in @clusters
       puts "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{params[:q]}&bid=#{@consulta.id}&cid=#{micluster}"
-
-      
+     
       if micluster != cluster.id 
         
         uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q=#{params[:q]}&bid=#{@consulta.id}&cid=#{micluster}")
@@ -213,7 +212,7 @@ module Bazarcms
     @consulta.save
 
     respond_to do |format|
-      format.html { render :layout => false }
+      format.html { redirect_to '/bazarcms/empresasconsultas/'+@consulta.id.to_s+'?display=inside'}
     end
     
   end

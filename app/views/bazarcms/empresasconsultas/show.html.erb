@@ -1,4 +1,5 @@
-<b>Resultados busqueda: <%= @consulta.desc %></b>
+
+<b>Resultados busqueda: <%= @consulta.desc %></b> <div id="resultados"></div>
 
 <table class="tabla">
 <tr>
@@ -22,3 +23,7 @@
 <% end%>
 
 </table>
+
+<script>
+	$('#resultados').load('/bazarcms/estadoconsulta/'+<%= @consulta.id -%>)
+</script>
