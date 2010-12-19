@@ -182,7 +182,7 @@ module Bazarcms
             puts ("#{key.inspect}")
             puts ("#{key['empresa'].inspect} <------ datos")
             resu = Bazarcms::Empresasresultado.new()
-            resu.empresaconsulta_id = @consulta.id
+            resu.empresasconsulta_id = @consulta.id
             resu.cluster_id = cluster.id
             resu.empresa_id = key['empresa']['id'] 
             resu.enlace = "poner el enlace remoto bien"
