@@ -18,10 +18,10 @@ module Bazarcms
   end
  
   def estado
-    @consulta = Empresasconsulta.where('id = ?', params[:id])
-      
+    @consulta = Empresasconsulta.find_by_id(params[:id])
+    puts "#{@consulta.inspect} --> #{params.inspect}"  
     respond_to do |format|
-      format.html 
+      format.html { render :layout => false }
     end
     
   end

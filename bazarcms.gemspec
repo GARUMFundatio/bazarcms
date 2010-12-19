@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
      "app/views/bazarcms/empresas/index.html.erb",
      "app/views/bazarcms/empresas/resultado.html.erb",
      "app/views/bazarcms/empresas/show.html.erb",
+     "app/views/bazarcms/empresasconsultas/estado.html.erb",
      "app/views/bazarcms/empresasconsultas/index.html.erb",
      "app/views/bazarcms/empresasconsultas/show.html.erb",
      "app/views/bazarcms/empresasdatos/edit.html.erb",
