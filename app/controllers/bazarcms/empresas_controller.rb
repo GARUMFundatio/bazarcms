@@ -173,7 +173,26 @@ module Bazarcms
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
           conta += 1
-          puts "fue bien (#{res.body})"
+          # puts "fue bien (#{res.body})"
+          
+          empresas = JSON.parse(res.body)
+
+          puts "#{empresas.inspect} <-----------"
+          empresas.each{ |key|
+            puts ("#{key.inspect}")
+            puts ("#{key['empresa'].inspect} <------ datos")
+            resu = Bazarcms::Empresasresultado.new()
+            resu.empresaconsulta_id = @consulta.id
+            resu.cluster_id = cluster.id
+            resu.empresa_id = key['empresa']['id'] 
+            resu.enlace = "poner el enlace remoto bien"
+            resu.orden = key['empresa']['nombre']
+            resu.info = key['empresa']['nombre']
+            resu.save
+            }
+            
+          @consulta.total_respuestas = @consulta.total_respuestas + 1;
+          @consulta.save
         else
           puts res.error!
         end
@@ -184,6 +203,7 @@ module Bazarcms
         
         puts "busco en local"
         conta += 1 
+        
         @consulta.total_respuestas = @consulta.total_respuestas + 1;
         @consulta.save
 
