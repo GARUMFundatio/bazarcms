@@ -234,25 +234,25 @@ module Bazarcms
       
      cluster = Cluster.find_by_id(params[:cid])
      puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
-#      uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
+     uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
 
-#      post_body = []
-#      post_body << "Content-Type: text/plain\r\n"
+    post_body = []
+    post_body << "Content-Type: text/plain\r\n"
       # post_body << resultados.to_json
     
-#      http = Net::HTTP.new(uri.host, uri.port)
-#      request = Net::HTTP::Get.new(uri.request_uri)
-#      request.body = post_body.join
-#      request["Content-Type"] = "text/plain"
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request.body = post_body.join
+    request["Content-Type"] = "text/plain"
   
-#      res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
-#      case res
-#      when Net::HTTPSuccess, Net::HTTPRedirection
-#        conta += 1
-#        puts "fue bien (#{res.body})"
-#      else
-#        puts res.error!
-#      end
+    res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
+    case res
+      when Net::HTTPSuccess, Net::HTTPRedirection
+        conta += 1
+        puts "fue bien (#{res.body})"
+      else
+        puts res.error!
+      end
    end
     
     render :layout => false
