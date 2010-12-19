@@ -240,7 +240,7 @@ module Bazarcms
 
       post_body = []
       post_body << "Content-Type: text/plain\r\n"
-      post_body << resultados.to_json
+      # post_body << resultados.to_json
     
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Get.new(uri.request_uri)
