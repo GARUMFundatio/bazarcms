@@ -174,7 +174,7 @@ module Bazarcms
       
         begin 
           
-          res =  .new(uri.host, uri.port).start {|http| http.request(request) }
+          res =  Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
           case res
           when Net::HTTPSuccess, Net::HTTPRedirection
             conta += 1
