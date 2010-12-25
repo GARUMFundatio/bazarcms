@@ -159,45 +159,55 @@ module Bazarcms
      
       if micluster != cluster.id 
         
-        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q=#{params[:q]}&bid=#{@consulta.id}&cid=#{micluster}")
+        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&bid=#{@consulta.id}&cid=#{micluster}")
 
         post_body = []
         post_body << "Content-Type: text/plain\r\n"
-
+        
+        
         http = Net::HTTP.new(uri.host, uri.port)
+        http.open_timeout = http.read_timeout = 20
+        
         request = Net::HTTP::Get.new(uri.request_uri)
         request.body = post_body.join
         request["Content-Type"] = "text/plain"
       
-        res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
-        case res
-        when Net::HTTPSuccess, Net::HTTPRedirection
-          conta += 1
-          conta2 = 0
-          empresas = JSON.parse(res.body)
+        begin 
+          
+          res =  .new(uri.host, uri.port).start {|http| http.request(request) }
+          case res
+          when Net::HTTPSuccess, Net::HTTPRedirection
+            conta += 1
+            conta2 = 0
+            empresas = JSON.parse(res.body)
 
-          puts "#{empresas.inspect} <-----------"
-          empresas.each{ |key|
-            puts ("#{key.inspect}")
-            puts ("#{key['empresa'].inspect} <------ datos")
-            resu = Bazarcms::Empresasresultado.new()
-            resu.empresasconsulta_id = @consulta.id
-            resu.cluster_id = cluster.id
-            resu.empresa_id = key['empresa']['id'] 
-            resu.enlace = "poner el enlace remoto bien"
-            resu.orden = key['empresa']['nombre']
-            resu.info = key['empresa']['nombre']
-            resu.save
-            conta2 += 1
-            }
+            puts "#{empresas.inspect} <-----------"
+            empresas.each{ |key|
+              puts ("#{key.inspect}")
+              puts ("#{key['empresa'].inspect} <------ datos")
+              resu = Bazarcms::Empresasresultado.new()
+              resu.empresasconsulta_id = @consulta.id
+              resu.cluster_id = cluster.id
+              resu.empresa_id = key['empresa']['id'] 
+              resu.enlace = "poner el enlace remoto bien"
+              resu.orden = key['empresa']['nombre']
+              resu.info = key['empresa']['nombre']
+              resu.save
+              conta2 += 1
+              }
             
-          @consulta.total_respuestas = @consulta.total_respuestas + 1;
-          @consulta.total_resultados = @consulta.total_resultados + conta2;
+            @consulta.total_respuestas = @consulta.total_respuestas + 1;
+            @consulta.total_resultados = @consulta.total_resultados + conta2;
 
-          @consulta.save
-        else
-          puts res.error!
+            @consulta.save
+          else
+            puts res.error!
+          end
+        
+        rescue Exception => e
+          puts "Exception leyendo #{cluster.url} Got #{e.class}: #{e}"        
         end
+        
       else 
         
         # TODO optimizar para que primero busque en local y saque los primeros 
