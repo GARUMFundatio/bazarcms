@@ -248,7 +248,8 @@ module Bazarcms
   def busca 
 
     puts "he recibido una peticion de busqueda #{params[:q]} "
-  
+    params[:q] = CGI.unescape(params[:q])
+    puts "decodeado #{params[:q]}"
     resultados = Empresa.find_with_ferret(params[:q])
 
 # TODO en la siguiente versión debería ser algo así
