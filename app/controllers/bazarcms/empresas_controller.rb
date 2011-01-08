@@ -141,7 +141,7 @@ module Bazarcms
     
     @consulta = Empresasconsulta.new
     @consulta.empresa_id = current_user.id 
-    @consulta.desc = params[:q]
+    @consulta.desc = CGI.unescape(params[:q])
     @consulta.total_consultas = @clusters.count()
     @consulta.total_respuestas = 0
     @consulta.total_resultados = 0
@@ -298,7 +298,7 @@ module Bazarcms
   # para hacer pruebas y está detrás de un NAT
   
   def resultado 
-    puts "recibiendo resultado de la busqueda (#{params[:bid]})"
+    puts "recibiendo resultado de la busqueda ("+CGI.unescape(params[:bid])+")"
     render :layout => false
   end 
   
