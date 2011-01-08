@@ -26,7 +26,9 @@ Puede usar * para terminos parciales: herramientas*
 		$("button", ".demo").click(function() {
 			$('#lista').html('Enviando peticiones a los bazares');
 			// $('#lista').load('/bazarcms/enviabusqueda?q='+escape($("#busca").val()));
-			$('#lista').load('/bazarcms/enviabusqueda?q='+$("#busca").val());
+			s = $("#busca").val();
+			s = s.replace(/ /g, "+");
+			$('#lista').load('/bazarcms/enviabusqueda?q='+s);
 			
 			return false; 
 		});

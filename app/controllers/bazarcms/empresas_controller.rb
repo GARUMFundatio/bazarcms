@@ -156,7 +156,7 @@ module Bazarcms
     puts "ID de mi cluster #{micluster} <------"
 
     for cluster in @clusters
-      puts "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{params[:q]}&bid=#{@consulta.id}&cid=#{micluster}"
+      puts "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{CGI.escape(params[:q])}&bid=#{@consulta.id}&cid=#{micluster}"
      
       if micluster != cluster.id 
         
