@@ -1,10 +1,46 @@
 
 <div id="cajabusqueda">
+
+<div class="demo">
+
 <b>Busqueda en empresas:</b><br/><br/>
 
 <input id="busca" name="busqueda" size="30" type="text" />
 <br />
-<div class="demo">
+
+	<style>
+	#demo-frame > div.demo { padding: 5px !important; };
+	</style>
+	
+	<script>
+	$(function() {
+		$( "#slider-range" ).slider({
+			range: true,
+			min: 0,
+			max: 500,
+			values: [ 75, 300 ],
+			slide: function( event, ui ) {
+				$( "#empleados" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			}
+		});
+		$( "#empleados" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+			" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	});
+	</script>
+
+<table border="0" cellspacing="2" cellpadding="2">
+	<tr>
+		<td>
+			<label for="empleados">Numero Empleados:</label>
+			<input type="text" id="empleados" style="border:0; color:#f6931f; font-weight:bold;" />
+		</td>
+		<td width="60%">
+			<div id="slider-range"></div>
+		</td>
+	</tr>
+</table>
+
+
   <button>Buscar</button>
 </div>
 
