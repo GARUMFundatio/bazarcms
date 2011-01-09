@@ -141,7 +141,10 @@ module Bazarcms
     
     @consulta = Empresasconsulta.new
     @consulta.empresa_id = current_user.id 
+    
     puts "------> (#{params[:q]}) unscaped (#{CGI.unescape(params[:q])})"
+    puts "------> (#{params.inspect})"
+    
     @consulta.desc = CGI.unescape(params[:q])
     @consulta.total_consultas = @clusters.count()
     @consulta.total_respuestas = 0

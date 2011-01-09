@@ -1,6 +1,5 @@
 
 <div id="cajabusqueda">
-
 <div class="demo">
 
 <b>Busqueda en empresas:</b><br/><br/>
@@ -9,32 +8,36 @@
 <br />
 
 	<style>
-	#demo-frame > div.demo { padding: 5px !important; };
+	#demo-frame > div.demo { padding: 1px !important; };
 	</style>
 	
 	<script>
+	<%= Bazarcms::Empresasdato.listaRE %>
 	$(function() {
 		$( "#slider-range" ).slider({
 			range: true,
 			min: 0,
-			max: 500,
-			values: [ 75, 300 ],
+			max: maxRE,
+			values: [ 0, maxRE ],
 			slide: function( event, ui ) {
-				$( "#empleados" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+				$( "#empleados" ).val( "Entre: (" + listaRE[ui.values[ 0 ]] + ") y (" + listaRE[ui.values[ 1 ]] + ")" );
+				$( "#empleados2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
 			}
 		});
-		$( "#empleados" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-			" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+		$( "#empleados" ).val( "Todos");
+		$( "#empleados2" ).val( "0+"+maxRE);
+		
 	});
 	</script>
 
 <table border="0" cellspacing="2" cellpadding="2">
 	<tr>
-		<td>
-			<label for="empleados">Numero Empleados:</label>
-			<input type="text" id="empleados" style="border:0; color:#f6931f; font-weight:bold;" />
+		<td width="350px">
+			<label for="empleados">Nº Empleados:</label>
+			<input type="text" size="35" id="empleados" style="border:0; color:#f6931f; font-weight:bold;" />
+			<input type="hidden" id="empleados2" style="border:0; color:#f6931f; font-weight:bold;" />
 		</td>
-		<td width="60%">
+		<td width="200px">
 			<div id="slider-range"></div>
 		</td>
 	</tr>
@@ -64,7 +67,8 @@ Puede usar * para terminos parciales: herramientas*
 			// $('#lista').load('/bazarcms/enviabusqueda?q='+escape($("#busca").val()));
 			s = $("#busca").val();
 			s = s.replace(/ /g, "+");
-			$('#lista').load('/bazarcms/enviabusqueda?q='+s);
+			emple = $("#empleados2").val();
+			$('#lista').load('/bazarcms/enviabusqueda?q='+s+'&qe='+emple);
 			
 			return false; 
 		});
