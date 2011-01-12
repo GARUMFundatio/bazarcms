@@ -271,7 +271,7 @@ module Bazarcms
     for empre in resultados
       entra = 0
       total = 0
-      datos = Bazarcms::Empresasdato.where("empresa_id = ?", empre[:id]).order('periodo desc').limit(1)
+      datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
       
       puts "datos seleccionados para el filtro #{datos.inspect}"
       # aplicamos el filtro de empleados 
@@ -281,7 +281,7 @@ module Bazarcms
       # puede que existan empresas que todavía no tienen datos!!!!
       
       if (!datos.nil?)
-        if datos[:empleados] >= rangoe[0].to_i && datos[:empleados] <= rangoe[1].to_i
+        if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
           entra += 1 
         end
       end
