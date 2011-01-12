@@ -228,15 +228,59 @@ module Bazarcms
         
         conta2 = 0
         for resu in resultados 
-          @res = Empresasresultado.new(); 
-          @res.empresasconsulta_id = @consulta.id
-          @res.cluster_id = micluster
-          @res.empresa_id = resu.id 
-          @res.orden = resu.nombre
-          @res.enlace = "poner la url bien"
-          @res.info = "#{resu.nombre}"
-          @res.save
-          conta2 += 1 
+          
+          entra = 0
+          total = 0
+          datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
+
+          puts "datos seleccionados para el filtro #{datos.inspect}"
+          # aplicamos el filtro de empleados 
+
+          rangoe = params[:qe].split(' ')
+          # puede que existan empresas que todavía no tienen datos!!!!
+          if (!datos.nil?)
+            if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
+              entra += 1 
+            end
+          end
+          total+=1
+
+          rangoc = params[:qc].split(' ')
+          if (!datos.nil?)
+            if datos[0].compras >= rangoc[0].to_i && datos[0].compras <= rangoc[1].to_i
+              entra += 1 
+            end
+          end
+          total+=1
+
+          rangov = params[:qv].split(' ')
+          if (!datos.nil?)
+            if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
+              entra += 1 
+            end
+          end
+          total+=1
+
+          rangor = params[:qr].split(' ')
+          if (!datos.nil?)
+            if datos[0].resultados >= rangor[0].to_i && datos[0].resultados <= rangor[1].to_i
+              entra += 1 
+            end
+          end
+          total+=1
+
+          if (entra == total)
+            @res = Empresasresultado.new(); 
+            @res.empresasconsulta_id = @consulta.id
+            @res.cluster_id = micluster
+            @res.empresa_id = resu.id 
+            @res.orden = resu.nombre
+            @res.enlace = "poner la url bien"
+            @res.info = "#{resu.nombre}"
+            @res.save
+            conta2 += 1
+          end 
+           
         end 
         @consulta.total_resultados = @consulta.total_resultados + conta2;
         @consulta.save
