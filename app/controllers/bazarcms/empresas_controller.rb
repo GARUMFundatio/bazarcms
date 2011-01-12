@@ -269,14 +269,25 @@ module Bazarcms
     puts "#{resultados.inspect}"
     resultados2 = []
     for empre in resultados
-      entra = true
+      entra = 0
+      total = 0
       datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
       
-      if (entra)
+      puts "datos seleccionados para el filtro #{datos.inspect}"
+      # aplicamos el filtro de empleados 
+      
+      rangoe = params.[:qe].split('+')
+      if datos.empleados >= rangoe[0].to_i && datos.empleados <= rangoe[1].to_i
+        entra += 1 
+      end
+      total`++`
+      
+      if (entra == total)
         resultados2 << empre
       end 
       
     end 
+    
     puts "filtrados #{resultados2.inspect}"
 # TODO en la siguiente versión debería ser algo así
 # de momento va bién así, pero se puede optimizar ...
