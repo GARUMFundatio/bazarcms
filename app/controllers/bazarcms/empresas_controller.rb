@@ -281,7 +281,7 @@ module Bazarcms
       # puede que existan empresas que todavía no tienen datos!!!!
       
       if (!datos.nil?)
-        if datos.empleados >= rangoe[0].to_i && datos.empleados <= rangoe[1].to_i
+        if datos[:empleados] >= rangoe[0].to_i && datos[:empleados] <= rangoe[1].to_i
           entra += 1 
         end
       end
