@@ -286,7 +286,7 @@ module Bazarcms
         end
       end
       
-      total`++`
+      total++
       
       if (entra == total)
         resultados2 << empre
