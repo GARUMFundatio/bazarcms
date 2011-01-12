@@ -163,7 +163,7 @@ module Bazarcms
      
       if micluster != cluster.id 
         
-        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&bid=#{@consulta.id}&cid=#{micluster}")
+        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&bid=#{@consulta.id}&cid=#{micluster}")
 
         post_body = []
         post_body << "Content-Type: text/plain\r\n"
