@@ -264,9 +264,15 @@ module Bazarcms
     puts "he recibido una peticion de busqueda #{params[:q]} "
     params[:q] = CGI.unescape(params[:q])
     params[:qe] = CGI.unescape(params[:qe])
+    params[:qv] = CGI.unescape(params[:qv])
+    params[:qc] = CGI.unescape(params[:qc])
+    params[:qr] = CGI.unescape(params[:qr])
     
     puts "decodeado #{params[:q]}"
     puts "decodeado #{params[:qe]}"
+    puts "decodeado #{params[:qv]}"
+    puts "decodeado #{params[:qc]}"
+    puts "decodeado #{params[:qr]}"
     
     resultados = Empresa.find_with_ferret(params[:q])
     
@@ -281,15 +287,36 @@ module Bazarcms
       # aplicamos el filtro de empleados 
       
       rangoe = params[:qe].split(' ')
-      
       # puede que existan empresas que todavía no tienen datos!!!!
-      
       if (!datos.nil?)
         if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
           entra += 1 
         end
       end
+      total+=1
       
+      rangoc = params[:qc].split(' ')
+      if (!datos.nil?)
+        if datos[0].compras >= rangoc[0].to_i && datos[0].compras <= rangoc[1].to_i
+          entra += 1 
+        end
+      end
+      total+=1
+      
+      rangov = params[:qv].split(' ')
+      if (!datos.nil?)
+        if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
+          entra += 1 
+        end
+      end
+      total+=1
+      
+      rangor = params[:qr].split(' ')
+      if (!datos.nil?)
+        if datos[0].resultados >= rangor[0].to_i && datos[0].resultados <= rangor[1].to_i
+          entra += 1 
+        end
+      end
       total+=1
       
       if (entra == total)
