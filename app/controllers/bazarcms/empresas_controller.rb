@@ -267,7 +267,7 @@ module Bazarcms
     resultados = Empresa.find_with_ferret(params[:q])
     
     puts "#{resultados.inspect}"
-
+    resultados2 = []
     for empre in resultados
       entra = true
       datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
