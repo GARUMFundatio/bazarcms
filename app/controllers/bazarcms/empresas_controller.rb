@@ -276,7 +276,7 @@ module Bazarcms
       puts "datos seleccionados para el filtro #{datos.inspect}"
       # aplicamos el filtro de empleados 
       
-      rangoe = params.[:qe].split('+')
+      rangoe = params[:qe].split('+')
       if datos.empleados >= rangoe[0].to_i && datos.empleados <= rangoe[1].to_i
         entra += 1 
       end
