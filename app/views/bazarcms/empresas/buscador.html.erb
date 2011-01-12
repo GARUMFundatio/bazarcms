@@ -66,6 +66,9 @@ Puede usar * para terminos parciales: herramientas*
 			$('#lista').html('Enviando peticiones a los bazares');
 			// $('#lista').load('/bazarcms/enviabusqueda?q='+escape($("#busca").val()));
 			s = $("#busca").val();
+			if (s.length == 0) {
+				s = '*';
+			}
 			s = s.replace(/ /g, "+");
 			emple = $("#empleados2").val();
 			$('#lista').load('/bazarcms/enviabusqueda?q='+s+'&qe='+emple);
