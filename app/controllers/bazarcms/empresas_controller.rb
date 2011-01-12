@@ -231,7 +231,7 @@ module Bazarcms
           
           entra = 0
           total = 0
-          datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
+          datos = Bazarcms::Empresasdato.where("empresa_id = ?", [resu.id]).order('periodo desc').limit(1)
 
           puts "datos seleccionados para el filtro #{datos.inspect}"
           # aplicamos el filtro de empleados 
