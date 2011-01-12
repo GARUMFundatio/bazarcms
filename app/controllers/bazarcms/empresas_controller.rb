@@ -280,7 +280,7 @@ module Bazarcms
       puts "datos seleccionados para el filtro #{datos.inspect}"
       # aplicamos el filtro de empleados 
       
-      rangoe = params[:qe].split('+')
+      rangoe = params[:qe].split(' ')
       
       # puede que existan empresas que todavía no tienen datos!!!!
       
