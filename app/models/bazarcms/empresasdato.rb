@@ -78,6 +78,27 @@ module Bazarcms
       return "No definido"
     end 
 
+    def self.listaRD
+      lista2 = "
+      var listaRD = [];
+      var maxRD = 0;
+      "
+      max2 = 0;
+      
+      self.RangoDatos.each do |k,v|
+        if v > max2 
+          max2 = v
+        end
+        lista2 += "listaRD[#{v}] = '#{k}';
+        "
+      end
+      
+      lista2 += "
+      maxRD = #{max2};
+      "
+      return lista2
+    end 
+
     
     def make
       puts "hecho bazarcms empresas datos"

@@ -13,6 +13,8 @@
 	
 	<script>
 	<%= Bazarcms::Empresasdato.listaRE %>
+	<%= Bazarcms::Empresasdato.listaRD %>
+	
 	$(function() {
 		$( "#slider-range" ).slider({
 			range: true,
@@ -26,6 +28,46 @@
 		});
 		$( "#empleados" ).val( "Todos");
 		$( "#empleados2" ).val( "0+"+maxRE);
+
+		$( "#slider-range2" ).slider({
+			range: true,
+			min: 0,
+			max: maxRD,
+			values: [ 0, maxRD ],
+			slide: function( event, ui ) {
+				$( "#ventas" ).val( "Entre: (" + listaRD[ui.values[ 0 ]] + ") y (" + listaRD[ui.values[ 1 ]] + ")" );
+				$( "#ventas2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+			}
+		});
+		$( "#ventas" ).val( "Todos");
+		$( "#ventas2" ).val( "0+"+maxRD);
+
+		$( "#slider-range3" ).slider({
+			range: true,
+			min: 0,
+			max: maxRD,
+			values: [ 0, maxRD ],
+			slide: function( event, ui ) {
+				$( "#compras" ).val( "Entre: (" + listaRD[ui.values[ 0 ]] + ") y (" + listaRD[ui.values[ 1 ]] + ")" );
+				$( "#compras2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+			}
+		});
+		$( "#compras" ).val( "Todos");
+		$( "#compras2" ).val( "0+"+maxRD);
+
+		$( "#slider-range4" ).slider({
+			range: true,
+			min: 0,
+			max: maxRD,
+			values: [ 0, maxRD ],
+			slide: function( event, ui ) {
+				$( "#resultados" ).val( "Entre: (" + listaRD[ui.values[ 0 ]] + ") y (" + listaRD[ui.values[ 1 ]] + ")" );
+				$( "#resultados2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+			}
+		});
+		$( "#resultados" ).val( "Todos");
+		$( "#resultados2" ).val( "0+"+maxRD);
+
 		
 	});
 	</script>
@@ -43,6 +85,44 @@
 	</tr>
 </table>
 
+<table border="0" cellspacing="2" cellpadding="2">
+	<tr>
+		<td width="350px">
+			<label for="ventas">Ventas:</label>
+			<input type="text" size="35" id="ventas" style="border:0; color:#f6931f; font-weight:bold;" />
+			<input type="hidden" id="ventas2" style="border:0; color:#f6931f; font-weight:bold;" />
+		</td>
+		<td width="200px">
+			<div id="slider-range2"></div>
+		</td>
+	</tr>
+</table>
+
+<table border="0" cellspacing="2" cellpadding="2">
+	<tr>
+		<td width="350px">
+			<label for="compras">Compras:</label>
+			<input type="text" size="35" id="compras" style="border:0; color:#f6931f; font-weight:bold;" />
+			<input type="hidden" id="compras2" style="border:0; color:#f6931f; font-weight:bold;" />
+		</td>
+		<td width="200px">
+			<div id="slider-range3"></div>
+		</td>
+	</tr>
+</table>
+
+<table border="0" cellspacing="2" cellpadding="2">
+	<tr>
+		<td width="350px">
+			<label for="resultados">Resultados:</label>
+			<input type="text" size="35" id="resultados" style="border:0; color:#f6931f; font-weight:bold;" />
+			<input type="hidden" id="resultados2" style="border:0; color:#f6931f; font-weight:bold;" />
+		</td>
+		<td width="200px">
+			<div id="slider-range4"></div>
+		</td>
+	</tr>
+</table>
 
   <button>Buscar</button>
 </div>
