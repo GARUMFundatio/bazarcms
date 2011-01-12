@@ -265,7 +265,17 @@ module Bazarcms
     params[:q] = CGI.unescape(params[:q])
     puts "decodeado #{params[:q]}"
     resultados = Empresa.find_with_ferret(params[:q])
-
+    
+    puts "#{resultados.inspect}"
+    ii = 0
+    for empre in resultados
+      entra = false 
+      datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
+      
+      resultados.delete(ii)
+      ii += 1
+    end 
+    puts "filtrados #{resultados.inspect}"
 # TODO en la siguiente versión debería ser algo así
 # de momento va bién así, pero se puede optimizar ...
     
