@@ -151,7 +151,10 @@ Puede usar * para terminos parciales: herramientas*
 			}
 			s = s.replace(/ /g, "+");
 			emple = $("#empleados2").val();
-			$('#lista').load('/bazarcms/enviabusqueda?q='+s+'&qe='+emple);
+			ventas = $("#ventas2").val();
+			compras = $("#compras2").val();
+			resultados = $("#resultados2").val();
+			$('#lista').load('/bazarcms/enviabusqueda?q='+s+'&qe='+emple+'&qv='+ventas+'&qc='+compras+'&qr='+resultados);
 			
 			return false; 
 		});
