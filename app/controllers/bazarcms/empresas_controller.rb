@@ -267,15 +267,17 @@ module Bazarcms
     resultados = Empresa.find_with_ferret(params[:q])
     
     puts "#{resultados.inspect}"
-    ii = 0
+
     for empre in resultados
-      entra = false 
+      entra = true
       datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
       
-      resultados.delete(ii)
-      ii += 1
+      if (entra)
+        resultados2 << empre
+      end 
+      
     end 
-    puts "filtrados #{resultados.inspect}"
+    puts "filtrados #{resultados2.inspect}"
 # TODO en la siguiente versión debería ser algo así
 # de momento va bién así, pero se puede optimizar ...
     
@@ -304,7 +306,7 @@ module Bazarcms
 #      end
 #   end
    
-  render :json => resultados
+  render :json => resultados2
 
   end 
   
