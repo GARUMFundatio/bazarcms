@@ -33,6 +33,7 @@ module Bazarcms
     def self.listaRE
       lista = "
       var listaRE = [];
+      var listaRE2 = [];
       var maxRE = 0;
       "
       max = 0;
@@ -41,7 +42,12 @@ module Bazarcms
         if v > max 
           max = v
         end
-        lista += "listaRE[#{v}] = '#{k}';
+        cam = k.split('-')
+        if cam.count == 1 
+          cam << cam[0]
+        end
+        lista += "listaRE[#{v}] = '#{cam[0]}';
+        listaRE2[#{v}] = '#{cam[1]}';
         "
       end
       
@@ -81,6 +87,7 @@ module Bazarcms
     def self.listaRD
       lista2 = "
       var listaRD = [];
+      var listaRD2 = [];
       var maxRD = 0;
       "
       max2 = 0;
@@ -89,7 +96,12 @@ module Bazarcms
         if v > max2 
           max2 = v
         end
-        lista2 += "listaRD[#{v}] = '#{k}';
+        cam = k.split('-')
+        if cam.count == 1 
+          cam << cam[0]
+        end
+        lista2 += "listaRD[#{v}] = '#{cam[0]}';
+        listaRD2[#{v}] = '#{cam[1]}';
         "
       end
       
