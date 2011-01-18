@@ -198,9 +198,10 @@ Puede usar * para términos parciales: herramientas*
 				if (muestraestado == 1) 
 				{
 					conta = conta + 1;
-					$.getJSON('/bazarcms/estadobusqueda', function(data) {
+					$.get('/bazarcms/estadobusqueda', function(data) {
 						// alert("actualizando estado "+conta);
-				  		$('#estado').html("---->("+data[0].empresasconsulta.fecha_fin +' '+conta+ ')<br/>');
+				  		// $('#estado').html("---->("+data[0].empresasconsulta.fecha_fin +' '+conta+ ')<br/>');
+						$('#estado').html("---->("+data[0].empresasconsulta.fecha_fin +' '+conta+ ')<br/>');
 					});
 				}
 				if (muestraestado == 2)
