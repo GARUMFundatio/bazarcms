@@ -187,7 +187,6 @@ Puede usar * para términos parciales: herramientas*
 			  }
 			});
 			// alert("fin busqueda "+conta);
-			$('#estado').html('lanzo el timer <br/>');
 			
 			var actualiza = setInterval(function()
 		    {
@@ -199,11 +198,9 @@ Puede usar * para términos parciales: herramientas*
 				if (muestraestado == 1) 
 				{
 					conta = conta + 1;
-					$.ajax({
-						url: '/bazarcms/estadobusqueda', 
-						success: function(data) {
-				  			$('#estado').html("---->("+data[0].empresasconsulta.fecha_fin +' '+conta+ ')<br/>');
-						}
+					$.getJSON('/bazarcms/estadobusqueda', function(data) {
+						// alert("actualizando estado "+conta);
+				  		$('#estado').html("---->("+data[0].empresasconsulta.fecha_fin +' '+conta+ ')<br/>');
 					});
 				}
 				if (muestraestado == 2)
