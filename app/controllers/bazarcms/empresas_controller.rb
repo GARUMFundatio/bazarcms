@@ -285,7 +285,7 @@ module Bazarcms
         @consulta.save
       end 
 
-      sleep(10)
+      sleep(3)
     end 
     
     @consulta.total_consultas = conta;
