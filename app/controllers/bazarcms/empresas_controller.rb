@@ -150,7 +150,7 @@ module Bazarcms
     @consulta.total_respuestas = 0
     @consulta.total_resultados = 0
     @consulta.fecha_inicio = DateTime::now
-    @consulta.fecha_fin = DateTime::now
+    @consulta.fecha_fin = nil
     @consulta.sql = params[:q]
     @consulta.save
     
@@ -285,10 +285,13 @@ module Bazarcms
         @consulta.total_resultados = @consulta.total_resultados + conta2;
         @consulta.save
       end 
-      
+
+      sleep(2)
     end 
     
     @consulta.total_consultas = conta;
+    @consulta.fecha_fin = DateTime::now
+
     @consulta.save
 
     respond_to do |format|
@@ -404,6 +407,10 @@ module Bazarcms
   
   # TODO desactivada la respuesta asincrona que solo hay una máquina externa 
   # para hacer pruebas y está detrás de un NAT
+  def estadobusqueda 
+    estado = Bazarcms::Empresasconsulta.where("empresa_id = ?", current_user[:id]).order('fecha_inicio desc').limit(1)
+    render :json => estado
+  end 
   
   def resultado 
     puts "recibiendo resultado de la busqueda ("+CGI.unescape(params[:bid])+")"

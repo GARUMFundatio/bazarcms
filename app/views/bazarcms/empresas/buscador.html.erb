@@ -74,6 +74,12 @@
 
 		
 	});
+	
+	muestraestado = 0;
+	conta = 1;
+	
+
+	
 	</script>
 
 <table border="0" cellspacing="2" cellpadding="2">
@@ -137,6 +143,11 @@
 
 <br />
 
+<div id="estado">
+</div>
+<div id="resultados">
+</div>
+
 <div id="lista">
 
 Introduzca el término a buscar en empresas. <br />
@@ -160,7 +171,48 @@ Puede usar * para términos parciales: herramientas*
 			ventas = $("#ventas2").val();
 			compras = $("#compras2").val();
 			resultados = $("#resultados2").val();
-			$('#lista').load('/bazarcms/enviabusqueda?q='+s+'&qe='+emple+'&qv='+ventas+'&qc='+compras+'&qr='+resultados);
+			
+
+			// $('#lista').load('/bazarcms/enviabusqueda?q='+s+'&qe='+emple+'&qv='+ventas+'&qc='+compras+'&qr='+resultados);
+			muestraestado = 1;
+			// alert("empiezo busqueda "+conta);
+			$.ajax({
+			  async:true, 
+			  url: '/bazarcms/enviabusqueda?q='+s+'&qe='+emple+'&qv='+ventas+'&qc='+compras+'&qr='+resultados,
+			  success: function(data) {
+			    $('#lista').html(data);
+				clearInterval(actualiza);
+				muestraestado = 2;
+			
+			  }
+			});
+			// alert("fin busqueda "+conta);
+			$('#estado').html('lanzo el timer <br/>');
+			
+			var actualiza = setInterval(function()
+		    {
+				if (muestraestado == 0)
+				{
+					conta = conta + 1;
+					$('#estado').html('Esperando a que comience la busqueda '+conta+'<br/>');
+				}
+				if (muestraestado == 1) 
+				{
+					conta = conta + 1;
+					$.ajax({
+						url: '/bazarcms/estadobusqueda', 
+						success: function(data) {
+				  			$('#estado').html("---->("+data[0].empresasconsulta.fecha_fin +' '+conta+ ')<br/>');
+						}
+					});
+				}
+				if (muestraestado == 2)
+				{
+					$('#estado').html('Fin de la busqueda');
+					clearInterval(actualiza);
+				}
+		     },1000);
+			
 			
 			return false; 
 		});

@@ -1,4 +1,4 @@
-
+<!-- TODO JT meter will paginate -->
 <b>Resultados busqueda: <%= @consulta.desc %></b> <div id="resultados"></div>
 
 <table class="tabla">
@@ -23,7 +23,3 @@
 <% end%>
 
 </table>
-
-<script>
-	$('#resultados').load('/bazarcms/estadoconsulta/'+<%= @consulta.id -%>)
-</script>
