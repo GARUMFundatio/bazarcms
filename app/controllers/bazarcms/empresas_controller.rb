@@ -202,7 +202,6 @@ module Bazarcms
             
             @consulta.total_respuestas = @consulta.total_respuestas + 1;
             @consulta.total_resultados = @consulta.total_resultados + conta2;
-
             @consulta.save
           else
             puts res.error!
@@ -409,6 +408,7 @@ module Bazarcms
   # para hacer pruebas y está detrás de un NAT
   def estadobusqueda 
     estado = Bazarcms::Empresasconsulta.where("empresa_id = ?", current_user[:id]).order('fecha_inicio desc').limit(1)
+    logger.debug "Estado de la consulta para el usuario #{current_user[:id]}: #{estado.inspect}"
     render :json => estado
   end 
   
