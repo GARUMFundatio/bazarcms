@@ -9,7 +9,7 @@ module Bazarcms
   layout "bazar"
   def index
     @empresas = Empresa.all.paginate(:page => params[:page], :per_page => 15)
-    puts @empresas.size
+    logger.debug @empresas.size
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @empresas }
@@ -36,8 +36,8 @@ module Bazarcms
   end
 
   def edit
-    puts "paso por el edit"
-    puts params.inspect
+    logger.debug "paso por el edit"
+    logger.debug params.inspect
 
     @empresa = Empresa.find_by_id(params[:id])
     if (@empresa.nil?) then
@@ -74,15 +74,15 @@ module Bazarcms
     # TODO JT gestionar cuando solo hay un dato o ninguno (no debería)
     
     @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
-    puts "datos de las empresas"
-    puts @empresa.inspect
-    puts @empresasdatos.inspect
+    logger.debug "datos de las empresas"
+    logger.debug @empresa.inspect
+    logger.debug @empresasdatos.inspect
 
   end
 
   def create
-    puts "pasa por el create "
-    puts params.inspect
+    logger.debug "pasa por el create "
+    logger.debug params.inspect
     @empresa = Empresa.new(params[:bazarcms_empresa])
     @empresa.user_id = current_user.id
     @empresa.id = current_user.id
@@ -90,7 +90,7 @@ module Bazarcms
     
     respond_to do |format|
       if @empresa.save
-        puts "se ha creado la empresa:"+@empresa.id.to_s+' '+@empresa.user_id.to_s
+        logger.debug "se ha creado la empresa:"+@empresa.id.to_s+' '+@empresa.user_id.to_s
         format.html { redirect_to(@empresa, :notice => 'Se ha creado correctamente la empresa.') }
         format.xml  { render :xml => @empresa, :status => :created, :location => @empresa }
       else
@@ -101,7 +101,7 @@ module Bazarcms
   end
 
   def update
-    puts params.inspect
+    logger.debug params.inspect
     @empresa = Empresa.find(params[:id])
     @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
     
@@ -142,8 +142,8 @@ module Bazarcms
     @consulta = Empresasconsulta.new
     @consulta.empresa_id = current_user.id 
     
-    puts "------> (#{params[:q]}) unscaped (#{CGI.unescape(params[:q])})"
-    puts "------> (#{params.inspect})"
+    logger.debug "------> (#{params[:q]}) unscaped (#{CGI.unescape(params[:q])})"
+    logger.debug "------> (#{params.inspect})"
     
     @consulta.desc = CGI.unescape(params[:q])
     @consulta.total_consultas = @clusters.count()
@@ -156,18 +156,18 @@ module Bazarcms
     
     conta = 0
     micluster = BZ_param("BazarId").to_i;
-    puts "ID de mi cluster #{micluster} <------"
+    logger.debug "ID de mi cluster #{micluster} <------"
     
     # primero buscamos en local para ofrecer los primeros resultados antes
     
-      puts "busco en local"
+      logger.debug "busco en local"
       conta += 1 
       
       @consulta.total_respuestas = @consulta.total_respuestas + 1;
       @consulta.save
 
       resultados = Empresa.find_with_ferret(params[:q])
-      puts "resu: (#{resultados.inspect}) <-------"
+      logger.debug "resu: (#{resultados.inspect}) <-------"
       
       conta2 = 0
       for resu in resultados 
@@ -176,7 +176,7 @@ module Bazarcms
         total = 0
         datos = Bazarcms::Empresasdato.where("empresa_id = ?", [resu.id]).order('periodo desc').limit(1)
 
-        puts "datos seleccionados para el filtro #{datos.inspect}"
+        logger.debug "datos seleccionados para el filtro #{datos.inspect}"
         # aplicamos el filtro de empleados 
 
         rangoe = params[:qe].split(' ')
@@ -257,10 +257,10 @@ module Bazarcms
             conta2 = 0
             empresas = JSON.parse(res.body)
 
-            puts "#{empresas.inspect} <-----------"
+            logger.debug "#{empresas.inspect} <-----------"
             empresas.each{ |key|
-              puts ("#{key.inspect}")
-              puts ("#{key['empresa'].inspect} <------ datos")
+              logger.debug ("#{key.inspect}")
+              logger.debug ("#{key['empresa'].inspect} <------ datos")
               resu = Bazarcms::Empresasresultado.new()
               resu.empresasconsulta_id = @consulta.id
               resu.cluster_id = cluster.id
@@ -276,11 +276,11 @@ module Bazarcms
             @consulta.total_resultados = @consulta.total_resultados + conta2;
             @consulta.save
           else
-            puts res.error!
+            logger.debug "ERROR en la petición a #{uri}---------->"+res.error!
           end
         
         rescue Exception => e
-          puts "Exception leyendo #{cluster.url} Got #{e.class}: #{e}"        
+          logger.debug "Exception leyendo #{cluster.url} Got #{e.class}: #{e}"        
         end
         
       end
@@ -298,8 +298,6 @@ module Bazarcms
     end
     
   end
-   
-  # handle_asynchronously :enviabusqueda
   
   def buscador
     
@@ -307,29 +305,29 @@ module Bazarcms
 
   def busca 
 
-    puts "he recibido una peticion de busqueda #{params[:q]} "
+    logger.debug "he recibido una peticion de busqueda #{params[:q]} "
     params[:q] = CGI.unescape(params[:q])
     params[:qe] = CGI.unescape(params[:qe])
     params[:qv] = CGI.unescape(params[:qv])
     params[:qc] = CGI.unescape(params[:qc])
     params[:qr] = CGI.unescape(params[:qr])
     
-    puts "decodeado #{params[:q]}"
-    puts "decodeado #{params[:qe]}"
-    puts "decodeado #{params[:qv]}"
-    puts "decodeado #{params[:qc]}"
-    puts "decodeado #{params[:qr]}"
+    logger.debug "decodeado #{params[:q]}"
+    logger.debug "decodeado #{params[:qe]}"
+    logger.debug "decodeado #{params[:qv]}"
+    logger.debug "decodeado #{params[:qc]}"
+    logger.debug "decodeado #{params[:qr]}"
     
     resultados = Empresa.find_with_ferret(params[:q])
     
-    puts "#{resultados.inspect}"
+    logger.debug "#{resultados.inspect}"
     resultados2 = []
     for empre in resultados
       entra = 0
       total = 0
       datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
       
-      puts "datos seleccionados para el filtro #{datos.inspect}"
+      logger.debug "datos seleccionados para el filtro #{datos.inspect}"
       # aplicamos el filtro de empleados 
       
       rangoe = params[:qe].split(' ')
@@ -371,16 +369,16 @@ module Bazarcms
       
     end 
     
-    puts "filtrados #{resultados2.inspect}"
+    logger.debug "filtrados #{resultados2.inspect}"
     
 # TODO en la siguiente versión debería ser algo así
 # de momento va bién así, pero se puede optimizar ...
     
 #   if (resultados.count)
-#     puts "envío el resultado de la busqueda"
+#     logger.debug "envío el resultado de la busqueda"
       
 #     cluster = Cluster.find_by_id(params[:cid])
-#     puts ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
+#     logger.debug ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
 #     uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
 
 #    post_body = []
@@ -395,9 +393,9 @@ module Bazarcms
 #    res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
 #    case res
 #      when Net::HTTPSuccess, Net::HTTPRedirection
-#        puts "fue bien (#{res.body})"
+#        logger.debug "fue bien (#{res.body})"
 #      else
-#        puts res.error!
+#        logger.debug res.error!
 #      end
 #   end
    
@@ -414,7 +412,7 @@ module Bazarcms
   end 
   
   def resultado 
-    puts "recibiendo resultado de la busqueda ("+CGI.unescape(params[:bid])+")"
+    logger.debug "recibiendo resultado de la busqueda ("+CGI.unescape(params[:bid])+")"
     render :layout => false
   end 
   
