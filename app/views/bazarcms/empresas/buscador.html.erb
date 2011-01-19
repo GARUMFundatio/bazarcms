@@ -206,7 +206,7 @@ Puede usar * para términos parciales: herramientas*
 		    {
 				$.get('/bazarcms/estadobusqueda', function(data) {
 					$("#progressbar").progressbar({ value: (data[0].empresasconsulta.total_respuestas * 100) / data[0].empresasconsulta.total_consultas});
-					$("#estadotexto").html(data[0].empresasconsulta.total_resultados +' Empresas de '+ data[0].empresasconsulta.total_resultados +' Bazares');
+					$("#estadotexto").html(data[0].empresasconsulta.total_resultados +' Empresas de '+ data[0].empresasconsulta.total_respuestas +' Bazares');
 				});
 		     },1000);
 			
