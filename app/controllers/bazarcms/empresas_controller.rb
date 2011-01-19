@@ -231,7 +231,7 @@ module Bazarcms
     # luego lanzamos las busquedas al resto de los bazares
 
     for cluster in @clusters
-      puts "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{CGI.escape(params[:q])}&bid=#{@consulta.id}&cid=#{micluster}"
+      Logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{CGI.escape(params[:q])}&bid=#{@consulta.id}&cid=#{micluster}"
      
       if micluster != cluster.id 
         
@@ -372,6 +372,7 @@ module Bazarcms
     end 
     
     puts "filtrados #{resultados2.inspect}"
+    
 # TODO en la siguiente versión debería ser algo así
 # de momento va bién así, pero se puede optimizar ...
     
