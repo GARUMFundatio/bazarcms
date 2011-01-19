@@ -144,7 +144,17 @@
 <br />
 
 <div id="estado">
+	<style>
+		.ui-progressbar-value { background-image: url(images/pbar-ani.gif); }
+	</style>
+	<script>
+		$(function() {
+			$( "#progressbar" ).progressbar({ value: 5});
+		});
+	</script>
+	<div id="progressbar"></div>
 </div>
+
 <div id="resultados">
 </div>
 
@@ -190,23 +200,16 @@ Puede usar * para términos parciales: herramientas*
 			
 			var actualiza = setInterval(function()
 		    {
-				if (muestraestado == 0)
-				{
-					conta = conta + 1;
-					$('#estado').html('Esperando a que comience la busqueda '+conta+'<br/>');
-				}
 				if (muestraestado == 1) 
 				{
 					conta = conta + 1;
 					$.get('/bazarcms/estadobusqueda', function(data) {
-						// alert("actualizando estado "+conta);
-				  		// $('#estado').html("---->("+data[0].empresasconsulta.fecha_fin +' '+conta+ ')<br/>');
-						$('#estado').html("---->("+data[0].empresasconsulta.total_respuestas +'/'+data[0].empresasconsulta.total_consultas + ')<br/>');
+						$( "#progressbar" ).progressbar({ value: (data[0].empresasconsulta.total_respuestas * 100) / data[0].empresasconsulta.total_consultas});
 					});
 				}
 				if (muestraestado == 2)
 				{
-					$('#estado').html('Fin de la busqueda');
+					$('#estado').html('Total Resultados: '+data[0].empresasconsulta.total_respuestas);
 					clearInterval(actualiza);
 				}
 		     },1000);
