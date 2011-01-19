@@ -149,6 +149,8 @@
 		});
 	</script>
 	<div id="progressbar" style="display: none"></div>
+	<br/>
+	<div id="estadotexto" style="display: none"></div>
 </div>
 
 <div id="resultados">
@@ -180,16 +182,20 @@ Puede usar * para términos parciales: herramientas*
 			
 			$("#estado").show();
 			$("#progressbar").show();
-			
+			$("#estadotexto").html('Buscando ...');
 			$.ajax({
 			  async:true, 
 			  url: '/bazarcms/enviabusqueda?q='+s+'&qe='+emple+'&qv='+ventas+'&qc='+compras+'&qr='+resultados,
 			  success: function(data) {
 			    $('#lista').html(data);
 				clearInterval(actualiza);
-			
-				$("#progressbar").progressbar({ value: 0});
+				
 				$('#progressbar').hide();
+				$("#progressbar").progressbar({ value: 0});
+				
+				$('#estadotexto').hide();
+				$("#estadotexto").html('');
+				
 				clearInterval(actualiza);
 			  }
 			});
@@ -198,6 +204,7 @@ Puede usar * para términos parciales: herramientas*
 		    {
 				$.get('/bazarcms/estadobusqueda', function(data) {
 					$("#progressbar").progressbar({ value: (data[0].empresasconsulta.total_respuestas * 100) / data[0].empresasconsulta.total_consultas});
+					$("#estadotexto").html(data[0].empresasconsulta.total_resultados +' Empresas de '+ data[0].empresasconsulta.total_resultados +' Bazares');
 				});
 		     },1000);
 			
