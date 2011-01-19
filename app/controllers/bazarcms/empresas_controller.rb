@@ -157,6 +157,78 @@ module Bazarcms
     conta = 0
     micluster = BZ_param("BazarId").to_i;
     puts "ID de mi cluster #{micluster} <------"
+    
+    # primero buscamos en local para ofrecer los primeros resultados antes
+    
+      puts "busco en local"
+      conta += 1 
+      
+      @consulta.total_respuestas = @consulta.total_respuestas + 1;
+      @consulta.save
+
+      resultados = Empresa.find_with_ferret(params[:q])
+      puts "resu: (#{resultados.inspect}) <-------"
+      
+      conta2 = 0
+      for resu in resultados 
+        
+        entra = 0
+        total = 0
+        datos = Bazarcms::Empresasdato.where("empresa_id = ?", [resu.id]).order('periodo desc').limit(1)
+
+        puts "datos seleccionados para el filtro #{datos.inspect}"
+        # aplicamos el filtro de empleados 
+
+        rangoe = params[:qe].split(' ')
+        # puede que existan empresas que todavía no tienen datos!!!!
+        if (!datos.nil?)
+          if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
+            entra += 1 
+          end
+        end
+        total+=1
+
+        rangoc = params[:qc].split(' ')
+        if (!datos.nil?)
+          if datos[0].compras >= rangoc[0].to_i && datos[0].compras <= rangoc[1].to_i
+            entra += 1 
+          end
+        end
+        total+=1
+
+        rangov = params[:qv].split(' ')
+        if (!datos.nil?)
+          if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
+            entra += 1 
+          end
+        end
+        total+=1
+
+        rangor = params[:qr].split(' ')
+        if (!datos.nil?)
+          if datos[0].resultados >= rangor[0].to_i && datos[0].resultados <= rangor[1].to_i
+            entra += 1 
+          end
+        end
+        total+=1
+
+        if (entra == total)
+          @res = Empresasresultado.new(); 
+          @res.empresasconsulta_id = @consulta.id
+          @res.cluster_id = micluster
+          @res.empresa_id = resu.id 
+          @res.orden = resu.nombre
+          @res.enlace = "poner la url bien"
+          @res.info = "#{resu.nombre}"
+          @res.save
+          conta2 += 1
+        end 
+         
+      end 
+      @consulta.total_resultados = @consulta.total_resultados + conta2;
+      @consulta.save 
+    
+    # luego lanzamos las busquedas al resto de los bazares
 
     for cluster in @clusters
       puts "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{CGI.escape(params[:q])}&bid=#{@consulta.id}&cid=#{micluster}"
@@ -211,79 +283,8 @@ module Bazarcms
           puts "Exception leyendo #{cluster.url} Got #{e.class}: #{e}"        
         end
         
-      else 
-        
-        # TODO optimizar para que primero busque en local y saque los primeros 
-        # resultados y luego mande las peticiones remotas. 
-        
-        puts "busco en local"
-        conta += 1 
-        
-        @consulta.total_respuestas = @consulta.total_respuestas + 1;
-        @consulta.save
-
-        resultados = Empresa.find_with_ferret(params[:q])
-        puts "resu: (#{resultados.inspect}) <-------"
-        
-        conta2 = 0
-        for resu in resultados 
-          
-          entra = 0
-          total = 0
-          datos = Bazarcms::Empresasdato.where("empresa_id = ?", [resu.id]).order('periodo desc').limit(1)
-
-          puts "datos seleccionados para el filtro #{datos.inspect}"
-          # aplicamos el filtro de empleados 
-
-          rangoe = params[:qe].split(' ')
-          # puede que existan empresas que todavía no tienen datos!!!!
-          if (!datos.nil?)
-            if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
-              entra += 1 
-            end
-          end
-          total+=1
-
-          rangoc = params[:qc].split(' ')
-          if (!datos.nil?)
-            if datos[0].compras >= rangoc[0].to_i && datos[0].compras <= rangoc[1].to_i
-              entra += 1 
-            end
-          end
-          total+=1
-
-          rangov = params[:qv].split(' ')
-          if (!datos.nil?)
-            if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
-              entra += 1 
-            end
-          end
-          total+=1
-
-          rangor = params[:qr].split(' ')
-          if (!datos.nil?)
-            if datos[0].resultados >= rangor[0].to_i && datos[0].resultados <= rangor[1].to_i
-              entra += 1 
-            end
-          end
-          total+=1
-
-          if (entra == total)
-            @res = Empresasresultado.new(); 
-            @res.empresasconsulta_id = @consulta.id
-            @res.cluster_id = micluster
-            @res.empresa_id = resu.id 
-            @res.orden = resu.nombre
-            @res.enlace = "poner la url bien"
-            @res.info = "#{resu.nombre}"
-            @res.save
-            conta2 += 1
-          end 
-           
-        end 
-        @consulta.total_resultados = @consulta.total_resultados + conta2;
-        @consulta.save
-      end 
+      end
+               
 
     end 
     
