@@ -231,7 +231,7 @@ module Bazarcms
     # luego lanzamos las busquedas al resto de los bazares
 
     for cluster in @clusters
-      Logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{CGI.escape(params[:q])}&bid=#{@consulta.id}&cid=#{micluster}"
+      logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q=#{CGI.escape(params[:q])}&bid=#{@consulta.id}&cid=#{micluster}"
      
       if micluster != cluster.id 
         
