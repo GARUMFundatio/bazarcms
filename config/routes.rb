@@ -35,5 +35,6 @@ Bazar::Application.routes.draw do
   match "/bazarcms/borrarconsultas" => "bazarcms/empresasconsultas#borrartodas"
   match "/bazarcms/estadoconsulta/:id" => "bazarcms/empresasconsultas#estado", :constrants => { :id => /\d+/ }
   match "/bazarcms/estadobusqueda" => "bazarcms/empresas#estadobusqueda"
+  match "/bazarcms/directorio" => "bazarcms/empresas#list"
     
 end

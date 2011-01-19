@@ -16,6 +16,15 @@ module Bazarcms
     end
   end
 
+  def list
+    @empresas = Empresa.where('1 = 1').order("nombre asc")
+    logger.debug @empresas.size
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @empresas }
+    end
+  end
+
   def show
     @empresa = Empresa.find(params[:id])
 
@@ -23,7 +32,7 @@ module Bazarcms
       format.html { render :action => "show" }
       format.xml  { render :xml => @empresa }
     end
-    
+
   end
 
   def new
