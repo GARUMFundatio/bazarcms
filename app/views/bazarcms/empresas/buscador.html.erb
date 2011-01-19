@@ -75,11 +75,7 @@
 		
 	});
 	
-	muestraestado = 0;
-	conta = 1;
-	
 
-	
 	</script>
 
 <table border="0" cellspacing="2" cellpadding="2">
@@ -143,7 +139,7 @@
 
 <br />
 
-<div id="estado" style="display: none">
+<div id="estado" style="display: none; width:550px;" >
 	<style>
 		.ui-progressbar-value { background-image: url(/images/pbar-ani.gif); }
 	</style>
@@ -182,8 +178,8 @@ Puede usar * para términos parciales: herramientas*
 			compras = $("#compras2").val();
 			resultados = $("#resultados2").val();
 			
-			$("#estado").toggle();
-			$("#progressbar").toggle();
+			$("#estado").show();
+			$("#progressbar").show();
 			
 			$.ajax({
 			  async:true, 
@@ -191,8 +187,9 @@ Puede usar * para términos parciales: herramientas*
 			  success: function(data) {
 			    $('#lista').html(data);
 				clearInterval(actualiza);
-				$('#progressbar').toggle();
+			
 				$("#progressbar").progressbar({ value: 0});
+				$('#progressbar').hide();
 				clearInterval(actualiza);
 			  }
 			});
