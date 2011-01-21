@@ -1,24 +1,22 @@
 
 Bazar::Application.routes.draw do
-  scope(:path => 'bazarcms', :module => 'bazarcms', :name_path => 'bazarcms', :name_prefix => 'bazarcms' ) do
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
     resources :empresas
-
   end
 
-  scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
     resources :empresasdatos
   end
 
-  scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
     resources :empresasconsultas
   end
 
-  scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
     resources :empresasresultados
   end
 
-
-  scope(:path => 'bazarcms', :module => 'bazarcms', :name_prefix => 'bazarcms' ) do
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
     # resources :ubicaciones
     resources :ubicaciones do
       get :autocomplete_ciudad_descripcion, :on => :collection
