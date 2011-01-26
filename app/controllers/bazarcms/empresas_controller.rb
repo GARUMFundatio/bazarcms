@@ -5,6 +5,8 @@ module Bazarcms
   require "uri"
   
   unloadable
+  before_filter :require_no_user, :only => [:show]
+  before_filter :require_user, :only => [:index, :edit, :create, :update, :destroy]
   
   layout "bazar"
   def index
@@ -29,7 +31,7 @@ module Bazarcms
     @empresa = Empresa.find(params[:id])
 
     respond_to do |format|
-      format.html { render :action => "show" }
+      format.html { render :action => "show", :layout => false }
       format.xml  { render :xml => @empresa }
     end
 
