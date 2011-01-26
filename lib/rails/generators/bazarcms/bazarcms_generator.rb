@@ -49,35 +49,22 @@ class BazarcmsGenerator < Rails::Generators::Base
     end
     remove_file 'tmp/~migration_ready.rb'      
 
-# vemos si ya existe un fichero de migracion v2 ubicaciones
-    existe = false; 
-    Dir.foreach("db/migrate") { |f|
-      if File.fnmatch('*_create_bazarcms_tables2.rb', f) then
-        puts 'existe!!!!'
-        existe = true
+
+    for i in 2..4
+      # vemos si ya existe un fichero de migracion vN ubicaciones
+      existe = false; 
+      Dir.foreach("db/migrate") { |f|
+        if File.fnmatch('*_create_bazarcms_tables'+i.to_s+'.rb', f) then
+          puts 'existe!!!!'
+          existe = true
         end
       }
 
-    if (existe == false) then
-      migration_template  File.join(File.dirname(__FILE__), 'templates', 'schema2.rb'),'db/migrate/create_bazarcms_tables2.rb'
-    end
-
-
-# vemos si ya existe un fichero de migracion v3 consultas
-
-    existe = false; 
-    Dir.foreach("db/migrate") { |f|
-      if File.fnmatch('*_create_bazarcms_tables3.rb', f) then
-        puts 'existe!!!!'
-        existe = true
+        if (existe == false) then
+          migration_template  File.join(File.dirname(__FILE__), 'templates', 'schema'+i.to_s+'.rb'),'db/migrate/create_bazarcms_tables'+i.to_s+'.rb'
         end
-      }
-
-    if (existe == false) then
-      migration_template  File.join(File.dirname(__FILE__), 'templates', 'schema3.rb'),'db/migrate/create_bazarcms_tables3.rb'
     end
-
-  end
+end
 
   def copy_initializer_file
     copy_file 'initializer.rb', 'config/initializers/bazarcms.rb'
