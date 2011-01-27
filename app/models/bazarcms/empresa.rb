@@ -24,6 +24,15 @@ module Bazarcms
          }
     end
     
+    def self.Monedastexto(ind)
+      self.Monedas.each do |k,v| 
+        if v.to_i == ind 
+          return k
+        end
+      end
+      return "No definido"
+    end 
+    
     def make
       puts "hecho bazarcms empresas"
     end

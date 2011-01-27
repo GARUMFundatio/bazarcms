@@ -27,6 +27,8 @@ module Bazarcms
     end
   end
 
+  # muestra la información de una empresa para usuarios registrados en bazar 
+
   def show
     @empresa = Empresa.find(params[:id])
 
@@ -37,11 +39,13 @@ module Bazarcms
 
   end
 
+  # muestra la información de una empresa para usuarios no registrados en bazar 
+  
   def show2
     @empresa = Empresa.find(params[:id])
 
     respond_to do |format|
-      format.html { render :action => "show", :layout => false }
+      format.html { render :action => "show2", :layout => false }
       format.xml  { render :xml => @empresa }
     end
 

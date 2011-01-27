@@ -1,4 +1,3 @@
-
 <table class="tabla">
 <tr>
 	<th>
@@ -9,3 +8,60 @@
 	</td>
 </tr>
 </table> 
+
+<br/><br/>
+
+<table class="tabla">
+<tr>
+	<td>
+		<b>Descripción:</b>
+	</td>
+	<td colspan=4>	
+		<%= @empresa.desc %>
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<b>Fundada:</b>
+	</td>
+	<td>	
+		<%= @empresa.fundada %>
+	</td>
+	<td>
+		<b>Moneda:</b>
+	</td>
+	<td>	
+		<%= Bazarcms::Empresa.Monedastexto(@empresa.moneda) %>
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<b>Página Web:</b>
+	</td>
+	<td colspan="3">	
+		<%= link_to(@empresa.url,  @empresa.url) %>
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<b>Ofrecen:</b>
+	</td>
+	<td colspan="4">	
+		<%= @empresa.actividad_list %>
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<b>Demandan:</b>
+	</td>
+	<td colspan="4">	
+		<%= @empresa.interes_list %>
+	</td>
+</tr>
+
+
+</table>
