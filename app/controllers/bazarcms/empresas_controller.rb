@@ -5,8 +5,8 @@ module Bazarcms
   require "uri"
   
   unloadable
-  before_filter :require_no_user, :only => [:show2]
-  before_filter :require_user, :only => [:show, :index, :edit, :create, :update, :dashboard, :enviabusqueda, :buscador, :busca, :estadobusqueda, :resultado]
+  before_filter :require_no_user, :only => [:show2, :busca]
+  before_filter :require_user, :only => [:show, :index, :edit, :create, :update, :dashboard, :enviabusqueda, :buscador, :estadobusqueda, :resultado]
   
   layout "bazar"
   def index
