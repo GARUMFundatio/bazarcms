@@ -6,7 +6,7 @@ module Bazarcms
   
   unloadable
   before_filter :require_no_user, :only => [:show2, :busca]
-  before_filter :require_user, :only => [:show, :index, :edit, :create, :update, :dashboard, :enviabusqueda, :buscador, :estadobusqueda, :resultado]
+  before_filter :require_user, :only => [:show, :index, :edit, :create, :update, :dashboard, :enviabusqueda, :buscador, :estadobusqueda, :resultado, :sitios]
   
   layout "bazar"
   def index
@@ -440,6 +440,7 @@ module Bazarcms
     logger.debug "recibiendo resultado de la busqueda ("+CGI.unescape(params[:bid])+")"
     render :layout => false
   end 
+
   
 end
 
