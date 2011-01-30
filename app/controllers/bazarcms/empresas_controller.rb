@@ -243,7 +243,7 @@ module Bazarcms
           @res.cluster_id = micluster
           @res.empresa_id = resu.id 
           @res.orden = resu.nombre
-          @res.enlace = "poner la url bien"
+          @res.enlace = resu.url
           @res.info = "#{resu.nombre}"
           @res.save
           conta2 += 1
@@ -290,7 +290,7 @@ module Bazarcms
               resu.empresasconsulta_id = @consulta.id
               resu.cluster_id = cluster.id
               resu.empresa_id = key['empresa']['id'] 
-              resu.enlace = "poner el enlace remoto bien"
+              resu.enlace = key['empresa']['url']
               resu.orden = key['empresa']['nombre']
               resu.info = key['empresa']['nombre']
               resu.save

@@ -11,7 +11,7 @@
 <% for resu in @consulta.empresasresultados %>
 <tr>
   <td>
-	<%= Cluster::find_by_id(resu.cluster_id).nombre %>
+	<%= link_to(Cluster::find_by_id(resu.cluster_id).nombre, Cluster::find_by_id(resu.cluster_id).url)  %>
   </td>
   <td>
 	<%= resu.info %>
