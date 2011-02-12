@@ -1,17 +1,15 @@
-<table class="tabla">
+<table class="tabla" cellspacing="0">
 <tr>
-	<th>
+	<th scope="row">
 		Empresa:
 	</th>
 	<td>	
 		<%= @empresa.nombre %>
 	</td>
 </tr>
-</table> 
+</table>
 
-<br/><br/>
-
-<table class="tabla">
+<table class="tabla" cellspacing="0">
 <tr>
 	<td>
 		<b>Descripción:</b>
@@ -22,42 +20,42 @@
 </tr>
 
 <tr>
-	<td>
-		<b>Fundada:</b>
-	</td>
+	<th scope="row">
+		Fundada:
+	</th>
 	<td>	
 		<%= @empresa.fundada %>
 	</td>
-	<td>
-		<b>Moneda:</b>
-	</td>
+	<th scope="row">
+		Moneda:
+	</th>
 	<td>	
 		<%= Bazarcms::Empresa.Monedastexto(@empresa.moneda) %>
 	</td>
 </tr>
 
 <tr>
-	<td>
-		<b>Página Web:</b>
-	</td>
+	<th scope="row">
+		Página Web:
+	</th>
 	<td colspan="3">	
 		<%= link_to(@empresa.url,  @empresa.url) %>
 	</td>
 </tr>
 
 <tr>
-	<td>
-		<b>Ofrecen:</b>
-	</td>
+	<th scope="row">
+		Ofrecen:
+	</th>
 	<td colspan="4">	
 		<%= @empresa.actividad_list %>
 	</td>
 </tr>
 
 <tr>
-	<td>
-		<b>Demandan:</b>
-	</td>
+	<th scope="row">
+		Demandan:
+	</th>
 	<td colspan="4">	
 		<%= @empresa.interes_list %>
 	</td>
