@@ -1,220 +1,148 @@
-<div>
-	<ul class="tabs">
-	    <li id="info"><a href="#tabinfo">Información</a></li>
-	    <li id="datos"><a href="#tabdatos">Datos</a></li>
-	    <li id="ubicaciones"><a href="#tabubicaciones">Ubicaciones</a></li>
-	    <li id="perfiles"><a href="#tabperfiles">Perfiles</a></li>
-	    <li id="ficheros"><a href="#tabficheros">Ficheros</a></li>
-	    <li id="actividad"><a href="#tabactividad">Actividad</a></li>
-	</ul>
-</div>
-
-<div class="tab_container">
-
-<div id="tabinfo" class="tab_content">
-	
-<%= form_for(@empresa) do |f| %>
-
-  <% if @empresa.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> No se ha podido salvar los datos de la empresa:</h2>
-
-      <ul>
-      <% @empresa.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-<table>
-	<tr>
-		<td>
-    		<b><%= f.label :Nombre %></b>
-		</td>
-		<td colspan="2">
-		    <%= f.text_field :nombre, :size => "40" %>			
-		</td>
- 	</tr>
-	<tr>
-		<td colspan='4'>
-    		<b><%= f.label :Descripción %></b>
-		</td>
-	</tr>
-	<tr>
-		<td colspan='4'>
-    		<%= f.text_area(:desc, :size => "60x15") %>
-		</td>
-	</tr>
-	<tr>
-		<td>
-    		<b><%= f.label :Fundada %><br /></b>
-		</td>
-		<td>
-    		<%= f.text_field :fundada %>
-		</td>
-  		<td>
-    		<b><%= f.label :Moneda %><br /></b>
-    	</td>
-		<td>
-			<%= f.select :moneda, options_for_select(Bazarcms::Empresa.Monedas, @empresa.moneda) %>
-		</td>
-	</tr>
-	<tr>
-		<td>
-    		<b><%= f.label :Web %><br /></b>
-		</td>
-		<td colspan="2">
-    		<%= f.text_field :url, :size => 40 %>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="3">
-    		<b>Ofrecemos: </b> (Tags separados por comas)
-		</td>
-	</tr>
-	<tr>
-		<td colspan="4">
-		    <%= f.text_area :actividad_list, :size => "60x4" %>			
-		</td>
- 	</tr>
-	<tr>
-		<td colspan="3">
-    		<b>Nos Interesa: </b> (tags separados por comas)
-		</td>
-	</tr>
-	<tr>
-		<td colspan="4">
-		    <%= f.text_area :interes_list, :size => "60x4" %>			
-		</td>
- 	</tr>
-	
-</table>
-
-<div class="actions">
-    <%= f.submit "Guardar" %>
-  </div>
-<% end %>
-
-</div>
-
-<div id="tabdatos" class="tab_content">
-<br/>
-<b>Información Económica</b>
-<br />
-
-<table class="tabla">	
-	<tr>
-		<th>Año</th>
-		<th>Empleados</th>
-		<th>Compras</th>
-		<th>Ventas</th>
-		<th>Resultados</th>
-		<th>Acción</th>
-	</tr>
-
-	<% for emp in @empresasdatos do %>
-
-	<tr>
-		<td class="datostd"> <%= emp.periodo %> </td>
-		<td class="datostd"> <%= Bazarcms::Empresasdato.REtexto(emp.empleados) %> </td>
-		
-		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.compras) %> </td>
-		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.ventas) %> </td>
-		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.resultados) %> </td>
-		<td><%= link_to(image_tag("pencil.png", :border => "0"), edit_bazarcms_empresasdato_path(emp))  %></td>
-	</tr>
-	
-	<% end %>
-</table>
-</div>
-
-<div id="tabubicaciones" class="tab_content">
-
-<table class="tabla">
-<tr>
-  <td colspan="3">
-    <b>Ubicaciones: </b>
-  </td>
-</tr>
-	
-<% for ubi in @empresa.ubicaciones %>
-<tr>
-<td>
-	<b><%= ubi.desc %></b>
-</td>
-
-<td>
-	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
-</td>
-
-<td>
-	<a href="#" onclick="$('#addubi').load('<%= edit_bazarcms_ubicacion_path(ubi) -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("pencil.png")%></a>
-</td>
-
-<td>
-    <%= link_to image_tag("delete.png"), ubi, :confirm => 'Está seguro?', :method => :delete %>
-</td>
-
-</tr>
-<% end %>
-</table>
-
-
-<div id="addubi">
-</div>
-
-<br/>
-Añadir una nueva Ubicación <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png")%></a>
-
-</div>
-
-<div id="tabperfiles" class="tab_content">
-  <br/>Coming Soon!!!
-</div>
-	
-<div id="tabficheros" class="tab_content">
-  <br/>Coming Soon!!!
-</div>
-
-<div id="tabactividad" class="tab_content">
-  <br/>Coming Soon!!!
-</div>
-
-</div>
-
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	var tab ='<%= params[:tab]-%>';
-	
-	if (tab =="") 
-		tab = 'info';
-		
-	$(".tab_content").hide();
-	
-	if (tab != '') {
-		$("#"+tab).addClass("active").show(); 
-		$("#tab"+tab).show(); 		
-	}
-	else  {
-		$("ul.tabs li:first").addClass("active").show(); 
-		$(".tab_content:first").show(); 				
-	}
-	
-
-	$("ul.tabs li").click(function() {
-
-		$("ul.tabs li").removeClass("active");
-		$(this).addClass("active"); 
-		$(".tab_content").hide();
-
-		var activeTab = $(this).find("a").attr("href"); 
-		$(activeTab).fadeIn(); 
-		return false;
+<script>
+	$(function() {
+		$( "#tabs" ).tabs();
 	});
+	</script>
 
-});
-</script>
+<div class="home" style="width:660px;background:white;align:center;margin:0 auto;">
+
+    <div id="tabs" style="text-align: left;">
+    	<ul>
+    	    <li><a href="#tabs-1">Información</a></li>
+    	    <li><a href="#tabs-2">Datos</a></li>
+    	    <li><a href="#tabs-3">Ubicaciones</a></li>
+    	    <li><a href="#tabs-4">Perfiles</a></li>
+    	    <li><a href="#tabs-5">Ficheros</a></li>
+    	    <li><a href="#tabs-6">Actividad</a></li>
+    	</ul>
+
+        <div id="tabs-1">
+
+            <%= form_for(@empresa) do |f| %>
+
+              <% if @empresa.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@user.errors.count, "error") %> No se ha podido salvar los datos de la empresa:</h2>
+
+                  <ul>
+                  <% @empresa.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+            <p><%= f.label :Nombre %>
+            <%= f.text_field :nombre, :size => "40" %></p>
+
+            <p><%= f.label :Descripción %>
+            <%= f.text_area(:desc, :size => "60x15") %></p>
+
+            <p><%= f.label :Fundada %>
+            <%= f.text_field :fundada %></p>
+
+            <p><%= f.label :Moneda %>
+            <%= f.select :moneda, options_for_select(Bazarcms::Empresa.Monedas, @empresa.moneda) %></p>
+
+            <p><%= f.label :Web %>
+            <%= f.text_field :url, :size => 40 %></p>
+
+            <p><label for="bazarcms_empresa_actividad_list">Ofrecemos: <span class="form-help">(tags separados por comas)</span></label>
+            <%= f.text_area :actividad_list, :size => "60x4" %></p>
+
+            <p><label for="bazarcms_empresa_interes_list">Nos Interesa: <span class="form-help">(tags separados por comas)</span></label>
+            <%= f.text_area :interes_list, :size => "60x4" %></p>
 
 
+            <div class="actions">
+                <%= f.submit "Guardar" %>
+              </div>
+            <% end %>
+
+        </div>
+
+        <div id="tabs-2">
+
+            <h3>Información Económica</h3>
+
+
+            <table class="tabla" cellspacing="0">
+            	<tr>
+            		<th>Año</th>
+            		<th>Empleados</th>
+            		<th>Compras</th>
+            		<th>Ventas</th>
+            		<th>Resultados</th>
+            		<th>Acción</th>
+            	</tr>
+
+            	<% for emp in @empresasdatos do %>
+
+            	<tr>
+            		<td class="datostd"> <%= emp.periodo %> </td>
+            		<td class="datostd"> <%= Bazarcms::Empresasdato.REtexto(emp.empleados) %> </td>
+            		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.compras) %> </td>
+            		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.ventas) %> </td>
+            		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.resultados) %> </td>
+            		<td><%= link_to(image_tag("pencil.png", :border => "0", :title => "Editar"), edit_bazarcms_empresasdato_path(emp))  %></td>
+            	</tr>
+
+            	<% end %>
+            </table>
+
+        </div>
+
+        <div id="tabs-3">
+
+            <table class="tabla" cellspacing="0">
+            <tr>
+              <th colspan="3">
+                Ubicaciones:
+              </th>
+            </tr>
+
+            <% for ubi in @empresa.ubicaciones %>
+            <tr>
+            <td>
+            	<b><%= ubi.desc %></b>
+            </td>
+
+            <td>
+            	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
+            </td>
+
+            <td>
+            	<a href="#" onclick="$('#addubi').load('<%= edit_bazarcms_ubicacion_path(ubi) -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("pencil.png")%></a>
+            </td>
+
+            <td>
+                <%= link_to image_tag("delete.png"), ubi, :confirm => 'Está seguro?', :method => :delete %>
+            </td>
+
+            </tr>
+            <% end %>
+            </table>
+
+
+            <div id="addubi">
+            </div>
+
+            <p>Añadir una nueva Ubicación <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png")%></a></p>
+
+        </div>
+
+        <div id="tabs-4">
+          <p>Coming Soon!!!</p>
+        </div>
+
+        <div id="tabs-5">
+          <p>Coming Soon!!!</p>
+        </div>
+
+        <div id="tabs-6">
+          <p>Coming Soon!!!</p>
+        </div>
+
+    </div>
+
+</div>
