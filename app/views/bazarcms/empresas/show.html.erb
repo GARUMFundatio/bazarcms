@@ -65,11 +65,11 @@
 
 <table class="tabla" cellspacing="0">
 	<tr>
-		<td>Año</td>
-		<td>Empleados</td>
-		<td>Compras</td>
-		<td>Ventas</td>
-		<td>Resultados</td>
+		<td><b>Año</b></td>
+		<td><b>Empleados</b></td>
+		<td><b>Compras</b></td>
+		<td><b>Ventas</b></td>
+		<td><b>Resultados</b></td>
 	</tr>
 
 	<% for emp in @empresasdatos do %>
@@ -84,3 +84,23 @@
 
 	<% end %>
 </table>
+
+<h4 class="titulo-seccion">Ubicaciones</h4>
+
+<table class="tabla" cellspacing="0">
+
+<% for ubi in @empresa.ubicaciones %>
+<tr>
+<td scope="row">
+	<b><%= ubi.desc %></b>
+</td>
+
+<td>
+	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
+</td>
+
+</tr>
+<% end %>
+</table>
+
+
