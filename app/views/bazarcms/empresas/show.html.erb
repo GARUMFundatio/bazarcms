@@ -1,7 +1,7 @@
 
-<h4 class="titulo-seccion">Empresa</h4>
 <h3 class="titulo-destacado"><%= @empresa.nombre %></h3>
 
+<h4 class="titulo-seccion">Empresa</h4>
 
 <table class="tabla" cellspacing="0">
 <tr>
@@ -39,6 +39,16 @@
 		<%= link_to(@empresa.url,  @empresa.url) %>
 	</td>
 </tr>
+
+<tr>
+	<th scope="row">
+		Email:
+	</th>
+	<td colspan="3">	
+		<%= @usuario.email %>
+	</td>
+</tr>
+
 
 <tr>
 	<th scope="row">

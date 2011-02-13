@@ -15,7 +15,6 @@
 				<%= link_to emp.nombre, bazarcms_empresa_path(emp.id) %>
 			</td>
 			<td> 
-				<%= link_to image_tag("lupa.png"), bazarcms_empresa_path(emp.id), :title => 'Más información' %>
 				<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{emp.id}&tipo=M", :title => 'Correo electrónico' %>
 			</td>
 		</tr>
@@ -35,7 +34,6 @@
 				<%= link_to emp.nombre, bazarcms_empresa_path(emp.id) %>
 			</td>
 			<td>
-				<%= link_to image_tag("lupa.png"), bazarcms_empresa_path(emp.id), :title => 'Más información' %>
 				<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{emp.id}&tipo=M", :title => 'Correo electrónico' %>
 			</td>
 		</tr>
