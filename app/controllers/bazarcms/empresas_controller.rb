@@ -32,7 +32,7 @@ module Bazarcms
   def show
     
     @empresa = Empresa.find(params[:id])
-    @empresasdatos = Empresasdato.where("empresa_id = ?", [ params[:id] ]).order("periodo")
+    @empresasdatos = Empresasdato.where("empresa_id = ? and periodo >= ?", [ params[:id], @empresa.fundada ]).order("periodo")
     @usuario = User.find(params[:id])
     respond_to do |format|
       format.html { render :action => "show" }
