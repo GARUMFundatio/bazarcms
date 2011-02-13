@@ -1,5 +1,5 @@
 
-<h4 class="titulo-seccion">Empresas</h4>
+<h4 class="titulo-seccion">Empresa</h4>
 <h3 class="titulo-destacado"><%= @empresa.nombre %></h3>
 
 
@@ -59,4 +59,28 @@
 </tr>
 
 
+</table>
+
+<h4 class="titulo-seccion">Datos Económicos</h4>
+
+<table class="tabla" cellspacing="0">
+	<tr>
+		<td>Año</td>
+		<td>Empleados</td>
+		<td>Compras</td>
+		<td>Ventas</td>
+		<td>Resultados</td>
+	</tr>
+
+	<% for emp in @empresasdatos do %>
+
+	<tr>
+		<th scope="row"> <%= emp.periodo %> </td>
+		<td class="datostd"> <%= Bazarcms::Empresasdato.REtexto(emp.empleados) %> </td>
+		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.compras) %> </td>
+		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.ventas) %> </td>
+		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.resultados) %> </td>
+	</tr>
+
+	<% end %>
 </table>

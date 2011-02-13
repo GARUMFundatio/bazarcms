@@ -30,8 +30,10 @@ module Bazarcms
   # muestra la información de una empresa para usuarios registrados en bazar 
 
   def show
+    
     @empresa = Empresa.find(params[:id])
-
+    @empresasdatos = Empresasdato.where("empresa_id = ?", [ params[:id] ]).order("periodo")
+    
     respond_to do |format|
       format.html { render :action => "show" }
       format.xml  { render :xml => @empresa }
