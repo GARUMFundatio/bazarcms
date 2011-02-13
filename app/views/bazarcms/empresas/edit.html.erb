@@ -103,20 +103,20 @@
 
             <% for ubi in @empresa.ubicaciones %>
             <tr>
-            <td>
-            	<b><%= ubi.desc %></b>
-            </td>
+            <th scope="row">
+            	<%= ubi.desc %>
+            </th>
 
             <td>
             	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
             </td>
 
             <td>
-            	<a href="#" onclick="$('#addubi').load('<%= edit_bazarcms_ubicacion_path(ubi) -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("pencil.png")%></a>
+            	<a href="#" onclick="$('#addubi').load('<%= edit_bazarcms_ubicacion_path(ubi) -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("pencil.png") :title => 'Editar' %></a>
             </td>
 
             <td>
-                <%= link_to image_tag("delete.png"), ubi, :confirm => 'Está seguro?', :method => :delete %>
+                <%= link_to image_tag("delete.png"), ubi, :confirm => 'Está seguro?', :method => :delete, :title => 'Eliminar' %>
             </td>
 
             </tr>
@@ -127,7 +127,8 @@
             <div id="addubi">
             </div>
 
-            <p>Añadir una nueva Ubicación <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png")%></a></p>
+            <p><a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png"), :title => 'Añadir Ubicación' %></a>
+            <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);">Añadir una nueva Ubicación</a></p>
 
         </div>
 
