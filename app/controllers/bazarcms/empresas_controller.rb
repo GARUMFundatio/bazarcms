@@ -76,6 +76,7 @@ module Bazarcms
       @empresa.fundada = 2005 
       @empresa.moneda = 0
       @empresa.save
+      
     end
     
     $i = @empresa.fundada;
@@ -114,6 +115,8 @@ module Bazarcms
     @empresa.user_id = current_user.id
     @empresa.id = current_user.id
     @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
+  
+    Actividad.graba("Ha creado una nueva empresa.", "USER")
     
     respond_to do |format|
       if @empresa.save
@@ -131,6 +134,8 @@ module Bazarcms
     logger.debug params.inspect
     @empresa = Empresa.find(params[:id])
     @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
+      
+    Actividad.graba("Actualizada información empresa.", "USER")
     
     respond_to do |format|
       if @empresa.update_attributes(params[:bazarcms_empresa])
