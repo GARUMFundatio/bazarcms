@@ -1,7 +1,8 @@
 <!-- TODO JT meter will paginate -->
-<b>Resultados busqueda: <%= @consulta.desc %></b> Total: <%= @consulta.total_resultados %> empresas de <%= @consulta.total_respuestas %> bazares
+<p><strong>Resultados de la búsqueda de: <span class="query-busqueda"><%= @consulta.desc %></span></strong><br />
+<strong>Total:</strong> <%= @consulta.total_resultados %> empresas de <%= @consulta.total_respuestas %> bazares.</p>
 
-<table class="tabla">
+<table class="tabla" cellspacing="0">
 <tr>
   <th>Bazar</th>
   <th>Empresa</th>
