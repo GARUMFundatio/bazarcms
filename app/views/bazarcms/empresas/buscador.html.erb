@@ -166,6 +166,61 @@ Puede usar * para términos parciales. Por ejemplo: herramientas*</label>
 </div>
 
 <div id="resultados">
+<h3>Cómo optimizar la búsqueda <a id="ayuda-busqueda-link" href="#ayuda-busqueda">Ver/ocultar</a></h3>
+<script>
+$('#ayuda-busqueda-link').click(function() {
+  $('#ayuda-busqueda').toggle();
+});
+</script>
+
+     <div id="ayuda-busqueda">
+          <ul id="pasos-container">
+          <li class="paso" id="paso1">
+               <div>Introduzca los términos de la busqueda</div>
+               <img src="images/ayuda-busqueda-paso1.gif" alt="" />
+          </li>
+          <li class="paso" id="paso2">
+               <div>Puede usar asteriscos o espacios para buscar por varias palabras.</div>
+               <img src="images/ayuda-busqueda-paso2.gif" alt="" />
+          </li>
+          <li class="paso" id="paso3">
+               <div>Use los desplazadores para limitar la búsqueda.</div>
+               <img src="images/ayuda-busqueda-paso3.gif" alt="" />
+          </li>
+          <li class="paso" id="paso4">
+               <div>Pulse Buscar para empezar la búsqueda</div>
+               <img src="images/ayuda-busqueda-paso4.gif" alt="" />
+          </li>
+          <li class="paso" id="paso5">
+               <div>Progreso de la búsqueda</div>
+               <img src="images/ayuda-busqueda-paso5.gif" alt="" />
+          </li>
+          <li class="paso" id="paso6">
+               <div>Navegue por los resultados.</div>
+               <img src="images/ayuda-busqueda-paso6.gif" alt="" />
+          </li>
+          </ul>
+
+          <div class="pasos-nav-pyn">
+          <a href="#" id="prev-paso">Anterior</a>
+          <a href="#" id="next-paso">Siguiente</a>
+          </div>
+
+     </div><!-- /#ayuda-busuqeda-->
+
+     <script>
+             $('#pasos-container')
+                .before('<div id="pasos-nav">')
+                .cycle({
+                   fx:     'scrollHorz',
+                   speed:  '500',
+                   timeout: 0,
+                   next:   '#next-paso',
+                   prev:   '#prev-paso',
+                   pager:  '#pasos-nav'
+                });
+     </script>
+
 </div>
 
 <div id="lista">
