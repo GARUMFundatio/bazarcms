@@ -116,7 +116,7 @@ module Bazarcms
     @empresa.id = current_user.id
     @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
   
-    Actividad.graba("Ha creado una nueva empresa.", "USER", BZ_param("BazarId"))
+    Actividad.graba("Ha creado una nueva empresa.", "USER", BZ_param("BazarId"), current_user.id)
     
     respond_to do |format|
       if @empresa.save
@@ -135,7 +135,7 @@ module Bazarcms
     @empresa = Empresa.find(params[:id])
     @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
       
-    Actividad.graba("Actualizada información empresa.", "USER",  BZ_param("BazarId"))
+    Actividad.graba("Actualizada información empresa.", "USER",  BZ_param("BazarId"), current_user.id)
     
     respond_to do |format|
       if @empresa.update_attributes(params[:bazarcms_empresa])

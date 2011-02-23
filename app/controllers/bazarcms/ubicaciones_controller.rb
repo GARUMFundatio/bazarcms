@@ -64,7 +64,7 @@ module Bazarcms
       respond_to do |format|
         if @ubicacion.update_attributes(params[:bazarcms_ubicacion])
           
-          Actividad.graba("Actualizada ubicación: #{@ubicacion.desc}", "USER", BZ_param("BazarId"))
+          Actividad.graba("Actualizada ubicación: #{@ubicacion.desc}", "USER", BZ_param("BazarId"), current_user.id)
 
           format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
           format.xml  { head :ok }
