@@ -1,4 +1,5 @@
 <!-- TODO JT meter will paginate -->
+
 <h3>Resultados de la búsqueda de: <span class="query-busqueda"><%= @consulta.desc %></span></h3>
 <p class="total"><strong>Total:</strong> <%= @consulta.total_resultados %> empresas de <%= @consulta.total_respuestas %> bazares.</p>
 
@@ -6,7 +7,7 @@
 <tr>
   <th>Bazar</th>
   <th>Empresa</th>
-  <th>Enlace</th>
+  <th></th>
 </tr>	
 
 <% for resu in @consulta.empresasresultados %>
@@ -18,7 +19,8 @@
 	<%= resu.info %>
   </td>
   <td>
-	<%= resu.enlace %>
+	<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{resu.empresa_id}&bazar_destino=#{resu.cluster_id}&tipo=M", :title => 'Correo electrónico' %>
+	<%= helper_favo(BZ_param("BazarId"), resu.empresa_id) %>
   </td>
 </tr>	
 <% end%>
