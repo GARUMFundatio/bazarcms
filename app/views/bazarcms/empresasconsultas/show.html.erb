@@ -20,7 +20,7 @@
   </td>
   <td>
 	<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{resu.empresa_id}&bazar_destino=#{resu.cluster_id}&tipo=M", :title => 'Correo electrónico' %>
-	<%= helper_favo(BZ_param("BazarId"), resu.empresa_id) %>
+	<%= helper_favo(resu.cluster_id, resu.empresa_id) %>
   </td>
 </tr>	
 <% end%>
