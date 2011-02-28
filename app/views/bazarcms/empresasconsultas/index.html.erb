@@ -36,7 +36,7 @@
 	<% else %>
 		<td></td>
 	<% end %>
-    <td><%= link_to image_tag('delete.png'), empresasconsulta, :confirm => 'Seguro?', :method => :delete %></td>
+    <td><%= link_to image_tag('delete.png'), empresasconsulta, :confirm => '¿Está seguro de querer borrar la consulta?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -45,4 +45,4 @@
 <br />
 
 <%= link_to 'Buscar Empresas', '/home' %> |
-<%= link_to 'Borrar consultas realizadas', '/bazarcms/borrarconsultas', :confirm => '¿Está seguro de querer borrar la consulta?' %>
+<%= link_to 'Borrar consultas realizadas', '/bazarcms/borrarconsultas', :confirm => '¿Está seguro de querer borrar todas las consultas?' %>
