@@ -5,9 +5,9 @@
 
 <table class="tabla" cellspacing="0">
 <tr>
-	<td>
-		<b>Descripción:</b>
-	</td>
+	<th scope="row">
+		Descripción:
+	</th>
 	<td colspan=4>	
 		<%= @empresa.desc %>
 	</td>
@@ -75,17 +75,17 @@
 
 <table class="tabla" cellspacing="0">
 	<tr>
-		<td><b>Año</b></td>
-		<td><b>Empleados</b></td>
-		<td><b>Compras</b></td>
-		<td><b>Ventas</b></td>
-		<td><b>Resultados</b></td>
+		<th>Año</th>
+		<th>Empleados</th>
+		<th>Compras</th>
+		<th>Ventas</th>
+		<th>Resultados</th>
 	</tr>
 
 	<% for emp in @empresasdatos do %>
 
 	<tr>
-		<th scope="row"> <%= emp.periodo %> </td>
+		<th scope="row"> <%= emp.periodo %> </th>
 		<td class="datostd"> <%= Bazarcms::Empresasdato.REtexto(emp.empleados) %> </td>
 		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.compras) %> </td>
 		<td class="datostd"> <%= Bazarcms::Empresasdato.RDtexto(emp.ventas) %> </td>
@@ -101,9 +101,9 @@
 
 <% for ubi in @empresa.ubicaciones %>
 <tr>
-<td scope="row">
-	<b><%= ubi.desc %></b>
-</td>
+<th scope="row">
+	<%= ubi.desc %>
+</th>
 
 <td>
 	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
