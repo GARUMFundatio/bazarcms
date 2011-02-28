@@ -291,8 +291,8 @@ module Bazarcms
 
             logger.debug "#{empresas.inspect} <-----------"
             empresas.each{ |key|
-              logger.debug ("#{key.inspect}")
-              logger.debug ("#{key['empresa'].inspect} <------ datos")
+              logger.debug("#{key.inspect}")
+              logger.debug("#{key['empresa'].inspect} <------ datos")
               resu = Bazarcms::Empresasresultado.new()
               resu.empresasconsulta_id = @consulta.id
               resu.cluster_id = cluster.id
