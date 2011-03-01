@@ -1,4 +1,4 @@
-<br/>
+
 <%= form_for(@ubicacion) do |f| %>
   <% if @ubicacion.errors.any? %>
     <div id="error_explanation">
@@ -14,7 +14,7 @@
 
 <%= f.hidden_field :empresa_id %>
  
-<table class="tabla">
+<table class="tabla" cellspacing="0">
 <tr>
   <td>
   <b><%= f.label :Descripción %>:</b>
