@@ -20,7 +20,8 @@
   </td>
   <td>
 	<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{resu.empresa_id}&bazar_destino=#{resu.cluster_id}&nombre=#{resu.info}&tipo=M", :title => 'Correo electrónico' %>
-	<%= helper_favo(resu.cluster_id, resu.empresa_id, "consu") %>
+	<!-- TODO: hay que resolver lo del nombre de la empresa en resultados -->
+	<%= helper_favo(resu.cluster_id, resu.empresa_id, resu.info, "consu") %>
   </td>
 </tr>	
 <% end%>

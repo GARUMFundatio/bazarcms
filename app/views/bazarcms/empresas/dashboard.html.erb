@@ -18,7 +18,7 @@
 			</td>
 			<td> 
 				<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{emp.id}&tipo=M", :title => 'Enviar Mensaje de Correo' %>
-				<%= helper_favo(BZ_param("BazarId"), emp.id, "ult") %>
+				<%= helper_favo(BZ_param("BazarId"), emp.id, emp.nombre, "ult") %>
 			</td>
 		</tr>
 		<% end %>
@@ -38,7 +38,7 @@
 			</td>
 			<td>
 				<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{emp.id}&tipo=M", :title => 'Enviar Mensaje de Correo' %>
-				<%= helper_favo(BZ_param("BazarId"), emp.id, "act") %>
+				<%= helper_favo(BZ_param("BazarId"), emp.id, emp.nombre, "act") %>
 			</td>
 		</tr>
 		<% end %>
