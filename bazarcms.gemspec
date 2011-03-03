@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Garum Fundatio"]
-  s.date = %q{2011-01-30}
+  s.date = %q{2011-03-03}
   s.extra_rdoc_files = [
     "README"
   ]
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
      "app/controllers/bazarcms/empresasconsultas_controller.rb",
      "app/controllers/bazarcms/empresasdatos_controller.rb",
      "app/controllers/bazarcms/empresasresultados_controller.rb",
+     "app/controllers/bazarcms/perfiles_controller.rb",
      "app/controllers/bazarcms/ubicaciones_controller.rb",
      "app/helpers/application_helper.rb",
      "app/helpers/bazarcms/bazarcms_helper.rb",
@@ -25,6 +26,7 @@ Gem::Specification.new do |s|
      "app/models/bazarcms/empresasconsulta.rb",
      "app/models/bazarcms/empresasdato.rb",
      "app/models/bazarcms/empresasresultado.rb",
+     "app/models/bazarcms/perfil.rb",
      "app/models/bazarcms/ubicacion.rb",
      "app/views/bazarcms/empresas/busca.html.erb",
      "app/views/bazarcms/empresas/buscador.html.erb",
@@ -57,6 +59,7 @@ Gem::Specification.new do |s|
      "lib/rails/generators/bazarcms/templates/schema2.rb",
      "lib/rails/generators/bazarcms/templates/schema3.rb",
      "lib/rails/generators/bazarcms/templates/schema4.rb",
+     "lib/rails/generators/bazarcms/templates/schema5.rb",
      "lib/rails/railties/tasks.rake",
      "public/stylesheets/bazarcms.css"
   ]
