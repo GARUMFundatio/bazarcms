@@ -14,9 +14,9 @@
     </div>
   <% end %>
 
-<table class="tabla">
+<table class="tabla" cellspacing="0">
 	<tr>
-		<th>
+		<th scope="row">
     		<%= f.label :Periodo %>
 		</th>
 		<td colspan="2">
@@ -24,33 +24,33 @@
 		</td>
  	</tr>
 	<tr>
-  		<td>
+        <th scope="row">
     		<%= f.label :Empleados %><br />
-    	</td>
+    	</th>
 		<td>
 			<%= f.select :empleados, options_for_select(Bazarcms::Empresasdato.RangoEmpleados.sort{|a,b| a[1]<=>b[1]}, @empresasdatos.empleados) %>
 		</td>
 	</tr>
 	<tr>
-  		<td>
+        <th scope="row">
     		<%= f.label :Compras %><br />
-    	</td>
+    	</th>
 		<td>
 			<%= f.select :compras, options_for_select(Bazarcms::Empresasdato.RangoDatos.sort{|a,b| a[1]<=>b[1]}, @empresasdatos.compras) %>
 		</td>
 	</tr>
 	<tr>
-  		<td>
+        <th scope="row">
     		<%= f.label :Ventas %><br />
-    	</td>
+    	</th>
 		<td>
 			<%= f.select :ventas, options_for_select(Bazarcms::Empresasdato.RangoDatos.sort{|a,b| a[1]<=>b[1]}, @empresasdatos.ventas) %>
 		</td>
 	</tr>
 	<tr>
-  		<td>
+        <th scope="row">
     		<%= f.label :Resultados %><br />
-    	</td>
+    	</th>
 		<td>
 			<%= f.select :resultados, options_for_select(Bazarcms::Empresasdato.RangoDatos.sort{|a,b| a[1]<=>b[1]}, @empresasdatos.resultados) %>
 		</td>
