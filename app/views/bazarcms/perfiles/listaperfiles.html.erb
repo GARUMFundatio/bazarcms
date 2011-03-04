@@ -8,7 +8,7 @@
 		<strong><%=  perfil.codigo -%>:</strong>
 		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
 		
-		<%= link_to image_tag("papelera.png"), '/bazarcms/delperfil?tipo='+perfil.tipo+'&codigo='+perfil.codigo, :confirm => '¿Está seguro?', :method => :delete, :title => 'Eliminar' %>
+		<img src="/images/papelera.png" border="0" onclick="/bazarcms/delperfil?tipo=#{perfil.tipo}&codigo=#{perfil.codigo}">
 		
 		<br/>
 	<% end %>
