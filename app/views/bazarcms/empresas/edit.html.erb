@@ -184,6 +184,24 @@
 <script type="text/javascript">
  //<![CDATA[
 
+// eliminamos que puedan pulsar enter en la caja de sectores
+
+$(function () {
+    $('#query1').keypress(function (e) {
+        var code = null;
+        code = (e.keyCode ? e.keyCode : e.which);
+        return (code == 13) ? false : true;
+    });
+    $('#query2').keypress(function (e) {
+        var code = null;
+        code = (e.keyCode ? e.keyCode : e.which);
+        return (code == 13) ? false : true;
+    });
+
+});
+
+
+
 // cargo los perfiles del usuario
 
 $("#missectores").load('/bazarcms/listaperfiles?tipo=O');
