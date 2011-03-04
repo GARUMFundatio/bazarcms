@@ -1,0 +1,15 @@
+<% if @perfiles.count == 0 %>
+	<p>No tiene ningún perfil asociado a su empresa.</p>
+	<p>Para encontrar el perfil que más se ajusta a su empresa, escriba una o varias palabras que defina el sector al que pertenece.</p>
+	<p>Puede escoger tantos sectores como crea convenientes y actualizarlos en cualquier momento.</p>
+<% else %>
+
+	<% for perfil in @perfiles %>
+		<b><%=  perfil.codigo -%>:</b>
+		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
+		
+		<%= link_to image_tag("delete.png"), '/bazarcms/delperfil?tipo='+perfil.tipo+'&codigo='+perfil.codigo, :confirm => '¿Está seguro?', :method => :delete, :title => 'Eliminar' %>
+		
+		<br/>
+	<% end %>
+<% end %>

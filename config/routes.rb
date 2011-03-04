@@ -18,6 +18,11 @@ Bazar::Application.routes.draw do
   end
 
   scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
+    resources :empresasperfiles
+  end
+
+
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
     # resources :ubicaciones
     resources :ubicaciones do
       get :autocomplete_ciudad_descripcion, :on => :collection
@@ -30,6 +35,8 @@ Bazar::Application.routes.draw do
       get :autocomplete_perfil_descripcion, :on => :collection
     end
   end
+  
+  
  
   match "/bazarcms/datos" => "bazarcms/empresasdatos#index"
   match "/bazarcms/dashboard" => "bazarcms/empresas#dashboard"
@@ -42,7 +49,11 @@ Bazar::Application.routes.draw do
   match "/bazarcms/estadobusqueda" => "bazarcms/empresas#estadobusqueda"
   match "/bazarcms/directorio" => "bazarcms/empresas#list"
   match "/bazarcms/empresas/show2/:id" => "bazarcms/empresas#show2", :constrants => { :id => /\d+/ }
-  
-  
+
+  match '/bazarcms/busquedaperfiles' => 'bazarcms/perfiles#busqueda', :as => :busquedaperfiles
+  match '/bazarcms/addperfil' => 'bazarcms/perfiles#addperfil', :as => :addperfil
+  match '/bazarcms/delperfil' => 'bazarcms/perfiles#delperfil', :as => :delperfil
+  match '/bazarcms/listaperfiles' => 'bazarcms/perfiles#listaperfiles', :as => :listaperfiles
+
     
 end

@@ -5,88 +5,55 @@ module Bazarcms
   unloadable 
   layout "bazar"
   
-  def index
-    @perfiles = Perfil.all
-
+  def busqueda
+    @perfiles = Perfil.limit(20).where('lower(`desc`) like ? OR lower(ayuda) like ?', '%'+params[:term].downcase+'%', '%'+params[:term].downcase+'%').order('codigo')
+    puts @perfiles.inspect
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @perfiles }
+      format.json {
+         @info = []
+         for perfil in @perfiles
+           @info << {:label => "#{perfil.codigo}:#{perfil.desc}", :value => "#{perfil.desc}", :id => "#{perfil.codigo}"}
+         end
+         render :json =>  @info  }
     end
-  end
-
-    def show
-      @perfil = Perfil.find(params[:id])
-
-      respond_to do |format|
-        format.html # show.html.erb
-        format.xml  { render :xml => @perfil }
-      end
-    end
-
-    def new
-      @perfil = Perfil.new
-      @perfil.empresa_id = params[:empresa]
-      respond_to do |format|
-        format.html { render :layout => false }
-        format.xml  { render :xml => @perfil }
-      end
-    end
-
-    def edit
-      @perfil = Perfil.find(params[:id])
-      respond_to do |format|
-        format.html { render :layout => false }
-        format.xml  { render :xml => @perfil }
-      end
-      
-    end
-
-    def create
-      @perfil = Perfil.new(params[:bazarcms_ubicacion])
-
-      puts "empresa id: "+params.inspect
-      puts "ubicacion : "+@perfil.inspect
-
-      respond_to do |format|
-        if @perfil.save
-          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
-          format.xml  { render :xml => @perfil, :status => :created, :location => @perfil }
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @perfil.errors, :status => :unprocessable_entity }
-        end
-      end
-    end
-
-    def update
-      @perfil = Perfil.find(params[:id])
-      
-      respond_to do |format|
-        if @perfil.update_attributes(params[:bazarcms_ubicacion])
-          @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
-          Actividad.graba("Actualizada ubicación: #{@perfil.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
-
-          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
-          format.xml  { head :ok }
-        else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @perfil.errors, :status => :unprocessable_entity }
-        end
-      end
-    end
-
-    # TODO proteger todos los destroy para que solo puedan ser ejecutados por un usuarios 
-    # en este caso cuestionarse si debe existir incluso la opción de borrado 
     
-    def destroy
-      @perfil = Perfil.find(params[:id])
-      @perfil.destroy
-
-      respond_to do |format|
-        format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
-        format.xml  { head :ok }
-      end
-    end
   end
+  
+  # mostramos la lista de perfiles de una empresa y del tipo que nos llega
+  
+  def listaperfiles
+    @perfiles =  Empresasperfil.where('empresa_id = ? and tipo = ?', current_user.id, params[:tipo]).order('codigo')
+    render :layout => false 
+  end
+
+  # añadimos a la empresa el perfil seleccionado
+  
+  def addperfil
+    
+    @perfil =  Empresasperfil.new
+    
+    @perfil.codigo = params[:codigo]
+    @perfil.empresa_id = current_user.id
+    @perfil.tipo = params[:tipo]
+    @perfil.save 
+    
+    redirect_to('/bazarcms/listaperfiles?tipo='+params[:tipo])
+     
+  end
+  
+  # añadimos a la empresa el perfil seleccionado
+  
+  def delperfil
+    
+    @perfil =  Empresasperfil.find_by_empresa_id_and_tipo_and_codigo(current_user.id, params[:tipo], params[:codigo])
+    logger.debug "#{@perfil.inspect}"
+    @perfil.destroy
+    
+    redirect_to('/bazarcms/listaperfiles?tipo='+params[:tipo])
+     
+  end
+  
+ 
+ end
 
 end

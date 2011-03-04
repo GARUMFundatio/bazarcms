@@ -135,7 +135,41 @@
         </div>
 
         <div id="tabs-4">
-          <p>Coming Soon!!!</p>
+
+			<h3>Nuestra Actividad</h3>	
+			<table border="0" class="tabla">
+				<tr><th>Sectores Disponibles</th><th>Mis Sectores</th></tr>
+				<tr>
+					<td>
+					<form action="#loquesea" >
+					 	Buscar en sectores <input type="text" name="q" id="query1" />
+					 </form>
+					</td>					
+					<td>
+						<div id="missectores">
+							Seleccione algún sector en la caja de búsqueda
+						</div>
+					</td>
+				</tr>
+			</table>
+
+			<h3>Nos interesa</h3>	
+			<table border="0" class="tabla">
+				<tr><th>Sectores Disponibles</th><th>Sectores Seleccionados</th></tr>
+				<tr>
+					<td>
+					<form action="#" >
+					 	Buscar en sectores <input type="text" name="q" id="query2" />
+					 </form>
+					</td>					
+					<td>
+						<div id="misdemandas">
+							Seleccione algún sector en la caja de búsqueda
+						</div>
+					</td>
+				</tr>
+			</table>
+
         </div>
 
         <div id="tabs-5">
@@ -149,3 +183,53 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+ //<![CDATA[
+
+// cargo los perfiles del usuario
+
+$("#missectores").load('/bazarcms/listaperfiles?tipo=O');
+$("#misdemandas").load('/bazarcms/listaperfiles?tipo=D');
+
+var a1;
+ 
+jQuery(function() {
+ 
+	var options = {
+	  width: 300,
+	  delimiter: /(,|;)\s*/,
+	  deferRequestBy: 150, //miliseconds
+	  params: { tipo: 'O' },
+	  source: "/bazarcms/busquedaperfiles.json?tipo=O",
+	  minLength: 2,
+	  select: function(event, ui) {
+	    $("#missectores").load('/bazarcms/addperfil?tipo=O&codigo='+ui.item.id);
+		return false;
+	  },
+	  noCache: false //set to true, to disable caching
+	};
+ 
+	a1 = $('#query1').autocomplete(options);
+  
+	var options = {
+	  width: 300,
+	  delimiter: /(,|;)\s*/,
+	  deferRequestBy: 150, //miliseconds
+	  params: { tipo: 'O' },
+	  source: "/bazarcms/busquedaperfiles.json?tipo=D",
+	  minLength: 2,
+	  select: function(event, ui) {
+	    $("#misdemandas").load('/bazarcms/addperfil?tipo=D&codigo='+ui.item.id);
+		return false;
+	  },
+	  noCache: false //set to true, to disable caching
+	};
+ 
+	a1 = $('#query2').autocomplete(options);
+
+});
+ 
+//]]>
+</script>
+

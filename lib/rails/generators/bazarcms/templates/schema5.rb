@@ -5,11 +5,18 @@ class CreateBazarcmsTables5 < ActiveRecord::Migration
       t.string   :codigo
       t.string   :desc
       t.integer  :nivel
-      t.datetime :created_at
-      t.datetime :updated_at
+      t.text     :ayuda
     end
 
     add_index :perfiles, [:codigo]
+
+    create_table :empresasperfiles, :force => true do |t|
+      t.string   :empresa_id
+      t.string   :codigo
+      t.string   :tipo
+    end
+
+    add_index :empresasperfiles, [:empresa_id, :codigo]
   
   end
 
