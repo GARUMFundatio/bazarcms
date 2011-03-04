@@ -7,9 +7,22 @@
 	<% for perfil in @perfiles %>
 		<strong><%=  perfil.codigo -%>:</strong>
 		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
-		
-		<img src="/images/papelera.png" border="0" onclick="/bazarcms/delperfil?tipo=#{perfil.tipo}&codigo=#{perfil.codigo}">
-		
+		<img src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
 		<br/>
 	<% end %>
 <% end %>
+
+<script>
+
+function borra (cod, tipo) {
+	
+	if (tipo == "O") {
+		$('#missectores').load('/bazarcms/delperfil?tipo=O&codigo='+cod);
+	}
+	else {
+		$('#misdemandas').load('/bazarcms/delperfil?tipo=D&codigo='+cod);
+	}
+	
+}
+
+</script>
