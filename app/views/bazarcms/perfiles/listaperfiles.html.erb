@@ -5,10 +5,10 @@
 <% else %>
 
 	<% for perfil in @perfiles %>
-		<b><%=  perfil.codigo -%>:</b>
+		<strong><%=  perfil.codigo -%>:</strong>
 		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
 		
-		<%= link_to image_tag("delete.png"), '/bazarcms/delperfil?tipo='+perfil.tipo+'&codigo='+perfil.codigo, :confirm => '¿Está seguro?', :method => :delete, :title => 'Eliminar' %>
+		<%= link_to image_tag("papelera.png"), '/bazarcms/delperfil?tipo='+perfil.tipo+'&codigo='+perfil.codigo, :confirm => '¿Está seguro?', :method => :delete, :title => 'Eliminar' %>
 		
 		<br/>
 	<% end %>
