@@ -98,7 +98,7 @@
 
             <table class="tabla" cellspacing="0">
             <tr>
-              <th colspan="4">
+              <th colspan="3">
                 Ubicaciones:
               </th>
             </tr>
@@ -113,12 +113,9 @@
             	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
             </td>
 
-            <td>
+            <td class="dos-iconos">
             	<a href="#" title="Editar" onclick="$('#addubi').load('<%= edit_bazarcms_ubicacion_path(ubi) -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("pencil.png") %></a>
-            </td>
-
-            <td>
-                <%= link_to image_tag("papelera.png"), ubi, :confirm => '¿Está seguro?', :method => :delete, :title => 'Eliminar' %>
+            	<%= link_to image_tag("papelera.png"), ubi, :confirm => '¿Está seguro?', :method => :delete, :title => 'Eliminar' %>
             </td>
 
             </tr>
