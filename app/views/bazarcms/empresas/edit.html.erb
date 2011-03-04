@@ -199,9 +199,12 @@ jQuery(function() {
 	  deferRequestBy: 150, //miliseconds
 	  params: { tipo: 'O' },
 	  source: "/bazarcms/busquedaperfiles.json?tipo=O",
-	  minLength: 2,
+	  minLength: 3,
 	  select: function(event, ui) {
+
 	    $("#missectores").load('/bazarcms/addperfil?tipo=O&codigo='+ui.item.id);
+		$("#query1").val("");
+
 		return false;
 	  },
 	  noCache: false //set to true, to disable caching
@@ -215,9 +218,12 @@ jQuery(function() {
 	  deferRequestBy: 150, //miliseconds
 	  params: { tipo: 'O' },
 	  source: "/bazarcms/busquedaperfiles.json?tipo=D",
-	  minLength: 2,
+	  minLength: 3,
 	  select: function(event, ui) {
+
 	    $("#misdemandas").load('/bazarcms/addperfil?tipo=D&codigo='+ui.item.id);
+		$("#query2").val("");
+		
 		return false;
 	  },
 	  noCache: false //set to true, to disable caching

@@ -1,13 +1,22 @@
 <% if @perfiles.count == 0 %>
-	<p>No tiene ningún perfil asociado a su empresa.</p>
-	<p>Para encontrar el perfil que más se ajusta a su empresa, escriba una o varias palabras que defina el sector al que pertenece.</p>
-	<p>Puede escoger tantos sectores como crea convenientes y actualizarlos en cualquier momento.</p>
+	<p>No tiene ningún sector asociado a su empresa.</p>
+	<p>Para encontrar el sector que más se ajusta a su empresa, escriba una o varias palabras que defina el sector al que pertenece.</p>
+	<p>Puede escoger tantos como crea convenientes y actualizarlos en cualquier momento.</p>
+	<p>Cuantos más dígitos tengo el código más especifica su actividad.</p>
+
 <% else %>
 
 	<% for perfil in @perfiles %>
 		<strong><%=  perfil.codigo -%>:</strong>
 		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
 		<img src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
+		<img src='/images/lupa.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">
+		<div id="<%= perfil.tipo -%><%= perfil.codigo-%>" style="display:none">
+			<p>
+			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
+			</p>
+			<p onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">Ocultar la descripción</p>
+		</div>
 		<br/>
 	<% end %>
 <% end %>

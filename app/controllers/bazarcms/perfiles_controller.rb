@@ -6,13 +6,38 @@ module Bazarcms
   layout "bazar"
   
   def busqueda
-    @perfiles = Perfil.limit(20).where('lower(`desc`) like ? OR lower(ayuda) like ?', '%'+params[:term].downcase+'%', '%'+params[:term].downcase+'%').order('codigo')
-    puts @perfiles.inspect
+    
+    # @perfiles = Perfil.limit(20).where('lower(`desc`) like ? OR lower(ayuda) like ?', '%'+params[:term].downcase+'%', '%'+params[:term].downcase+'%').order('codigo')
+   
+   terms = params[:term].split(' ')
+   
+   condi = []
+   condi << ""
+   tmp = ""
+   for term in terms 
+     
+     if (tmp.length == 0)
+       tmp = '(lower(`desc`) like ? OR lower(ayuda) like ? ) '
+     else
+       tmp += 'AND (lower(`desc`) like ? OR lower(ayuda) like ? ) '
+     end
+     condi << '%'+term+'%'
+     condi << '%'+term+'%' 
+   end
+   condi[0] = tmp
+   
+   puts "Condiciones de busqueda -----> #{condi.inspect}"
+   
+   @perfiles = Perfil.find(:all, :conditions => condi, :order => 'codigo', :limit => 20)
+    
+   puts @perfiles.inspect
+   
+   
     respond_to do |format|
       format.json {
          @info = []
          for perfil in @perfiles
-           @info << {:label => "#{perfil.codigo}:#{perfil.desc}", :value => "#{perfil.desc}", :id => "#{perfil.codigo}"}
+           @info << {:label => "#{perfil.codigo}:#{perfil.desc}", :value => "#{perfil.desc}", :id => "#{perfil.codigo}", :ayuda => "#{perfil.ayuda}"}
          end
          render :json =>  @info  }
     end
@@ -30,12 +55,15 @@ module Bazarcms
   
   def addperfil
     
-    @perfil =  Empresasperfil.new
+    @perfil = Empresasperfil.find_by_codigo_and_tipo(params[:codigo], params[:tipo])
+    if @perfil.nil?
+      @perfil =  Empresasperfil.new
     
-    @perfil.codigo = params[:codigo]
-    @perfil.empresa_id = current_user.id
-    @perfil.tipo = params[:tipo]
-    @perfil.save 
+      @perfil.codigo = params[:codigo]
+      @perfil.empresa_id = current_user.id
+      @perfil.tipo = params[:tipo]
+      @perfil.save 
+    end 
     
     redirect_to('/bazarcms/listaperfiles?tipo='+params[:tipo])
      
