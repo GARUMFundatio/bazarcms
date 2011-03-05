@@ -9,8 +9,8 @@
 	<% for perfil in @perfiles %>
 		<strong><%=  perfil.codigo -%>:</strong>
 		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
-		<img src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
-		<img src='/images/lupa.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">
+		<img title="Eliminar" style="cursor: hand" src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
+		<img title="Ver Descripción" style="cursor: hand" src='/images/help.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">
 		<div id="<%= perfil.tipo -%><%= perfil.codigo-%>" style="display:none">
 			<p>
 			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
