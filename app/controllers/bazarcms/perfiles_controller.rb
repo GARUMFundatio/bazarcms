@@ -64,6 +64,10 @@ module Bazarcms
       @perfil.tipo = params[:tipo]
       @perfil.save 
     end 
+  
+    # creamos un nuevo registro de actividad 
+    Actividad.graba("Ha añadido un nuevo sector en su perfil: #{@perfil.codigo}-#{Bazarcms::Perfil.find_by_codigo(@perfil.codigo).desc }", 
+    "USER", BZ_param("BazarId"), current_user.id, Bazarcms::Empresa.find_by_user_id(current_user.id).nombre)
     
     redirect_to('/bazarcms/listaperfiles?tipo='+params[:tipo])
      
