@@ -13,11 +13,13 @@ module Bazarcms
     
     # TODO deberíamos incluir nombre de la ciudad y el pais en la indexación
     
-    acts_as_ferret :fields => [ :nombre, :desc, :actividades, :intereses, :sitios ]
     
     scope :ultimascreadas, order("empresas.created_at DESC").limit(5)
     scope :ultimasactualizadas, order("empresas.updated_at DESC").limit(5)
         
+    acts_as_ferret :fields => [ :nombre, :desc, :actividades, :intereses, :sitios, :sectores ]
+
+
     def sitios
       tmp = []
       for ubi in ubicaciones
@@ -44,8 +46,19 @@ module Bazarcms
       return "No definido"
     end 
     
-    def make
-      puts "hecho bazarcms empresas"
+    def sectores
+      tmp = []
+      for per in empresasperfiles
+
+        tmp << per.codigo
+        
+        sec = Bazarcms::Perfil.find_by_codigo(per.codigo)
+        tmp << sec.desc
+        tmp << sec.ayuda
+
+      end
+      logger.debug "sectores añadidos a la busqueda: "+tmp.inspect
+      return tmp
     end
     
   end
