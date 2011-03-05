@@ -208,11 +208,70 @@ module Bazarcms
       resultados = Empresa.find_with_ferret(params[:q])
       logger.debug "resu: (#{resultados.inspect}) <-------"
       
+       
       conta2 = 0
       for resu in resultados 
-        
+
+
         entra = 0
         total = 0
+
+        # buscamos en los sectores 
+
+        logger.debug "------ Sectores --------------"
+
+        # primero miramos si ofrece lo que buscamos
+        
+        if !params[:pofertan].nil?
+          cam = params[:pofertan].split(',')
+          
+          if cam.count > 0
+          
+            total += 1
+
+            alguna = 0 
+            
+            for cc in cam 
+              if (cc != "")
+                cc2 = cc
+                case cc.length
+                  when 1
+                    cc2 = cc2 + "999"
+                  when 2
+                    cc2 = cc2 + "99"
+                  when 
+                    cc2 = cc2 + "9"
+                end
+                
+                datos = Bazarcms::Empresasperfil.where("empresa_id = ? and tipo = 'O' and codigo between ? and ? ", [resu.id], cc, cc2)
+                logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
+
+                if datos.count > 0
+                  logger.debug "ENTRA --------> #{datos.count}"
+                  alguna += 1
+                end 
+
+
+              end
+            end 
+            if alguna > 0
+              entra += 1 
+              logger.debug "Entra en la busqueda de momento"
+            end
+          end 
+        else 
+          logger.debug "pofertan viene vacio !!!"
+        end 
+        
+        # buscamos en las ubicaciones 
+
+
+        # buscamos en la información económica
+
+        # si no pasa los filtros anteriores ni miramos la información económica
+
+
+        
         datos = Bazarcms::Empresasdato.where("empresa_id = ?", [resu.id]).order('periodo desc').limit(1)
 
         logger.debug "datos seleccionados para el filtro #{datos.inspect}"
@@ -250,6 +309,7 @@ module Bazarcms
           end
         end
         total+=1
+
 
         if (entra == total)
           @res = Empresasresultado.new(); 
