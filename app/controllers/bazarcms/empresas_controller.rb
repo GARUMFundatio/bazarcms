@@ -65,6 +65,10 @@ module Bazarcms
   def edit
     logger.debug "paso por el edit"
     logger.debug params.inspect
+    
+    if params[:id].to_i != current_user.id.to_i 
+      redirect_to("/")
+    end 
 
     @empresa = Empresa.find_by_id(params[:id])
     if (@empresa.nil?) then
@@ -151,7 +155,10 @@ module Bazarcms
 
   def destroy
     @empresa = Empresa.find(params[:id])
-    @empresa.destroy
+    
+    # las empresas no se borran 
+    
+    # @empresa.destroy
 
     respond_to do |format|
       format.html { redirect_to(empresas_url) }
