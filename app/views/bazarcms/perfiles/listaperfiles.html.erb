@@ -7,17 +7,18 @@
 <% else %>
 
 	<% for perfil in @perfiles %>
-		<strong><%=  perfil.codigo -%>:</strong>
-		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
-		<img title="Eliminar" style="cursor: hand" src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
-		<img title="Ver Descripción" style="cursor: hand" src='/images/help.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">
-		<div id="<%= perfil.tipo -%><%= perfil.codigo-%>" style="display:none">
-			<p>
-			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
-			</p>
-			<p onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">Ocultar la descripción</p>
+        <div class="perfil">
+            <strong><%=  perfil.codigo -%>:</strong>
+    		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
+    		<img title="Eliminar" src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
+    		<img title="Ver Descripción" src='/images/help.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">
+    		<div class="" id="<%= perfil.tipo -%><%= perfil.codigo-%>" style="display:none">
+    			<p>
+    			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
+    			</p>
+    			<a href="#" onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">Ocultar la descripción</a>
+    		</div>
 		</div>
-		<br/>
 	<% end %>
 <% end %>
 
