@@ -17,11 +17,12 @@ module Bazarcms
    for term in terms 
      
      if (tmp.length == 0)
-       tmp = '(lower(`desc`) like ? OR lower(ayuda) like ? ) '
+       tmp = '(`codigo` like ? OR lower(`desc`) like ? OR lower(ayuda) like ? ) '
      else
-       tmp += 'AND (lower(`desc`) like ? OR lower(ayuda) like ? ) '
+       tmp += 'AND (`codigo` like ? OR lower(`desc`) like ? OR lower(ayuda) like ? ) '
      end
      condi << '%'+term+'%'
+     condi << '%'+term+'%' 
      condi << '%'+term+'%' 
    end
    condi[0] = tmp
