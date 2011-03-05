@@ -262,6 +262,50 @@ module Bazarcms
         else 
           logger.debug "pofertan viene vacio !!!"
         end 
+
+        # primero miramos si ofrece lo que buscamos
+        
+        if !params[:pdemandan].nil?
+          cam = params[:pdemandan].split(',')
+          
+          if cam.count > 0
+            
+            total += 1
+
+            alguna = 0 
+            
+            for cc in cam 
+              if (cc != "")
+                cc2 = cc
+                case cc.length
+                  when 1
+                    cc2 = cc2 + "999"
+                  when 2
+                    cc2 = cc2 + "99"
+                  when 
+                    cc2 = cc2 + "9"
+                end
+                
+                datos = Bazarcms::Empresasperfil.where("empresa_id = ? and tipo = 'D' and codigo between ? and ? ", [resu.id], cc, cc2)
+                logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
+
+                if datos.count > 0
+                  logger.debug "ENTRA --------> #{datos.count}"
+                  alguna += 1
+                end 
+
+              end
+            end 
+            if alguna > 0
+              entra += 1 
+              logger.debug "Entra en la busqueda de momento"
+            end
+          end 
+        else 
+          logger.debug "pdemandan viene vacio !!!"
+        end 
+
+
         
         # buscamos en las ubicaciones 
 
@@ -330,11 +374,12 @@ module Bazarcms
     # luego lanzamos las busquedas al resto de los bazares
 
     for cluster in @clusters
-      logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&bid=#{@consulta.id}&cid=#{micluster}"
      
       if micluster != cluster.id 
         
-        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&bid=#{@consulta.id}&cid=#{micluster}")
+        logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}"
+        
+        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}")
 
         post_body = []
         post_body << "Content-Type: text/plain\r\n"
@@ -404,18 +449,22 @@ module Bazarcms
 
   def busca 
 
-    logger.debug "he recibido una peticion de busqueda #{params[:q]} "
+    logger.debug "he recibido una peticion de busqueda #{params.inspect} "
     params[:q] = CGI.unescape(params[:q])
     params[:qe] = CGI.unescape(params[:qe])
     params[:qv] = CGI.unescape(params[:qv])
     params[:qc] = CGI.unescape(params[:qc])
     params[:qr] = CGI.unescape(params[:qr])
+    params[:pofertan] = CGI.unescape(params[:pofertan])
+    params[:pdemandan] = CGI.unescape(params[:pdemandan])
     
     logger.debug "decodeado #{params[:q]}"
     logger.debug "decodeado #{params[:qe]}"
     logger.debug "decodeado #{params[:qv]}"
     logger.debug "decodeado #{params[:qc]}"
     logger.debug "decodeado #{params[:qr]}"
+    logger.debug "decodeado #{params[:pofertan]}"
+    logger.debug "decodeado #{params[:demandan]}"
     
     resultados = Empresa.find_with_ferret(params[:q])
     
@@ -424,6 +473,104 @@ module Bazarcms
     for empre in resultados
       entra = 0
       total = 0
+      
+      # buscamos en los sectores 
+
+      logger.debug "------ Sectores --------------"
+
+      # primero miramos si ofrece lo que buscamos
+      
+      if !params[:pofertan].nil?
+        cam = params[:pofertan].split(',')
+        
+        if cam.count > 0
+        
+          total += 1
+
+          alguna = 0 
+          
+          for cc in cam 
+            if (cc != "")
+              cc2 = cc
+              case cc.length
+                when 1
+                  cc2 = cc2 + "999"
+                when 2
+                  cc2 = cc2 + "99"
+                when 
+                  cc2 = cc2 + "9"
+              end
+              
+              datos = Bazarcms::Empresasperfil.where("empresa_id = ? and tipo = 'O' and codigo between ? and ? ", [empre.id], cc, cc2)
+              logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
+
+              if datos.count > 0
+                logger.debug "ENTRA --------> #{datos.count}"
+                alguna += 1
+              end 
+
+
+            end
+          end 
+          if alguna > 0
+            entra += 1 
+            logger.debug "Entra en la busqueda de momento"
+          end
+        end 
+      else 
+        logger.debug "pofertan viene vacio !!!"
+      end 
+
+      # primero miramos si demandan lo que buscamos
+      
+      if !params[:pdemandan].nil?
+        cam = params[:pdemandan].split(',')
+        
+        if cam.count > 0
+          
+          total += 1
+
+          alguna = 0 
+          
+          for cc in cam 
+            if (cc != "")
+              cc2 = cc
+              case cc.length
+                when 1
+                  cc2 = cc2 + "999"
+                when 2
+                  cc2 = cc2 + "99"
+                when 
+                  cc2 = cc2 + "9"
+              end
+              
+              datos = Bazarcms::Empresasperfil.where("empresa_id = ? and tipo = 'D' and codigo between ? and ? ", [empre.id], cc, cc2)
+              logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
+
+              if datos.count > 0
+                logger.debug "ENTRA --------> #{datos.count}"
+                alguna += 1
+              end 
+
+            end
+          end 
+          if alguna > 0
+            entra += 1 
+            logger.debug "Entra en la busqueda de momento"
+          end
+        end 
+      else 
+        logger.debug "pdemandan viene vacio !!!"
+      end 
+
+
+      
+      # buscamos en las ubicaciones
+      
+      
+      
+      # miramos los resultados económicos 
+      
       datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)
       
       logger.debug "datos seleccionados para el filtro #{datos.inspect}"
