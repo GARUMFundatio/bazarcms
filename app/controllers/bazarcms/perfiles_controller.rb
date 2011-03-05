@@ -56,7 +56,7 @@ module Bazarcms
   
   def addperfil
     
-    @perfil = Empresasperfil.find_by_codigo_and_tipo(params[:codigo], params[:tipo])
+    @perfil = Empresasperfil.find_by_codigo_and_tipo_empresa_id(params[:codigo], params[:tipo], current_user.id)
     if @perfil.nil?
       @perfil =  Empresasperfil.new
     
