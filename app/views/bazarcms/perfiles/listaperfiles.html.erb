@@ -9,7 +9,7 @@
 	<% for perfil in @perfiles %>
         <div class="perfil">
             <div class="nombre-perfil">
-                <strong><%=  perfil.codigo -%>:</strong>
+                <strong><%=  perfil.codigo -%></strong>
         		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
     		</div>
     		<span class="opciones-perfil">
@@ -20,7 +20,7 @@
     			<p>
     			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
     			</p>
-    			<a href="#" onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">Ocultar la descripción</a>
+    			<a class="ocultar-link" href="#" onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">Ocultar la descripción</a>
     		</div>
 		</div>
 	<% end %>
