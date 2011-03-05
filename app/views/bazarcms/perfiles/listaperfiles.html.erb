@@ -8,11 +8,15 @@
 
 	<% for perfil in @perfiles %>
         <div class="perfil">
-            <strong><%=  perfil.codigo -%>:</strong>
-    		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
-    		<img title="Eliminar" src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
-    		<img title="Ver Descripción" src='/images/help.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">
-    		<div class="" id="<%= perfil.tipo -%><%= perfil.codigo-%>" style="display:none">
+            <div class="nombre-perfil">
+                <strong><%=  perfil.codigo -%>:</strong>
+        		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
+    		</div>
+    		<span class="opciones-perfil">
+                <img title="Ver Descripción" src='/images/help.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">
+                <img title="Eliminar" src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
+            </span>
+            <div class="descripcion-perfil" id="<%= perfil.tipo -%><%= perfil.codigo-%>" style="display:none">
     			<p>
     			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
     			</p>
