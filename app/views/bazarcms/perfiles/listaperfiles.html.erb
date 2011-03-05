@@ -13,14 +13,14 @@
         		<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).desc -%>
     		</div>
     		<span class="opciones-perfil">
-                <img title="Ver Descripción" src='/images/help.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">
+                <img title="Ver Descripción" src='/images/help.png' border='0' onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').slideToggle(300);">
                 <img title="Eliminar" src='/images/papelera.png' border='0' onclick="borra('<%= perfil.codigo-%>', '<%= perfil.tipo %>');">
             </span>
             <div class="descripcion-perfil" id="<%= perfil.tipo -%><%= perfil.codigo-%>" style="display:none">
     			<p>
     			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
     			</p>
-    			<a class="ocultar-link" href="#" onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').toggle('slow');">Ocultar la descripción</a>
+    			<a class="ocultar-link" href="#" onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').slideToggle(300);">Ocultar la descripción</a>
     		</div>
 		</div>
 	<% end %>
