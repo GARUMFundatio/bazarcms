@@ -6,6 +6,8 @@ module Bazarcms
 
     set_table_name "perfiles"
 
+    belongs_to :empresa
+  
   end
 
 end

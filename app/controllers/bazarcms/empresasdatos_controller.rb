@@ -66,7 +66,7 @@ module Bazarcms
 
       respond_to do |format|
         if @empresasdatos.update_attributes(params[:bazarcms_empresasdato])
-          format.html { redirect_to(edit_bazarcms_empresa_path(@empresasdatos.empresa_id)) }
+          format.html { redirect_to(edit_bazarcms_empresa_path(@empresasdatos.empresa_id)+"#tabs-2") }
           # format.html { render :controller => "empresas", :action => "edit", :id => @empresasdatos.empresa_id }
           format.xml  { head :ok }
         else

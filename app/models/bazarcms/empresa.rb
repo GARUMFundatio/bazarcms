@@ -6,6 +6,7 @@ module Bazarcms
     set_table_name "empresas"
     has_many :ubicaciones
     has_many :empresasconsultas
+    has_many :empresasperfiles
     
     acts_as_taggable
     acts_as_taggable_on :actividades, :intereses

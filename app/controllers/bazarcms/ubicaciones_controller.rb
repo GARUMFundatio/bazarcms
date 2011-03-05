@@ -49,7 +49,7 @@ module Bazarcms
 
       respond_to do |format|
         if @ubicacion.save
-          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
+          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
           format.xml  { render :xml => @ubicacion, :status => :created, :location => @ubicacion }
         else
           format.html { render :action => "new" }
@@ -66,7 +66,7 @@ module Bazarcms
           @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
           Actividad.graba("Actualizada ubicación: #{@ubicacion.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
 
-          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
+          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
           format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
@@ -83,7 +83,7 @@ module Bazarcms
       @ubicacion.destroy
 
       respond_to do |format|
-        format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'?tab=ubicaciones') }
+        format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
         format.xml  { head :ok }
       end
     end
