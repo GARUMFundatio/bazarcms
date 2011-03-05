@@ -67,8 +67,18 @@ module Bazarcms
     end 
   
     # creamos un nuevo registro de actividad 
+    
+    @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
+    
     Actividad.graba("Ha añadido un nuevo sector en su perfil: #{@perfil.codigo}-#{Bazarcms::Perfil.find_by_codigo(@perfil.codigo).desc }", 
-    "USER", BZ_param("BazarId"), current_user.id, Bazarcms::Empresa.find_by_user_id(current_user.id).nombre)
+    "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
+    
+    
+    # actualizamos cuando se ha actualizado la empresa para que además se reindexe
+    
+    @empresa.updated_at = DateTime.now 
+    @empresa.save
+    
     
     redirect_to('/bazarcms/listaperfiles?tipo='+params[:tipo])
      

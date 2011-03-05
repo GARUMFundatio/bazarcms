@@ -49,6 +49,15 @@ module Bazarcms
 
       respond_to do |format|
         if @ubicacion.save
+          
+          @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
+          Actividad.graba("Nueva ubicación: #{@ubicacion.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
+          
+          # actualizamos cuando se ha actualizado la empresa para que además se reindexe
+          
+          @empresa.updated_at = DateTime.now 
+          @empresa.save
+          
           format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
           format.xml  { render :xml => @ubicacion, :status => :created, :location => @ubicacion }
         else
@@ -65,7 +74,12 @@ module Bazarcms
         if @ubicacion.update_attributes(params[:bazarcms_ubicacion])
           @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
           Actividad.graba("Actualizada ubicación: #{@ubicacion.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
-
+          
+          # actualizamos cuando se ha actualizado la empresa para que además se reindexe
+          
+          @empresa.updated_at = DateTime.now 
+          @empresa.save
+          
           format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
           format.xml  { head :ok }
         else
