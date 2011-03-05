@@ -37,7 +37,7 @@ module Bazarcms
       format.json {
          @info = []
          for perfil in @perfiles
-           @info << {:label => "#{perfil.codigo}:#{perfil.desc}", :value => "#{perfil.desc}", :id => "#{perfil.codigo}", :ayuda => "#{perfil.ayuda}"}
+           @info << {:label => "#{perfil.codigo}:#{perfil.desc}", :value => "#{perfil.desc}", :id => "#{perfil.codigo}", :ayuda => "#{perfil.ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>')}"}
          end
          render :json =>  @info  }
     end
