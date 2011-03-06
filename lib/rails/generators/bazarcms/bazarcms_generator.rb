@@ -50,7 +50,7 @@ class BazarcmsGenerator < Rails::Generators::Base
     remove_file 'tmp/~migration_ready.rb'      
 
 
-    for i in 2..5
+    for i in 2..6
       # vemos si ya existe un fichero de migracion vN ubicaciones
       existe = false; 
       Dir.foreach("db/migrate") { |f|

@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bazarcms}
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Garum Fundatio"]
-  s.date = %q{2011-03-04}
+  s.date = %q{2011-03-06}
   s.extra_rdoc_files = [
     "README"
   ]
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "app/models/bazarcms/empresa.rb",
      "app/models/bazarcms/empresasconsulta.rb",
      "app/models/bazarcms/empresasdato.rb",
+     "app/models/bazarcms/empresasperfil.rb",
      "app/models/bazarcms/empresasresultado.rb",
      "app/models/bazarcms/perfil.rb",
      "app/models/bazarcms/ubicacion.rb",
@@ -44,6 +45,7 @@ Gem::Specification.new do |s|
      "app/views/bazarcms/empresasconsultas/show.html.erb",
      "app/views/bazarcms/empresasdatos/edit.html.erb",
      "app/views/bazarcms/layouts/bazarcms.html.erb",
+     "app/views/bazarcms/perfiles/listaperfiles.html.erb",
      "app/views/bazarcms/ubicaciones/_form.html.erb",
      "app/views/bazarcms/ubicaciones/edit.html.erb",
      "app/views/bazarcms/ubicaciones/index.html.erb",
@@ -61,6 +63,7 @@ Gem::Specification.new do |s|
      "lib/rails/generators/bazarcms/templates/schema3.rb",
      "lib/rails/generators/bazarcms/templates/schema4.rb",
      "lib/rails/generators/bazarcms/templates/schema5.rb",
+     "lib/rails/generators/bazarcms/templates/schema6.rb",
      "lib/rails/railties/tasks.rake",
      "public/stylesheets/bazarcms.css"
   ]
