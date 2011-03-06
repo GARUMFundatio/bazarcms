@@ -176,6 +176,8 @@ module Bazarcms
   end 
   
   def enviabusqueda()
+   
+   
     @clusters = Cluster.where("activo = 'S'")
     
     @consulta = Empresasconsulta.new
@@ -207,8 +209,7 @@ module Bazarcms
 
       resultados = Empresa.find_with_ferret(params[:q])
       logger.debug "resu: (#{resultados.inspect}) <-------"
-      
-       
+           
       conta2 = 0
       for resu in resultados 
 
@@ -222,7 +223,8 @@ module Bazarcms
 
         # primero miramos si ofrece lo que buscamos
         
-        if !params[:pofertan].nil?
+        if params[:pofertan].length > 0
+           
           cam = params[:pofertan].split(',')
           
           if cam.count > 0
@@ -265,7 +267,7 @@ module Bazarcms
 
         # primero miramos si ofrece lo que buscamos
         
-        if !params[:pdemandan].nil?
+        if params[:pdemandan].length > 0
           cam = params[:pdemandan].split(',')
           
           if cam.count > 0
@@ -304,7 +306,6 @@ module Bazarcms
         else 
           logger.debug "pdemandan viene vacio !!!"
         end 
-
 
         
         # buscamos en las ubicaciones 
@@ -354,7 +355,6 @@ module Bazarcms
         end
         total+=1
 
-
         if (entra == total)
           @res = Empresasresultado.new(); 
           @res.empresasconsulta_id = @consulta.id
@@ -366,11 +366,14 @@ module Bazarcms
           @res.save
           conta2 += 1
         end 
+
          
       end 
       @consulta.total_resultados = @consulta.total_resultados + conta2;
       @consulta.save 
     
+
+
     # luego lanzamos las busquedas al resto de los bazares
 
     for cluster in @clusters
@@ -466,6 +469,9 @@ module Bazarcms
     logger.debug "decodeado #{params[:pofertan]}"
     logger.debug "decodeado #{params[:demandan]}"
     
+    
+    
+    
     resultados = Empresa.find_with_ferret(params[:q])
     
     logger.debug "#{resultados.inspect}"
@@ -480,7 +486,7 @@ module Bazarcms
 
       # primero miramos si ofrece lo que buscamos
       
-      if !params[:pofertan].nil?
+      if params[:pofertan].length > 0
         cam = params[:pofertan].split(',')
         
         if cam.count > 0
@@ -523,7 +529,7 @@ module Bazarcms
 
       # primero miramos si demandan lo que buscamos
       
-      if !params[:pdemandan].nil?
+      if params[:pdemandan].length > 0
         cam = params[:pdemandan].split(',')
         
         if cam.count > 0
