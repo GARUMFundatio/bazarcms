@@ -35,7 +35,30 @@ Bazar::Application.routes.draw do
       get :autocomplete_perfil_descripcion, :on => :collection
     end
   end
+ 
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
+    resources :ofertas
+  end
   
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
+    resources :ofertasconsultas
+  end
+  
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
+    resources :ofertasconsultasresultados
+  end
+  
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
+    resources :ofertasperfiles
+  end
+
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
+    resources :ofertaspaises
+  end
+  
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
+    resources :ofertasfavoritos
+  end
   
  
   match "/bazarcms/datos" => "bazarcms/empresasdatos#index"
