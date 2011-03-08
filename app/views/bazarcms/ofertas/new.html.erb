@@ -403,7 +403,7 @@
 
 		if (tot3 == 0) {
 			html3 = "";
-			$('#mispaises').html("<p>Seleccione uno o varios países en la caja de búsqueda</p>");
+			$('#mispaises').html("<p>Seleccione uno o varios países en la caja de búsqueda.</p><p>Puedes buscar también por código de País Ej: GB . La búsqueda es por el nombre internacional. Ej: Francia -> France.</p>");
 		}
 		else {
 			html3 = "";
@@ -418,7 +418,7 @@
 				html3 += " <img src='/images/papelera.png' border='0' onclick='borrapaises("+ii+");'></span>";
 				html3 += '<div class="descripcion-perfil" id="P'+lis3[ii]+'" style="display:none">';
 	    		html3 += '<p>'+ayuda3[ii]+'</p>';
-	    		html3 += "<a class='ocultar-link' href='#' onclick=\"$('#D"+lis3[ii]+"\').slideToggle(250);\">Ocultar la descripción</a>";
+	    		html3 += "<a class='ocultar-link' href='#' onclick=\"$('#P"+lis3[ii]+"\').slideToggle(250);\">Ocultar la descripción</a>";
 	    		html3 += "</div>";
 				html3 += "</div>";
 
@@ -437,7 +437,7 @@
 		  delimiter: /(,|;)\s*/,
 		  deferRequestBy: 150, //miliseconds
 		  params: { tipo: 'O' },
-		  source: "/paises/busquedapaises.json",
+		  source: "/busquedapaises.json",
 		  minLength: 2,
 		  select: function(event, ui) {
 
