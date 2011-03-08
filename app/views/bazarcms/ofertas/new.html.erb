@@ -2,21 +2,26 @@
 
 <div id="ofer1">
 	<h3>Paso (1): Defina tipo y a quien va dirigida</h3>
+	
+	<h3>(a) ¿Es una <b>Oferta</b> o una <b>Demanda</b>?
+	<br/>
+	<p id="opciones-oferta">
+	  <span><label id="check-ofertas"><input type="radio" name="size"> Ofertas </label></span>
+	  <span><label id="check-demandas"><input type="radio" name="size"> Demandas </label></span>
+	</p>
+	
+	<br>
+	<p>(b) Defina las palabras clave que desea de las empresas que se van a seleccionar. Puede dejarlo vacío.</p>
 	<div id="cajabusqueda">
-	<div class="demo">
 
+	
+	<div class="demo">
+	
 	<p class="busqueda-principal">
+	
 	<input id="busca" name="busqueda" size="30" type="text">
 
 	</p>
-
-	<a id="busqueda-link" href="#busqueda-busqueda">Búsqueda Avanzada</a>
-	<script>
-	$('#busqueda-link').click(function() {
-	  $('#avanzada').slideToggle(250);
-	});
-	</script>
-
 
 		<style>
 		#demo-frame > div.demo { padding: 1px !important; };
@@ -89,7 +94,7 @@
 
 		</script>
 
-	<div id="avanzada" style="display:none">
+	<div id="avanzada" style="display:block">
 
 	<h3>Filtrar por Perfiles</h3>
 
@@ -523,16 +528,9 @@
 	     </div><!-- /#cajabusqueda2 -->
 	</div><!-- /#avanzada-->
 
-	<p id="opciones-busqueda">
-	  <span><label id="check-ofertas"><input type="radio" name="size"> Ofertas </label></span>
-	  <span><label id="check-demandas"><input type="radio" name="size"> Demandas </label></span>
-	  <span><label id="check-empresas"><input type="radio" name="size"> Empresas</label></span>
-	</p>
-
 
 	 <button>Buscar</button>
-	 <a href="/bazarcms/publicaroferta" id="publicar-link" ><strong>Publicar </strong>Oferta / Demanda</a>
-
+	
 	</div><!-- /.demo -->
 
 	</div><!-- /#cajabusqueda -->
