@@ -2,16 +2,20 @@
 
 <div id="ofer1">
 	<h3>Paso (1): Defina tipo y a quien va dirigida</h3>
-	
-	<h3>(a) ¿Es una <b>Oferta</b> o una <b>Demanda</b>?
+
 	<br/>
+	
+	<h3>(a) ¿Es una <b>Oferta</b> o una <b>Demanda</b>?</h3>
+
+	<br/>
+
 	<p id="opciones-oferta">
-	  <span><label id="check-ofertas"><input type="radio" name="size"> Ofertas </label></span>
-	  <span><label id="check-demandas"><input type="radio" name="size"> Demandas </label></span>
+	  <span><label id="check-ofertas"><input type="radio" name="tipo" value="oferta" checked="checked"> Oferta </label></span>
+	  <span><label id="check-demandas"><input type="radio" name="tipo" value="demanda"> Demanda </label></span>
 	</p>
 	
 	<br>
-	<p>(b) Defina las palabras clave que desea de las empresas que se van a seleccionar. Puede dejarlo vacío.</p>
+	<h3>(b) Defina las palabras clave que desea de las empresas que se van a seleccionar. Puede dejarlo vacío.</h3>
 	<div id="cajabusqueda">
 
 	
@@ -96,8 +100,8 @@
 
 	<div id="avanzada" style="display:block">
 
-	<h3>Filtrar por Perfiles</h3>
-
+	<h3>(c) Seleccione los sectores.</h3>
+	<br/>
 	<div id="filtro-perfiles">
 	<table cellspacing="0" class="tabla">
 		<tr><th>Ofrecen:</th><th>Empresas que sean de estos sectores</th></tr>
@@ -342,8 +346,9 @@
 	</script>
 
 
-	<h3>Filtrar por País</h3>
-
+	<h3>(d) Solo empresas que tengan presencia en estos Países</h3>
+	<br/>
+	
 	<div id="filtro-pais">
 
 		<table cellspacing="0" class="tabla">
@@ -403,8 +408,8 @@
 	</script>
 
 
-	<h3>Filtrar por Datos Económicos</h3>
-
+	<h3>(e) Empresas que cuyos datos cumplan estas condiciones.</h3>
+	<br/>
 	<div id="filtro-datos-economicos">
 	<table border="0" cellspacing="0">
 		<tr>
@@ -469,67 +474,7 @@
 	</table>
 	</div><!-- /#filtro-datos-economicos -->
 
-	<h3>Ayuda Búsqueda Avanzada <a id="ayuda-busqueda-link" href="#ayuda-busqueda">Ver/ocultar</a></h3>
-	<script>
-	$('#ayuda-busqueda-link').click(function() {
-	  $('#ayuda-busqueda').slideToggle(250);
-	});
-	</script>
-
-	     <div id="ayuda-busqueda">
-	          <ul id="pasos-container">
-	          <li class="paso" id="paso1">
-	               <div>Introduzca los términos de la búsqueda</div>
-	               <img src="/images/ayuda-busqueda-paso1.gif" alt="" />
-	          </li>
-	          <li class="paso" id="paso2">
-	               <div>Puede usar asteriscos o espacios para buscar por varias palabras.</div>
-	               <img src="/images/ayuda-busqueda-paso2.gif" alt="" />
-	          </li>
-	          <li class="paso" id="paso3">
-	               <div>Use los desplazadores para limitar la búsqueda.</div>
-	               <img src="/images/ayuda-busqueda-paso3.gif" alt="" />
-	          </li>
-	          <li class="paso" id="paso4">
-	               <div>Pulse Buscar para empezar la búsqueda</div>
-	               <img src="/images/ayuda-busqueda-paso4.gif" alt="" />
-	          </li>
-	          <li class="paso" id="paso5">
-	               <div>Progreso de la búsqueda</div>
-	               <img src="/images/ayuda-busqueda-paso5.gif" alt="" />
-	          </li>
-	          <li class="paso" id="paso6">
-	               <div>Navegue por los resultados.</div>
-	               <img src="/images/ayuda-busqueda-paso6.gif" alt="" />
-	          </li>
-	          </ul>
-
-	          <div class="pasos-nav-pyn">
-	          <a href="#" id="prev-paso">Anterior</a>
-	          <a href="#" id="next-paso">Siguiente</a>
-	          </div>
-
-	     </div><!-- /#ayuda-busqueda-->
-
-	     <script>
-	             $('#pasos-container')
-	                .before('<div id="pasos-nav">')
-	                .cycle({
-	                   fx:     'scrollHorz',
-	                   speed:  '500',
-	                   timeout: 0,
-	                   next:   '#next-paso',
-	                   prev:   '#prev-paso',
-	                   pager:  '#pasos-nav'
-	                });
-	     </script>
-	     <div id="cajabusqueda2">
-	         <button>Buscar</button>
-	     </div><!-- /#cajabusqueda2 -->
 	</div><!-- /#avanzada-->
-
-
-	 <button>Buscar</button>
 	
 	</div><!-- /.demo -->
 
@@ -537,7 +482,13 @@
 
 	
 	<br/>
+
+	<a href="#" onclick="Estimar(); ">Estimar empresas con estas condiciones.</a>	
+
+	<br/>
+
 	<a href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); ">Siguiente Paso: Datos de la oferta</a>	
+
 </div>
 
 <div id="ofer2" style="display:none">
