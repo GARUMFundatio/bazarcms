@@ -78,5 +78,6 @@ Bazar::Application.routes.draw do
   match '/bazarcms/delperfil' => 'bazarcms/perfiles#delperfil', :as => :delperfil
   match '/bazarcms/listaperfiles' => 'bazarcms/perfiles#listaperfiles', :as => :listaperfiles
 
+  match "/bazarcms/publicaroferta" => 'bazarcms/ofertas#new', :as => :publicaroferta 
     
 end

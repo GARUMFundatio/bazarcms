@@ -10,55 +10,55 @@ module Bazarcms
   
   layout "bazar"
   def index
-    @consultas = Oferta.all.paginate(:page => params[:page], :per_page => 15)
-    logger.debug @consultas.size
+    @ofertas = Oferta.all.paginate(:page => params[:page], :per_page => 15)
+    logger.debug @ofertas.size
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @consultas }
+      format.xml  { render :xml => @ofertas }
     end
   end
 
   def list
-    @consultas = Oferta.where('1 = 1').order("nombre asc")
-    logger.debug @consultas.size
+    @ofertas = Oferta.where('1 = 1').order("nombre asc")
+    logger.debug @ofertas.size
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @consultas }
+      format.xml  { render :xml => @ofertas }
     end
   end
 
-  # muestra la información de una consulta para usuarios registrados en bazar 
+  # muestra la información de una oferta para usuarios registrados en bazar 
 
   def show
     
-    @consulta = Oferta.find(params[:id])
-    @consultasdatos = Ofertasdato.where("consulta_id = ? and periodo >= ?", params[:id], @consulta.fundada).order("periodo")
+    @oferta = Oferta.find(params[:id])
+    @ofertasdatos = Ofertasdato.where("oferta_id = ? and periodo >= ?", params[:id], @oferta.fundada).order("periodo")
     @usuario = User.find(params[:id])
     respond_to do |format|
       format.html { render :action => "show" }
-      format.xml  { render :xml => @consulta }
+      format.xml  { render :xml => @oferta }
     end
 
   end
 
-  # muestra la información de una consulta para usuarios no registrados en bazar 
+  # muestra la información de una oferta para usuarios no registrados en bazar 
   
   def show2
-    @consulta = Oferta.find(params[:id])
+    @oferta = Oferta.find(params[:id])
 
     respond_to do |format|
       format.html { render :action => "show2", :layout => false }
-      format.xml  { render :xml => @consulta }
+      format.xml  { render :xml => @oferta }
     end
 
   end
 
   def new
-    @consulta = Oferta.new
+    @oferta = Oferta.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @consulta }
+      format.xml  { render :xml => @oferta }
     end
   end
 
@@ -66,102 +66,70 @@ module Bazarcms
     logger.debug "paso por el edit"
     logger.debug params.inspect
     
-    if params[:id].to_i != current_user.id.to_i 
-      redirect_to("/")
-    end 
-
-    @consulta = Oferta.find_by_id(params[:id])
-    if (@consulta.nil?) then
-      @consulta = Oferta.new
-      @consulta.id = params[:id]
-      @consulta.user_id = params[:id]
-      @consulta.nombre  = 'Escriba su nombre Aquí'
-      @consulta.desc    = 'Describa su consulta'
-      @consulta.fundada = 2005 
-      @consulta.moneda = 0
-      @consulta.save
-      
-    end
+    @oferta = Oferta.find_by_id(params[:id])
     
-    $i = @consulta.fundada;
+    if @oferta.empresa_id.to_i != current_user.id.to_i
+        redirect_to('/')
+    end 
+    
+    $i = @oferta.fundada;
     $num = DateTime.now.year;
 
-# relleno los datos financieros si no existen
-    while $i <= $num  do
-      @eb = Bazarcms::Ofertasdato.find_by_consulta_id_and_periodo(params[:id], $i)
-      
-      if (@eb.nil?) then
-        @eb = Bazarcms::Ofertasdato.new
-        @eb.consulta_id = params[:id];
-        @eb.periodo = $i
-        @eb.empleados = 0
-        @eb.ventas = 0
-        @eb.compras = 0
-        @eb.resultados = 0
-        @eb.save
-      end
-      $i +=1;
-    end
-     
-    # TODO JT gestionar cuando solo hay un dato o ninguno (no debería)
-    
-    @consultasdatos = Bazarcms::Ofertasdato.where('consulta_id = '+params[:id]+' and periodo >= '+@consulta.fundada.to_s)
-    logger.debug "datos de las consultas"
-    logger.debug @consulta.inspect
-    logger.debug @consultasdatos.inspect
+    logger.debug "datos de las ofertas"
+    logger.debug @oferta.inspect
 
   end
 
   def create
     logger.debug "pasa por el create "
     logger.debug params.inspect
-    @consulta = Oferta.new(params[:bazarcms_consulta])
-    @consulta.user_id = current_user.id
-    @consulta.id = current_user.id
-    @consultasdatos = Bazarcms::Ofertasdato.where('consulta_id = '+params[:id]+' and periodo >= '+@consulta.fundada.to_s)
+    @oferta = Oferta.new(params[:bazarcms_oferta])
+    @oferta.user_id = current_user.id
+    @oferta.id = current_user.id
+    @ofertasdatos = Bazarcms::Ofertasdato.where('oferta_id = '+params[:id]+' and periodo >= '+@oferta.fundada.to_s)
   
-    Actividad.graba("Ha creado una nueva consulta.", "USER", BZ_param("BazarId"), current_user.id, @consulta.nombre)
+    Actividad.graba("Ha creado una nueva oferta.", "USER", BZ_param("BazarId"), current_user.id, @oferta.nombre)
     
     respond_to do |format|
-      if @consulta.save
-        logger.debug "se ha creado la consulta:"+@consulta.id.to_s+' '+@consulta.user_id.to_s
-        format.html { redirect_to(@consulta, :notice => 'Se ha creado correctamente la consulta.') }
-        format.xml  { render :xml => @consulta, :status => :created, :location => @consulta }
+      if @oferta.save
+        logger.debug "se ha creado la oferta:"+@oferta.id.to_s+' '+@oferta.user_id.to_s
+        format.html { redirect_to(@oferta, :notice => 'Se ha creado correctamente la oferta.') }
+        format.xml  { render :xml => @oferta, :status => :created, :location => @oferta }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @consulta.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @oferta.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   def update
     logger.debug params.inspect
-    @consulta = Oferta.find(params[:id])
-    @consultasdatos = Bazarcms::Ofertasdato.where('consulta_id = '+params[:id]+' and periodo >= '+@consulta.fundada.to_s)
+    @oferta = Oferta.find(params[:id])
+    @ofertasdatos = Bazarcms::Ofertasdato.where('oferta_id = '+params[:id]+' and periodo >= '+@oferta.fundada.to_s)
       
-    Actividad.graba("Actualizada información consulta.", "USER",  BZ_param("BazarId"), current_user.id, @consulta.nombre)
+    Actividad.graba("Actualizada información oferta.", "USER",  BZ_param("BazarId"), current_user.id, @oferta.nombre)
     
     respond_to do |format|
-      if @consulta.update_attributes(params[:bazarcms_consulta])
-        # format.html { redirect_to(@consulta, :notice => 'Se ha actualizado correctamente la consulta.') }
+      if @oferta.update_attributes(params[:bazarcms_oferta])
+        # format.html { redirect_to(@oferta, :notice => 'Se ha actualizado correctamente la oferta.') }
         format.html { render :action => "edit" }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @consulta.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @oferta.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @consulta = Oferta.find(params[:id])
+    @oferta = Oferta.find(params[:id])
     
-    # las consultas no se borran 
+    # las ofertas no se borran 
     
-    # @consulta.destroy
+    # @oferta.destroy
 
     respond_to do |format|
-      format.html { redirect_to(consultas_url) }
+      format.html { redirect_to(ofertas_url) }
       format.xml  { head :ok }
     end
   end
@@ -180,20 +148,20 @@ module Bazarcms
    
     @clusters = Cluster.where("activo = 'S'")
     
-    @consulta = Ofertasconsulta.new
-    @consulta.consulta_id = current_user.id 
+    @oferta = Ofertasoferta.new
+    @oferta.oferta_id = current_user.id 
     
     logger.debug "------> (#{params[:q]}) unscaped (#{CGI.unescape(params[:q])})"
     logger.debug "------> (#{params.inspect})"
     
-    @consulta.desc = CGI.unescape(params[:q])
-    @consulta.total_consultas = @clusters.count()
-    @consulta.total_respuestas = 0
-    @consulta.total_resultados = 0
-    @consulta.fecha_inicio = DateTime::now
-    @consulta.fecha_fin = nil
-    @consulta.sql = params[:q]
-    @consulta.save
+    @oferta.desc = CGI.unescape(params[:q])
+    @oferta.total_ofertas = @clusters.count()
+    @oferta.total_respuestas = 0
+    @oferta.total_resultados = 0
+    @oferta.fecha_inicio = DateTime::now
+    @oferta.fecha_fin = nil
+    @oferta.sql = params[:q]
+    @oferta.save
     
     conta = 0
     micluster = BZ_param("BazarId").to_i;
@@ -204,8 +172,8 @@ module Bazarcms
       logger.debug "busco en local"
       conta += 1 
       
-      @consulta.total_respuestas = @consulta.total_respuestas + 1;
-      @consulta.save
+      @oferta.total_respuestas = @oferta.total_respuestas + 1;
+      @oferta.save
 
       resultados = Oferta.find_with_ferret(params[:q])
       logger.debug "resu: (#{resultados.inspect}) <-------"
@@ -245,7 +213,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
                 
-                datos = Bazarcms::Ofertasperfil.where("consulta_id = ? and tipo = 'O' and codigo between ? and ? ", [resu.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'O' and codigo between ? and ? ", [resu.id], cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -288,7 +256,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
                 
-                datos = Bazarcms::Ofertasperfil.where("consulta_id = ? and tipo = 'D' and codigo between ? and ? ", [resu.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'D' and codigo between ? and ? ", [resu.id], cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -317,13 +285,13 @@ module Bazarcms
 
 
         
-        datos = Bazarcms::Ofertasdato.where("consulta_id = ?", [resu.id]).order('periodo desc').limit(1)
+        datos = Bazarcms::Ofertasdato.where("oferta_id = ?", [resu.id]).order('periodo desc').limit(1)
 
         logger.debug "datos seleccionados para el filtro #{datos.inspect}"
         # aplicamos el filtro de empleados 
 
         rangoe = params[:qe].split(' ')
-        # puede que existan consultas que todavía no tienen datos!!!!
+        # puede que existan ofertas que todavía no tienen datos!!!!
         if (!datos.nil?)
           if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
             entra += 1 
@@ -357,9 +325,9 @@ module Bazarcms
 
         if (entra == total)
           @res = Ofertasresultado.new(); 
-          @res.consultasconsulta_id = @consulta.id
+          @res.ofertasoferta_id = @oferta.id
           @res.cluster_id = micluster
-          @res.consulta_id = resu.id 
+          @res.oferta_id = resu.id 
           @res.orden = resu.nombre
           @res.enlace = resu.url
           @res.info = "#{resu.nombre}"
@@ -369,8 +337,8 @@ module Bazarcms
 
          
       end 
-      @consulta.total_resultados = @consulta.total_resultados + conta2;
-      @consulta.save 
+      @oferta.total_resultados = @oferta.total_resultados + conta2;
+      @oferta.save 
     
 
 
@@ -380,9 +348,9 @@ module Bazarcms
      
       if micluster != cluster.id 
         
-        logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaconsultas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}"
+        logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@oferta.id}&cid=#{micluster}"
         
-        uri = URI.parse("#{cluster.url}/bazarcms/buscaconsultas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}")
+        uri = URI.parse("#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@oferta.id}&cid=#{micluster}")
 
         post_body = []
         post_body << "Content-Type: text/plain\r\n"
@@ -402,26 +370,26 @@ module Bazarcms
           when Net::HTTPSuccess, Net::HTTPRedirection
             conta += 1
             conta2 = 0
-            consultas = JSON.parse(res.body)
+            ofertas = JSON.parse(res.body)
 
-            logger.debug "#{consultas.inspect} <-----------"
-            consultas.each{ |key|
+            logger.debug "#{ofertas.inspect} <-----------"
+            ofertas.each{ |key|
               logger.debug("#{key.inspect}")
-              logger.debug("#{key['consulta'].inspect} <------ datos")
+              logger.debug("#{key['oferta'].inspect} <------ datos")
               resu = Bazarcms::Ofertasresultado.new()
-              resu.consultasconsulta_id = @consulta.id
+              resu.ofertasoferta_id = @oferta.id
               resu.cluster_id = cluster.id
-              resu.consulta_id = key['consulta']['id'] 
-              resu.enlace = key['consulta']['url']
-              resu.orden = key['consulta']['nombre']
-              resu.info = key['consulta']['nombre']
+              resu.oferta_id = key['oferta']['id'] 
+              resu.enlace = key['oferta']['url']
+              resu.orden = key['oferta']['nombre']
+              resu.info = key['oferta']['nombre']
               resu.save
               conta2 += 1
               }
             
-            @consulta.total_respuestas = @consulta.total_respuestas + 1;
-            @consulta.total_resultados = @consulta.total_resultados + conta2;
-            @consulta.save
+            @oferta.total_respuestas = @oferta.total_respuestas + 1;
+            @oferta.total_resultados = @oferta.total_resultados + conta2;
+            @oferta.save
           else
             logger.debug "ERROR en la petición a #{uri}---------->"+res.error!
           end
@@ -435,13 +403,13 @@ module Bazarcms
 
     end 
     
-    @consulta.total_consultas = conta;
-    @consulta.fecha_fin = DateTime::now
+    @oferta.total_ofertas = conta;
+    @oferta.fecha_fin = DateTime::now
 
-    @consulta.save
+    @oferta.save
 
     respond_to do |format|
-      format.html { redirect_to '/bazarcms/consultasconsultas/'+@consulta.id.to_s+'?display=inside'}
+      format.html { redirect_to '/bazarcms/ofertasofertas/'+@oferta.id.to_s+'?display=inside'}
     end
     
   end
@@ -507,7 +475,7 @@ module Bazarcms
                   cc2 = cc2 + "9"
               end
               
-              datos = Bazarcms::Ofertasperfil.where("consulta_id = ? and tipo = 'O' and codigo between ? and ? ", [empre.id], cc, cc2)
+              datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'O' and codigo between ? and ? ", [empre.id], cc, cc2)
               logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
               if datos.count > 0
@@ -550,7 +518,7 @@ module Bazarcms
                   cc2 = cc2 + "9"
               end
               
-              datos = Bazarcms::Ofertasperfil.where("consulta_id = ? and tipo = 'D' and codigo between ? and ? ", [empre.id], cc, cc2)
+              datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'D' and codigo between ? and ? ", [empre.id], cc, cc2)
               logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
               if datos.count > 0
@@ -577,13 +545,13 @@ module Bazarcms
       
       # miramos los resultados económicos 
       
-      datos = Bazarcms::Ofertasdato.where("consulta_id = ?", [empre[:id]]).order('periodo desc').limit(1)
+      datos = Bazarcms::Ofertasdato.where("oferta_id = ?", [empre[:id]]).order('periodo desc').limit(1)
       
       logger.debug "datos seleccionados para el filtro #{datos.inspect}"
       # aplicamos el filtro de empleados 
       
       rangoe = params[:qe].split(' ')
-      # puede que existan consultas que todavía no tienen datos!!!!
+      # puede que existan ofertas que todavía no tienen datos!!!!
       if (!datos.nil?)
         if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
           entra += 1 
@@ -630,8 +598,8 @@ module Bazarcms
 #     logger.debug "envío el resultado de la busqueda"
       
 #     cluster = Cluster.find_by_id(params[:cid])
-#     logger.debug ("#{cluster.url}/bazarcms/resultadoconsultas?bid=#{params[:bid]}")
-#     uri = URI.parse("#{cluster.url}/bazarcms/resultadoconsultas?bid=#{params[:bid]}")
+#     logger.debug ("#{cluster.url}/bazarcms/resultadoofertas?bid=#{params[:bid]}")
+#     uri = URI.parse("#{cluster.url}/bazarcms/resultadoofertas?bid=#{params[:bid]}")
 
 #    post_body = []
 #    post_body << "Content-Type: text/plain\r\n"
@@ -658,8 +626,8 @@ module Bazarcms
   # TODO desactivada la respuesta asincrona que solo hay una máquina externa 
   # para hacer pruebas y está detrás de un NAT
   def estadobusqueda 
-    estado = Bazarcms::Ofertasconsulta.where("consulta_id = ?", current_user[:id]).order('fecha_inicio desc').limit(1)
-    logger.debug "Estado de la consulta para el usuario #{current_user[:id]}: #{estado.inspect}"
+    estado = Bazarcms::Ofertasoferta.where("oferta_id = ?", current_user[:id]).order('fecha_inicio desc').limit(1)
+    logger.debug "Estado de la oferta para el usuario #{current_user[:id]}: #{estado.inspect}"
     render :json => estado
   end 
   

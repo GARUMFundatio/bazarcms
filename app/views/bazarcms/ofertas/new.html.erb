@@ -1,0 +1,564 @@
+<h1>Publicar una Oferta / Demanda</h1>
+
+<div id="ofer1">
+	<h3>Paso (1): Defina tipo y a quien va dirigida</h3>
+	<div id="cajabusqueda">
+	<div class="demo">
+
+	<p class="busqueda-principal">
+	<input id="busca" name="busqueda" size="30" type="text">
+
+	</p>
+
+	<a id="busqueda-link" href="#busqueda-busqueda">Búsqueda Avanzada</a>
+	<script>
+	$('#busqueda-link').click(function() {
+	  $('#avanzada').slideToggle(250);
+	});
+	</script>
+
+
+		<style>
+		#demo-frame > div.demo { padding: 1px !important; };
+		</style>
+
+		<script>
+		<%= Bazarcms::Empresasdato.listaRE %>
+		<%= Bazarcms::Empresasdato.listaRD %>
+
+		$(function() {
+			$( "#slider-range" ).slider({
+				range: true,
+				min: 0,
+				max: maxRE,
+				values: [ 0, maxRE ],
+				slide: function( event, ui ) {
+					$( "#empleados" ).val( "Entre: " + listaRE[ui.values[ 0 ]] + " y " + listaRE2[ui.values[ 1 ]]  );
+					$( "#empleados2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+				}
+			});
+			$( "#empleados" ).val( "Todos");
+			$( "#empleados2" ).val( "0+"+maxRE);
+
+
+			$( "#slider-range2" ).slider({
+				range: true,
+				min: 0,
+				max: maxRD,
+				values: [ 0, maxRD ],
+				slide: function( event, ui ) {
+					$( "#ventas" ).val( "Entre: " + listaRD[ui.values[ 0 ]] + " y " + listaRD2[ui.values[ 1 ]] );
+					$( "#ventas2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+				}
+			});
+
+			$( "#compras" ).val( "Todos");
+			$( "#compras2" ).val( "0+"+maxRD);
+
+			$( "#ventas" ).val( "Todos");
+			$( "#ventas2" ).val( "0+"+maxRD);
+
+			$( "#slider-range3" ).slider({
+				range: true,
+				min: 0,
+				max: maxRD,
+				values: [ 0, maxRD ],
+				slide: function( event, ui ) {
+					$( "#compras" ).val( "Entre: " + listaRD[ui.values[ 0 ]] + " y " + listaRD2[ui.values[ 1 ]] );
+					$( "#compras2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+				}
+			});
+
+
+			$( "#slider-range4" ).slider({
+				range: true,
+				min: 0,
+				max: maxRD,
+				values: [ 0, maxRD ],
+				slide: function( event, ui ) {
+					$( "#resultados" ).val( "Entre: " + listaRD[ui.values[ 0 ]] + " y " + listaRD2[ui.values[ 1 ]] );
+					$( "#resultados2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+				}
+			});
+			$( "#resultados" ).val( "Todos");
+			$( "#resultados2" ).val( "0+"+maxRD);
+
+
+		});
+
+
+		</script>
+
+	<div id="avanzada" style="display:none">
+
+	<h3>Filtrar por Perfiles</h3>
+
+	<div id="filtro-perfiles">
+	<table cellspacing="0" class="tabla">
+		<tr><th>Ofrecen:</th><th>Empresas que sean de estos sectores</th></tr>
+		<tr>
+			<td valign="top" style="width: 420px;">
+			<form action="#loquesea" id="perfiles-ofertas-form">
+			 	<label for="query1">Buscar en sectores</label> <input type="text" name="q" id="query1" />
+			 </form>
+			 <input type="hidden" id="pofertan" style="border:0; color:#f6931f; font-weight:bold;" />
+			</td>					
+			<td valign="top" >
+			<div id="filtroofertan">
+				<p>Seleccione uno o varios sectores en la caja de búsqueda.</p>
+				<p><b>Solo</b> las empresas que estén en <b>alguno</b> de estos sectores.</p>
+			</div>
+			</td>
+		</tr>
+	</table>
+
+	<table cellspacing="0" class="tabla">
+		<tr><th>Demandan:</th><th>Empresas que sean de estos sectores</th></tr>
+		<tr>
+			<td valign="top" style="width: 420px;">
+			<form action="#loquesea" id="perfiles-demandas-form" >
+			 	<label for="query2">Buscar en sectores</label> <input type="text" name="q" id="query2" />
+			 </form>
+			 <input type="hidden" id="pdemandan" style="border:0; color:#f6931f; font-weight:bold;" />
+			</td>					
+			<td valign="top">
+				<div id="filtrodemandan">
+					<p>Seleccione uno o varios sectores en la caja de búsqueda.</p>
+					<p><b>Solo<b/> las empresas que estén en <b>alguno</b> de estos sectores.</p>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	</div><!-- /#filtro-perfiles -->
+
+
+	<script type="text/javascript">
+	 //<![CDATA[
+
+	var a1;
+	var a2;
+	var tot1 = 0; 
+	var tot2 = 0;
+	var lis1 = [];
+	var lab1 = [];
+	var ayuda1 = [];
+	var html1 = "";
+	var lis2 = [];
+	var lab2 = [];
+	var ayuda2 = [];
+	var html2 = "";
+
+	function borraofertan(cual) {
+		var ii;
+		if (cual == 0 && tot1 == 0) {
+			tot1 = 0;
+		}
+		else {
+
+			var ii;
+			for (ii = cual; ii < tot1 -1; ii++) {
+				lis1[ii] = lis1[ii+1];
+				lab1[ii] = lab1[ii+1];
+				ayuda1[ii] = ayuda1[ii+1];
+			}
+			tot1 = tot1 - 1;
+
+		}
+		pintaofertan();
+	};
+
+	function pintaofertan() {
+
+
+		if (tot1 == 0) {
+			html1 = "";
+			$('#filtroofertan').html("<p>Seleccione uno o varios sectores en la caja de búsqueda</p>");
+		}
+		else {
+			html1 = "";
+			bus = "";
+			var ii = 0;
+			for (ii = 0; ii < tot1; ii++) {
+				html1 += '<div class="perfil">';
+				html1 += '	<div class="nombre-perfil">'+lab1[ii]+'</div>';
+				html1 += "<span class='opciones-perfil'><img title='Ver Descripción' src='/images/help.png' border='0' onclick=\"$('#O"+lis1[ii]+"\').slideToggle(250);\">";
+				html1 += " <img src='/images/papelera.png' border='0' onclick='borraofertan("+ii+");'></span>";
+				html1 += '<div class="descripcion-perfil" id="O'+lis1[ii]+'" style="display:none">';
+	    		html1 += '<p>'+ayuda1[ii]+'</p>';
+	    		html1 += "<a class='ocultar-link' href='#' onclick=\"$('#O"+lis1[ii]+"\').slideToggle(250);\">Ocultar la descripción</a>";
+	    		html1 += "</div>";
+				html1 += "</div>";
+
+				bus += lis1[ii]+","
+			}
+			$('#filtroofertan').html(html1);
+
+			$('#pofertan').val(bus);
+		}
+	};
+
+
+	function borrademandan(cual) {
+		var ii;
+		if (cual == 0 && tot2 == 0) {
+			tot2 = 0;
+		}
+		else {
+
+			var ii;
+			for (ii = cual; ii < tot2 -1; ii++) {
+				lis2[ii] = lis2[ii+1];
+				lab2[ii] = lab2[ii+1];
+				ayuda2[ii] = ayuda2[ii+1]
+			}
+			tot2 = tot2 - 1;
+
+		}
+		pintademandan();
+	};
+
+	function pintademandan() {
+
+		if (tot2 == 0) {
+			html2 = "";
+			$('#filtrodemandan').html("<p>Seleccione uno o varios sectores en la caja de búsqueda</p>");
+		}
+		else {
+			html2 = "";
+			bus = "";
+			var ii = 0;
+			for (ii = 0; ii < tot2; ii++) {
+
+
+				html2 += '<div class="perfil">';
+				html2 += '	<div class="nombre-perfil">'+lab2[ii]+'</div>';
+				html2 += "<span class='opciones-perfil'><img title='Ver Descripción' src='/images/help.png' border='0' onclick=\"$('#D"+lis2[ii]+"\').slideToggle(250);\">";
+				html2 += " <img src='/images/papelera.png' border='0' onclick='borrademandan("+ii+");'></span>";
+				html2 += '<div class="descripcion-perfil" id="D'+lis2[ii]+'" style="display:none">';
+	    		html2 += '<p>'+ayuda2[ii]+'</p>';
+	    		html2 += "<a class='ocultar-link' href='#' onclick=\"$('#D"+lis2[ii]+"\').slideToggle(250);\">Ocultar la descripción</a>";
+	    		html2 += "</div>";
+				html2 += "</div>";
+
+				bus += lis2[ii]+",";
+			}
+			$('#filtrodemandan').html(html2);
+
+			$('#pdemandan').val(bus);
+		}
+	};
+
+	jQuery(function() {
+
+		var options = {
+		  width: 300,
+		  delimiter: /(,|;)\s*/,
+		  deferRequestBy: 150, //miliseconds
+		  params: { tipo: 'O' },
+		  source: "/bazarcms/busquedaperfiles.json",
+		  minLength: 2,
+		  select: function(event, ui) {
+
+			var esta = 0; 
+
+			for (ii = 0; ii < tot1; ii++) {
+				if (lis1[ii] === ui.item.id) {
+					esta = 1; 		
+				}
+			}
+			if (!esta) {
+				lis1[tot1] = ui.item.id;
+				lab1[tot1] = ui.item.label;
+				ayuda1[tot1] = ui.item.ayuda;
+				tot1 += 1;
+			}
+
+			pintaofertan();
+			$("#query1").val("");
+
+			return false;
+		  },
+		  noCache: false //set to true, to disable caching
+		};
+
+
+
+		a1 = $('#query1').autocomplete(options);
+
+		var options2 = {
+		  width: 300,
+		  delimiter: /(,|;)\s*/,
+		  deferRequestBy: 150, //miliseconds
+		  params: { tipo: 'O' },
+		  source: "/bazarcms/busquedaperfiles.json",
+		  minLength: 2,
+		  select: function(event, ui) {
+
+			var esta = 0; 
+
+			for (ii = 0; ii < tot2; ii++) {
+				if (lis2[ii] === ui.item.id) {
+					esta = 1; 		
+				}
+			}
+			if (!esta) {
+				lis2[tot2] = ui.item.id;
+				lab2[tot2] = ui.item.label;
+				ayuda2[tot2] = ui.item.ayuda;
+				tot2 += 1;
+			}
+
+			$("#query2").val("");
+			pintademandan();
+
+			return false;
+		  },
+		  noCache: false //set to true, to disable caching
+		};
+
+		a2 = $('#query2').autocomplete(options2);
+
+	    $('#query1').keypress(function (e) {
+	        var code = null;
+	        code = (e.keyCode ? e.keyCode : e.which);
+	        return (code == 13) ? false : true;
+	    });
+
+	    $('#query2').keypress(function (e) {
+	        var code = null;
+	        code = (e.keyCode ? e.keyCode : e.which);
+	        return (code == 13) ? false : true;
+	    });
+
+	});
+
+	//]]>
+	</script>
+
+
+	<h3>Filtrar por País</h3>
+
+	<div id="filtro-pais">
+
+		<table cellspacing="0" class="tabla">
+			<tr><th>Países:</th><th>Países Seleccionados:</th></tr>
+			<tr>
+				<td valign="top" style="width: 420px;">
+				<form action="#loquesea" id="paises-form" >
+	                <label for="query3">Buscar Países</label>
+	                <input type="text" name="q" id="query3" />
+				 </form>
+				</td>					
+				<td>
+					<div id="filtropaises">
+						<p>Seleccione uno o varios países en la caja de búsqueda</p>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+
+	</div><!-- /#filtro-pais -->
+
+	<script type="text/javascript">
+	 //<![CDATA[
+
+	var a1;
+
+	jQuery(function() {
+
+		var options = {
+		  width: 300,
+		  delimiter: /(,|;)\s*/,
+		  deferRequestBy: 150, //miliseconds
+		  params: { tipo: 'O' },
+		  source: "/bazarcms/busquedaperfiles.json",
+		  minLength: 2,
+		  select: function(event, ui) {
+		    $("#missectores").load('/bazarcms/addperfil?tipo=O&codigo='+ui.item.id);
+			return false;
+		  },
+		  noCache: false //set to true, to disable caching
+		};
+
+		a1 = $('#query3').autocomplete(options);
+
+		// desactivamos el enter 
+
+	    $('#query3').keypress(function (e) {
+	        var code = null;
+	        code = (e.keyCode ? e.keyCode : e.which);
+	        return (code == 13) ? false : true;
+	    });
+
+	});
+
+	//]]>
+	</script>
+
+
+	<h3>Filtrar por Datos Económicos</h3>
+
+	<div id="filtro-datos-economicos">
+	<table border="0" cellspacing="0">
+		<tr>
+			<td width="350px">
+				<label for="empleados">Nº Empleados:</label>
+
+			</td>
+			<td width="200px">
+				<div id="slider-range"></div>
+			</td>
+			<td>
+	            <input type="text" size="35" id="empleados" readonly="readonly" style="border:0; color:#f6931f; font-weight:bold;" />
+	            <input type="hidden" id="empleados2" style="border:0; color:#f6931f; font-weight:bold;" />
+			</td>
+		</tr>
+	</table>
+
+	<table border="0" cellspacing="0">
+		<tr>
+			<td width="350px">
+				<label for="compras">Compras:</label>
+			</td>
+			<td width="200px">
+				<div id="slider-range3"></div>
+			</td>
+			<td>
+	            <input type="text" size="35" id="compras" readonly="readonly" style="border:0; color:#f6931f; font-weight:bold;" />
+	            <input type="hidden" id="compras2" style="border:0; color:#f6931f; font-weight:bold;" />
+			</td>
+		</tr>
+	</table>
+
+	<table border="0" cellspacing="0">
+		<tr>
+			<td width="350px">
+				<label for="ventas">Ventas:</label>
+			</td>
+			<td width="200px">
+				<div id="slider-range2"></div>
+			</td>
+	        <td>
+	            <input type="text" size="35" id="ventas" readonly="readonly" style="border:0; color:#f6931f; font-weight:bold;" />
+	            <input type="hidden" id="ventas2" style="border:0; color:#f6931f; font-weight:bold;" />
+			</td>
+		</tr>
+	</table>
+
+
+	<table border="0" cellspacing="0">
+		<tr>
+			<td width="350px">
+				<label for="resultados">Resultados:</label>
+			</td>
+			<td width="200px">
+				<div id="slider-range4"></div>
+			</td>
+			<td>
+	            <input type="text" size="35" id="resultados" readonly="readonly" style="border:0; color:#f6931f; font-weight:bold;" />
+	            <input type="hidden" id="resultados2" style="border:0; color:#f6931f; font-weight:bold;" />
+			</td>
+		</tr>
+	</table>
+	</div><!-- /#filtro-datos-economicos -->
+
+	<h3>Ayuda Búsqueda Avanzada <a id="ayuda-busqueda-link" href="#ayuda-busqueda">Ver/ocultar</a></h3>
+	<script>
+	$('#ayuda-busqueda-link').click(function() {
+	  $('#ayuda-busqueda').slideToggle(250);
+	});
+	</script>
+
+	     <div id="ayuda-busqueda">
+	          <ul id="pasos-container">
+	          <li class="paso" id="paso1">
+	               <div>Introduzca los términos de la búsqueda</div>
+	               <img src="/images/ayuda-busqueda-paso1.gif" alt="" />
+	          </li>
+	          <li class="paso" id="paso2">
+	               <div>Puede usar asteriscos o espacios para buscar por varias palabras.</div>
+	               <img src="/images/ayuda-busqueda-paso2.gif" alt="" />
+	          </li>
+	          <li class="paso" id="paso3">
+	               <div>Use los desplazadores para limitar la búsqueda.</div>
+	               <img src="/images/ayuda-busqueda-paso3.gif" alt="" />
+	          </li>
+	          <li class="paso" id="paso4">
+	               <div>Pulse Buscar para empezar la búsqueda</div>
+	               <img src="/images/ayuda-busqueda-paso4.gif" alt="" />
+	          </li>
+	          <li class="paso" id="paso5">
+	               <div>Progreso de la búsqueda</div>
+	               <img src="/images/ayuda-busqueda-paso5.gif" alt="" />
+	          </li>
+	          <li class="paso" id="paso6">
+	               <div>Navegue por los resultados.</div>
+	               <img src="/images/ayuda-busqueda-paso6.gif" alt="" />
+	          </li>
+	          </ul>
+
+	          <div class="pasos-nav-pyn">
+	          <a href="#" id="prev-paso">Anterior</a>
+	          <a href="#" id="next-paso">Siguiente</a>
+	          </div>
+
+	     </div><!-- /#ayuda-busqueda-->
+
+	     <script>
+	             $('#pasos-container')
+	                .before('<div id="pasos-nav">')
+	                .cycle({
+	                   fx:     'scrollHorz',
+	                   speed:  '500',
+	                   timeout: 0,
+	                   next:   '#next-paso',
+	                   prev:   '#prev-paso',
+	                   pager:  '#pasos-nav'
+	                });
+	     </script>
+	     <div id="cajabusqueda2">
+	         <button>Buscar</button>
+	     </div><!-- /#cajabusqueda2 -->
+	</div><!-- /#avanzada-->
+
+	<p id="opciones-busqueda">
+	  <span><label id="check-ofertas"><input type="radio" name="size"> Ofertas </label></span>
+	  <span><label id="check-demandas"><input type="radio" name="size"> Demandas </label></span>
+	  <span><label id="check-empresas"><input type="radio" name="size"> Empresas</label></span>
+	</p>
+
+
+	 <button>Buscar</button>
+	 <a href="/bazarcms/publicaroferta" id="publicar-link" ><strong>Publicar </strong>Oferta / Demanda</a>
+
+	</div><!-- /.demo -->
+
+	</div><!-- /#cajabusqueda -->
+
+	
+	<br/>
+	<a href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); ">Siguiente Paso: Datos de la oferta</a>	
+</div>
+
+<div id="ofer2" style="display:none">
+	<h3>Paso (2): Datos </h3>
+
+	<br/>
+	<a href="#" onclick="$('#ofer2').toggle('slow'); $('#ofer1').toggle('slow'); ">Anterior</a>	|
+	<a href="#" onclick="$('#ofer2').toggle('slow'); $('#ofer3').toggle('slow'); ">Confirmar el envio</a>	
+
+</div>
+
+<div id="ofer3" style="display:none">
+	<h3>Paso (3): Confirmación y envío</h3>
+
+	<br/>
+	<a href="#" onclick="$('#ofer3').toggle('slow'); $('#ofer2').toggle('slow'); ">Anterior</a>	|
+	<a href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); ">Envio</a>	
+
+</div>
+
+
+
