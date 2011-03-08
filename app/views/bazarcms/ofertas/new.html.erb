@@ -361,7 +361,7 @@
 				 </form>
 				</td>					
 				<td>
-					<div id="filtropaises">
+					<div id="mispaises">
 						<p>Seleccione uno o varios países en la caja de búsqueda</p>
 					</div>
 				</td>
@@ -374,7 +374,61 @@
 	<script type="text/javascript">
 	 //<![CDATA[
 
-	var a1;
+
+	var tot3 = 0; 
+	var lis3 = [];
+	var lab3 = [];
+	var ayuda3 = [];
+	var html3 = "";
+
+	function borrapaises(cual) {
+		var ii;
+		if (cual == 0 && tot3 == 0) {
+			tot3 = 0;
+		}
+		else {
+
+			var ii;
+			for (ii = cual; ii < tot3 -1; ii++) {
+				lis3[ii] = lis3[ii+1];
+				lab3[ii] = lab3[ii+1];
+				ayuda3[ii] = ayuda3[ii+1]
+			}
+			tot3 = tot3 - 1;
+		}
+		pintapaises();
+	};
+
+	function pintapaises() {
+
+		if (tot3 == 0) {
+			html3 = "";
+			$('#mispaises').html("<p>Seleccione uno o varios países en la caja de búsqueda</p>");
+		}
+		else {
+			html3 = "";
+			bus = "";
+			var ii = 0;
+			for (ii = 0; ii < tot3; ii++) {
+
+
+				html3 += '<div class="perfil">';
+				html3 += '	<div class="nombre-perfil">'+lab3[ii]+'</div>';
+				html3 += "<span class='opciones-perfil'><img title='Ver Descripción' src='/images/help.png' border='0' onclick=\"$('#P"+lis3[ii]+"\').slideToggle(250);\">";
+				html3 += " <img src='/images/papelera.png' border='0' onclick='borrapaises("+ii+");'></span>";
+				html3 += '<div class="descripcion-perfil" id="P'+lis3[ii]+'" style="display:none">';
+	    		html3 += '<p>'+ayuda3[ii]+'</p>';
+	    		html3 += "<a class='ocultar-link' href='#' onclick=\"$('#D"+lis3[ii]+"\').slideToggle(250);\">Ocultar la descripción</a>";
+	    		html3 += "</div>";
+				html3 += "</div>";
+
+				bus += lis3[ii]+",";
+			}
+			$('#mispaises').html(html3);
+
+			$('#ppaises').val(bus);
+		}
+	};
 
 	jQuery(function() {
 
@@ -383,18 +437,34 @@
 		  delimiter: /(,|;)\s*/,
 		  deferRequestBy: 150, //miliseconds
 		  params: { tipo: 'O' },
-		  source: "/bazarcms/busquedaperfiles.json",
+		  source: "/paises/busquedapaises.json",
 		  minLength: 2,
 		  select: function(event, ui) {
-		    $("#missectores").load('/bazarcms/addperfil?tipo=O&codigo='+ui.item.id);
+
+			var esta = 0; 
+
+			for (ii = 0; ii < tot3; ii++) {
+				if (lis3[ii] === ui.item.id) {
+					esta = 1; 		
+				}
+			}
+			if (!esta) {
+				lis3[tot3] = ui.item.id;
+				lab3[tot3] = ui.item.label;
+				ayuda3[tot3] = ui.item.ayuda;
+				tot3 += 1;
+			}
+
+			pintapaises();
+			$("#query3").val("");
+
 			return false;
 		  },
 		  noCache: false //set to true, to disable caching
 		};
 
-		a1 = $('#query3').autocomplete(options);
 
-		// desactivamos el enter 
+		a1 = $('#query3').autocomplete(options);
 
 	    $('#query3').keypress(function (e) {
 	        var code = null;
@@ -403,6 +473,7 @@
 	    });
 
 	});
+
 
 	//]]>
 	</script>
