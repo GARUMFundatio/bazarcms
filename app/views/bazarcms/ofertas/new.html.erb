@@ -558,14 +558,13 @@
  
 		<div>
 
-			<div id="estado" style="display: block; width:550px;" >
-				<div id="progressbar" style="display: block"></div>
+			<div id="estado" style="display: none; width:550px;" >
+				<div id="progressbar" style="display: none"></div>
 				<br/>
-				<div id="estadotexto" style="display: block"></div>
+				<div id="estadotexto" style="display: none"></div>
 			</div>
 
-			<div id="resultados">
-
+			<div id="estimadas">
 			</div><!-- /#resultados-->
 
 		</div>
@@ -627,7 +626,7 @@ function Estimar() {
 		  async:true, 
 		  url: '/bazarcms/enviabusqueda?q='+s+'&qe='+emple+'&qv='+ventas+'&qc='+compras+'&qr='+resultados+'&pofertan='+pofertan+'&pdemandan='+pdemandan+'&display=total', 
 		  success: function(data) {
-		    $('#resultados').html(data);
+		    $('#estimadas').html(data);
 			clearInterval(actualiza);
 
 			$('#progressbar').hide();
