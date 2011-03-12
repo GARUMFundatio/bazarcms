@@ -314,8 +314,6 @@ module Bazarcms
         # buscamos en la información económica
 
         # si no pasa los filtros anteriores ni miramos la información económica
-
-
         
         datos = Bazarcms::Empresasdato.where("empresa_id = ?", [resu.id]).order('periodo desc').limit(1)
 
@@ -441,7 +439,12 @@ module Bazarcms
     @consulta.save
 
     respond_to do |format|
-      format.html { redirect_to '/bazarcms/empresasconsultas/'+@consulta.id.to_s+'?display=inside'}
+      if params[:display] == "total"
+        format.html { render :layout => false}
+      else
+        format.html { redirect_to '/bazarcms/empresasconsultas/'+@consulta.id.to_s+'?display=inside'}      
+      end
+    
     end
     
   end
