@@ -556,28 +556,91 @@
 	</div>
 	
  
-		<div>
+	<div>
 
-			<div id="estado" style="display: none; width:550px;" >
-				<div id="progressbar" style="display: none"></div>
-				<br/>
-				<div id="estadotexto" style="display: none"></div>
-			</div>
-
-			<div id="estimadas">
-			</div><!-- /#resultados-->
-
+		<div id="estado" style="display: none; width:550px;" >
+			<div id="progressbar" style="display: none"></div>
+			<br/>
+			<div id="estadotexto" style="display: none"></div>
 		</div>
 
-	 <div id="navegar-publicar">
+		<div id="estimadas">
+		</div><!-- /#resultados-->
 
+	</div>
+
+	<div id="navegar-publicar">
     	<a href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); ">Siguiente Paso: Datos de la oferta</a>
     </div>
     
+	</div>
+	
 </div><!-- /#ofer1 -->
 
 <div id="ofer2" style="display:none">
-	<h3 class="paso-title"><em>2</em> Datos</h3>
+
+	<h3 class="paso-title"><em>3</em> Información de la Oferta/Demanda</h3>
+
+	
+    <div id="publicar-paso3a" class="publicar-seccion">
+        <h4><em>a</em> Título</h4>
+		<br/>
+		<input type="text" name="titulo" id="titulo" size="60" />
+		<br/>
+		<br/>
+	</div>
+	<div id="publicar-paso3b" class="publicar-seccion">
+
+        <h4><em>b</em> Descripción</h4>
+		<br/>
+		<textarea cols="90" id="descripcion" name="descripcion" rows="15"></textarea>
+		<br/>
+		<br/>
+
+	</div>
+	
+	<div id="publicar-paso3c" class="publicar-seccion">
+		
+		<h4><em>c</em> Texto del correo</h4>
+		<br/>
+		<textarea cols="90" id="descripcion" name="textocorreo" rows="15"></textarea>
+		<br/>
+		<br/>
+		
+	</div>
+	
+	<div id="publicar-paso3d" class="publicar-seccion">
+
+		<h4><em>d</em> Validez </h4>
+
+		<br/>
+		
+		<div class="field">
+		    <label for="oferta_desde_fecha">Desde Fecha: </label> 
+
+
+				<input type="text" name="desde_fecha" id="oferta_desde_fecha" value="<%= DateTime.now.strftime("%d-%m-%Y") -%>" class="hasDatepicker">
+
+				<script>
+
+				/* TODO estoy hay que localizarlo dependiendo de la lengua elegida */
+
+				$(function() {
+					$.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
+					$( "#oferta_desde_fecha" ).datepicker( $.datepicker.regional[ "es" ] );
+				});
+
+				</script>
+
+
+		</div>
+		
+		<br/>
+		<br/>
+	
+    </div><!-- /#publicar-paso3d -->
+
+
 
     <div id="navegar-publicar">
         <a href="#" onclick="$('#ofer2').toggle('slow'); $('#ofer1').toggle('slow'); ">Anterior</a>
