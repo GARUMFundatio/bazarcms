@@ -547,8 +547,8 @@
 
 
     <div id="navegar-publicar">
-		<h3 class="paso-title"><em>2</em> Compruebe el número de empresas seleccionadas.</h3>
-	   	<a class="publicar-submit" href="#navegar-publicar" onclick="Estimar(); ">Estimar empresas con estas condiciones.</a>
+        <h3 class="paso-title"><em>2</em> Compruebe el número de empresas seleccionadas.</h3>
+        <a class="publicar-submit" href="#navegar-publicar" onclick="Estimar(); ">Estimar empresas con estas condiciones.</a>
 	</div>
 	
  
@@ -581,6 +581,7 @@
 	
     <div id="publicar-paso3a" class="publicar-seccion">
         <h4><em>a</em> Título</h4>
+
 		<br/>
 		<%= f.text_field :titulo, :size => "60" %>
 		<br/>
@@ -589,10 +590,10 @@
 	<div id="publicar-paso3b" class="publicar-seccion">
 
         <h4><em>b</em> Descripción</h4>
-		<br/>
 		<%= f.text_area :texto, :size => "50x12" %>
 		<br/>
-		<br/>
+
+		<textarea cols="90" id="descripcion" name="descripcion" rows="15"></textarea>
 
 	</div>
 	
@@ -610,7 +611,6 @@
 
 		<h4><em>d</em> Validez </h4>
 
-		<br/>
 		
 		 <div class="field"> 
 		    <label for="noticia_fecha">Desde Fecha</label> 
