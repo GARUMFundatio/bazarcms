@@ -32,7 +32,6 @@ module Bazarcms
   def show
     
     @oferta = Oferta.find(params[:id])
-    @ofertasdatos = Ofertasdato.where("oferta_id = ? and periodo >= ?", params[:id], @oferta.fundada).order("periodo")
     @usuario = User.find(params[:id])
     respond_to do |format|
       format.html { render :action => "show" }
@@ -56,6 +55,8 @@ module Bazarcms
   def new
     @oferta = Oferta.new
 
+    logger.debug @oferta.inspect
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @oferta }
@@ -82,17 +83,16 @@ module Bazarcms
 
   def create
     logger.debug "pasa por el create "
-    logger.debug params.inspect
+    logger.debug "------------>"+params.inspect
     @oferta = Oferta.new(params[:bazarcms_oferta])
-    @oferta.user_id = current_user.id
-    @oferta.id = current_user.id
-    @ofertasdatos = Bazarcms::Ofertasdato.where('oferta_id = '+params[:id]+' and periodo >= '+@oferta.fundada.to_s)
+    @oferta.empresa_id = current_user.id
+    @oferta.bazar_id = BZ_param("BazarId")
   
-    Actividad.graba("Ha creado una nueva oferta.", "USER", BZ_param("BazarId"), current_user.id, @oferta.nombre)
+    Actividad.graba("Ha creado una nueva oferta.", "USER", BZ_param("BazarId"), current_user.id, @oferta.titulo)
     
     respond_to do |format|
       if @oferta.save
-        logger.debug "se ha creado la oferta:"+@oferta.id.to_s+' '+@oferta.user_id.to_s
+        logger.debug "se ha creado la oferta:"+@oferta.id.to_s+' '+@oferta.empresa_id.to_s
         format.html { redirect_to(@oferta, :notice => 'Se ha creado correctamente la oferta.') }
         format.xml  { render :xml => @oferta, :status => :created, :location => @oferta }
       else

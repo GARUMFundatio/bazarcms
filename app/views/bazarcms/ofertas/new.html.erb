@@ -1,10 +1,12 @@
+<%= javascript_include_tag "jquery.ui.datepicker-es.js" %>
+
 <h3 class="page-title">Publicar una Oferta / Demanda</h3>
 
 <div id="ofer1">
 	<h3 class="paso-title"><em>1</em> Defina tipo y a quien va dirigida</h3>
 
 	<div>
-	
+	<%= form_for(@oferta) do |f| %>
     <div id="publicar-paso1a" class="publicar-seccion">
         <h4><em>a</em> ¿Es una <strong>Oferta</strong> o una <strong>Demanda</strong>?</h4>
 
@@ -105,9 +107,7 @@
         		<tr><th>Ofrecen:</th><th>Empresas que sean de estos sectores</th></tr>
         		<tr>
         			<td valign="top" style="width: 420px;">
-        			<form action="#loquesea" id="perfiles-ofertas-form">
         			 	<label for="query1">Buscar en sectores</label> <input type="text" name="q" id="query1" />
-        			 </form>
         			 <input type="hidden" id="pofertan" style="border:0; color:#f6931f; font-weight:bold;" />
         			</td>
         			<td valign="top" >
@@ -123,9 +123,7 @@
         		<tr><th>Demandan:</th><th>Empresas que sean de estos sectores</th></tr>
         		<tr>
         			<td valign="top" style="width: 420px;">
-        			<form action="#loquesea" id="perfiles-demandas-form" >
         			 	<label for="query2">Buscar en sectores</label> <input type="text" name="q" id="query2" />
-        			 </form>
         			 <input type="hidden" id="pdemandan" style="border:0; color:#f6931f; font-weight:bold;" />
         			</td>
         			<td valign="top">
@@ -354,10 +352,8 @@
     			<tr><th>Países:</th><th>Países Seleccionados:</th></tr>
     			<tr>
     				<td valign="top" style="width: 420px;">
-    				<form action="#loquesea" id="paises-form" >
     	                <label for="query3">Buscar Países</label>
     	                <input type="text" name="q" id="query3" />
-    				 </form>
     				</td>
     				<td>
     					<div id="mispaises">
@@ -582,10 +578,11 @@
 	<h3 class="paso-title"><em>3</em> Información de la Oferta/Demanda</h3>
 
 	
+	
     <div id="publicar-paso3a" class="publicar-seccion">
         <h4><em>a</em> Título</h4>
 		<br/>
-		<input type="text" name="titulo" id="titulo" size="60" />
+		<%= f.text_field :titulo, :size => "60" %>
 		<br/>
 		<br/>
 	</div>
@@ -593,7 +590,7 @@
 
         <h4><em>b</em> Descripción</h4>
 		<br/>
-		<textarea cols="90" id="descripcion" name="descripcion" rows="15"></textarea>
+		<%= f.text_area :texto, :size => "50x12" %>
 		<br/>
 		<br/>
 
@@ -603,7 +600,7 @@
 		
 		<h4><em>c</em> Texto del correo</h4>
 		<br/>
-		<textarea cols="90" id="descripcion" name="textocorreo" rows="15"></textarea>
+		<%= f.text_area :texto_correo, :size => "50x12" %>
 		<br/>
 		<br/>
 		
@@ -615,36 +612,50 @@
 
 		<br/>
 		
-		<div class="field">
-		    <label for="oferta_desde_fecha">Desde Fecha: </label> 
+		 <div class="field"> 
+		    <label for="noticia_fecha">Desde Fecha</label> 
 
+				<script> 
 
-				<input type="text" name="desde_fecha" id="oferta_desde_fecha" value="<%= DateTime.now.strftime("%d-%m-%Y") -%>" class="hasDatepicker">
-
-				<script>
-
-				/* TODO estoy hay que localizarlo dependiendo de la lengua elegida */
+					/* TODO estoy hay que localizarlo dependiendo de la lengua elegida */
 
 				$(function() {
 					$.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
-					$( "#oferta_desde_fecha" ).datepicker( $.datepicker.regional[ "es" ] );
+					$( "#oferta_fecha" ).datepicker( $.datepicker.regional[ "es" ] );
 				});
 
-				</script>
+				</script> 
 
+				<input type="text" size="10" name="bazarcms_oferta[fecha]" id="bazarcms_oferta_fecha" value="<%= DateTime.now.strftime("%d/%m/%Y")-%>"/> 
+		</div>		
+		<br/>
+		 <div class="field"> 
+		    <label for="noticia_fecha">Hasta Fecha</label> 
 
-		</div>
-		
+				<script> 
+
+					/* TODO estoy hay que localizarlo dependiendo de la lengua elegida */
+
+				$(function() {
+					$.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
+					$( "#oferta_hasta_fecha" ).datepicker( $.datepicker.regional[ "es" ] );
+				});
+
+				</script> 
+
+				<input type="text" size="10" name="bazarcms_oferta[fecha_hasta]" id="bazarcms_oferta_fecha_hasta" value="<%= DateTime.now.strftime("%d/%m/%Y")-%>"/> 
+		</div>		
 		<br/>
 		<br/>
 	
     </div><!-- /#publicar-paso3d -->
 
 
+ <% end %> 
 
     <div id="navegar-publicar">
         <a href="#" onclick="$('#ofer2').toggle('slow'); $('#ofer1').toggle('slow'); ">Anterior</a>
-       	<a class="publicar-submit" href="#" onclick="$('#ofer2').toggle('slow'); $('#ofer3').toggle('slow'); ">Confirmar el envio</a>
+       	<a class="publicar-submit" href="#" onclick="publicar(); ">Publicar</a>
     </div>
 
 
@@ -713,9 +724,49 @@ function Estimar() {
 		return false;
 };
 
+
 $(function() {
 	$( "#progressbar" ).progressbar({ value: 0});
 });
+
+
+function publicar() {
+
+	titulo = $("#bazarcms_oferta_titulo").val();
+	
+	if (titulo.length <= 0) {
+		$("#bazarcms_oferta_titulo").focus();
+		return false;
+	}
+
+
+	
+	if ($("#bazarcms_oferta_texto").val().length <= 0) {
+		$("#bazarcms_oferta_texto").focus();
+		return false;
+	}
+
+	
+	if ($("#bazarcms_oferta_texto_correo").val().length <= 0) {
+		$("#bazarcms_oferta_texto_correo").focus();
+		return false;
+	}
+
+	
+	if ($("#bazarcms_oferta_fecha").val().length <= 0) {
+		$("#bazarcms_oferta_fecha").focus();
+		return false;
+	}
+	
+	
+	if ($("#bazarcms_oferta_fecha_hasta").val().length <= 0) {
+		$("#bazarcms_oferta_fecha_hasta").focus();
+		return false;
+	}
+
+	$('#new_bazarcms_oferta').submit();
+	
+}
 
 
 //]]>

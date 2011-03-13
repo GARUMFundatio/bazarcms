@@ -22,9 +22,6 @@ module Bazarcms
       inflect.irregular 'ofertaspais', 'ofertaspaises'
       inflect.irregular 'ofertasfavorito', 'ofertasfovoritos'
       
-      
-      
-      
     end
      
   end
