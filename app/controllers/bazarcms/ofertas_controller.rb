@@ -103,11 +103,11 @@ module Bazarcms
     @oferta.vistas = 0
     @oferta.clicks = 0
     @oferta.contactos = 0
-    @oferta.fav_empresas = 0
-    @oferta.fav_ofertas = 0
-    @oferta.total_empresas = 0 
+    @oferta.fav_empresa = 0
+    @oferta.fav_oferta = 0
     @oferta.filtro = ""
     @oferta.publica = "N"
+
     
     Actividad.graba("Ha creado una nueva oferta.", "USER", BZ_param("BazarId"), current_user.id, @oferta.titulo)
     

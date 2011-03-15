@@ -6,5 +6,15 @@
 	<h3> Con estos criterios de búsqueda hay <b><%= @consulta.total_resultados -%></b> empresas.</h3>
 	<input type="hidden" id="consultaid" value="<%= @consulta.id -%>"/>
 	<p>Si la cantidad le parece adecuada, puede proceder a rellenar los de la oferta/demanda.</p>
+	<script>
+	
+	$(function() {
+
+		$('#bazarcms_oferta_cid').val('<%= @consulta.id -%>');
+		$('#bazarcms_oferta_total_empresas').val('<%= @consulta.total_resultados -%>');
+
+	});
+	
+	</script>
 
 <% end %>
