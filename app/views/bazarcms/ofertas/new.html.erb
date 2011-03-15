@@ -658,13 +658,23 @@
 </div><!-- /#ofer2 -->
 
 <div id="ofer3" style="display:none">
-	<h3 class="paso-title"><em>3</em> Confirmación y envío</h3>
+	
+	<div id="publicar-paso4a" class="publicar-seccion">
+	
+		<h3 class="paso-title"><em>3</em>Publicando la Oferta/Demanda.</h3>
 
-    <div id="navegar-publicar">
-    	<a href="#" onclick="$('#ofer3').toggle('slow'); $('#ofer2').toggle('slow'); ">Anterior</a>
-    	<a class="publicar-submit" href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); ">Envio</a>
-    </div>
+		<br/>
+		<br/>
+		<br/>
 
+		<p>Estamos enviando su Oferta/Demanda. <img src="/images/spinner.gif" border="0" /></p>
+
+		<br/>
+
+		<p> <b>No cierre</b> esta página o navegue hasta que le <b>confirmemos el envío.</b></p>
+	
+	</div>
+	
 </div><!-- /#ofer3 -->
 
 
@@ -776,10 +786,12 @@ function publicar() {
 
 	$('#bazarcms_oferta_filtro').val('q='+s+'&qe='+emple+'&qv='+ventas+'&qc='+compras+'&qr='+resultados+'&pofertan='+pofertan+'&pdemandan='+pdemandan);
 
+	$('#ofer2').toggle('slow');
+	$('#ofer3').toggle('slow');
+	
 	$('#new_bazarcms_oferta').submit();
 	
 }
-
 
 //]]>
 </script>

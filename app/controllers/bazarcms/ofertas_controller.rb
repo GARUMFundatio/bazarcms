@@ -82,6 +82,7 @@ module Bazarcms
   end
 
   def create
+    
     logger.debug "pasa por el create "
     logger.debug "------------>"+params.inspect
     @oferta = Oferta.new(params[:bazarcms_oferta])
@@ -100,20 +101,38 @@ module Bazarcms
     fe = params[:bazarcms_oferta][:fecha_hasta].split('/')
     @oferta.fecha_hasta = fe[2]+'-'+fe[1]+'-'+fe[0]
     
+    # grabamos la información de la oferta. 
+    
     @oferta.vistas = 0
     @oferta.clicks = 0
     @oferta.contactos = 0
     @oferta.fav_empresa = 0
     @oferta.fav_oferta = 0
-    @oferta.publica = "N"
+    @oferta.publica = "Preparando la publicación."
+    
+    @oferta.save
 
+    # guardamos la información extendida para facilitar las busquedas avanzadas.
+    
+    
+
+
+
+    # guardamos bien el valor de la variable publica
+    # que estamos utilizando temporalmente. 
+    
+    
+    @oferta.publica = "N"
+    @oferta.save
+    
+    # anotamos la actividad en local
     
     Actividad.graba("Ha creado una nueva oferta.", "USER", BZ_param("BazarId"), current_user.id, @oferta.titulo)
     
     respond_to do |format|
       if @oferta.save
         logger.debug "se ha creado la oferta:"+@oferta.id.to_s+' '+@oferta.empresa_id.to_s
-        format.html { redirect_to(@oferta, :notice => 'Se ha creado correctamente la oferta.') }
+        format.html { render :layout => true }
         format.xml  { render :xml => @oferta, :status => :created, :location => @oferta }
       else
         format.html { render :action => "new" }
@@ -121,6 +140,7 @@ module Bazarcms
       end
     end
   end
+  
 
   def update
     logger.debug params.inspect
