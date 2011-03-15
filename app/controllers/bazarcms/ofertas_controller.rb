@@ -87,7 +87,28 @@ module Bazarcms
     @oferta = Oferta.new(params[:bazarcms_oferta])
     @oferta.empresa_id = current_user.id
     @oferta.bazar_id = BZ_param("BazarId")
-  
+    
+    if (params[:tipo] == "oferta")
+      @oferta.tipo = "O"
+    else 
+      @oferta.tipo = "D"
+    end 
+    
+    fe = params[:bazarcms_oferta][:fecha].split('/')
+    @oferta.fecha = fe[2]+'-'+fe[1]+'-'+fe[0]
+    
+    fe = params[:bazarcms_oferta][:fecha_hasta].split('/')
+    @oferta.fecha_hasta = fe[2]+'-'+fe[1]+'-'+fe[0]
+    
+    @oferta.vistas = 0
+    @oferta.clicks = 0
+    @oferta.contactos = 0
+    @oferta.fav_empresas = 0
+    @oferta.fav_ofertas = 0
+    @oferta.total_empresas = 0 
+    @oferta.filtro = ""
+    @oferta.publica = "N"
+    
     Actividad.graba("Ha creado una nueva oferta.", "USER", BZ_param("BazarId"), current_user.id, @oferta.titulo)
     
     respond_to do |format|
