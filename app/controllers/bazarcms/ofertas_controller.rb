@@ -105,7 +105,6 @@ module Bazarcms
     @oferta.contactos = 0
     @oferta.fav_empresa = 0
     @oferta.fav_oferta = 0
-    @oferta.filtro = ""
     @oferta.publica = "N"
 
     
