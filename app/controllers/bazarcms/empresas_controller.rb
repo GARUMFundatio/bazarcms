@@ -460,14 +460,14 @@ module Bazarcms
      
      logger.debug "lanzo las peticiones "+DateTime.now.to_s
      
-     5.times do
+     1.times do
        r = Typhoeus::Request.new("http://bazar.garumfundatio.org/api/info.xml")
        r.on_complete do |response|
          logger.debug "-------------> "+response.inspect
        end
        hydra.queue r
 
-       r = Typhoeus::Request.new("http://bazar.dyndns.org:3000/api/info.xml")
+       r = Typhoeus::Request.new("http://bazargarum.dyndns.org:3000/bazarcms/buscaempresas?q=%2A&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&bid=422&cid=2")
        r.on_complete do |response|
          logger.debug "-------------> "+response.inspect
        end
