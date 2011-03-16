@@ -396,18 +396,25 @@ module Bazarcms
             empresas = JSON.parse(response.body)
 
             logger.debug "#{empresas.inspect} <-----------"
+            cluster_id = 0 
             empresas.each{ |key|
               logger.debug("#{key.inspect}")
-              logger.debug("#{key['empresa'].inspect} <------ datos")
-              resu = Bazarcms::Empresasresultado.new()
-              resu.empresasconsulta_id = @consulta.id
-              resu.cluster_id = cluster.id
-              resu.empresa_id = key['empresa']['id'] 
-              resu.enlace = key['empresa']['url']
-              resu.orden = key['empresa']['nombre']
-              resu.info = key['empresa']['nombre']
-              resu.save
-              conta2 += 1
+              if !key['cluster_id'].nil?
+                logger.debug "viene un cluster id "+key.inspect
+                cluster_id = key['cluster_id']
+              end
+              if !key['empresa'].nil?
+                logger.debug("#{key['empresa'].inspect} <------ datos")
+                resu = Bazarcms::Empresasresultado.new()
+                resu.empresasconsulta_id = @consulta.id
+                resu.cluster_id = cluster_id
+                resu.empresa_id = key['empresa']['id'] 
+                resu.enlace = key['empresa']['url']
+                resu.orden = key['empresa']['nombre']
+                resu.info = key['empresa']['nombre']
+                resu.save
+                conta2 += 1
+              end
               }
             
             @consulta.total_respuestas = @consulta.total_respuestas + 1;
