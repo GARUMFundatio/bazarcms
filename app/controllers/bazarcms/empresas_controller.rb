@@ -375,33 +375,26 @@ module Bazarcms
 
     # luego lanzamos las busquedas al resto de los bazares
 
+    hydra = Typhoeus::Hydra.new
+    
+    logger.debug "lanzo las peticiones "+DateTime.now.to_s
+    
     for cluster in @clusters
      
       if micluster != cluster.id 
         
         logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}"
         
-        uri = URI.parse("#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}")
+        uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}"
 
-        post_body = []
-        post_body << "Content-Type: text/plain\r\n"
-        
-        
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.open_timeout = http.read_timeout = 20
-        
-        request = Net::HTTP::Get.new(uri.request_uri)
-        request.body = post_body.join
-        request["Content-Type"] = "text/plain"
-      
-        begin 
-          
-          res =  Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
-          case res
-          when Net::HTTPSuccess, Net::HTTPRedirection
+        r = Typhoeus::Request.new(uri)
+        r.on_complete do |response|
+          logger.debug "-------------> "+response.inspect
+          case response.curl_return_code
+          when 0
             conta += 1
             conta2 = 0
-            empresas = JSON.parse(res.body)
+            empresas = JSON.parse(response.body)
 
             logger.debug "#{empresas.inspect} <-----------"
             empresas.each{ |key|
@@ -422,18 +415,22 @@ module Bazarcms
             @consulta.total_resultados = @consulta.total_resultados + conta2;
             @consulta.save
           else
-            logger.debug "ERROR en la petición a #{uri}---------->"+res.error!
+            logger.debug "ERROR en la petición a #{uri}---------->"+response.curl_return_code
           end
-        
-        rescue Exception => e
-          logger.debug "Exception leyendo #{cluster.url} Got #{e.class}: #{e}"        
+
         end
-        
+
+      hydra.queue r        
+     
       end
-               
 
     end 
-    
+
+    hydra.run
+
+    logger.debug "servidas "+DateTime.now.to_s
+
+
     @consulta.total_consultas = conta;
     @consulta.fecha_fin = DateTime::now
 
