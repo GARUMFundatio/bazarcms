@@ -415,7 +415,7 @@ module Bazarcms
             @consulta.total_resultados = @consulta.total_resultados + conta2;
             @consulta.save
           else
-            logger.debug "ERROR en la petición a #{response.url}---------->"+response.curl_return_code.to_s
+            logger.debug "ERROR en la petición ---------->"+response.inspect
           end
 
         end
