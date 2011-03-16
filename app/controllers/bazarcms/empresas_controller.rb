@@ -509,6 +509,8 @@ module Bazarcms
     
     logger.debug "#{resultados.inspect}"
     resultados2 = []
+    resultados2 = [:cluster_id => BZ_param('BazarId')]
+    
     for empre in resultados
       entra = 0
       total = 0
