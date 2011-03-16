@@ -467,7 +467,7 @@ module Bazarcms
        end
        hydra.queue r
 
-       r = Typhoeus::Request.new("http://bazargarum.dyndns.org:3000/bazarcms/buscaempresas?q=%2A&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&bid=422&cid=2")
+       r = Typhoeus::Request.new("http://bazargarum.dyndns.org:3000/bazarcms/buscaempresas?q=%2A&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&bid=422&cid=2", :timeout       => 3000)
        r.on_complete do |response|
          logger.debug "-------------> "+response.inspect
        end
