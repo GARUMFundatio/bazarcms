@@ -383,9 +383,9 @@ module Bazarcms
      
       if micluster != cluster.id 
         
-        logger.debug "Enviando Petición a #{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}"
         
         uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}"
+        logger.debug "Enviando Petición a ------------> #{uri}"
 
         r = Typhoeus::Request.new(uri)
         r.on_complete do |response|
@@ -420,7 +420,7 @@ module Bazarcms
 
         end
 
-      hydra.queue r        
+        hydra.queue r        
      
       end
 
