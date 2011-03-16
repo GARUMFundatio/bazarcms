@@ -3,6 +3,7 @@ module Bazarcms
   class EmpresasController < ApplicationController
   require "net/http"
   require "uri"
+  require "typhoeus"
   
   unloadable
   before_filter :require_no_user, :only => [:show2, :busca]
@@ -453,6 +454,39 @@ module Bazarcms
     
   end 
 
+
+  def hydra 
+     
+     # creamos una cola de peticiones http
+     
+     hydra = Typhoeus::Hydra.new
+     
+     logger.debug "lanzo las peticiones "+DateTime.now.to_s
+     
+     5.times do
+       r = Typhoeus::Request.new("http://bazar.garumfundatio.org/api/info.xml")
+       r.on_complete do |response|
+         logger.debug "-------------> "+response.inspect
+       end
+       hydra.queue r
+
+       r = Typhoeus::Request.new("http://bazar.dyndns.org:3000/api/info.xml")
+       r.on_complete do |response|
+         logger.debug "-------------> "+response.inspect
+       end
+       hydra.queue r
+
+     end
+
+     logger.debug "encoladas "+DateTime.now.to_s
+     
+     hydra.run
+
+     logger.debug "servidas "+DateTime.now.to_s
+     
+     
+  end 
+  
   def busca 
 
     logger.debug "he recibido una peticion de busqueda #{params.inspect} "

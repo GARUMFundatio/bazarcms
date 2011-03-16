@@ -80,5 +80,6 @@ Bazar::Application.routes.draw do
 
   match "/bazarcms/publicaroferta" => 'bazarcms/ofertas#new', :as => :publicaroferta 
   match "/bazarcms/enviaroferta" => 'bazarcms/ofertas#enviaroferta', :as => :enviaroferta 
+  match "/bazarcms/hydra" => 'bazarcms/empresas#hydra', :as => :hydra
     
 end
