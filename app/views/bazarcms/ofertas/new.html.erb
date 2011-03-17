@@ -7,7 +7,7 @@
 
 	<div>
 	<%= form_for(@oferta) do |f| %>
-    <div id="publicar-paso1a" class="publicar-seccion">
+    <div id="publicar-od-tipo" class="publicar-seccion">
         <h4><em>a</em> ¿Es una <strong>Oferta</strong> o una <strong>Demanda</strong>?</h4>
 
     	<p id="opciones-oferta">
@@ -15,9 +15,9 @@
     	  <span><label id="check-demandas"><input type="radio" name="tipo" value="demanda"> Demanda </label></span>
     	</p>
 	
-    </div><!-- /#publicar-paso1a -->
+    </div><!-- /#publicar-od-tipo -->
     
-    <div id="publicar-paso1b" class="publicar-seccion">
+    <div id="publicar-od-keywords" class="publicar-seccion">
     	<h4><em>b</em> Defina las palabras clave que desea de las empresas que se van a seleccionar. Puede dejarlo vacío.</h4>
 
     	<div class="demo">
@@ -97,9 +97,9 @@
     		
 		</div><!-- /.demo -->
 
-    </div><!-- /#publicar-paso1b -->
+    </div><!-- /#publicar-od-keywords -->
 
-    <div id="publicar-paso1c" class="publicar-seccion">
+    <div id="publicar-od-sectores" class="publicar-seccion">
         <h4><em>c</em> Seleccione los sectores.</h4>
 
     	<div id="filtro-perfiles">
@@ -340,9 +340,9 @@
     	//]]>
     	</script>
 
-    </div><!-- /#publicar-paso1c -->
+    </div><!-- /#publicar-od-sectores -->
 
-    <div id="publicar-paso1d" class="publicar-seccion">
+    <div id="publicar-od-paises" class="publicar-seccion">
 
         <h4><em>d</em> Solo empresas que tengan presencia en estos Países</h4>
 
@@ -473,9 +473,9 @@
     	//]]>
     	</script>
 
-    </div><!-- /#publicar-paso1d -->
+    </div><!-- /#publicar-od-paises -->
 
-    <div id="publicar-paso1e" class="publicar-seccion">
+    <div id="publicar-od-datos" class="publicar-seccion">
 
     	<h4><em>e</em> Empresas que cuyos datos cumplan estas condiciones.</h4>
 
@@ -543,29 +543,24 @@
     	</table>
     	</div><!-- /#filtro-datos-economicos -->
 
-    </div><!-- /#publicar-paso1e -->
+    </div><!-- /#publicar-od-datos -->
 
-
-    <div id="navegar-publicar">
-        <h3 class="paso-title"><em>2</em> Compruebe el número de empresas seleccionadas.</h3>
-        <a class="publicar-submit" href="#navegar-publicar" onclick="Estimar(); ">Estimar empresas con estas condiciones.</a>
-	</div>
+        <a class="publicar-submit" href="#navegar-publicar1" onclick="Estimar(); ">Estimar empresas con estas condiciones.</a>
 	
  
 	<div>
 
-		<div id="estado" style="display: none; width:550px;" >
+		<div id="estado" style="display: none;" >
 			<div id="progressbar" style="display: none"></div>
-			<br/>
 			<div id="estadotexto" style="display: none"></div>
 		</div>
 
 		<div id="estimadas">
-		</div><!-- /#resultados-->
+		</div><!-- /#estimadas-->
 
 	</div>
 
-	<div id="navegar-publicar2" style="display:none;">
+	<div class="navegar-publicar" id="navegar-publicar1" style="display:none;">
     	<a href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); ">Siguiente Paso: Datos de la oferta</a>
     </div>
     
@@ -582,14 +577,14 @@
 	<input type="hidden" id="bazarcms_oferta_total_empresas" name="bazarcms_oferta[total_empresas]" />
 	<input type="hidden" id="bazarcms_oferta_filtro" name="bazarcms_oferta[filtro]" />
 	
-    <div id="publicar-paso3a" class="publicar-seccion">
+    <div id="publicar-od-titulo" class="publicar-seccion">
         <h4><em>a</em> Título</h4>
 
 		<%= f.text_field :titulo, :size => "60" %>
 
 	</div>
 	
-	<div id="publicar-paso3b" class="publicar-seccion">
+	<div id="publicar-od-descripcion" class="publicar-seccion">
 
         <h4><em>b</em> Descripción</h4>
 		<%= f.text_area :texto, :size => "90x12" %>
@@ -597,7 +592,7 @@
 
 	</div>
 	
-	<div id="publicar-paso3c" class="publicar-seccion">
+	<div id="publicar-od-texto" class="publicar-seccion">
 		
 		<h4><em>c</em> Texto del correo</h4>
 
@@ -606,7 +601,7 @@
 		
 	</div>
 	
-	<div id="publicar-paso3d" class="publicar-seccion">
+	<div id="publicar-od-validez" class="publicar-seccion">
 
 		<h4><em>d</em> Validez </h4>
 
@@ -644,12 +639,12 @@
 				<input type="text" size="10" name="bazarcms_oferta[fecha_hasta]" id="bazarcms_oferta_fecha_hasta" value="<%= DateTime.now.strftime("%d/%m/%Y")-%>"/> 
 		</div>
 	
-    </div><!-- /#publicar-paso3d -->
+    </div><!-- /#publicar-od-validez -->
 
 
  <% end %> 
 
-    <div id="navegar-publicar">
+    <div class="navegar-publicar">
         <a href="#" onclick="$('#ofer2').toggle('slow'); $('#ofer1').toggle('slow'); ">Anterior</a>
        	<a class="publicar-submit" href="#" onclick="publicar(); ">Publicar</a>
     </div>
@@ -671,7 +666,7 @@
 
 		<br/>
 
-		<p> <b>No cierre</b> esta página o navegue hasta que le <b>confirmemos el envío.</b></p>
+		<p> <strong>No cierre</strong> esta página o navegue hasta que le <strong>confirmemos el envío.</strong></p>
 	
 	</div>
 	
@@ -726,7 +721,7 @@ function Estimar() {
 				$("#estadotexto").html(data[0].empresasconsulta.total_resultados +' Empresas de '+ data[0].empresasconsulta.total_respuestas +' Bazares');
 			});
 	     },1000);
-		$('#navegar-publicar2').show();
+		$('#ofer1 .navegar-publicar').show();
 		
 		return false;
 };
@@ -795,10 +790,6 @@ function publicar() {
 
 //]]>
 </script>
-
-<style>
-	.ui-progressbar-value { background-image: url(/images/pbar-ani.gif); }
-</style>
 
 
 
