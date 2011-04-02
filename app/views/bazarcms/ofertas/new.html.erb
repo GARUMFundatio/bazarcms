@@ -150,10 +150,12 @@
     	var tot2 = 0;
     	var lis1 = [];
     	var lab1 = [];
+		var emp1 = [];
     	var ayuda1 = [];
     	var html1 = "";
     	var lis2 = [];
     	var lab2 = [];
+		var emp2 = [];
     	var ayuda2 = [];
     	var html2 = "";
 
@@ -168,6 +170,7 @@
     			for (ii = cual; ii < tot1 -1; ii++) {
     				lis1[ii] = lis1[ii+1];
     				lab1[ii] = lab1[ii+1];
+					emp1[ii] = emp1[ii+1];
     				ayuda1[ii] = ayuda1[ii+1];
     			}
     			tot1 = tot1 - 1;
@@ -190,7 +193,7 @@
     			var ii = 0;
     			for (ii = 0; ii < tot1; ii++) {
     				html1 += '<div class="perfil">';
-    				html1 += '	<div class="nombre-perfil">'+lab1[ii]+'</div>';
+    				html1 += '	<div class="nombre-perfil">'+lab1[ii]+'('+emp1[ii]+' empresas)'+'</div>';
     				html1 += "<span class='opciones-perfil'><img title='Ver Descripción' src='/images/help.png' border='0' onclick=\"$('#O"+lis1[ii]+"\').slideToggle(250);\">";
     				html1 += " <img src='/images/papelera.png' border='0' onclick='borraofertan("+ii+");'></span>";
     				html1 += '<div class="descripcion-perfil" id="O'+lis1[ii]+'" style="display:none">';
@@ -219,6 +222,7 @@
     			for (ii = cual; ii < tot2 -1; ii++) {
     				lis2[ii] = lis2[ii+1];
     				lab2[ii] = lab2[ii+1];
+					emp2[ii] = emp2[ii+1];
     				ayuda2[ii] = ayuda2[ii+1]
     			}
     			tot2 = tot2 - 1;
@@ -242,7 +246,7 @@
 
 
     				html2 += '<div class="perfil">';
-    				html2 += '	<div class="nombre-perfil">'+lab2[ii]+'</div>';
+    				html2 += '	<div class="nombre-perfil">'+lab2[ii]+'('+emp2[ii]+' empresas)'+'</div>';
     				html2 += "<span class='opciones-perfil'><img title='Ver Descripción' src='/images/help.png' border='0' onclick=\"$('#D"+lis2[ii]+"\').slideToggle(250);\">";
     				html2 += " <img src='/images/papelera.png' border='0' onclick='borrademandan("+ii+");'></span>";
     				html2 += '<div class="descripcion-perfil" id="D'+lis2[ii]+'" style="display:none">';
@@ -280,6 +284,7 @@
     			if (!esta) {
     				lis1[tot1] = ui.item.id;
     				lab1[tot1] = ui.item.label;
+					emp1[tot1] = ui.item.total;
     				ayuda1[tot1] = ui.item.ayuda;
     				tot1 += 1;
     			}
@@ -315,6 +320,7 @@
     			if (!esta) {
     				lis2[tot2] = ui.item.id;
     				lab2[tot2] = ui.item.label;
+					emp2[tot2] = ui.item.total;
     				ayuda2[tot2] = ui.item.ayuda;
     				tot2 += 1;
     			}

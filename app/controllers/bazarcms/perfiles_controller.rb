@@ -7,7 +7,6 @@ module Bazarcms
   
   def busqueda
     
-    # @perfiles = Perfil.limit(20).where('lower(`desc`) like ? OR lower(ayuda) like ?', '%'+params[:term].downcase+'%', '%'+params[:term].downcase+'%').order('codigo')
    
    terms = params[:term].split(' ')
    
@@ -38,7 +37,7 @@ module Bazarcms
       format.json {
          @info = []
          for perfil in @perfiles
-           @info << {:label => "#{perfil.codigo}:#{perfil.desc}", :value => "#{perfil.desc}", :id => "#{perfil.codigo}", :ayuda => "#{perfil.ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>')}"}
+           @info << {:label => "#{perfil.codigo}:#{perfil.desc}", :value => "#{perfil.desc}", :id => "#{perfil.codigo}", :total => "#{perfil.total_empresas_mercado}", :ayuda => "#{perfil.ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>')}"}
          end
          render :json =>  @info  }
     end
