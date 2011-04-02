@@ -24,7 +24,7 @@
 
         	<p class="busqueda-principal">
 
-            	<input id="busca" name="busqueda" size="30" type="text" />
+            	<input id="busca" name="busqueda" size="30" type="text" onFocus="desactivar();"/>
 
         	</p>
 
@@ -41,6 +41,7 @@
     				slide: function( event, ui ) {
     					$( "#empleados" ).val( "Entre: " + listaRE[ui.values[ 0 ]] + " y " + listaRE2[ui.values[ 1 ]]  );
     					$( "#empleados2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+						desactivar();
     				}
     			});
     			$( "#empleados" ).val( "Todos");
@@ -55,6 +56,7 @@
     				slide: function( event, ui ) {
     					$( "#ventas" ).val( "Entre: " + listaRD[ui.values[ 0 ]] + " y " + listaRD2[ui.values[ 1 ]] );
     					$( "#ventas2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+						desactivar();
     				}
     			});
 
@@ -72,6 +74,7 @@
     				slide: function( event, ui ) {
     					$( "#compras" ).val( "Entre: " + listaRD[ui.values[ 0 ]] + " y " + listaRD2[ui.values[ 1 ]] );
     					$( "#compras2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+						desactivar();
     				}
     			});
 
@@ -84,6 +87,7 @@
     				slide: function( event, ui ) {
     					$( "#resultados" ).val( "Entre: " + listaRD[ui.values[ 0 ]] + " y " + listaRD2[ui.values[ 1 ]] );
     					$( "#resultados2" ).val( ui.values[ 0 ] + "+" + ui.values[ 1 ] );
+						desactivar();
     				}
     			});
     			$( "#resultados" ).val( "Todos");
@@ -170,6 +174,7 @@
 
     		}
     		pintaofertan();
+			desactivar();
     	};
 
     	function pintaofertan() {
@@ -220,6 +225,7 @@
 
     		}
     		pintademandan();
+			desactivar();
     	};
 
     	function pintademandan() {
@@ -280,7 +286,7 @@
 
     			pintaofertan();
     			$("#query1").val("");
-
+				desactivar();
     			return false;
     		  },
     		  noCache: false //set to true, to disable caching
@@ -315,7 +321,8 @@
 
     			$("#query2").val("");
     			pintademandan();
-
+				desactivar();
+				
     			return false;
     		  },
     		  noCache: false //set to true, to disable caching
@@ -392,6 +399,7 @@
     			tot3 = tot3 - 1;
     		}
     		pintapaises();
+			desactivar();
     	};
 
     	function pintapaises() {
@@ -452,7 +460,8 @@
 
     			pintapaises();
     			$("#query3").val("");
-
+				desactivar();
+				
     			return false;
     		  },
     		  noCache: false //set to true, to disable caching
@@ -702,6 +711,8 @@ function Estimar() {
 		  url: '/bazarcms/enviabusqueda?q='+s+'&qe='+emple+'&qv='+ventas+'&qc='+compras+'&qr='+resultados+'&pofertan='+pofertan+'&pdemandan='+pdemandan+'&display=total', 
 		  success: function(data) {
 		    $('#estimadas').html(data);
+			$('#estimadas').show();
+		
 			clearInterval(actualiza);
 
 			$('#progressbar').hide();
@@ -730,6 +741,13 @@ function Estimar() {
 $(function() {
 	$( "#progressbar" ).progressbar({ value: 0});
 });
+
+
+function desactivar() {
+	$("#navegar-publicar1").hide();
+	$("#estado").hide();
+	$("#estimadas").hide();
+}
 
 
 function publicar() {

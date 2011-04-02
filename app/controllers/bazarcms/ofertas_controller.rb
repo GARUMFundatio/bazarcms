@@ -114,16 +114,32 @@ module Bazarcms
 
     # guardamos la información extendida para facilitar las busquedas avanzadas.
     
+    filtro = params[:bazarcms_oferta][:filtro].split('&')
     
-
-
-
-    # guardamos bien el valor de la variable publica
-    # que estamos utilizando temporalmente. 
+    for fil in filtro
     
+      logger.debug "filtro (#{fil})"
+      cam = fil.split('=')  
+
+        if (cam[0] == 'pofertan' ||cam[0] == 'pdemandan' )
+          if (!cam[1].nil?)
+            for sec in cam[1].split(',')
+              logger.debug "sec (#{sec})"  
+              @perfil = Ofertasperfil.new
+              @perfil.consulta_id = @oferta.id
+              @perfil.codigo = sec
+              if (cam[0] == 'pofertan')
+                @perfil.tipo = 'O'
+              else 
+                @perfil.tipo = 'D'          
+              end
+              @perfil.save
+            end
+          end 
+        end
     
-    @oferta.publica = "N"
-    @oferta.save
+    end 
+      
     
     # anotamos la actividad en local
     
@@ -145,8 +161,7 @@ module Bazarcms
   def update
     logger.debug params.inspect
     @oferta = Oferta.find(params[:id])
-    @ofertasdatos = Bazarcms::Ofertasdato.where('oferta_id = '+params[:id]+' and periodo >= '+@oferta.fundada.to_s)
-      
+    
     Actividad.graba("Actualizada información oferta.", "USER",  BZ_param("BazarId"), current_user.id, @oferta.nombre)
     
     respond_to do |format|
