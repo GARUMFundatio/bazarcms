@@ -687,10 +687,10 @@ module Bazarcms
     @esta.fecha = DateTime.now
  
     logger.debug "#{params.inspect}"
-    logger.debug "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid=#{@consulta.id}&cid="+params[:cid]
+    logger.debug "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid="+params[:bid]+"&cid="+params[:cid]
 
     @esta.bazar_id = params[:cid]    
-    @esta.consulta ="q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid=#{@consulta.id}&cid="+params[:cid]
+    @esta.consulta ="q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid="+params[:bid]+"&cid="+params[:cid]
 
     @esta.empresas = resultados2.count
     @esta.empresa_id = 0
