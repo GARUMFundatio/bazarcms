@@ -371,7 +371,7 @@ module Bazarcms
       @consulta.total_resultados = @consulta.total_resultados + conta2;
       @consulta.save 
     
-
+   
 
     # luego lanzamos las busquedas al resto de los bazares
 
@@ -436,11 +436,23 @@ module Bazarcms
 
     logger.debug "servidas "+DateTime.now.to_s
 
-
     @consulta.total_consultas = conta;
     @consulta.fecha_fin = DateTime::now
 
     @consulta.save
+
+    # grabamos una entrada para las estadísticas de consultas
+    
+    @esta = Estadisticasconsulta.new
+    
+    @esta.fecha = DateTime.now
+    @esta.bazar_id = BZ_param("BazarId")
+    @esta.consulta = "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid=#{@consulta.id}&cid=#{micluster}"
+    @esta.empresas = conta
+    @esta.empresa_id = current_user.id
+    @esta.tipo = 'B'
+    @esta.save
+
 
     respond_to do |format|
       if params[:display] == "total"
@@ -665,33 +677,19 @@ module Bazarcms
     
     logger.debug "filtrados #{resultados2.inspect}"
     
-# TODO en la siguiente versión debería ser algo así
-# de momento va bién así, pero se puede optimizar ...
-    
-#   if (resultados.count)
-#     logger.debug "envío el resultado de la busqueda"
-      
-#     cluster = Cluster.find_by_id(params[:cid])
-#     logger.debug ("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
-#     uri = URI.parse("#{cluster.url}/bazarcms/resultadoempresas?bid=#{params[:bid]}")
 
-#    post_body = []
-#    post_body << "Content-Type: text/plain\r\n"
-      # post_body << resultados.to_json
+    # grabamos una entrada para las estadísticas de consultas
+
+    @esta = Estadisticasconsulta.new
+
+    @esta.fecha = DateTime.now
+    @esta.bazar_id = params[:cid]
+    @esta.consulta ="q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid=#{@consulta.id}&cid="+params[:cid]
+    @esta.empresas = conta
+    @esta.empresa_id = 0
+    @esta.tipo = 'B'
     
-#    http = Net::HTTP.new(uri.host, uri.port)
-#    request = Net::HTTP::Post.new(uri.request_uri)
-#    request.body = post_body.join
-#    request["Content-Type"] = "text/plain"
-  
-#    res = Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
-#    case res
-#      when Net::HTTPSuccess, Net::HTTPRedirection
-#        logger.debug "fue bien (#{res.body})"
-#      else
-#        logger.debug res.error!
-#      end
-#   end
+    @esta.save
    
   render :json => resultados2
 
