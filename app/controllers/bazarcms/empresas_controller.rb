@@ -680,6 +680,8 @@ module Bazarcms
 
     # grabamos una entrada para las estadísticas de consultas
 
+    logger.debug "Grabamos la información para las estadisticas de consultas <--------------"
+    
     @esta = Estadisticasconsulta.new
 
     @esta.fecha = DateTime.now
