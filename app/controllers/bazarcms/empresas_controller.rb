@@ -685,8 +685,13 @@ module Bazarcms
     @esta = Estadisticasconsulta.new
 
     @esta.fecha = DateTime.now
-    @esta.bazar_id = params[:cid]
+ 
+    logger.debug "#{params.inspect}"
+    logger.debug "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid=#{@consulta.id}&cid="+params[:cid]
+
+    @esta.bazar_id = params[:cid]    
     @esta.consulta ="q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid=#{@consulta.id}&cid="+params[:cid]
+
     @esta.empresas = resultados2.count
     @esta.empresa_id = 0
     @esta.tipo = 'B'
