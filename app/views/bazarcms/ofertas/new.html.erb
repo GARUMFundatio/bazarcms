@@ -386,6 +386,7 @@
     	var tot3 = 0;
     	var lis3 = [];
     	var lab3 = [];
+		var emp3 = [];
     	var ayuda3 = [];
     	var html3 = "";
 
@@ -400,6 +401,7 @@
     			for (ii = cual; ii < tot3 -1; ii++) {
     				lis3[ii] = lis3[ii+1];
     				lab3[ii] = lab3[ii+1];
+    				emp3[ii] = emp3[ii+1];
     				ayuda3[ii] = ayuda3[ii+1]
     			}
     			tot3 = tot3 - 1;
@@ -422,7 +424,7 @@
 
 
     				html3 += '<div class="perfil">';
-    				html3 += '	<div class="nombre-perfil">'+lab3[ii]+'</div>';
+    				html3 += '	<div class="nombre-perfil">'+lab3[ii]+' ( ~ '+emp3[ii]+' empresas)'+'</div>';
     				html3 += "<span class='opciones-perfil'><img title='Ver Descripción' src='/images/help.png' border='0' onclick=\"$('#P"+lis3[ii]+"\').slideToggle(250);\">";
     				html3 += " <img src='/images/papelera.png' border='0' onclick='borrapaises("+ii+");'></span>";
     				html3 += '<div class="descripcion-perfil" id="P'+lis3[ii]+'" style="display:none">';
@@ -460,6 +462,7 @@
     			if (!esta) {
     				lis3[tot3] = ui.item.id;
     				lab3[tot3] = ui.item.label;
+					emp3[tot3] = ui.item.total;
     				ayuda3[tot3] = ui.item.ayuda;
     				tot3 += 1;
     			}
