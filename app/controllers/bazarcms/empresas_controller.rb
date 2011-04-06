@@ -311,14 +311,13 @@ module Bazarcms
         
         # buscamos en las ubicaciones 
 
+        total += 1
+        alguna = 0 
+        
         if params[:ppaises].length > 0
           cam = params[:ppaises].split(',')
           
           if cam.count > 0
-            
-            total += 1
-
-            alguna = 0 
             
             for cc in cam 
               if (cc != "")
@@ -336,14 +335,15 @@ module Bazarcms
 
               end
             end 
-            if alguna > 0
-              entra += 1 
-              logger.debug "Entra en la busqueda de momento"
-            end
           end 
         else 
           logger.debug "ppaises viene vacio !!!"
         end 
+
+        if alguna > 0
+          entra += 1 
+          logger.debug "Entra en la busqueda de momento"
+        end
 
         # buscamos en la información económica
 
@@ -658,15 +658,12 @@ module Bazarcms
 
       
       # buscamos en las ubicaciones
-
+      total += 1
+      alguna = 0 
       if params[:ppaises].length > 0
         cam = params[:ppaises].split(',')
         
         if cam.count > 0
-          
-          total += 1
-
-          alguna = 0 
           
           for cc in cam 
             if (cc != "")
@@ -683,15 +680,15 @@ module Bazarcms
 
             end
           end 
-          if alguna > 0
-            entra += 1 
-            logger.debug "Entra en la busqueda de momento"
-          end
         end 
       else 
         logger.debug "ppaises viene vacio !!!"
       end 
       
+      if alguna > 0
+        entra += 1 
+        logger.debug "Entra en la busqueda de momento"
+      end
       
       
       # miramos los resultados económicos 
