@@ -214,7 +214,6 @@ module Bazarcms
       conta2 = 0
       for resu in resultados 
 
-
         entra = 0
         total = 0
 
@@ -258,7 +257,7 @@ module Bazarcms
           end 
           if alguna > 0
             entra += 1 
-            logger.debug "Entra en la busqueda de momento"
+            logger.debug "Entra en la busqueda de momento: total #{total} entra #{entra}"
           end
         else 
           logger.debug "pofertan viene vacio !!!"
@@ -301,7 +300,7 @@ module Bazarcms
           
           if alguna > 0
             entra += 1 
-            logger.debug "Entra en la busqueda de momento"
+            logger.debug "Entra en la busqueda de momento: total #{total} entra #{entra}"
           end
           
         else 
@@ -339,7 +338,7 @@ module Bazarcms
           end 
           if alguna > 0
             entra += 1 
-            logger.debug "Entra en la busqueda de momento"
+            logger.debug "Entra en la busqueda de momento: total #{total} entra #{entra}"
           end
         else 
           logger.debug "ppaises viene vacio !!!"
@@ -600,7 +599,6 @@ module Bazarcms
                 logger.debug "ENTRA --------> #{datos.count}"
                 alguna += 1
               end 
-
 
             end
           end 
