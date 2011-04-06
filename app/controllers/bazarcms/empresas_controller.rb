@@ -667,7 +667,7 @@ module Bazarcms
           
           for cc in cam 
             if (cc != "")
-              datos = Bazarcms::Ubicacion.where("empresa_id = ? ", [resu.id])
+              datos = Bazarcms::Ubicacion.where("empresa_id = ? ", [empre.id])
               
               if datos.count > 0
                 for ubi in datos
