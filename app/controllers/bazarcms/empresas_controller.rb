@@ -658,6 +658,39 @@ module Bazarcms
 
       
       # buscamos en las ubicaciones
+
+      if params[:ppaises].length > 0
+        cam = params[:ppaises].split(',')
+        
+        if cam.count > 0
+          
+          total += 1
+
+          alguna = 0 
+          
+          for cc in cam 
+            if (cc != "")
+              datos = Bazarcms::Ubicacion.where("empresa_id = ? ", [resu.id])
+              
+              if datos.count > 0
+                for ubi in datos
+                  if (ubi.ciudad.pais.id == cc.to_i)
+                    logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
+                    alguna += 1
+                  end
+                end
+              end 
+
+            end
+          end 
+          if alguna > 0
+            entra += 1 
+            logger.debug "Entra en la busqueda de momento"
+          end
+        end 
+      else 
+        logger.debug "ppaises viene vacio !!!"
+      end 
       
       
       
