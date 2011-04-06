@@ -225,15 +225,13 @@ module Bazarcms
         # primero miramos si ofrece lo que buscamos
         
         if params[:pofertan].length > 0
-           
+          total += 1
+          alguna = 0 
+                     
           cam = params[:pofertan].split(',')
           
           if cam.count > 0
           
-            total += 1
-
-            alguna = 0 
-            
             for cc in cam 
               if (cc != "")
                 cc2 = cc
@@ -257,11 +255,11 @@ module Bazarcms
 
               end
             end 
-            if alguna > 0
-              entra += 1 
-              logger.debug "Entra en la busqueda de momento"
-            end
           end 
+          if alguna > 0
+            entra += 1 
+            logger.debug "Entra en la busqueda de momento"
+          end
         else 
           logger.debug "pofertan viene vacio !!!"
         end 
@@ -269,13 +267,13 @@ module Bazarcms
         # primero miramos si ofrece lo que buscamos
         
         if params[:pdemandan].length > 0
+          total += 1
+          alguna = 0
+           
           cam = params[:pdemandan].split(',')
           
           if cam.count > 0
             
-            total += 1
-
-            alguna = 0 
             
             for cc in cam 
               if (cc != "")
@@ -299,11 +297,13 @@ module Bazarcms
 
               end
             end 
-            if alguna > 0
-              entra += 1 
-              logger.debug "Entra en la busqueda de momento"
-            end
           end 
+          
+          if alguna > 0
+            entra += 1 
+            logger.debug "Entra en la busqueda de momento"
+          end
+          
         else 
           logger.debug "pdemandan viene vacio !!!"
         end 
@@ -574,13 +574,12 @@ module Bazarcms
       # primero miramos si ofrece lo que buscamos
       
       if params[:pofertan].length > 0
+        total += 1
+        alguna = 0 
+        
         cam = params[:pofertan].split(',')
         
         if cam.count > 0
-        
-          total += 1
-
-          alguna = 0 
           
           for cc in cam 
             if (cc != "")
@@ -605,11 +604,11 @@ module Bazarcms
 
             end
           end 
-          if alguna > 0
-            entra += 1 
-            logger.debug "Entra en la busqueda de momento"
-          end
         end 
+        if alguna > 0
+          entra += 1 
+          logger.debug "Entra en la busqueda de momento"
+        end
       else 
         logger.debug "pofertan viene vacio !!!"
       end 
@@ -617,13 +616,13 @@ module Bazarcms
       # primero miramos si demandan lo que buscamos
       
       if params[:pdemandan].length > 0
+          
+        total += 1
+        alguna = 0 
+
         cam = params[:pdemandan].split(',')
         
         if cam.count > 0
-          
-          total += 1
-
-          alguna = 0 
           
           for cc in cam 
             if (cc != "")
@@ -647,11 +646,11 @@ module Bazarcms
 
             end
           end 
-          if alguna > 0
-            entra += 1 
-            logger.debug "Entra en la busqueda de momento"
-          end
         end 
+        if alguna > 0
+          entra += 1 
+          logger.debug "Entra en la busqueda de momento"
+        end
       else 
         logger.debug "pdemandan viene vacio !!!"
       end 
