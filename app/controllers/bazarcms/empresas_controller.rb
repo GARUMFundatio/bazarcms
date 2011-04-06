@@ -383,7 +383,7 @@ module Bazarcms
      
       if micluster != cluster.id 
               
-        uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&bid=#{@consulta.id}&cid=#{micluster}"
+        uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&ppaises="+CGI.escape(params[:ppaises])+"&bid=#{@consulta.id}&cid=#{micluster}"
         logger.debug "Enviando Petición a ------------> #{uri}"
 
         r = Typhoeus::Request.new(uri, :timeout => 5000)
@@ -447,7 +447,7 @@ module Bazarcms
     
     @esta.fecha = DateTime.now
     @esta.bazar_id = BZ_param("BazarId")
-    @esta.consulta = "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid=#{@consulta.id}&cid=#{micluster}"
+    @esta.consulta = "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&ppaises="+params[:ppaises]+"&bid=#{@consulta.id}&cid=#{micluster}"
     @esta.empresas =  @consulta.total_resultados
     @esta.empresa_id = current_user.id
     @esta.tipo = 'B'
@@ -512,6 +512,7 @@ module Bazarcms
     params[:qr] = CGI.unescape(params[:qr])
     params[:pofertan] = CGI.unescape(params[:pofertan])
     params[:pdemandan] = CGI.unescape(params[:pdemandan])
+    params[:ppaises] = CGI.unescape(params[:ppaises])
     
     logger.debug "decodeado #{params[:q]}"
     logger.debug "decodeado #{params[:qe]}"
@@ -519,10 +520,8 @@ module Bazarcms
     logger.debug "decodeado #{params[:qc]}"
     logger.debug "decodeado #{params[:qr]}"
     logger.debug "decodeado #{params[:pofertan]}"
-    logger.debug "decodeado #{params[:demandan]}"
-    
-    
-    
+    logger.debug "decodeado #{params[:pdemandan]}"
+    logger.debug "decodeado #{params[:ppaises]}"
     
     resultados = Empresa.find_with_ferret(params[:q])
     
@@ -687,10 +686,9 @@ module Bazarcms
     @esta.fecha = DateTime.now
  
     logger.debug "#{params.inspect}"
-    logger.debug "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid="+params[:bid]+"&cid="+params[:cid]
 
     @esta.bazar_id = params[:cid]    
-    @esta.consulta ="q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&bid="+params[:bid]+"&cid="+params[:cid]
+    @esta.consulta ="q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&ppaises="+params[:ppaises]+"&bid="+params[:bid]+"&cid="+params[:cid]
 
     @esta.empresas = resultados2.count
     @esta.empresa_id = 0
