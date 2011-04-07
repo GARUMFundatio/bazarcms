@@ -16,7 +16,7 @@
 	<%= link_to(Cluster::find_by_id(resu.cluster_id).nombre, Cluster::find_by_id(resu.cluster_id).url)  %>
   </td>
   <td>
-	<%= resu.info %>
+	<%= link_to(resu.info, bazarcms_empresa_path(resu.empresa_id, :bazar_id => resu.cluster_id)) %><%=  %>
   </td>
   <td>
 	<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{resu.empresa_id}&bazar_destino=#{resu.cluster_id}&nombre=#{resu.info}&tipo=M", :title => 'Correo electrónico' %>

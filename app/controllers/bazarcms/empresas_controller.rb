@@ -32,6 +32,8 @@ module Bazarcms
 
   def show
     
+    # TODO limitar el acceso a bots o no pero hay que tomar una decisión. 
+    
     # si la empresa es local extraemos la información de la base de datos
     # si de otro bazar la pedimos al bazar
     
