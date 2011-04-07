@@ -35,8 +35,12 @@
 	<th scope="row">
 		Página Web:
 	</th>
-	<td colspan="3">	
-		<%= link_to(@empresa.url,  @empresa.url) %>
+	<td colspan="3">
+		<% if @empresa.url.lenght > 0 %> 	
+			<%= link_to(@empresa.url,  @empresa.url) %>
+		<% else %>
+			-
+		<% end %>
 	</td>
 </tr>
 
