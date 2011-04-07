@@ -7,7 +7,7 @@ module Bazarcms
   
   unloadable
   before_filter :require_no_user, :only => [:show2, :busca]
-  before_filter :require_user, :only => [:show, :index, :edit, :create, :update, :dashboard, :enviabusqueda, :buscador, :estadobusqueda, :resultado, :sitios]
+  before_filter :require_user, :only => [:index, :edit, :create, :update, :dashboard, :enviabusqueda, :buscador, :estadobusqueda, :resultado, :sitios]
   
   layout "bazar"
   def index
@@ -32,13 +32,34 @@ module Bazarcms
 
   def show
     
-    @empresa = Empresa.find(params[:id])
-    @empresasdatos = Empresasdato.where("empresa_id = ? and periodo >= ?", params[:id], @empresa.fundada).order("periodo")
-    @usuario = User.find(params[:id])
-    respond_to do |format|
-      format.html { render :action => "show" }
-      format.xml  { render :xml => @empresa }
-    end
+    # si la empresa es local extraemos la información de la base de datos
+    # si de otro bazar la pedimos al bazar
+    
+    if ( params[:bazar_id].to_i == BZ_param("BazarId").to_i )
+      
+      @empresa = Empresa.find(params[:id])
+      @empresasdatos = Empresasdato.where("empresa_id = ? and periodo >= ?", params[:id], @empresa.fundada).order("periodo")
+      @usuario = User.find(params[:id])
+    
+      respond_to do |format|
+        if !params[:display].nil? 
+          if params[:display] == "inside"
+            format.html { render :action => "show", :layout => false }
+          end 
+        else 
+          format.html { render :action => "show" }
+        end 
+        format.xml  { render :xml => @empresa }
+      end
+    
+    else 
+      
+      res = dohttpget(params[:bazar_id], '/bazarcms/empresas/#{param[:id]}?display=inside')
+      
+      render :text => res
+      
+    end 
+
 
   end
 
