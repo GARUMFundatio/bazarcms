@@ -54,7 +54,7 @@ module Bazarcms
     
     else 
       
-      res = dohttpget(params[:bazar_id], '/bazarcms/empresas/#{param[:id]}?display=inside')
+      res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
       
       render :text => res
       
