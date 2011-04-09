@@ -9,13 +9,22 @@ module Bazarcms
   # registrado 
   
   def index
-    @empresasconsultas = Empresasconsulta.where('empresa_id = ?', current_user.id).order('fecha_inicio desc').paginate(:page => params[:page], :per_page => 10)
+    @empresasconsultas = Empresasconsulta.where('empresa_id = ?', current_user.id).order('fecha_inicio desc').paginate(:page => params[:page], :per_page => 15)
 
-    respond_to do |format|
-      format.html 
-      format.xml  { render :xml => @empresasconsultas }
+    if request.xhr?
+      render :partial => @empresasconsultas
     end
+
   end
+ 
+  def empresasconsultas
+    @empresasconsultas = Empresasconsulta.where('empresa_id = ?', current_user.id).order('fecha_inicio desc').paginate(:page => params[:page], :per_page => 15)
+
+    if request.xhr?
+      render(:partial => "empresasconsulta", :collection => @empresasconsultas)
+    end
+
+  end 
  
   def estado
     @consulta = Empresasconsulta.find_by_id(params[:id])

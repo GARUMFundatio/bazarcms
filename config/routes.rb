@@ -72,6 +72,7 @@ Bazar::Application.routes.draw do
   match "/bazarcms/estadobusqueda" => "bazarcms/empresas#estadobusqueda"
   match "/bazarcms/directorio" => "bazarcms/empresas#list"
   match "/bazarcms/empresas/show2/:id" => "bazarcms/empresas#show2", :constrants => { :id => /\d+/ }
+  match "/empresasconsultas2" => "bazarcms/empresasconsultas#empresasconsultas"
 
   match '/bazarcms/busquedaperfiles' => 'bazarcms/perfiles#busqueda', :as => :busquedaperfiles
   match '/bazarcms/addperfil' => 'bazarcms/perfiles#addperfil', :as => :addperfil
