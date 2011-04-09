@@ -1,23 +1,21 @@
 
   <tr>
-  	<td><%= empresasconsulta.desc %></td>
+  	<td>
+		<% if empresasconsulta.desc == '*' %>
+			Cualquier empresa
+		<% else %>
+			Empresas que cumplen con: <%= empresasconsulta.desc %>
+		<% end %>
+	</td>
   	<td><%= empresasconsulta.total_consultas %>/<%= empresasconsulta.total_respuestas %></td>
   	<td><%= empresasconsulta.total_resultados %></td>
-  	<td><%= empresasconsulta.sql %></td>
   	<td>
 	<% if (!empresasconsulta.fecha_inicio.nil?) %>
 		<%= empresasconsulta.fecha_inicio.strftime("%Y-%m-%d %H:%M") -%>
 	<% else %>
-		Sin fecha de Inicio
+		-
 	<% end %>
-	-
-	<% if (!empresasconsulta.fecha_fin.nil?) %>
-		<%= empresasconsulta.fecha_fin.strftime("%H:%M") -%></td>
-	<% else %>
-		Sin fecha de Fin
-	<% end %>
-
-
+	
   	<% if empresasconsulta.total_resultados > 0 %>
 		<td><%= link_to image_tag('lupa.png'), empresasconsulta, :title => 'Ver Resultados' %></td>
 	<% else %>
