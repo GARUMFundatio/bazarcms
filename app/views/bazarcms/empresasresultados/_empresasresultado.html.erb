@@ -1,0 +1,12 @@
+<tr>
+  <td>
+	<%= link_to(empresasresultado.info, bazarcms_empresa_path(empresasresultado.empresa_id, :bazar_id => empresasresultado.cluster_id)) %><%=  %>
+  </td>
+  <td>
+	<%= link_to(Cluster::find_by_id(empresasresultado.cluster_id).nombre, Cluster::find_by_id(empresasresultado.cluster_id).url)  %>
+  </td>
+  <td>
+	<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{empresasresultado.empresa_id}&bazar_destino=#{empresasresultado.cluster_id}&nombre=#{empresasresultado.info}&tipo=M", :title => 'Correo electrónico' %>
+	<%= helper_favo(empresasresultado.cluster_id, empresasresultado.empresa_id, empresasresultado.info, "consu") %>
+  </td>
+</tr>

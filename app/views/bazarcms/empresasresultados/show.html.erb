@@ -1,0 +1,20 @@
+<%= javascript_include_tag 'jquery.pageless' -%>
+
+<h3>Resultados de la búsqueda: <span class="query-busqueda"></span></h3>
+<p class="total"><strong>Total:</strong> <%= @consulta.total_resultados %> empresas de <%= @consulta.total_respuestas %> bazares.</p>
+
+<table id="results" class="tabla" cellspacing="0">
+
+<% if params[:page].to_i == 1%>
+<tr>
+  <th>Empresa</th>
+  <th>Origen</th>
+  <th></th>
+</tr>	
+<% end %>
+
+<%= render(:partial => "empresasresultado", :collection => @empresasresultados) %>
+
+</table>
+
+<%= pageless(@empresasresultados.total_pages, "/bazarcms/empresasresultados/#{@consulta.id}") %>
