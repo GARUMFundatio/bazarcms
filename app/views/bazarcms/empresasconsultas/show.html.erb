@@ -2,20 +2,27 @@
 <h3>Resultados de la búsqueda: <span class="query-busqueda"></span></h3>
 <p class="total"><strong>Total:</strong> <%= @consulta.total_resultados %> empresas de <%= @consulta.total_respuestas %> bazares.</p>
 
-<table class="tabla" cellspacing="0">
+<% if params[:display] == 'inside' %>
+	<% @empresasresultados = @consulta.empresasresultados.limit(10) %>
+<% else %> 
+	<% @empresasresultados = @consulta.empresasresultados %>
+<% end %>
+
+<table id="results" class="tabla" cellspacing="0">
+
 <tr>
-  <th>Bazar</th>
   <th>Empresa</th>
+  <th>Origen</th>
   <th></th>
 </tr>	
 
-<% for resu in @consulta.empresasresultados %>
+<% for resu in @empresasresultados %>
 <tr>
   <td>
-	<%= link_to(Cluster::find_by_id(resu.cluster_id).nombre, Cluster::find_by_id(resu.cluster_id).url)  %>
+	<%= link_to(resu.info, bazarcms_empresa_path(resu.empresa_id, :bazar_id => resu.cluster_id)) %><%=  %>
   </td>
   <td>
-	<%= link_to(resu.info, bazarcms_empresa_path(resu.empresa_id, :bazar_id => resu.cluster_id)) %><%=  %>
+	<%= link_to(Cluster::find_by_id(resu.cluster_id).nombre, Cluster::find_by_id(resu.cluster_id).url)  %>
   </td>
   <td>
 	<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{resu.empresa_id}&bazar_destino=#{resu.cluster_id}&nombre=#{resu.info}&tipo=M", :title => 'Correo electrónico' %>
@@ -30,4 +37,6 @@
 	<% if @consulta.total_resultados > 10 %>
 		<%= link_to("Ver más resultados (#{@consulta.total_resultados-10}) &raquo;".html_safe, "/bazarcms/empresasconsultas/#{@consulta.id}", :class => "volver-home-link") %>
 	<% end %>
+<% else %>
+
 <% end %>
