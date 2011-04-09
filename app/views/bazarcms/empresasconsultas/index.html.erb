@@ -1,6 +1,7 @@
 <%= javascript_include_tag 'jquery.pageless' -%>
 
 <a class="volver-home-link" href="/home">&laquo; Volver a la página de búsquedas</a>
+<%= link_to 'Borrar todas las consultas realizadas', '/bazarcms/borrarconsultas', :confirm => 'Seguro?', :class => 'volver-home-link' %>
 
 <h3 class="page-title">Consultas Realizadas</h3>
 
@@ -24,3 +25,5 @@
 <br />
 
 <%= pageless(@empresasconsultas.total_pages, '/empresasconsultas2') %>
+
+
