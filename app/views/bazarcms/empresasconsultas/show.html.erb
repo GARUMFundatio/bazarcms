@@ -35,7 +35,7 @@
 
 <% if params[:display] == 'inside' %>
 	<% if @consulta.total_resultados > 10 %>
-		<%= link_to("Ver más resultados (#{@consulta.total_resultados-10}) &raquo;".html_safe, "/bazarcms/empresasresultados/#{@consulta.id}", :class => "volver-home-link") %>
+		<%= link_to("Ver más resultados (#{@consulta.total_resultados-10}+) &raquo;".html_safe, "/bazarcms/empresasresultados/#{@consulta.id}", :class => "volver-home-link") %>
 	<% end %>
 <% else %>
 

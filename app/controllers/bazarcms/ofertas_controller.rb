@@ -32,10 +32,9 @@ module Bazarcms
   def show
     
     @oferta = Oferta.find(params[:id])
-    @usuario = User.find(params[:id])
+    
     respond_to do |format|
       format.html { render :action => "show" }
-      format.xml  { render :xml => @oferta }
     end
 
   end
@@ -691,7 +690,15 @@ module Bazarcms
     render :layout => false
   end 
 
-  
+  def dashboard 
+    
+    @ofertas = Oferta.where("1 = 1").order("fecha desc").limit(5)
+    @total = Oferta.count_by_sql("select count(*) from ofertas ;")
+
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+  end
 end
 
 end
