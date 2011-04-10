@@ -10,12 +10,13 @@ module Bazarcms
   
   layout "bazar"
   def index
-    @ofertas = Oferta.all.paginate(:page => params[:page], :per_page => 15)
-    logger.debug @ofertas.size
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @ofertas }
+
+    @ofertas = Oferta.where("1 = 1").order("fecha desc").paginate(:per_page => 30, :page => params[:page])
+
+    if request.xhr?
+      render :partial => 'index', :collection => @ofertas
     end
+
   end
 
   def list
@@ -188,15 +189,7 @@ module Bazarcms
     end
   end
   
-  def dashboard 
-    @ultimas = Oferta.ultimascreadas
-    @actualizadas = Oferta.ultimasactualizadas
-    @total = Oferta.count
-    respond_to do |format|
-      format.html { render :layout => false }
-    end
-  end 
-  
+
   def enviabusqueda()
    
    
@@ -699,6 +692,7 @@ module Bazarcms
       format.html { render :layout => false }
     end
   end
+
 end
 
 end
