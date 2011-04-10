@@ -3,7 +3,7 @@
 <h3 class="titulo-destacado"><%= @oferta.titulo %></h3>
 
 <h4 class="titulo-seccion">
-	<%= oferta_tipo(@oferta.tipo) %>
+	Detalle de la <%= oferta_tipo(@oferta.tipo) %>
 </h4>
 
 <table class="tabla" cellspacing="0">
@@ -14,8 +14,10 @@
 </tr>
 
 <tr>
-	<td colspan=3>	
-		<%= @oferta.texto.gsub(/\n/,'<br/>').html_safe %>
+	<td colspan=3>
+		<br/>
+		<span><%= @oferta.texto.gsub(/\n/,'<br/>').html_safe %></span>
+		<br/><br/>
 	</td>
 </tr>
 
@@ -34,6 +36,7 @@
 		Página Web con más información:
 	</th>
 	<td colspan="2">
+		-
 	</td>
 </tr>
 
@@ -92,5 +95,23 @@
 
 <%= sql2texto(@oferta.filtro).html_safe %>
 </div>
+
+<br/>
+<br/>
+
+<h4 class="titulo-seccion">Información de la Empresa que publica esta <%= oferta_tipo(@oferta.tipo) %></h4>
+
+
+<br/>
+
+<div id="infoempresa">
+	
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	
+	$('#infoempresa').load("/bazarcms/empresas/<%= @oferta.empresa_id-%>?bazar_id=<%= @oferta.bazar_id -%>&display=inside");
+
+</script>
 
 
