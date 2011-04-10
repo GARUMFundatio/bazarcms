@@ -68,11 +68,11 @@ module Bazarcms
       end
       
       
-      @infoempresa = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
+      #  @infoempresa = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
       
-      if (@infoempresa == "")
-        @infoempresa = "Información temporalmente no disponible."
-      end
+      # if (@infoempresa == "")
+      #   @infoempresa = "Información temporalmente no disponible."
+      # end
       
       
       render :text => res, :layout => 'bazar'
