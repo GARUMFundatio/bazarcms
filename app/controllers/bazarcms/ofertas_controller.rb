@@ -37,7 +37,12 @@ module Bazarcms
       @oferta = Oferta.find(params[:id])
       @oferta.clicks += 1
       @oferta.save 
-    
+
+      @infoempresa = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{@oferta.id}?bazar_id=#{@oferta.bazar_id}&display=inside")
+      
+      if (@infoempresa == "")
+        @infoempresa = "Información temporalmente no disponible."
+      end
       respond_to do |format|
         if !params[:display].nil? 
 
@@ -62,7 +67,7 @@ module Bazarcms
       end
       
       
-      @infoempresa = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{@oferta.empresa_id}?bazar_id=#{@oferta.bazar_id}&display=inside")
+      @infoempresa = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
       
       if (@infoempresa == "")
         @infoempresa = "Información temporalmente no disponible."
