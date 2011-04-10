@@ -1,7 +1,13 @@
+<%= javascript_include_tag 'jquery.pageless' -%>
+
+<a class="volver-home-link" href="/home">&laquo; Volver a la página de búsquedas</a>
+
 <h3 class="page-title">Últimas Ofertas/Demandas</h3>
 
-<table class="tabla" cellspacing="0">
+<table id="results" class="tabla" cellspacing="0">
 
 <%= render :partial => 'oferta', :collection => @ofertas %>
 
 </table>
+
+<%= pageless(@ofertas.total_pages, '/bazarcms/ofertas') %>

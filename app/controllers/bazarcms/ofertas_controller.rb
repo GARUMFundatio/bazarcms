@@ -14,7 +14,7 @@ module Bazarcms
     @ofertas = Oferta.where("1 = 1").order("fecha desc").paginate(:per_page => 30, :page => params[:page])
 
     if request.xhr?
-      render :partial => 'index', :collection => @ofertas
+      render :partial => 'oferta', :collection => @ofertas
     end
 
   end

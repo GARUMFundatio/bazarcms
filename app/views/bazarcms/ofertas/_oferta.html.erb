@@ -14,8 +14,11 @@
 	</td>
 	
 	<td>
-		<%= link_to oferta.titulo, bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id) %>
-		
+		<%= link_to oferta.titulo, bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id) %>	
+	</td>
+
+	<td>
+		<%= oferta.fecha.strftime("%d-%m-%Y") %>	
 	</td>
 
 	<td class="dos-iconos">
