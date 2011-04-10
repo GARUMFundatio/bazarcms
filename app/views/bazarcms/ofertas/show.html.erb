@@ -1,12 +1,9 @@
+<a class="volver-home-link" href="/home">&laquo; Volver a la página de búsquedas</a>
 
 <h3 class="titulo-destacado"><%= @oferta.titulo %></h3>
 
 <h4 class="titulo-seccion">
-	<% if @oferta.tipo == 'O' %>
-		Oferta
-	<% else %>
-		Demanda
-	<% end %>
+	<%= oferta_tipo(@oferta.tipo) %>
 </h4>
 
 <table class="tabla" cellspacing="0">
@@ -37,6 +34,15 @@
 		Página Web con más información:
 	</th>
 	<td colspan="2">
+	</td>
+</tr>
+
+<tr>
+	<th scope="row">
+		Se ha enviado a:
+	</th>
+	<td colspan="1">
+		<%= @oferta.total_empresas %> Empresas 
 	</td>
 </tr>
 
@@ -73,5 +79,18 @@
 
 </table>
 
+<h4 class="titulo-seccion">Empresas destinatarias de esta <%= oferta_tipo(@oferta.tipo) %></h4>
+
+<br/>
+<br/>
+
+<div>
+
+<b>Empresas que cumplan: </b>
+<br/>
+<br/>
+
+<%= sql2texto(@oferta.filtro).html_safe %>
+</div>
 
 

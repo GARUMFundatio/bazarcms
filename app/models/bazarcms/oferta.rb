@@ -11,14 +11,14 @@ module Bazarcms
     belongs_to :empresa
   
     def self.mostrada(bazar_id, oferta_id)
-    
+
       oferta = Bazarcms::Oferta.find_by_bazar_id_and_id(bazar_id, oferta_id) 
       if (!oferta.nil?)
         
         oferta.vistas += 1
         oferta.save
-        
-        # TODO: actualizar en remoto si oferta es de otro bazar 
+
+        # TODO: actualizar en remoto si oferta es de otro bazar    
         
       end
       
