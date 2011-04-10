@@ -69,11 +69,11 @@
 
 <tr>
 	<th scope="row">
-		Han visitado esta página:
+		Se ha visitado un:
 	</th>
 	<td colspan="1">
 		<% if @oferta.vistas > 0 %>
-			<%= @oferta.clicks * 100 / @oferta.vistas -%> % de los usuarios que la han visto.
+			<%= @oferta.clicks * 100 / @oferta.vistas -%> % de las veces que se ha mostrado.
 		<% else %>
 			No se ha mostrado nunca.
 		<% end %>
