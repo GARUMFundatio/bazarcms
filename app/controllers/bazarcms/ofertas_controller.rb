@@ -31,14 +31,40 @@ module Bazarcms
   # muestra la información de una oferta para usuarios registrados en bazar 
 
   def show
+        
+    if ( params[:bazar_id].to_i == BZ_param("BazarId").to_i )
+      
+      @oferta = Oferta.find(params[:id])
+      @oferta.clicks += 1
+      @oferta.save 
     
-    @oferta = Oferta.find(params[:id])
-    @oferta.clicks += 1
-    @oferta.save 
+      respond_to do |format|
+        if !params[:display].nil? 
+
+          if params[:display] == "inside"
+            format.html { render :action => "show", :layout => false }
+          end 
+
+        else 
+
+          format.html { render :action => "show" }
+
+        end 
+
+      end
     
-    respond_to do |format|
-      format.html { render :action => "show" }
-    end
+    else 
+      
+      res = dohttpget(params[:bazar_id], "/bazarcms/ofertas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
+      
+      if (res == "")
+        res = "Información temporalmente no disponible."
+      end
+      
+      render :text => res, :layout => 'bazar'
+      
+    end 
+
 
   end
 
