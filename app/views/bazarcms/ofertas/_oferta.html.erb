@@ -1,0 +1,27 @@
+<tr>
+
+	<td>
+		<!-- TODO: corregir y comprobar que pasa cuando integremos ofertas de otros bazares --> 
+		<%= link_to Bazarcms::Empresa.find(oferta.empresa_id).nombre, bazarcms_empresa_path(oferta.empresa_id, :bazar_id => oferta.bazar_id) %>
+	</td>
+
+	<td>
+		<% if oferta.tipo == 'O' %>
+			Oferta
+		<% else %>
+			Demanda
+		<% end %>
+	</td>
+	
+	<td>
+		<%= link_to oferta.titulo, bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id) %>
+		
+	</td>
+
+	<td class="dos-iconos">
+		<!-- TODO: corregir y comprobar que todos los mensajes controlan si es local o de otro bazar --> 
+		<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{oferta.empresa_id}&tipo=M", :title => 'Enviar Mensaje de Correo' %>
+		<%= helper_favo(oferta.bazar_id, oferta.empresa_id, "<nombre empresa>", "oferta") %>
+	</td>
+
+</tr>

@@ -1,0 +1,33 @@
+<h3 class="titulo-destacado"><%= @oferta.titulo %></h3>
+
+<h4 class="titulo-seccion">
+	<% if @oferta.tipo == 'O' %>
+		Oferta
+	<% else %>
+		Demanda
+	<% end %>
+</h4>
+
+<table class="tabla" cellspacing="0">
+<tr>
+	<th scope="row">
+		Descripción:
+	</th>
+	<td colspan=4>	
+		<%= @oferta.texto %>
+	</td>
+</tr>
+
+
+<tr>
+	<th scope="row">
+		Página Web con más información:
+	</th>
+	<td colspan="3">
+	</td>
+</tr>
+
+</table>
+
+
+

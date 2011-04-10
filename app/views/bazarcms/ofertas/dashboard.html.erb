@@ -1,0 +1,11 @@
+<h3 class="page-title">Últimas Ofertas/Demandas</h3>
+
+<table class="tabla" cellspacing="0">
+
+<%= render :partial => 'oferta', :collection => @ofertas %>
+
+</table>
+
+<% if @total > 5 %>
+	<%= link_to("Ver más Ofertas/Demandas (#{@total-5}+) &raquo;".html_safe, ofertas_path, :class => "volver-home-link") %>
+<% end %>
