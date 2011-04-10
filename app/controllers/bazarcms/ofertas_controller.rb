@@ -6,7 +6,7 @@ module Bazarcms
   
   unloadable
   before_filter :require_no_user, :only => [:show2, :busca]
-  before_filter :require_user, :only => [:show, :index, :edit, :create, :update, :dashboard, :enviabusqueda, :buscador, :estadobusqueda, :resultado, :sitios]
+  before_filter :require_user, :only => [:index, :edit, :create, :update, :dashboard, :enviabusqueda, :buscador, :estadobusqueda, :resultado, :sitios]
   
   layout "bazar"
   def index
