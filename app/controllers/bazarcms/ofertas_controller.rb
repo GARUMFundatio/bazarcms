@@ -33,6 +33,8 @@ module Bazarcms
   def show
     
     @oferta = Oferta.find(params[:id])
+    @oferta.clicks += 1
+    @oferta.save 
     
     respond_to do |format|
       format.html { render :action => "show" }
