@@ -110,7 +110,7 @@
 
 <script type="text/javascript" charset="utf-8">
 	
-	$('#infoempresa').html("/bazarcms/empresas/<%= @oferta.empresa_id-%>?bazar_id=<%= @oferta.bazar_id -%>&display=inside");
+	$('#infoempresa').html(<%= @infoempresa.html_safe %>);
 
 </script>
 

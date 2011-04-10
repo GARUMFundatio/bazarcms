@@ -61,6 +61,14 @@ module Bazarcms
         res = "Información temporalmente no disponible."
       end
       
+      
+      @infoempresa = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{@oferta.empresa_id}?bazar_id=#{@oferta.bazar_id}&display=inside")
+      
+      if (@infoempresa == "")
+        @infoempresa = "Información temporalmente no disponible."
+      end
+      
+      
       render :text => res, :layout => 'bazar'
       
     end 
