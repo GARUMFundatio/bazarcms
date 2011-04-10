@@ -57,17 +57,28 @@ module Bazarcms
     else 
       if !params[:display].nil? 
         if params[:display] == "inside"
+
           res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
+
+          if (res == "")
+            res = "Información temporalmente no disponible."
+          end
+
+          render :text => res, :layout => false
+          
         else 
           res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}")
+
+          if (res == "")
+            res = "Información temporalmente no disponible."
+          end
+
+          render :text => res, :layout => 'bazar'
+
         end
       end 
       
-      if (res == "")
-        res = "Información temporalmente no disponible."
-      end
       
-      render :text => res, :layout => 'bazar'
       
     end 
 
