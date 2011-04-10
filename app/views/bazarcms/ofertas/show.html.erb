@@ -101,7 +101,6 @@
 
 <h4 class="titulo-seccion">Información de la Empresa que publica esta <%= oferta_tipo(@oferta.tipo) %></h4>
 
-
 <br/>
 
 <div id="infoempresa">
@@ -109,9 +108,11 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+
+var str = "<%= @infoempresa -%>";
+if (str.length == 0) 
+	$('#infoempresa').load("/bazarcms/empresas/<%= @oferta.empresa_id -%>?bazar_id=<%= @oferta.bazar_id -%>&display=inside");
+
 	
-
-
 </script>
-
 
