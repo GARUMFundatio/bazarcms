@@ -447,7 +447,6 @@ module Bazarcms
       @consulta.total_resultados = @consulta.total_resultados + conta2;
       @consulta.save 
     
-   
 
     # luego lanzamos las busquedas al resto de los bazares
 
@@ -469,33 +468,39 @@ module Bazarcms
           when 0
             conta += 1
             conta2 = 0
-            empresas = JSON.parse(response.body)
-
-            logger.debug "#{empresas.inspect} <-----------"
-            cluster_id = 0 
-            empresas.each{ |key|
-              logger.debug("#{key.inspect}")
-              if !key['cluster_id'].nil?
-                logger.debug "viene un cluster id "+key.inspect
-                cluster_id = key['cluster_id']
-              end
-              if !key['empresa'].nil?
-                logger.debug("#{key['empresa'].inspect} <------ datos")
-                resu = Bazarcms::Empresasresultado.new()
-                resu.empresasconsulta_id = @consulta.id
-                resu.cluster_id = cluster_id
-                resu.empresa_id = key['empresa']['id'] 
-                resu.enlace = key['empresa']['url']
-                resu.orden = key['empresa']['nombre']
-                resu.info = key['empresa']['nombre']
-                resu.save
-                conta2 += 1
-              end
-              }
             
-            @consulta.total_respuestas = @consulta.total_respuestas + 1;
-            @consulta.total_resultados = @consulta.total_resultados + conta2;
-            @consulta.save
+            begin
+              empresas = JSON.parse(response.body)
+
+              logger.debug "#{empresas.inspect} <-----------"
+              cluster_id = 0 
+              empresas.each{ |key|
+                logger.debug("#{key.inspect}")
+                if !key['cluster_id'].nil?
+                  logger.debug "viene un cluster id "+key.inspect
+                  cluster_id = key['cluster_id']
+                end
+                if !key['empresa'].nil?
+                  logger.debug("#{key['empresa'].inspect} <------ datos")
+                  resu = Bazarcms::Empresasresultado.new()
+                  resu.empresasconsulta_id = @consulta.id
+                  resu.cluster_id = cluster_id
+                  resu.empresa_id = key['empresa']['id'] 
+                  resu.enlace = key['empresa']['url']
+                  resu.orden = key['empresa']['nombre']
+                  resu.info = key['empresa']['nombre']
+                  resu.save
+                  conta2 += 1
+                end
+                }
+            
+              @consulta.total_respuestas = @consulta.total_respuestas + 1;
+              @consulta.total_resultados = @consulta.total_resultados + conta2;
+              @consulta.save
+            rescue 
+              logger.debug "El JSON: venía mal formado #{response.body}"
+              
+            end 
           else
             logger.debug "ERROR en la petición ---------->"+response.inspect
           end
