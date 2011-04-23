@@ -19,7 +19,8 @@ module Bazarcms
         
     acts_as_ferret :fields => [ :nombre, :desc, :actividades, :intereses, :sitios, :sectores ]
 
-
+    has_friendly_id :nombre, :use_slug => true, :approximate_ascii => true
+    
     def sitios
       tmp = []
       for ubi in ubicaciones

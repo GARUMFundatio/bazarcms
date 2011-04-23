@@ -229,7 +229,7 @@ module Bazarcms
    
     @clusters = Cluster.where("activo = 'S'")
     
-    @consulta = Ofertaconsulta.new
+    @consulta = Ofertasconsulta.new
     @consulta.empresa_id = current_user.id 
     
     logger.debug "------> (#{params[:q]}) unscaped (#{CGI.unescape(params[:q])})"
@@ -565,6 +565,7 @@ module Bazarcms
       params[:pofertan] = CGI.unescape(params[:pofertan])
       params[:pdemandan] = CGI.unescape(params[:pdemandan])
       params[:ppaises] = CGI.unescape(params[:ppaises])
+      params[:qtipo] = CGI.unescape(params[:qtipo])
 
       logger.debug "decodeado #{params[:q]}"
       logger.debug "decodeado #{params[:qe]}"
@@ -574,6 +575,7 @@ module Bazarcms
       logger.debug "decodeado #{params[:pofertan]}"
       logger.debug "decodeado #{params[:pdemandan]}"
       logger.debug "decodeado #{params[:ppaises]}"
+      logger.debug "decodeado #{params[:qtipo]}"
 
       resultados = Oferta.find_with_ferret(params[:q])
 
@@ -585,6 +587,8 @@ module Bazarcms
         entra = 0
         total = 0
 
+        # TODO: comprobar el tipo de oferta 
+        
         # buscamos en los sectores 
 
         logger.debug "------ Sectores --------------"
@@ -703,7 +707,6 @@ module Bazarcms
         end 
 
 
-
         if (entra == total)
           resultados2 << ofe
         end 
@@ -739,7 +742,7 @@ module Bazarcms
   # TODO desactivada la respuesta asincrona que solo hay una máquina externa 
   # para hacer pruebas y está detrás de un NAT
   def estadobusqueda 
-    estado = Bazarcms::Ofertasconsulta.where("oferta_id = ?", current_user[:id]).order('fecha_inicio desc').limit(1)
+    estado = Bazarcms::Ofertasconsulta.where("empresa_id = ?", current_user[:id]).order('fecha_inicio desc').limit(1)
     logger.debug "Estado de la oferta para el usuario #{current_user[:id]}: #{estado.inspect}"
     render :json => estado
   end 

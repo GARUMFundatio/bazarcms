@@ -67,9 +67,12 @@ Bazar::Application.routes.draw do
   match "/bazarcms/buscaempresas" => "bazarcms/empresas#busca"
   match "/bazarcms/resultadoempresas" => "bazarcms/empresas#resultado"
   match "/bazarcms/enviabusqueda" => "bazarcms/empresas#enviabusqueda"
+  match "/bazarcms/enviabusquedaofertas" => "bazarcms/ofertas#enviabusqueda"
+  
   match "/bazarcms/borrarconsultas" => "bazarcms/empresasconsultas#borrartodas"
   match "/bazarcms/estadoconsulta/:id" => "bazarcms/empresasconsultas#estado", :constrants => { :id => /\d+/ }
   match "/bazarcms/estadobusqueda" => "bazarcms/empresas#estadobusqueda"
+  match "/bazarcms/estadobusquedaofertas" => "bazarcms/ofertas#estadobusqueda"
   match "/bazarcms/directorio" => "bazarcms/empresas#list"
   match "/bazarcms/empresas/show2/:id" => "bazarcms/empresas#show2", :constrants => { :id => /\d+/ }
   match "/empresasconsultas2" => "bazarcms/empresasconsultas#empresasconsultas"

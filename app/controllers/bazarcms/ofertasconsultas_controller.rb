@@ -27,7 +27,7 @@ module Bazarcms
   end
   
   def show 
-    @consulta = Ofertasconsulta.find_by_oferta_id_and_id(current_user.id, params[:id])
+    @consulta = Ofertasconsulta.find_by_empresa_id_and_id(current_user.id, params[:id])
     puts "Consulta: #{@consulta.inspect} <------"
     respond_to do |format|
       format.html { 
