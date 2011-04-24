@@ -42,7 +42,7 @@
 		<b>Página Web:</b>
 	</td>
 	<td colspan="3">
-		<% if @empresa.url.length > 0 %>	
+		<% if !@empresa.url? %>	
 			<%= link_to(@empresa.url,  @empresa.url) %>
 		<% else %>
 			-
