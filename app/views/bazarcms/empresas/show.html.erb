@@ -150,7 +150,10 @@
 </th>
 
 <td>
-	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
+
+	<%= link_to(ubi.ciudad.descripcion, ciudades_path+'/'+ubi.ciudad.friendly_id) %>, 
+	<%= link_to(ubi.ciudad.pais.descripcion, paises_path+'/'+ubi.ciudad.pais.friendly_id) %>
+
 </td>
 
 </tr>

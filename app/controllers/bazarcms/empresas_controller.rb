@@ -36,7 +36,7 @@ module Bazarcms
     
     # si la empresa es local extraemos la información de la base de datos
     # si de otro bazar la pedimos al bazar
-    
+    puts "Bazar #{BZ_param("BazarId").to_i} -> #{params[:bazar_id].to_i}"
     if ( params[:bazar_id].to_i == BZ_param("BazarId").to_i )
       
       @empresa = Empresa.find(params[:id])
@@ -55,33 +55,37 @@ module Bazarcms
       end
     
     else 
-      if !params[:display].nil? 
-        if params[:display] == "inside"
-
-          res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
-
-          if (res == "")
-            res = "Información temporalmente no disponible."
-          end
-
-          render :text => res, :layout => false
-          
-        else 
-          res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}")
-
-          if (res == "")
-            res = "Información temporalmente no disponible."
-          end
-
-          render :text => res, :layout => 'bazar'
-
-        end
+      
+      puts "empresa de otro bazar"
+      
+      if params[:display].nil? 
+        params[:display] = ""
+        puts "no viene display"
       end 
       
-      
-      
-    end 
+      if params[:display] == "inside"
+        puts "Es para pintar inside"
+        res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
 
+        if (res == "")
+          res = "Información temporalmente no disponible."
+        end
+
+        render :text => res, :layout => false
+        
+      else 
+        puts "lo pinto con el layout"
+        res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
+
+        if (res == "")
+          res = "Información temporalmente no disponible."
+        end
+
+        render :text => res, :layout => 'bazar'
+
+      end          
+
+    end         
 
   end
 

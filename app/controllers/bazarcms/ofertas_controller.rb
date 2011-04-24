@@ -31,7 +31,7 @@ module Bazarcms
   # muestra la información de una oferta para usuarios registrados en bazar 
 
   def show
-        
+            
     if ( params[:bazar_id].to_i == BZ_param("BazarId").to_i )
       
       @oferta = Oferta.find(params[:id])
