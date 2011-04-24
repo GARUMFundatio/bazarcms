@@ -91,7 +91,7 @@ module Bazarcms
     @empresa = Empresa.find(params[:id])
 
     respond_to do |format|
-      format.html { render :action => "show2", :layout => false }
+      format.html { render :action => "show2", :layout => true }
       format.xml  { render :xml => @empresa }
     end
 
