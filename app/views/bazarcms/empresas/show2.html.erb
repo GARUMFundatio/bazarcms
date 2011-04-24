@@ -70,7 +70,28 @@
 
 
 </table> 
+
+
 <br/>
+<h4 class="titulo-seccion">Ubicaciones</h4>
+
+<table class="tabla" cellspacing="0">
+
+<% for ubi in @empresa.ubicaciones %>
+<tr>
+<th scope="row">
+	<%= ubi.desc %>
+</th>
+
+<td>
+	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
+</td>
+
+</tr>
+<% end %>
+</table>
+
+
 <br/>
 <b>Para ver más información de esta empresa regístrese en un Bazar</b>
 <br/>
