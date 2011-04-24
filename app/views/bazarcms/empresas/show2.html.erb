@@ -71,6 +71,49 @@
 
 </table> 
 
+<br/>
+<h4 class="titulo-seccion">Sectores que Ofertan</h4>
+
+<table class="tabla" cellspacing="0">
+
+<% for sec in Bazarcms::Empresasperfil.where ("empresa_id = ? and tipo = 'O'", @empresa.id) %>
+<tr>
+<th scope="row">
+	<%= sec.codigo %>
+</th>
+
+<td>
+	<%= Bazarcms::Perfil.find_by_codigo(sec.codigo).desc -%>
+</td>
+
+</tr>
+<% end %>
+</table>
+
+
+<br/>
+
+<h4 class="titulo-seccion">Sectores que Demandan</h4>
+
+<table class="tabla" cellspacing="0">
+
+<% for sec in Bazarcms::Empresasperfil.where ("empresa_id = ? and tipo = 'D'", @empresa.id) %>
+<tr>
+<th scope="row">
+	<%= sec.codigo %>
+</th>
+
+<td>
+	<%= Bazarcms::Perfil.find_by_codigo(sec.codigo).desc -%>
+</td>
+
+</tr>
+<% end %>
+</table>
+
+
+<br/>
+
 
 <br/>
 <h4 class="titulo-seccion">Ubicaciones</h4>
