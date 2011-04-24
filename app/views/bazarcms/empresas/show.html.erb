@@ -156,4 +156,43 @@
 <% end %>
 </table>
 
+<h4 class="titulo-seccion">Ofertas que ha realizado</h4>
+
+<table class="tabla" cellspacing="0">
+
+<% for ofe in Bazarcms::Oferta.where ("empresa_id = ? and bazar_id = ? and tipo = 'O' ", @empresa.id, BZ_param('BazarId')) %>
+<tr>
+<th scope="row">
+	<%= link_to ofe.titulo, bazarcms_oferta_path(ofe.id, :bazar_id => ofe.bazar_id) %>	
+</th>
+
+<td>
+	<%= ofe.fecha.strftime ("%d-%m-%Y") -%>
+</td>
+
+</tr>
+<% end %>
+</table>
+
+<br/>
+
+<h4 class="titulo-seccion">Demandas que ha realizado</h4>
+
+<table class="tabla" cellspacing="0">
+
+<% for ofe in Bazarcms::Oferta.where ("empresa_id = ? and bazar_id = ? and tipo = 'D' ", @empresa.id, BZ_param('BazarId')) %>
+<tr>
+<th scope="row">
+	<%= link_to ofe.titulo, bazarcms_oferta_path(ofe.id, :bazar_id => ofe.bazar_id) %>	
+</th>
+
+<td>
+	<%= ofe.fecha.strftime ("%d-%m-%Y") -%>
+</td>
+
+</tr>
+<% end %>
+</table>
+
+<br/>
 
