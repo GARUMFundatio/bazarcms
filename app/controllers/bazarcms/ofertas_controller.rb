@@ -762,6 +762,11 @@ module Bazarcms
     end
   end
 
+  def rss
+    @ofertas = Oferta.where("bazar_id = ?", BZ_param('BazarId')).order("fecha desc").limit(30)
+    render :layout => false
+  end
+  
 end
 
 end
