@@ -8,10 +8,10 @@ xml.rss :version => "2.0" do
     for oferta in @ofertas
       xml.item do
         xml.title oferta.titulo
-        xml.description oferta.texto+"<br/><br/>"+"Más Información de esta oferta/demanda:\n\n<a href='/bazarcms/ofertas/show2/"+oferta.friendly_id+"'>"+oferta.titulo+'</a>'
+        xml.description oferta.texto+"<br/><br/>"+"Más Información de esta oferta/demanda:\n\n<a href='/bazarcms/ofertas/"+oferta.friendly_id+"?bazar_id=#{oferta.bazar_id}'>"+oferta.titulo+'</a>'
         xml.pubDate oferta.fecha.to_s(:rfc822)
-        xml.link Cluster.find(BZ_param("BazarId")).url+"/bazarcms/ofertas/#{oferta.friendly_id}"
-        xml.guid Cluster.find(BZ_param("BazarId")).url+"/bazarcms/ofertas/#{oferta.friendly_id}"
+        xml.link Cluster.find(BZ_param("BazarId")).url+"/bazarcms/ofertas/#{oferta.friendly_id}?bazar_id=#{oferta.bazar_id}"
+        xml.guid Cluster.find(BZ_param("BazarId")).url+"/bazarcms/ofertas/#{oferta.friendly_id}?bazar_id=#{oferta.bazar_id}"
       end
     end
   end
