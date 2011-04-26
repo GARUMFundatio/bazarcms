@@ -1,0 +1,98 @@
+<% if !current_user.nil? %>
+	<a class="volver-home-link" href="/home">&laquo; Volver a la página de búsquedas</a>
+<% end %>
+
+<h3 class="page-title">Datos del Sector <%= @perfil.codigo -%>:<%= @perfil.desc -%></h3>
+
+<table id="results" class="tabla" cellspacing="0">
+
+	<tr>
+		<td colspan="2">
+			<b>Actividades que engloba este sector:</b>
+		</td>
+	<tr>
+	</tr>
+		<td colspan="2">
+			<%= @perfil.ayuda.gsub(/\n/,'<br/>').html_safe %> 
+		</td>
+
+	</tr>
+	<tr>
+		<td>
+			<b>Empresas del bazar en este sector:</b>
+		</td>
+		
+		<td>
+			<%= @perfil.total_empresas_bazar %>
+		</td>
+
+	</tr>
+	<tr>
+		<td>
+			<b>Total Empresas en la Red</b>
+		</td>
+
+		<td>
+			<%= @perfil.total_empresas_mercado %>
+		</td>
+
+	</tr>
+	
+</table>
+
+<br />
+
+<h3 class="page-title">Empresas de este sector</h3>
+
+<table id="results" class="tabla" cellspacing="0">
+	
+<% for empresa in Bazarcms::Empresasperfil.where("codigo = ? and tipo = 'O'", @perfil.codigo) %>
+
+	<tr>
+		
+		<td>
+			<% empre = Bazarcms::Empresa.find(empresa.empresa_id) %>
+			<%= link_to(empre.nombre, '/bazarcms/empresas/show2/'+empre.friendly_id) %>
+		</td>
+		
+	</tr>
+		
+<% end %>
+
+</table>
+
+<h3 class="page-title">Empresas que demandan este sector</h3>
+
+<table id="results" class="tabla" cellspacing="0">
+	
+<% for empresa in Bazarcms::Empresasperfil.where("codigo = ? and tipo = 'D'", @perfil.codigo) %>
+
+	<tr>
+		
+		<td>
+			<% empre = Bazarcms::Empresa.find(empresa.empresa_id) %>
+			<%= link_to(empre.nombre, '/bazarcms/empresas/show2/'+empre.friendly_id) %>
+		</td>
+		
+	</tr>
+		
+<% end %>
+
+</table>
+
+
+<% if current_user.nil? %>
+
+<br/>
+<br/>
+
+<b>Es necesario registrarse para poder usar Bazar</b>
+
+<br/>
+<br/>
+
+<a class="volver-home-link" href="/home/datos"> Los datos de este bazar &raquo;</a>
+<a class="volver-home-link" href="/home/registrarse"> Darse de alta en este bazar &raquo;</a>
+<a class="volver-home-link" href="/home/bazares"> ¿Qué es un Bazar? &raquo;</a>
+
+<% end %>
