@@ -83,7 +83,7 @@
 <% for sec in Bazarcms::Empresasperfil.where ("empresa_id = ? and tipo = 'O'", @empresa.id) %>
 <tr>
 <th scope="row">
-	<%= sec.codigo %>
+	<a href="/bazarcms/perfiles/<%= sec.friendly_id -%>"><%= sec.codigo -%></a>
 </th>
 
 <td>
@@ -104,7 +104,7 @@
 <% for sec in Bazarcms::Empresasperfil.where ("empresa_id = ? and tipo = 'D'", @empresa.id) %>
 <tr>
 <th scope="row">
-	<%= sec.codigo %>
+	<a href="/bazarcms/perfiles/<%= sec.friendly_id -%>"><%= sec.codigo -%></a>
 </th>
 
 <td>
