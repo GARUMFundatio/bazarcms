@@ -52,7 +52,7 @@
 		
 		<td>
 			<% empre = Bazarcms::Empresa.find(empresa.empresa_id) %>
-			<%= link_to(empre.nombre, '/bazarcms/empresas/show2/'+empre.friendly_id+'?bazar_id='+empre.bazar_id) %>
+			<%= link_to(empre.nombre, '/bazarcms/empresas/show2/'+empre.friendly_id+'?bazar_id='+BZ_param('BazarId')) %>
 		</td>
 		
 	</tr>
@@ -71,7 +71,7 @@
 		
 		<td>
 			<% empre = Bazarcms::Empresa.find(empresa.empresa_id) %>
-			<%= link_to(empre.nombre, '/bazarcms/empresas/show2/'+empre.friendly_id+'?bazar_id='+empre.bazar_id) %>
+			<%= link_to(empre.nombre, '/bazarcms/empresas/show2/'+empre.friendly_id+'?bazar_id='+BZ_param('BazarId')) %>
 		</td>
 		
 	</tr>
