@@ -5,6 +5,10 @@ module Bazarcms
   unloadable 
   layout "bazar"
   
+  def show 
+    @perfil = Perfil.find(params[:id])
+  end 
+  
   def busqueda
     
    
@@ -69,7 +73,7 @@ module Bazarcms
     
     @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
     
-    Actividad.graba("Ha añadido un nuevo sector en su perfil: #{@perfil.codigo}-#{Bazarcms::Perfil.find_by_codigo(@perfil.codigo).desc }", 
+    Actividad.graba("Ha añadido un nuevo sector en su perfil: <a href='/bazarcms/perfiles/#{Bazarcms::Perfil.find_by_codigo(@perfil.codigo).friendly_id}'>#{@perfil.codigo}-#{Bazarcms::Perfil.find_by_codigo(@perfil.codigo).desc }</a>", 
     "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
     
     
