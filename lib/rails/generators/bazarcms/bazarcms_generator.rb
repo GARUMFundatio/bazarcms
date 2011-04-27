@@ -52,6 +52,7 @@ class BazarcmsGenerator < Rails::Generators::Base
 
     for i in 2..6
       # vemos si ya existe un fichero de migracion vN ubicaciones
+      sleep 2
       existe = false; 
       Dir.foreach("db/migrate") { |f|
         if File.fnmatch('*_create_bazarcms_tables'+i.to_s+'.rb', f) then
