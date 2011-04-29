@@ -185,14 +185,14 @@ module Bazarcms
   def update
     logger.debug params.inspect
     @empresa = Empresa.find(params[:id])
-    @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+params[:id]+' and periodo >= '+@empresa.fundada.to_s)
+    @empresasdatos = Bazarcms::Empresasdato.where('empresa_id = '+current_user.id.to_s+' and periodo >= '+@empresa.fundada.to_s)
       
     Actividad.graba("Actualizada información empresa.", "USER",  BZ_param("BazarId"), current_user.id, @empresa.nombre)
     
     respond_to do |format|
       if @empresa.update_attributes(params[:bazarcms_empresa])
         # format.html { redirect_to(@empresa, :notice => 'Se ha actualizado correctamente la empresa.') }
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit", :bazar_id => BZ_param("BazarId") }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
