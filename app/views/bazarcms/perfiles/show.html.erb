@@ -13,7 +13,9 @@
 	<tr>
 	</tr>
 		<td colspan="2">
-			<%= @perfil.ayuda.gsub(/\n/,'<br/>').html_safe %> 
+			<% if !@perfil.ayuda.nil? %>
+				<%= @perfil.ayuda.gsub(/\n/,'<br/>').html_safe %>
+			<% end %> 
 		</td>
 
 	</tr>
