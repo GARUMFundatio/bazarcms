@@ -265,6 +265,10 @@ module Bazarcms
       conta2 = 0
       for resu in resultados 
 
+        if resu.tipo != params[:qtipo]
+          continue
+        end 
+           
         entra = 0
         total = 0
 
@@ -394,48 +398,6 @@ module Bazarcms
         end 
 
 
-        # buscamos en la información económica
-
-        # TODO: si no pasa los filtros anteriores ni miramos la información económica
-        
-        # datos = Bazarcms::Empresasdato.where("empresa_id = ?", [resu.id]).order('periodo desc').limit(1)
-
-        # logger.debug "datos seleccionados para el filtro #{datos.inspect}"
-        # aplicamos el filtro de empleados 
-
-        # rangoe = params[:qe].split(' ')
-        # puede que existan empresas que todavía no tienen datos!!!!
-        # if (!datos.nil?)
-        #  if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
-        #    entra += 1 
-        #  end
-        # end
-        # total+=1
-
-        # rangoc = params[:qc].split(' ')
-        # if (!datos.nil?)
-        #  if datos[0].compras >= rangoc[0].to_i && datos[0].compras <= rangoc[1].to_i
-        #    entra += 1 
-        #  end
-        # end
-        # total+=1
-
-        # rangov = params[:qv].split(' ')
-        # if (!datos.nil?)
-        #  if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
-        #    entra += 1 
-        #  end
-        # end
-        # total+=1
-
-        # rangor = params[:qr].split(' ')
-        # if (!datos.nil?)
-        #  if datos[0].resultados >= rangor[0].to_i && datos[0].resultados <= rangor[1].to_i
-        #    entra += 1 
-        #  end
-        # end
-        # total+=1
-
         if (entra == total)
           @res = Ofertasresultado.new(); 
           @res.ofertasconsulta_id = @consulta.id
@@ -533,12 +495,11 @@ module Bazarcms
     
     @esta.fecha = DateTime.now
     @esta.bazar_id = BZ_param("BazarId")
-    @esta.consulta = "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&ppaises="+params[:ppaises]+"&bid=#{@consulta.id}&cid=#{micluster}"
+    @esta.consulta = "q="+params[:q]+"&qe="+params[:qe]+"&qv="+params[:qv]+"&qc="+params[:qc]+"&qr="+params[:qr]+"&pofertan="+params[:pofertan]+"&pdemandan="+params[:pdemandan]+"&ppaises="+params[:ppaises]+"&qtipo="+params[:qtipo]+"&bid=#{@consulta.id}&cid=#{micluster}"
     @esta.empresas =  @consulta.total_resultados
     @esta.empresa_id = current_user.id
-    @esta.tipo = 'O'
+    @esta.tipo = params[:qtipo]
     @esta.save
-
 
     respond_to do |format|
       if params[:display] == "total"
