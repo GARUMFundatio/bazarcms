@@ -546,6 +546,11 @@ module Bazarcms
       resultados2 = [:cluster_id => BZ_param('BazarId')]
 
       for ofe in resultados
+        
+        if ofe.tipo != params[:qtipo]
+          continue
+        end 
+        
         entra = 0
         total = 0
 
@@ -693,7 +698,7 @@ module Bazarcms
 
       @esta.empresas = resultados2.count
       @esta.empresa_id = 0
-      @esta.tipo = 'O'
+      @esta.tipo = params[:qtipo]
 
       @esta.save
 
