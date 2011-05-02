@@ -437,13 +437,13 @@ module Bazarcms
         # total+=1
 
         if (entra == total)
-          @res = Ofertasesultado.new(); 
-          @res.ofertaconsulta_id = @consulta.id
+          @res = Ofertasresultado.new(); 
+          @res.ofertasconsulta_id = @consulta.id
           @res.cluster_id = micluster
           @res.empresa_id = resu.id 
-          @res.orden = resu.nombre
-          @res.enlace = resu.url
-          @res.info = "#{resu.nombre}"
+          @res.orden = resu.fecha.strftime('%Y%m%d%H%M')
+          @res.enlace = "poner el enlace bien" # resu.url
+          @res.info = "#{resu.titulo}"
           @res.save
           conta2 += 1
         end 
@@ -462,7 +462,7 @@ module Bazarcms
      
       if micluster != cluster.id 
               
-        uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&ppaises="+CGI.escape(params[:ppaises])+"&bid=#{@consulta.id}&cid=#{micluster}"
+        uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&ppaises="+CGI.escape(params[:ppaises])+"&qtipo="+CGI.escape(params[:qtipo])+"&bid=#{@consulta.id}&cid=#{micluster}"
         logger.debug "Enviando Petición a ------------> #{uri}"
 
         r = Typhoeus::Request.new(uri, :timeout => 5000)
@@ -486,13 +486,14 @@ module Bazarcms
                 end
                 if !key['oferta'].nil?
                   logger.debug("#{key['oferta'].inspect} <------ datos")
-                  resu = Bazarcms::Ofertasresultado.new()
-                  resu.ofertaconsulta_id = @consulta.id
+                  
+                  resu = Bazarcms::Ofertasresultado.new()    
+                  resu.ofertasconsulta_id = @consulta.id
                   resu.cluster_id = cluster_id
                   resu.empresa_id = key['oferta']['id'] 
-                  resu.enlace = key['oferta']['url']
-                  resu.orden = key['oferta']['nombre']
-                  resu.info = key['oferta']['nombre']
+                  resu.enlace = "Poner el enlace bien 2" # key['oferta']['url']
+                  resu.orden = key['oferta']['fecha'] # .strftime('%Y%m%d%H%M')
+                  resu.info = key['oferta']['titulo']
                   resu.save
                   conta2 += 1
                 end

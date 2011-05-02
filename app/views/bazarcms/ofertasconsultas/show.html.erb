@@ -3,9 +3,9 @@
 <p class="total"><strong>Total:</strong> <%= @consulta.total_resultados %> Ofertas/Demandas de <%= @consulta.total_respuestas %> bazares.</p>
 
 <% if params[:display] == 'inside' %>
-	<% @ofertasresultados = @consulta.empresasresultados.limit(10) %>
+	<% @ofertasresultados = Bazarcms::Ofertasresultado.where("empresa_id = ?", @consulta.id).limit(10) %>
 <% else %> 
-	<% @ofertasresultados = @consulta.empresasresultados %>
+	<% @ofertasresultados = Bazarcms::Ofertasresultado.where("empresa_id = ?", @consulta.id) %>
 <% end %>
 
 <table id="results" class="tabla" cellspacing="0">

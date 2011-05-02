@@ -72,7 +72,6 @@ Bazar::Application.routes.draw do
   match "/bazarcms/borrarconsultas" => "bazarcms/empresasconsultas#borrartodas"
   match "/bazarcms/estadoconsulta/:id" => "bazarcms/empresasconsultas#estado", :constrants => { :id => /\d+/ }
   match "/bazarcms/estadobusqueda" => "bazarcms/empresas#estadobusqueda"
-  match "/bazarcms/estadobusquedaofertas" => "bazarcms/ofertas#estadobusqueda"
   match "/bazarcms/directorio" => "bazarcms/empresas#list"
   match "/bazarcms/empresas/show2/:id" => "bazarcms/empresas#show2", :constrants => { :id => /\d+/ }
   match "/empresasconsultas2" => "bazarcms/empresasconsultas#empresasconsultas"
@@ -85,6 +84,7 @@ Bazar::Application.routes.draw do
   match "/bazarcms/publicaroferta" => 'bazarcms/ofertas#new', :as => :publicaroferta 
   match "/bazarcms/enviaroferta" => 'bazarcms/ofertas#enviaroferta', :as => :enviaroferta 
   match "/bazarcms/buscaofertas" => "bazarcms/ofertas#busca"
+  match "/bazarcms/estadobusquedaofertas" => "bazarcms/ofertas#estadobusqueda"
   match "/ofertas.rss" => 'bazarcms/ofertas#rss'
 
   match "/bazarcms/hydra" => 'bazarcms/empresas#hydra', :as => :hydra

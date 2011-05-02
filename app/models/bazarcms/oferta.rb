@@ -2,6 +2,7 @@ module Bazarcms
   
   unloadable
 
+
   # TODO: incluir sectores y paises 
   
   class Oferta < ActiveRecord::Base
@@ -11,6 +12,10 @@ module Bazarcms
     # TODO establecer bien las relaciones
     
     belongs_to :empresa
+  
+    # has_many :ubicaciones
+    has_many :ofertasconsultas
+    has_many :ofertasperfiles
   
     acts_as_ferret :fields => [ :titulo, :texto ]
     
