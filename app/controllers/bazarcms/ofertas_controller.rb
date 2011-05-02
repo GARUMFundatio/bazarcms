@@ -266,7 +266,7 @@ module Bazarcms
       for resu in resultados 
 
         if resu.tipo != params[:qtipo]
-          continue
+          next
         end 
            
         entra = 0
@@ -548,7 +548,7 @@ module Bazarcms
       for ofe in resultados
         
         if ofe.tipo != params[:qtipo]
-          continue
+          next
         end 
         
         entra = 0
