@@ -1,0 +1,25 @@
+
+  <tr>
+  	<td>
+		<% if ofertasconsulta.desc == '*' %>
+			Cualquier Oferta/Demanda
+		<% else %>
+			Ofertas que cumplen con: <%= ofertasconsulta.desc %>
+		<% end %>
+	</td>
+  	<td><%= ofertasconsulta.total_consultas %>/<%= ofertasconsulta.total_respuestas %></td>
+  	<td><%= ofertasconsulta.total_resultados %></td>
+  	<td>
+	<% if (!ofertasconsulta.fecha_inicio.nil?) %>
+		<%= ofertasconsulta.fecha_inicio.strftime("%Y-%m-%d %H:%M") -%>
+	<% else %>
+		-
+	<% end %>
+	
+  	<% if ofertasconsulta.total_resultados > 0 %>
+		<td><%= link_to image_tag('lupa.png'), ofertasconsulta, :title => 'Ver Resultados' %></td>
+	<% else %>
+		<td></td>
+	<% end %>
+    <td><%= link_to image_tag('delete.png'), ofertasconsulta, :confirm => '¿Está seguro de querer borrar la consulta?', :method => :delete, :title => 'Borrar Consulta' %></td>
+  </tr>
