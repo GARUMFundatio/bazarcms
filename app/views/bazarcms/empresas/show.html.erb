@@ -150,9 +150,13 @@
 </th>
 
 <td>
-
-	<%= link_to(ubi.ciudad.descripcion, ciudades_path+'/'+ubi.ciudad.friendly_id) %>, 
-	<%= link_to(ubi.ciudad.pais.descripcion, paises_path+'/'+ubi.ciudad.pais.friendly_id) %>
+	
+	<% if !ubi.ciudad.nil? %>
+	  	<%= link_to(ubi.ciudad.descripcion, ciudades_path+'/'+ubi.ciudad.friendly_id) %>, 
+		<%= link_to(ubi.ciudad.pais.descripcion, paises_path+'/'+ubi.ciudad.pais.friendly_id) %>
+	<% else %>
+		Ciudad Incorrecta.
+	<% end %>
 
 </td>
 
