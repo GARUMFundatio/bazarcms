@@ -110,7 +110,11 @@
             </th>
 
             <td>
-            	<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
+				<% if !ubi.ciudad.nil? %>
+            		<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
+				<% else %>
+					Seleccione una ciudad para esta ubicación
+				<% end %>
             </td>
 
             <td class="dos-iconos">
