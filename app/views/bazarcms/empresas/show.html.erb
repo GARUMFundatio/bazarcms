@@ -10,7 +10,7 @@
 		<%= link_to image_tag("email.png"), "/mensajes/new?aquien=2&tipo=M"+"?aquien=#{@empresa.id}&tipo=M&bazar_id=#{BZ_param("BazarId")}&bazar_destino=#{params[:bazar_id]}", :title => 'Enviar Mensaje de Correo' %>
 	</td>
 	<td>
-		<%= helper_favo(BZ_param("BazarId"), @empresa.id, @empresa.nombre, "ult") %>
+		<%= helper_favo(BZ_param("BazarId"), @empresa.id, @empresa.nombre, "fichaempresa") %>
 	</td>
 </tr>
 </table>
