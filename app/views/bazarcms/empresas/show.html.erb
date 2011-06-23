@@ -3,9 +3,6 @@
 
 <table boder="0">
 <tr>
-	<td>
-	show normal: 
-	</td>
 	<td>	
 		<%= link_to image_tag("email.png"), "/mensajes/new?aquien=2&tipo=M"+"?aquien=#{@empresa.id}&tipo=M&bazar_id=#{BZ_param("BazarId")}&bazar_destino=#{params[:bazar_id]}", :title => 'Enviar Mensaje de Correo' %>
 	</td>
