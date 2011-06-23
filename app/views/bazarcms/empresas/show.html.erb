@@ -1,6 +1,19 @@
 
 <h3 class="titulo-destacado"><%= @empresa.nombre %></h3>
 
+<table boder="0">
+<tr>
+	<td>	
+		<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{@empresa.id}&tipo=M", :title => 'Enviar Mensaje de Correo' %>
+	</td>
+	<td>
+		<%= helper_favo(BZ_param("BazarId"), @empresa.id, @empresa.nombre, "ult") %>
+	</td>
+</tr>
+</table>
+
+</br>
+
 <h4 class="titulo-seccion">Empresa</h4>
 
 <table class="tabla" cellspacing="0">
