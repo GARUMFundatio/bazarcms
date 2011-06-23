@@ -65,7 +65,7 @@ module Bazarcms
       
       if params[:display] == "inside"
         puts "Es para pintar inside"
-        res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
+        res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside&user_id=#{current_user.id}")
 
         if (res == "")
           res = "Información temporalmente no disponible."
@@ -75,7 +75,7 @@ module Bazarcms
         
       else 
         puts "lo pinto con el layout"
-        res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
+        res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside&user_id=#{current_user.id}")
 
         if (res == "")
           res = "Información temporalmente no disponible."
