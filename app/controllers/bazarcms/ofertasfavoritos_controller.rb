@@ -141,7 +141,7 @@ module Bazarcms
   def dashboard 
     
     @favoritos = Ofertasfavorito.where("user_id = ?", current_user.id).order("fecha desc").limit(5)
-    @total = Ofertasfavorito.count_by_sql("select count(*) from favoritos where user_id = #{current_user.id} ;")
+    @total = Ofertasfavorito.count_by_sql("select count(*) from ofertasfavoritos where user_id = #{current_user.id} ;")
 
     respond_to do |format|
       format.html { render :layout => false }
