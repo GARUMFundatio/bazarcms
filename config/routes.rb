@@ -90,5 +90,9 @@ Bazar::Application.routes.draw do
   match "/bazarcms/hydra" => 'bazarcms/empresas#hydra', :as => :hydra
   
   match "/ofertas/dashboard" => 'bazarcms/ofertas#dashboard'  
-    
+  
+  match "/ofertasfavorito/addfav" => "bazarcms/ofertasfavoritos#addfav"
+  match "/ofertasfavorito/delfav" => "bazarcms/ofertasfavoritos#delfav"  
+  match "/ofertasfavorito/dashboard" => "bazarcms/ofertasfavoritos#dashboard"
+      
 end

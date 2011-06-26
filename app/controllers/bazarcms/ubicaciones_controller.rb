@@ -50,8 +50,20 @@ module Bazarcms
       respond_to do |format|
         if @ubicacion.save
           
-          @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
-          Actividad.graba("Nueva ubicación: #{@ubicacion.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
+          @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
+          
+          if !@ubicacion.ciudad.nil?
+              Actividad.graba("Nueva ubicación: '#{@ubicacion.desc}' <a href='#{ciudades_path+'/'+@ubicacion.ciudad.friendly_id}'>#{@ubicacion.ciudad.descripcion}</a> - <a href='#{paises_path+'/'+@ubicacion.ciudad.pais.friendly_id}'>#{@ubicacion.ciudad.pais.descripcion}</a>",
+                  "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
+
+        	else
+            Actividad.graba("Nueva ubicación: #{@ubicacion.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
+        	end
+          
+          # invalidamos los caches para que aparezca la oferta inmediatamente en la home page
+
+          expire_fragment "bazar_actividades_dashboard"
+          
           
           # actualizamos cuando se ha actualizado la empresa para que además se reindexe
           

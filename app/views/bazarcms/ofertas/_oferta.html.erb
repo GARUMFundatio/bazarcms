@@ -23,6 +23,11 @@
 		<%= link_to oferta.titulo, bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id) %>	
 	</td>
 
+	<td class="dos-iconos">
+		<%= helper_favoofe(oferta.bazar_id, oferta.empresa_id, oferta.titulo, "oferta") %>
+	</td>
+
+
 	<td>
 		<%= oferta.fecha.strftime("%d-%m-%Y") %>	
 	</td>
