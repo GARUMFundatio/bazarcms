@@ -24,7 +24,7 @@
 	</td>
 
 	<td class="dos-iconos">
-		<%= helper_favoofe(oferta.bazar_id, oferta.id, oferta.titulo, "oferta") %>
+		<%= helper_favoofe(oferta.bazar_id, oferta.empresa_id, Bazarcms::Empresa.find(oferta.empresa_id).nombre, oferta.id, oferta.titulo) %>
 	</td>
 
 

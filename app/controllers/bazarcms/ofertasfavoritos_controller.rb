@@ -76,7 +76,8 @@ module Bazarcms
   end
 
   def addfav
-    @fav = Ofertasfavorito.find_by_user_id_and_bazar_id_and_empresa_id(current_user.id, params[:bazar], params[:empresa])
+    
+    @fav = Ofertasfavorito.find_by_user_id_and_bazar_id_and_oferta_id(current_user.id, params[:bazar], params[:oferta])
 
     if @fav.nil? 
       @fav = Ofertasfavorito.new
@@ -84,6 +85,8 @@ module Bazarcms
       @fav.bazar_id = params[:bazar] 
       @fav.empresa_id = params[:empresa]
       @fav.nombre_empresa = params[:nombre_empresa].gsub('_',' ')
+      @fav.oferta_id = params[:oferta]
+      @fav.titulo_oferta = params[:nombre_oferta].gsub('_',' ')
       @fav.user_id = current_user.id
       @fav.save 
     else 
@@ -99,7 +102,7 @@ module Bazarcms
   end
 
   def delfav
-    @fav = Ofertasfavorito.find_by_user_id_and_bazar_id_and_empresa_id(current_user.id, params[:bazar], params[:empresa])
+    @fav = Ofertasfavorito.find_by_user_id_and_bazar_id_and_oferta_id(current_user.id, params[:bazar], params[:oferta])
 
     if !@fav.nil? 
       @fav.destroy 
@@ -117,7 +120,7 @@ module Bazarcms
     if !@fav.nil?    
       render :layout => false  
     else
-      redirect_to("/ofertasfavorito/addfav?bazar=#{params[:bazar]}&empresa=#{params[:empresa]}&nombre_empresa=#{params[:nombre_empresa]}&pre=#{params[:pre]}")
+      redirect_to("/ofertasfavorito/addfav?bazar=#{params[:bazar]}&empresa=#{params[:empresa]}&nombre_empresa=#{params[:nombre_empresa]}&oferta=#{params[:oferta]}&nombre_oferta=#{params[:nombre_oferta]}")
     end 
       
   end
