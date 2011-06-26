@@ -76,7 +76,7 @@ module Bazarcms
           @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
 
           if !@ubicacion.ciudad.nil?
-              Actividad.graba("Actualizada ubicación: #{@ubicacion.desc} <a href='#{ciudades_path+'/'+@ubicacion.ciudad.friendly_id}'>#{@ubicacion.ciudad.descripcion}</a> <a href='#{paises_path+'/'+@ubicacion.ciudad.pais.friendly_id}'>#{@ubicacion.ciudad.pais.descripcion}</a>",
+              Actividad.graba("Actualizada ubicación: '#{@ubicacion.desc}' <a href='#{ciudades_path+'/'+@ubicacion.ciudad.friendly_id}'>#{@ubicacion.ciudad.descripcion}</a> - <a href='#{paises_path+'/'+@ubicacion.ciudad.pais.friendly_id}'>#{@ubicacion.ciudad.pais.descripcion}</a>",
                   "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
 
         	else
