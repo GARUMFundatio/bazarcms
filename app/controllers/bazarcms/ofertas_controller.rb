@@ -179,9 +179,9 @@ module Bazarcms
     
     @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
     if @oferta.tipo == 'O'
-      Actividad.graba("Nueva oferta: <a href="#{bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id)}">#{@oferta.titulo}</a>", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
+      Actividad.graba("Nueva oferta: <a href='#{bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id)}'>#{@oferta.titulo}</a>", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
     else 
-      Actividad.graba("Nueva Demanda: <a href="#{bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id)}">#{@oferta.titulo}</a>", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)      
+      Actividad.graba("Nueva Demanda: <a href='#{bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id)}'>#{@oferta.titulo}</a>", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)      
     end 
     
     respond_to do |format|
