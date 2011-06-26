@@ -184,6 +184,12 @@ module Bazarcms
       Actividad.graba("Nueva Demanda: <a href='#{bazarcms_oferta_path(@oferta.id, :bazar_id => @oferta.bazar_id)}'>#{@oferta.titulo}</a>", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)      
     end 
     
+    # invalidamos los caches para que aparezca la oferta inmediatamente en la home page
+    
+    expire_fragment "bazar_favoritos_dash_#{current_user.id}"
+    expire_fragment "ofertasdash"
+    expire_fragment "bazar_actividades_dashboard"
+    
     respond_to do |format|
       if @oferta.save
         logger.debug "se ha creado la oferta:"+@oferta.id.to_s+' '+@oferta.empresa_id.to_s
