@@ -127,11 +127,15 @@ module Bazarcms
   # DELETE /favoritos/1
   # DELETE /favoritos/1.xml
   def destroy
-    @favorito = Favorito.find(params[:id])
+    @favorito = Ofertasfavorito.find(params[:id])
     @favorito.destroy
 
+    expire_fragment "bazar_favoritos_ofe_dash_#{current_user.id}"
+    expire_fragment "ofertasdash"
+    expire_fragment "bazar_actividades_dashboard"
+
     respond_to do |format|
-      format.html { redirect_to(favoritos_url) }
+      format.html { redirect_to(ofertasfavoritos_url) }
       format.xml  { head :ok }
     end
   end
