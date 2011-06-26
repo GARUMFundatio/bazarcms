@@ -21,6 +21,8 @@ module Bazarcms
       inflect.irregular 'ofertasperfil', 'ofertasperfiles'
       inflect.irregular 'ofertaspais', 'ofertaspaises'
       inflect.irregular 'ofertasfavorito', 'ofertasfovoritos'
+      inflect.irregular 'rating', 'ratings'
+      
       
     end
      
