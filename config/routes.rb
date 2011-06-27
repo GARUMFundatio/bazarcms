@@ -60,6 +60,10 @@ Bazar::Application.routes.draw do
     resources :ofertasfavoritos
   end
   
+  scope(:path => 'bazarcms', :module => 'bazarcms', :as => 'bazarcms' ) do
+    resources :ratings
+  end
+  
  
   match "/bazarcms/datos" => "bazarcms/empresasdatos#index"
   match "/bazarcms/dashboard" => "bazarcms/empresas#dashboard"
