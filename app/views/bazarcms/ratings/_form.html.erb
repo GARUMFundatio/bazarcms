@@ -1,44 +1,66 @@
 
-<%= form_for(@ubicacion) do |f| %>
-  <% if @ubicacion.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ubicacion.errors.count, "error") %> prohibited this ubicacion from being saved:</h2>
+<%= form_for(@rating, :url => '/bazarcms/ratings') do |f| %>
 
-      <ul>
-      <% @ubicacion.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-<%= f.hidden_field :empresa_id %>
+<%= f.hidden_field :ori_empresa_id %>
  
+<b>Estime su relación con esta Empresa:</b>
+
 <table class="tabla" cellspacing="0">
+
+
 <tr>
+
+  <td>
+
+  	<b><%= @rating.ori_empresa_nombre %>:</b>
+
+  </td>
+
+  <td>
+
+  	<%= helper_rating_show(2.5).html_safe %>
+
+  </td>
+
+</tr>
+
+
+<tr>
+
   <td>
   <b><%= f.label :Descripción %>:</b>
   </td>
   <td>
-  <%= f.text_field :desc %>
+  <%= f.text_area(:ori_texto, :size => "60x15") %>
   </td>
+
 </tr>
+
 <tr>
+	
   <td>
-    <b><%= f.label :Ciudad %>:</b>
+    <b><%= f.label :Valoración %>:</b>
   </td>
+
   <td>
-    <%= f.hidden_field :ciudad_id %>
-	<% 
-	if !@ubicacion.ciudad.nil?
-		ciudad = @ubicacion.ciudad.descripcion
-	else 
-		ciudad = ""
-	end
-	%>
-    <%= text_field(:ciudad, :id, :value => ciudad ,:class => "auto_search_complete") %>
+	<div>
+		
+		<img id="1" class='rat' src='/images/addfav.png'>
+		<img id="2" class='rat' src='/images/addfav.png'>
+		<img id="3" class='rat' src='/images/addfav.png'>
+		<img id="4" class='rat' src='/images/addfav.png'>
+		<img id="5" class='rat' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva">
+		Evalue como ha sido la relación con esta empresa.
+	</div>
+	
+    <%= f.hidden_field :ori_valor %>
   </td>
+
 </tr>
+
 </table>
 
   <div class="actions">
@@ -46,20 +68,53 @@
   </div>
 <% end %>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	$(".auto_search_complete").autocomplete({
-	    source: "/busquedaciudades.json",
-	    minLength: 2,
-		select: function(event, ui) {
-			$("#ciudad_id").val( ui.item.label );
-			$("#bazarcms_ubicacion_ciudad_id" ).val( ui.item.id );
-			return false;
-		}
-	
-	});
+<script>
+
+$(function() {
+
+    $("img.rat")
+        .click(function() {
+			// window.alert("pulsado 1 "+$(this).attr("id") );
+			var ii; 
+			var valor ; 
+			
+			valor = parseInt($(this).attr("id"));
+			
+			for (ii=1 ; ii <= 5; ii++) {
+				
+				if (ii <= $(this).attr("id") ) {
+					$('#'+ii).attr("src", '/images/rating.png');
+				}
+				else {
+					$('#'+ii).attr("src", '/images/addfav.png');				
+				} 
+				
+			}
+						
+			switch (parseInt(valor))
+			{
+			case 1:
+			  $('#eva').html("Mala");
+			  break;
+			case 2:
+			  $('#eva').html("Regular");
+			  break;
+			case 3:
+			  $('#eva').html("Normal");
+			  break;
+			case 4:
+			  $('#eva').html("Buena");
+			  break;
+			case 5:
+			  $('#eva').html("Excelente");
+			  break;
+			}
+
+		$('#bazarcms_rating_ori_valor').val(valor);
+
+        });
 
 });
+
 </script>
 

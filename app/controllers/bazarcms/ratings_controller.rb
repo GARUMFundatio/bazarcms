@@ -27,7 +27,7 @@ module Bazarcms
       
       @rating = Rating.new
       
-      @rating.empresa_id = params[:empresa]
+      @rating.ori_empresa_id = params[:ori_empresa_id]
       
       respond_to do |format|
         format.html { render }
@@ -54,13 +54,13 @@ module Bazarcms
           
           @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
           
-          if !@rating.ciudad.nil?
-              Actividad.graba("Nueva ubicación: '#{@rating.desc}' <a href='#{ciudades_path+'/'+@rating.ciudad.friendly_id}'>#{@rating.ciudad.descripcion}</a> - <a href='#{paises_path+'/'+@rating.ciudad.pais.friendly_id}'>#{@rating.ciudad.pais.descripcion}</a>",
-                  "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
+          # if !@rating.ciudad.nil?
+          #    Actividad.graba("Nueva ubicación: '#{@rating.desc}' <a href='#{ciudades_path+'/'+@rating.ciudad.friendly_id}'>#{@rating.ciudad.descripcion}</a> - <a href='#{paises_path+'/'+@rating.ciudad.pais.friendly_id}'>#{@rating.ciudad.pais.descripcion}</a>",
+          #        "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
 
-        	else
-            Actividad.graba("Nueva ubicación: #{@rating.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
-        	end
+        	# else
+          #  Actividad.graba("Nueva ubicación: #{@rating.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
+        	# end
           
           # invalidamos los caches para que aparezca la oferta inmediatamente en la home page
 
@@ -69,8 +69,8 @@ module Bazarcms
           
           # actualizamos cuando se ha actualizado la empresa para que además se reindexe
           
-          @empresa.updated_at = DateTime.now 
-          @empresa.save
+          # @empresa.updated_at = DateTime.now 
+          # @empresa.save
           
           format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
           format.xml  { render :xml => @rating, :status => :created, :location => @rating }
