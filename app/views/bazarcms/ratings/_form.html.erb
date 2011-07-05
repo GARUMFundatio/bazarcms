@@ -24,42 +24,168 @@
 
 </tr>
 
-
 <tr>
+	
+  <td>
+  	<b>Cual fue su role:</b>
+  </td>
 
   <td>
-  <b><%= f.label :Descripción %>:</b>
-  </td>
-  <td>
-  <%= f.text_area(:ori_texto, :size => "60x15") %>
+   	<p id="opciones-oferta">
+   		<span><label id="check-cliente"><input type="radio" name="tipo" value="C" checked="checked">Cliente</label></span>
+   		<span><label id="check-proveedor"><input type="radio" name="tipo" value="P">Proveedor</label></span>
+    </p>
   </td>
 
 </tr>
 
-<tr>
+<tr id="pre1">
 	
   <td>
-    <b><%= f.label :Valoración %>:</b>
+    <p><b>Satisfacción de expectativas:</b> ¿Se ajusta el producto/servicio a lo
+	descrito en la oferta?</p>
   </td>
 
   <td>
 	<div>
 		
-		<img id="1" class='rat' src='/images/addfav.png'>
-		<img id="2" class='rat' src='/images/addfav.png'>
-		<img id="3" class='rat' src='/images/addfav.png'>
-		<img id="4" class='rat' src='/images/addfav.png'>
-		<img id="5" class='rat' src='/images/addfav.png'>
+		<img id="1" class='rat1' src='/images/addfav.png'>
+		<img id="2" class='rat1' src='/images/addfav.png'>
+		<img id="3" class='rat1' src='/images/addfav.png'>
+		<img id="4" class='rat1' src='/images/addfav.png'>
+		<img id="5" class='rat1' src='/images/addfav.png'>
 
 	</div>
-	<div id="eva">
-		Evalue como ha sido la relación con esta empresa.
+	<div id="eva1">
+		Sin evaluar.
 	</div>
 	
-    <%= f.hidden_field :ori_valor %>
+	<input id="proveedor_expectativas" name="rating[proveedor_expectativas]" type="hidden">
+
   </td>
 
 </tr>
+
+<tr id="pre2">
+	
+  <td>
+    <p><b>Cumplimiento de plazos:</b> ¿Se entregó el producto/servicio conforme a lo
+	acordado inicialmente?</p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1-2" class='rat2' src='/images/addfav.png'>
+		<img id="2-2" class='rat2' src='/images/addfav.png'>
+		<img id="3-2" class='rat2' src='/images/addfav.png'>
+		<img id="4-2" class='rat2' src='/images/addfav.png'>
+		<img id="5-2" class='rat2' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva2">
+		Sin evaluar.
+	</div>
+
+	<input id="proveedor_plazos" name="rating[proveedor_plazos]" type="hidden">
+
+  </td>
+
+</tr>
+
+<tr id="pre3">
+	
+  <td>
+    <p><b>Comunicación:</b> ¿Cómo de fluida, armoniosa o duramente tensa fue la
+	comunicación con la otra parte?</p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1-3" class='rat3' src='/images/addfav.png'>
+		<img id="2-3" class='rat3' src='/images/addfav.png'>
+		<img id="3-3" class='rat3' src='/images/addfav.png'>
+		<img id="4-3" class='rat3' src='/images/addfav.png'>
+		<img id="5-3" class='rat3' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva3">
+		Sin evaluar.
+	</div>
+	
+    <input id="proveedor_comunicacion" name="rating[proveedor_comunicacion]" type="hidden">
+	
+  </td>
+
+</tr>
+
+<tr id="pre4" style="display: none">
+	
+  <td>
+    <p><b>Pago dentro de plazos:</b>  ¿se abonó el pago por el producto/servicio dentro de lo convenido durante el acuerdo?</p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1-4" class='rat4' src='/images/addfav.png'>
+		<img id="2-4" class='rat4' src='/images/addfav.png'>
+		<img id="3-4" class='rat4' src='/images/addfav.png'>
+		<img id="4-4" class='rat4' src='/images/addfav.png'>
+		<img id="5-4" class='rat4' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva4">
+		Sin evaluar.
+	</div>
+	
+    <input id="cliente_plazos" name="rating[cliente_plazos]" type="hidden">
+	
+  </td>
+
+</tr>
+
+<tr id="pre5" style="display: none">
+	
+  <td>
+    <p><b>Comunicación:</b> ¿Cómo de fluida, armoniosa o duramente tensa fue la
+	comunicación con la otra parte?</p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1-5" class='rat5' src='/images/addfav.png'>
+		<img id="2-5" class='rat5' src='/images/addfav.png'>
+		<img id="3-5" class='rat5' src='/images/addfav.png'>
+		<img id="4-5" class='rat5' src='/images/addfav.png'>
+		<img id="5-5" class='rat5' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva5">
+		Sin evaluar.
+	</div>
+	
+   <input id="cliente_comunicacion" name="rating[cliente_comunicacion]" type="hidden">
+
+  </td>
+
+</tr>
+
+
+<tr>
+
+  <td>
+  <b><%= f.label :Comentario %>:</b>
+  </td>
+  <td>
+  <%= f.text_area(:ori_texto, :size => "60x5") %>
+  </td>
+
+</tr>
+
+
 
 </table>
 
@@ -72,7 +198,7 @@
 
 $(function() {
 
-    $("img.rat")
+    $("img.rat1")
         .click(function() {
 			// window.alert("pulsado 1 "+$(this).attr("id") );
 			var ii; 
@@ -94,27 +220,238 @@ $(function() {
 			switch (parseInt(valor))
 			{
 			case 1:
-			  $('#eva').html("Mala");
+			  $('#eva1').html("Mala");
 			  break;
 			case 2:
-			  $('#eva').html("Regular");
+			  $('#eva1').html("Regular");
 			  break;
 			case 3:
-			  $('#eva').html("Normal");
+			  $('#eva1').html("Normal");
 			  break;
 			case 4:
-			  $('#eva').html("Buena");
+			  $('#eva1').html("Buena");
 			  break;
 			case 5:
-			  $('#eva').html("Excelente");
+			  $('#eva1').html("Excelente");
 			  break;
 			}
 
-		$('#bazarcms_rating_ori_valor').val(valor);
+		$('#proveedor_expectativas').val(valor);
 
         });
 
+
+
+    $("img.rat2")
+        .click(function() {
+			// window.alert("pulsado 1 "+$(this).attr("id") );
+			var ii; 
+			var valor ; 
+			
+			valor = parseInt($(this).attr("id"));
+			
+			
+			for (ii=1 ; ii <= 5; ii++) {
+				
+				
+				if (ii <= valor ) {
+					$('#'+ii+'-2').attr("src", '/images/rating.png');
+				}
+				else {
+					$('#'+ii+'-2').attr("src", '/images/addfav.png');				
+				} 
+				
+			}
+						
+			switch (parseInt(valor))
+			{
+			case 1:
+			  $('#eva2').html("Mala");
+			  break;
+			case 2:
+			  $('#eva2').html("Regular");
+			  break;
+			case 3:
+			  $('#eva2').html("Normal");
+			  break;
+			case 4:
+			  $('#eva2').html("Buena");
+			  break;
+			case 5:
+			  $('#eva2').html("Excelente");
+			  break;
+			}
+
+		$('#proveedor_plazos').val(valor);
+
+        });
+
+
+
+	    $("img.rat3")
+	        .click(function() {
+				// window.alert("pulsado 1 "+$(this).attr("id") );
+				var ii; 
+				var valor ; 
+
+				valor = parseInt($(this).attr("id"));
+
+				for (ii=1 ; ii <= 5; ii++) {
+
+					if (ii <= valor ) {
+						$('#'+ii+'-3').attr("src", '/images/rating.png');
+					}
+					else {
+						$('#'+ii+'-3').attr("src", '/images/addfav.png');				
+					} 
+
+				}
+
+				switch (parseInt(valor))
+				{
+				case 1:
+				  $('#eva3').html("Mala");
+				  break;
+				case 2:
+				  $('#eva3').html("Regular");
+				  break;
+				case 3:
+				  $('#eva3').html("Normal");
+				  break;
+				case 4:
+				  $('#eva3').html("Buena");
+				  break;
+				case 5:
+				  $('#eva3').html("Excelente");
+				  break;
+				}
+
+			$('#proveedor_comunicacion').val(valor);
+
+	        });
+
+
+		    $("img.rat4")
+		        .click(function() {
+					// window.alert("pulsado 1 "+$(this).attr("id") );
+					var ii; 
+					var valor ; 
+
+					valor = parseInt($(this).attr("id"));
+
+					for (ii=1 ; ii <= 5; ii++) {
+
+						if (ii <= valor ) {
+							$('#'+ii+'-4').attr("src", '/images/rating.png');
+						}
+						else {
+							$('#'+ii+'-4').attr("src", '/images/addfav.png');				
+						} 
+
+					}
+
+					switch (parseInt(valor))
+					{
+					case 1:
+					  $('#eva4').html("Mala");
+					  break;
+					case 2:
+					  $('#eva4').html("Regular");
+					  break;
+					case 3:
+					  $('#eva4').html("Normal");
+					  break;
+					case 4:
+					  $('#eva4').html("Buena");
+					  break;
+					case 5:
+					  $('#eva4').html("Excelente");
+					  break;
+					}
+
+				$('#cliente_plazos').val(valor);
+
+		        });
+
+
+
+			    $("img.rat5")
+			        .click(function() {
+						// window.alert("pulsado 1 "+$(this).attr("id") );
+						var ii; 
+						var valor ; 
+
+						valor = parseInt($(this).attr("id"));
+
+						for (ii=1 ; ii <= 5; ii++) {
+
+							if (ii <= valor ) {
+								$('#'+ii+'-5').attr("src", '/images/rating.png');
+							}
+							else {
+								$('#'+ii+'-5').attr("src", '/images/addfav.png');				
+							} 
+
+						}
+
+						switch (parseInt(valor))
+						{
+						case 1:
+						  $('#eva5').html("Mala");
+						  break;
+						case 2:
+						  $('#eva5').html("Regular");
+						  break;
+						case 3:
+						  $('#eva5').html("Normal");
+						  break;
+						case 4:
+						  $('#eva5').html("Buena");
+						  break;
+						case 5:
+						  $('#eva5').html("Excelente");
+						  break;
+						}
+
+					$('#cliente_comunicacion').val(valor);
+
+			        });
+
+
+			    $("#check-cliente")
+			        .click(function() {
+						$('#pre1').show();
+						$('#pre2').show();
+						$('#pre3').show();
+						$('#pre4').hide();
+						$('#pre5').hide();
+						
+						$('#cliente_plazos').val(0);
+						$('#cliente_comunicacion').val(0);
+						
+						
+			     });
+
+
+			    $("#check-proveedor")
+			        .click(function() {
+						$('#pre1').hide();
+						$('#pre2').hide();
+						$('#pre3').hide();
+						$('#pre4').show();
+						$('#pre5').show();
+
+						$('#proveedor_plazos').val(0);
+						$('#proveedor_expectativas').val(0);
+						$('#proveedor_comunicacion').val(0);
+
+			     });
+
+
+
 });
+
+
 
 </script>
 
