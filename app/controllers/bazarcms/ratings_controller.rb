@@ -29,6 +29,24 @@ module Bazarcms
       
       @rating.ori_empresa_id = params[:ori_empresa_id]
       
+      # datos generales del rating
+      
+      @rating.fecha = DateTime.now
+      @rating.role = 'C'
+      @rating.token = rand(99999)+1
+      
+      # datos de origen 
+      
+      @rating.ori_empresa_id = current_user.id 
+      @rating.ori_bazar_id = BZ_param("BazarId")
+      @rating.ori_empresa_nombre = Bazarcms::Empresa.find_by_id(current_user.id).nombre
+      
+      # datos de destino
+       
+
+
+
+      
       respond_to do |format|
         format.html { render }
       end
@@ -51,6 +69,9 @@ module Bazarcms
 
       respond_to do |format|
         if @rating.save
+          
+          @rating.iden = "#{rating.id}-#{rating.ori_bazar_id}-#{rating.ori_empresa_id}"
+          
           
           @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
           
