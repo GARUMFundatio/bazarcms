@@ -27,8 +27,6 @@ module Bazarcms
       
       @rating = Rating.new
       
-    
-      
       # datos de origen 
       
       @rating.ori_empresa_id = current_user.id 
@@ -40,6 +38,8 @@ module Bazarcms
       @rating.des_empresa_id = params[:empresa_id]
       @rating.des_bazar_id = params[:bazar_id]
       @rating.des_empresa_nombre = params[:empresa_nombre]
+      
+      @ratings = Bazarcms::Rating.All
       
       respond_to do |format|
         format.html { render }

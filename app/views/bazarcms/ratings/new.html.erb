@@ -1,12 +1,34 @@
 <div id="nuevaubicacion">
 
-<h3>Rating</h3>
+<h3>Rating 	<%= @rating.des_empresa_nombre %>:</b>
+</h3>
+
+
+<table>
+<tr>
+
+  <td>
+
+  	<b><%= @rating.des_empresa_nombre %>:</b>
+
+  </td>
+
+  <td>
+
+  	<%= helper_rating_show(2.5).html_safe %>
+
+  </td>
+
+</tr>
+</table>
 
 <%= render 'form' %>
 
+<br/>
 
+<h3>Detalle de las valoraciones de esta empresa</h3> 
 
-
+<%= render 'list' %>
 
 </div>
 
