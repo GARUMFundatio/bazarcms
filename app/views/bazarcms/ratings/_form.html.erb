@@ -196,6 +196,46 @@
 
 <script>
 
+function ponvalor(valor, lab, sufi) {
+var ii; 
+
+	for (ii=1 ; ii <= 5; ii++) {
+		
+		if (ii <= valor ) {
+			$('#'+ii+sufi).attr("src", '/images/rating.png');
+		}
+		else {
+			$('#'+ii+sufi).attr("src", '/images/addfav.png');				
+		} 
+		
+	}
+				
+	switch (parseInt(valor))
+	{
+	case 0:
+	  $(lab).html("Sin Evaluar");
+	  break;
+	case 1:
+	  $(lab).html("Mala");
+	  break;
+	case 2:
+	  $(lab).html("Regular");
+	  break;
+	case 3:
+	  $(lab).html("Normal");
+	  break;
+	case 4:
+	  $(lab).html("Buena");
+	  break;
+	case 5:
+	  $(lab).html("Excelente");
+	  break;
+	}	
+	
+};
+
+
+
 $(function() {
 
     $("img.rat1")
@@ -205,36 +245,7 @@ $(function() {
 			var valor ; 
 			
 			valor = parseInt($(this).attr("id"));
-			
-			for (ii=1 ; ii <= 5; ii++) {
-				
-				if (ii <= $(this).attr("id") ) {
-					$('#'+ii).attr("src", '/images/rating.png');
-				}
-				else {
-					$('#'+ii).attr("src", '/images/addfav.png');				
-				} 
-				
-			}
-						
-			switch (parseInt(valor))
-			{
-			case 1:
-			  $('#eva1').html("Mala");
-			  break;
-			case 2:
-			  $('#eva1').html("Regular");
-			  break;
-			case 3:
-			  $('#eva1').html("Normal");
-			  break;
-			case 4:
-			  $('#eva1').html("Buena");
-			  break;
-			case 5:
-			  $('#eva1').html("Excelente");
-			  break;
-			}
+			ponvalor(valor, "#eva1", "");
 
 		$('#proveedor_expectativas').val(valor);
 
@@ -250,39 +261,9 @@ $(function() {
 			
 			valor = parseInt($(this).attr("id"));
 			
-			
-			for (ii=1 ; ii <= 5; ii++) {
-				
-				
-				if (ii <= valor ) {
-					$('#'+ii+'-2').attr("src", '/images/rating.png');
-				}
-				else {
-					$('#'+ii+'-2').attr("src", '/images/addfav.png');				
-				} 
-				
-			}
-						
-			switch (parseInt(valor))
-			{
-			case 1:
-			  $('#eva2').html("Mala");
-			  break;
-			case 2:
-			  $('#eva2').html("Regular");
-			  break;
-			case 3:
-			  $('#eva2').html("Normal");
-			  break;
-			case 4:
-			  $('#eva2').html("Buena");
-			  break;
-			case 5:
-			  $('#eva2').html("Excelente");
-			  break;
-			}
+			ponvalor(valor, "#eva2", "-2");
 
-		$('#proveedor_plazos').val(valor);
+			$('#proveedor_plazos').val(valor);
 
         });
 
@@ -296,37 +277,9 @@ $(function() {
 
 				valor = parseInt($(this).attr("id"));
 
-				for (ii=1 ; ii <= 5; ii++) {
-
-					if (ii <= valor ) {
-						$('#'+ii+'-3').attr("src", '/images/rating.png');
-					}
-					else {
-						$('#'+ii+'-3').attr("src", '/images/addfav.png');				
-					} 
-
-				}
-
-				switch (parseInt(valor))
-				{
-				case 1:
-				  $('#eva3').html("Mala");
-				  break;
-				case 2:
-				  $('#eva3').html("Regular");
-				  break;
-				case 3:
-				  $('#eva3').html("Normal");
-				  break;
-				case 4:
-				  $('#eva3').html("Buena");
-				  break;
-				case 5:
-				  $('#eva3').html("Excelente");
-				  break;
-				}
-
-			$('#proveedor_comunicacion').val(valor);
+				ponvalor(valor, "#eva3", "-3");
+				
+				$('#proveedor_comunicacion').val(valor);
 
 	        });
 
@@ -339,83 +292,26 @@ $(function() {
 
 					valor = parseInt($(this).attr("id"));
 
-					for (ii=1 ; ii <= 5; ii++) {
-
-						if (ii <= valor ) {
-							$('#'+ii+'-4').attr("src", '/images/rating.png');
-						}
-						else {
-							$('#'+ii+'-4').attr("src", '/images/addfav.png');				
-						} 
-
-					}
-
-					switch (parseInt(valor))
-					{
-					case 1:
-					  $('#eva4').html("Mala");
-					  break;
-					case 2:
-					  $('#eva4').html("Regular");
-					  break;
-					case 3:
-					  $('#eva4').html("Normal");
-					  break;
-					case 4:
-					  $('#eva4').html("Buena");
-					  break;
-					case 5:
-					  $('#eva4').html("Excelente");
-					  break;
-					}
-
-				$('#cliente_plazos').val(valor);
+					ponvalor(valor, "#eva4", "-4");
+					
+					$('#cliente_plazos').val(valor);
 
 		        });
 
 
 
-			    $("img.rat5")
-			        .click(function() {
-						// window.alert("pulsado 1 "+$(this).attr("id") );
-						var ii; 
-						var valor ; 
+		    $("img.rat5")
+		        .click(function() {
+					// window.alert("pulsado 1 "+$(this).attr("id") );
+					var ii; 
+					var valor ; 
 
-						valor = parseInt($(this).attr("id"));
+					valor = parseInt($(this).attr("id"));
+					ponvalor(valor, "#eva5", "-5");
 
-						for (ii=1 ; ii <= 5; ii++) {
+				$('#cliente_comunicacion').val(valor);
 
-							if (ii <= valor ) {
-								$('#'+ii+'-5').attr("src", '/images/rating.png');
-							}
-							else {
-								$('#'+ii+'-5').attr("src", '/images/addfav.png');				
-							} 
-
-						}
-
-						switch (parseInt(valor))
-						{
-						case 1:
-						  $('#eva5').html("Mala");
-						  break;
-						case 2:
-						  $('#eva5').html("Regular");
-						  break;
-						case 3:
-						  $('#eva5').html("Normal");
-						  break;
-						case 4:
-						  $('#eva5').html("Buena");
-						  break;
-						case 5:
-						  $('#eva5').html("Excelente");
-						  break;
-						}
-
-					$('#cliente_comunicacion').val(valor);
-
-			        });
+		        });
 
 
 			    $("#check-cliente")
@@ -428,6 +324,9 @@ $(function() {
 						
 						$('#cliente_plazos').val(0);
 						$('#cliente_comunicacion').val(0);
+
+						ponvalor(0, "#eva4", "-4");
+						ponvalor(0, "#eva5", "-5");
 						
 						
 			     });
@@ -444,7 +343,11 @@ $(function() {
 						$('#proveedor_plazos').val(0);
 						$('#proveedor_expectativas').val(0);
 						$('#proveedor_comunicacion').val(0);
-
+						
+						ponvalor(0, "#eva1", "");
+						ponvalor(0, "#eva2", "-2");
+						ponvalor(0, "#eva3", "-3");
+						
 			     });
 
 
