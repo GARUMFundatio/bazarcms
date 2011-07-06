@@ -27,13 +27,7 @@ module Bazarcms
       
       @rating = Rating.new
       
-      @rating.ori_empresa_id = params[:ori_empresa_id]
-      
-      # datos generales del rating
-      
-      @rating.fecha = DateTime.now
-      @rating.role = 'C'
-      @rating.token = rand(99999)+1
+    
       
       # datos de origen 
       
@@ -43,9 +37,9 @@ module Bazarcms
       
       # datos de destino
        
-
-
-
+      @rating.des_empresa_id = params[:empresa_id]
+      @rating.des_bazar_id = params[:bazar_id]
+      @rating.des_empresa_nombre = params[:empresa_nombre]
       
       respond_to do |format|
         format.html { render }
@@ -67,10 +61,41 @@ module Bazarcms
       puts "empresa id: "+params.inspect
       puts "rating : "+@rating.inspect
 
+        # datos generales del rating
+
+        @rating.ori_fecha = DateTime.now
+        
+        @rating.role = params[:rating]['cliente-proveedor']
+        
+        @rating.token = rand(99999)+1
+
+        if (@rating.role == 'C')
+          
+          @rating.ori_cliente_plazos = 0
+          @rating.ori_cliente_comunicacion = 0
+           
+          @rating.ori_proveedor_expectativas = params[:rating][:proveedor_expectativas]
+          @rating.ori_proveedor_plazos = params[:rating][:proveedor_plazos]
+          @rating.ori_proveedor_comunicacion = params[:rating][:proveedor_comunicacion]
+          
+          
+        else 
+          
+          @rating.ori_cliente_plazos = params[:rating][:cliente_plazos]
+          @rating.ori_cliente_comunicacion = params[:rating][:cliente_comunicacion]
+           
+          @rating.ori_proveedor_expectativas = 0
+          @rating.ori_proveedor_plazos = 0
+          @rating.ori_proveedor_comunicacion = 0
+                    
+        end
+
+
       respond_to do |format|
         if @rating.save
           
-          @rating.iden = "#{rating.id}-#{rating.ori_bazar_id}-#{rating.ori_empresa_id}"
+          @rating.iden = "#{@rating.id}-#{@rating.ori_bazar_id}-#{@rating.ori_empresa_id}"
+          @rating.save 
           
           
           @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
@@ -93,7 +118,7 @@ module Bazarcms
           # @empresa.updated_at = DateTime.now 
           # @empresa.save
           
-          format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
+          format.html { redirect_to(new_bazarcms_ratings_url+"?bazar_id=#{@rating.des_bazar_id}&empresa_id=#{@rating.des_empresa_id}") }
           format.xml  { render :xml => @rating, :status => :created, :location => @rating }
         else
           format.html { render :action => "new" }

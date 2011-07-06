@@ -1,18 +1,26 @@
 
 <%= form_for(@rating, :url => '/bazarcms/ratings') do |f| %>
 
-<%= f.hidden_field :ori_empresa_id %>
+
+<%= f.hidden_field :ori_empresa_id, :value => @rating.ori_empresa_id %>
+<%= f.hidden_field :ori_bazar_id, :value => @rating.ori_bazar_id %>
+<%= f.hidden_field :ori_empresa_nombre, :value => @rating.ori_empresa_nombre %>
+
+<%= f.hidden_field :des_empresa_id, :value => @rating.des_empresa_id %>
+<%= f.hidden_field :des_bazar_id, :value => @rating.des_bazar_id %>
+<%= f.hidden_field :des_empresa_nombre, :value => @rating.des_empresa_nombre %>
+
+
  
 <b>Estime su relación con esta Empresa:</b>
 
 <table class="tabla" cellspacing="0">
 
-
 <tr>
 
   <td>
 
-  	<b><%= @rating.ori_empresa_nombre %>:</b>
+  	<b><%= @rating.des_empresa_nombre %>:</b>
 
   </td>
 
@@ -34,6 +42,7 @@
    	<p id="opciones-oferta">
    		<span><label id="check-cliente"><input type="radio" name="tipo" value="C" checked="checked">Cliente</label></span>
    		<span><label id="check-proveedor"><input type="radio" name="tipo" value="P">Proveedor</label></span>
+   		<input id="cliente-proveedor" name="rating[cliente-proveedor]" type="hidden" value="C">
     </p>
   </td>
 
@@ -324,10 +333,11 @@ $(function() {
 						
 						$('#cliente_plazos').val(0);
 						$('#cliente_comunicacion').val(0);
-
+						
 						ponvalor(0, "#eva4", "-4");
 						ponvalor(0, "#eva5", "-5");
-						
+
+						$('#cliente-proveedor').val('C');
 						
 			     });
 
@@ -347,6 +357,8 @@ $(function() {
 						ponvalor(0, "#eva1", "");
 						ponvalor(0, "#eva2", "-2");
 						ponvalor(0, "#eva3", "-3");
+						
+						$('#cliente-proveedor').val('P');
 						
 			     });
 
