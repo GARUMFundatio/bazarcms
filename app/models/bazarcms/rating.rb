@@ -28,14 +28,29 @@ module Bazarcms
           ori = true 
         end 
       
-        if ori 
+        if ori
+
           if rat.role == 'C'
+            
+              rat.ori_cliente_plazos 
+              rat.ori_cliente_comunicacion 
+
+            else 
+
+              rat.des_proveedor_expectativas 
+              rat.des_proveedor_plazos 
+              rat.des_proveedor_comunicacion
+
+
+            end
+            
             total_val_proveedor += 1  
           end
 
           if rat.role == 'P'
             total_val_cliente += 1 
           end
+
         else 
           
         end 
