@@ -22,18 +22,23 @@ module Bazarcms
   
       for rat in rats 
       
+        # primero determinamos si la empresa es la que ha originado el rating 
+        
         if rat.ori_bazar_id = bazar and rat.ori_empresa_id = empresa           
           ori = true 
         end 
       
-        if rat.role == 'C'
-          total_val_cliente += 1  
-        end
+        if ori 
+          if rat.role == 'C'
+            total_val_proveedor += 1  
+          end
 
-        if rat.role == 'P'
-          total_val_proveedor += 1 
-        end
-
+          if rat.role == 'P'
+            total_val_cliente += 1 
+          end
+        else 
+          
+        end 
 
         #actualizamos los datos de la empresa 
       
