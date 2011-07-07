@@ -69,7 +69,7 @@ module Bazarcms
        
       @rating.des_empresa_id = params[:empresa_id]
       @rating.des_bazar_id = params[:bazar_id]
-      @rating.des_empresa_nombre = params[:empresa_nombre]
+      @rating.des_empresa_nombre = params[:empresa_nombre].gsub('_',' ')
       
       @ratings = Bazarcms::Rating.all
       
@@ -129,19 +129,8 @@ module Bazarcms
           @rating.iden = "#{@rating.id}-#{@rating.ori_bazar_id}-#{@rating.ori_empresa_id}"
           @rating.save 
           
-          
           @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
           
-          # if !@rating.ciudad.nil?
-          #    Actividad.graba("Nueva ubicación: '#{@rating.desc}' <a href='#{ciudades_path+'/'+@rating.ciudad.friendly_id}'>#{@rating.ciudad.descripcion}</a> - <a href='#{paises_path+'/'+@rating.ciudad.pais.friendly_id}'>#{@rating.ciudad.pais.descripcion}</a>",
-          #        "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
-
-        	# else
-          #  Actividad.graba("Nueva ubicación: #{@rating.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
-        	# end
-          
-          # invalidamos los caches para que aparezca la oferta inmediatamente en la home page
-
           expire_fragment "bazar_actividades_dashboard"
           
           
@@ -150,7 +139,7 @@ module Bazarcms
           # @empresa.updated_at = DateTime.now 
           # @empresa.save
           
-          format.html { redirect_to(new_bazarcms_ratings_url+"?bazar_id=#{@rating.des_bazar_id}&empresa_id=#{@rating.des_empresa_id}") }
+          format.html { redirect_to('/bazarcms/ficharating/'+"#{@rating.des_empresa_id}") }
           format.xml  { render :xml => @rating, :status => :created, :location => @rating }
         else
           format.html { render :action => "new" }
