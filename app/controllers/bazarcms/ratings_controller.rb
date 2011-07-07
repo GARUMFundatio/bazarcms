@@ -129,6 +129,12 @@ module Bazarcms
           @rating.iden = "#{@rating.id}-#{@rating.ori_bazar_id}-#{@rating.ori_empresa_id}"
           @rating.save 
           
+          if (@rating.des_bazar_id == BZ_param('BazarId').to_i)
+          
+            @rating.calculo(@rating.des_bazar_id, @rating.des_empresa_id)
+          
+          end 
+          
           @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
           
           expire_fragment "bazar_actividades_dashboard"
