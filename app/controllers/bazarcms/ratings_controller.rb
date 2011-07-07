@@ -14,14 +14,46 @@ module Bazarcms
     end
   end
 
-    def show
-      @rating = Rating.find(params[:id])
+  def show
 
-      respond_to do |format|
-        format.html # show.html.erb
-        format.xml  { render :xml => @rating }
+     @rating = Rating.new
+     
+    # datos de origen 
+    
+    @rating.ori_empresa_id = current_user.id 
+    @rating.ori_bazar_id = BZ_param("BazarId")
+    @rating.ori_empresa_nombre = Bazarcms::Empresa.find_by_id(current_user.id).nombre
+    
+    # datos de destino
+     
+    @rating.des_empresa_id = params[:empresa_id]
+    @rating.des_bazar_id = params[:bazar_id]
+    @rating.des_empresa_nombre = params[:empresa_nombre]
+    
+    # Si la empresa no es de este bazar cogemos los datos de rating 
+    # de su bazar y los empotramos en la vista
+    
+    if (params[:bazar_id].to_i != BZ_param("BazarId").to_i)
+
+      puts "Me traigo la información del rating de su bazar"
+
+      res = dohttpget(params[:bazar_id], "/bazarcms/ratings/rating?bazar_id=#{params[:bazar_id]}&display=inside")
+
+      if (res == "")
+        res = "Información temporalmente no disponible."
       end
+
     end
+    
+    @ratings = Bazarcms::Rating.all
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @rating }
+    end
+
+
+  end
 
     def new
       
@@ -39,7 +71,7 @@ module Bazarcms
       @rating.des_bazar_id = params[:bazar_id]
       @rating.des_empresa_nombre = params[:empresa_nombre]
       
-      @ratings = Bazarcms::Rating.All
+      @ratings = Bazarcms::Rating.all
       
       respond_to do |format|
         format.html { render }
@@ -173,6 +205,20 @@ module Bazarcms
         format.xml  { head :ok }
       end
     end
+
+    def ficha
+      # @rating = Rating.find(params[:id])
+      @ratings = Rating.all
+      respond_to do |format|
+        if params[:display] == 'inside'
+          format.html { render :layout => false }
+        else 
+          format.html { render }
+        end
+      end
+    end
+
+
   end
 
 end

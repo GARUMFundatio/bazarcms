@@ -98,5 +98,7 @@ Bazar::Application.routes.draw do
   match "/ofertasfavorito/addfav" => "bazarcms/ofertasfavoritos#addfav"
   match "/ofertasfavorito/delfav" => "bazarcms/ofertasfavoritos#delfav"  
   match "/ofertasfavorito/dashboard" => "bazarcms/ofertasfavoritos#dashboard"
+
+  match "/bazarcms/ficharating/:id" => "bazarcms/ratings#ficha", :constrants => { :id => /\d+/ }
       
 end

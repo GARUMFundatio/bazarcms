@@ -1,5 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div id="nuevaubicacion">
+
+<h3>Rating 	<%= @rating.des_empresa_nombre %>:</b>
+</h3>
 
 
-<%= link_to 'Edit', edit_bazarcms_ubicacion_path(@ubicacion) %> |
-<%= link_to 'Back', bazarcms_ubicaciones_path %>
+<table>
+<tr>
+
+  <td>
+
+  	<b><%= @rating.des_empresa_nombre %>:</b>
+
+  </td>
+
+  <td>
+
+  	<%= helper_rating_show(2.5).html_safe %>
+
+  </td>
+
+</tr>
+</table>
+
+<%= render 'form' %>
+
+<br/>
+
+<h3>Detalle de las valoraciones de esta empresa</h3> 
+
+<%= render 'list' %>
+
+<%= render :text => 'texto con el rating remoto' %>
+
+</div>
