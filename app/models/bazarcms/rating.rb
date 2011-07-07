@@ -24,32 +24,61 @@ module Bazarcms
       
         # primero determinamos si la empresa es la que ha originado el rating 
         
+        totrc = totrp = 0
+        totc = totp = 0
+        
         if rat.ori_bazar_id = bazar and rat.ori_empresa_id = empresa           
-          ori = true 
+          ori = true
+        else 
+          ori = false
         end 
       
         if ori
 
           if rat.role == 'C'
 
-              rat.des_cliente_plazos 
-              rat.des_cliente_comunicacion 
-
-            else 
-
-              rat.des_proveedor_expectativas 
-              rat.des_proveedor_plazos 
-              rat.des_proveedor_comunicacion
-
-
+            if (rat.des_cliente_plazos > 0)  
+              totrc += rat.des_cliente_plazos
+              totc += 1
             end
-            
-            total_val_proveedor += 1  
-          end
 
-          if rat.role == 'P'
-            total_val_cliente += 1 
+            if (rat.des_cliente_comunicacion > 0)  
+              totrc += rat.des_cliente_comunicacion
+              totc += 1
+            end
+
+          else 
+
+            if (rat.des_proveedor_expectativas > 0)  
+              totrp += rat.des_proveedor_expectativas
+              totp += 1
+            end
+
+            if (rat.des_proveedor_plazos > 0)  
+              totrp += rat.des_proveedor_plazos
+              totp += 1
+            end
+
+            if (rat.des_proveedor_comunicacion > 0)  
+              totrp += rat.des_proveedor_comunicacion
+              totp += 1
+            end
+
           end
+            
+
+        end
+
+
+        if (totc > 0)
+          total_rating_cliente += (totrc/totc)
+          total_val_cliente += 1
+        end  
+
+        if (totp > 0)
+          total_rating_proveedor += (totrp/totp)
+          total_val_proveedor += 1
+        end  
 
         else 
           
@@ -59,6 +88,7 @@ module Bazarcms
       
         empresa = Empresa.find_by_id(empresa)
 
+        empresa.rating_cliente = total_rating_cliente/total_val_cliente
         empresa.rating_total_cliente = total_val_cliente
         empresa.rating_total_proveedor = total_val_proveedor
 
