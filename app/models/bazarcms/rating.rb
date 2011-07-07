@@ -31,9 +31,9 @@ module Bazarcms
         if ori
 
           if rat.role == 'C'
-            
-              rat.ori_cliente_plazos 
-              rat.ori_cliente_comunicacion 
+
+              rat.des_cliente_plazos 
+              rat.des_cliente_comunicacion 
 
             else 
 
