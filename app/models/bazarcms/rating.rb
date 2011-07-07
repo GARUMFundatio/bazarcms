@@ -80,9 +80,8 @@ module Bazarcms
           total_val_proveedor += 1
         end  
 
-        else 
-          
-        end 
+
+      end 
 
         #actualizamos los datos de la empresa 
       
@@ -93,8 +92,6 @@ module Bazarcms
         empresa.rating_total_proveedor = total_val_proveedor
 
         empresa.save
-      
-      end 
     
     end 
 
