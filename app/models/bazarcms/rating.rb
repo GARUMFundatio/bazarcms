@@ -26,17 +26,12 @@ module Bazarcms
           ori = true 
         end 
       
-
         if rat.role == 'C'
-
           total_val_cliente += 1  
-        
         end
 
         if rat.role == 'P'
-
           total_val_proveedor += 1 
-        
         end
 
 
