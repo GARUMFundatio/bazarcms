@@ -5,10 +5,10 @@ module Bazarcms
       "esta salida viene del BazarCMSHelper"
     end
 
-    def helper_rating_show(valor)
+    def helper_rating_show(valor, url)
       
       val = "#{valor}".split('.')[0]
-      str = "<div>" 
+      str = "<div><a href='#{url}'>" 
       
       for ii in ['1', '2', '3', '4', '5'] 
       
@@ -20,7 +20,7 @@ module Bazarcms
         
       end 
       
-      str += "</div>"
+      str += "</a></div>"
       str 
     end
 

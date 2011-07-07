@@ -1,12 +1,54 @@
-<div id="nuevaubicacion">
+<div id="ficharating">
+
+<br/>
+
+<h3>Rating Bazar: <%= @empresa.nombre -%></h3> 
+
+<table>
+<tr>
+	<td>
+		<b>Global</b>
+	</td>
+
+	<td>
+		<%= helper_rating_show(@empresa.rating, "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}").html_safe %>
+	</td>
+	
+</tr>
+
+<tr>
+	<td>
+		<b>Valoración como Cliente</b>
+	</td>
+	
+	<td>
+		<%= helper_rating_show(@empresa.rating_cliente, "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}").html_safe %>
+		<% if @empresa.rating_total_cliente > 0 %>
+			<%= @empresa.rating_total_cliente %> Valoraciones
+		<% end %>
+	</td>
+	
+	
+	<td>
+		<b>Valoración como Proveedor</b>
+	</td>
+
+	<td>
+		<%= helper_rating_show(@empresa.rating_proveedor, "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}").html_safe %>
+		<% if @empresa.rating_total_proveedor > 0 %>
+			<%= @empresa.rating_total_proveedor %> Valoraciones
+		<% end %>
+	</td>
+
+</tr>
+
+	
+</table>
 
 
 <br/>
 
-<h3>Detalle de las valoraciones de esta empresa</h3> 
-
 <%= render 'list' %>
 
-<%= render :text => 'texto con el rating remoto' %>
 
 </div>

@@ -1,11 +1,6 @@
 
 
-<a href="#" onclick="$('#rating').show();">Quiero añadir mi Evaluación de esta empresa</a>
-
-<br/>
-<br/>
-
-<div id="rating" style="display:none;">
+<div id="rating" style="display:block;">
 
 <%= form_for(@rating, :url => '/bazarcms/ratings') do |f| %>
 
@@ -19,8 +14,6 @@
 <%= f.hidden_field :des_empresa_nombre, :value => @rating.des_empresa_nombre %>
 
 
- 
-<b>Evalúe su relación con esta Empresa:</b>
 
 <table class="tabla" cellspacing="0">
 

@@ -1,9 +1,38 @@
+<% if @empresa.id == rating.ori_empresa_id and rating.ori_bazar_id == BZ_param('BazarId') %>
+
 <tr>
+	
 	<td>
-		<%= rating.id %>
+		<%= rating.des_empresa_nombre %>
 	</td>
 	
 	<td>
-		<%= rating.role %>
+		<%= rating.des_fecha %>
 	</td>
+
+	<td>
+		<%= rating.des_texto %>
+	</td>
+	
 </tr>
+
+
+<% else %>
+
+<tr>
+	
+	<td>
+		<%= rating.ori_empresa_nombre %>
+	</td>
+	
+	<td>
+		<%= rating.ori_fecha %>
+	</td>
+
+	<td>
+		<%= rating.ori_texto %>
+	</td>
+	
+</tr>
+
+<% end %>
