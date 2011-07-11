@@ -1,10 +1,12 @@
 <div id="ficharating">
 
+<a class="volver-home-link" href="/home">&laquo; Volver a la página de búsquedas</a>
+
 <br/>
 
 <h3>Rating Bazar: <%= @empresa.nombre -%></h3> 
 
-<table>
+<table class="tabla">
 <tr>
 	<td>
 		<b>Global</b>
@@ -28,7 +30,6 @@
 		<% end %>
 	</td>
 	
-	
 	<td>
 		<b>Valoración como Proveedor</b>
 	</td>
@@ -44,6 +45,10 @@
 
 	
 </table>
+
+<br/>
+
+<a class="volver-home-link" href="<%= "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}".html_safe %>">Valorar esta empresa.</a>
 
 
 <br/>

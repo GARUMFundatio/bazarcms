@@ -3,11 +3,11 @@
 <tr>
 	
 	<td>
-		<%= rating.des_empresa_nombre %>
+		Origen <%= rating.des_empresa_nombre %>
 	</td>
 	
 	<td>
-		<%= rating.des_fecha %>
+		<%= rating.des_fecha.strftime ("%d-%m-%Y") %>
 	</td>
 
 	<td>
@@ -22,11 +22,11 @@
 <tr>
 	
 	<td>
-		<%= rating.ori_empresa_nombre %>
+		Destino <%= rating.ori_empresa_nombre %>
 	</td>
 	
 	<td>
-		<%= rating.ori_fecha %>
+		<%= rating.ori_fecha.strftime ("%d-%m-%Y") %>
 	</td>
 
 	<td>
@@ -35,4 +35,9 @@
 	
 </tr>
 
+<tr>
+	<td colspan="6">
+		<%= rating.inspect %>
+	</td>
+</tr>
 <% end %>
