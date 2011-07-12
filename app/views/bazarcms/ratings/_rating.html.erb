@@ -35,6 +35,53 @@
 	
 </tr>
 
+<% if rating.role == 'C' %>
+
+<tr>
+	<td><b>Expectativas</b></td>
+	<td>
+		<%= rating.ori_proveedor_expectativas %>
+	</td>
+</tr>
+
+<tr>
+	<td><b>Plazos</b></td>
+	<td>
+		<%= rating.ori_proveedor_plazos %>
+	</td>
+</tr>
+
+<tr>
+	<td><b>Comunicación</b></td>
+	<td>
+		<%= rating.ori_proveedor_comunicacion %>
+	</td>
+
+</tr>
+
+<% else %>
+
+<tr>
+
+<tr>
+	<td><b>Plazos</b></td>
+	<td>
+		<%= rating.ori_cliente_plazos %>
+	</td>
+</tr>
+<tr>
+	<td><b>Comunicación</b></td>
+	<td>
+		<%= rating.ori_cliente_comunicacion %>
+	</td>
+
+</tr>
+
+
+<% end %>
+
+
+
 <tr>
 	<td colspan="6">
 		<%= rating.inspect %>
