@@ -14,17 +14,67 @@
 <tr>
 	
 	<td>
-		Origen <%= rating.des_empresa_nombre %>
+		Destino <%= rating.des_empresa_nombre %>
 	</td>
 	
 	<td>
 		<%= rating.des_fecha.strftime ("%d-%m-%Y") %>
 	</td>
 
-	<td>
-		<%= rating.des_texto %>
-	</td>
+
 	
+</tr>
+
+<% if rating.role == 'C' %>
+
+<tr>
+	<td><b>Expectativas</b></td>
+	<td>
+		<%= helper_rating_show(rating.des_proveedor_expectativas, "/bazarcms/ficharating/#{rating.ori_empresa_id}?bazar_id=#{rating.ori_bazar_id}").html_safe %>
+	</td>
+</tr>
+
+<tr>
+	<td><b>Plazos</b></td>
+	<td>
+		<%= helper_rating_show(rating.des_proveedor_plazos, "").html_safe %>
+	</td>
+</tr>
+
+<tr>
+	<td><b>Comunicación</b></td>
+	<td>
+		<%= helper_rating_show(rating.des_proveedor_comunicacion, "").html_safe %>
+	</td>
+
+</tr>
+
+<% else %>
+
+<tr>
+
+<tr>
+	<td><b>Plazos</b></td>
+	<td>
+		<%= helper_rating_show(rating.ori_cliente_plazos, "").html_safe %>
+		
+	</td>
+</tr>
+<tr>
+	<td><b>Comunicación</b></td>
+	<td>
+		<%= helper_rating_show(rating.ori_cliente_comunicacion, "").html_safe %>
+	</td>
+
+</tr>
+
+
+<% end %>
+
+<tr>
+	<td colspan="2">
+		<b>Comentario:</b> <%= rating.ori_texto %>
+	</td>
 </tr>
 
 
