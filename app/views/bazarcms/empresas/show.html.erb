@@ -2,6 +2,7 @@
 <h3 class="titulo-destacado"><%= @empresa.nombre %></h3>
 
 <table boder="0">
+
 <tr>
 	<td>	
 		<%= link_to image_tag("email.png"), "/mensajes/new?aquien=2&tipo=M"+"?aquien=#{@empresa.id}&tipo=M&bazar_id=#{BZ_param("BazarId")}&bazar_destino=#{params[:bazar_id]}", :title => 'Enviar Mensaje de Correo' %>
@@ -28,6 +29,16 @@
 	</th>
 	<td colspan=4>	
 		<%= @empresa.desc %>
+	</td>
+</tr>
+
+<tr>
+	<th scope="row">
+		Rating:
+	</th>
+
+	<td colspan="2">
+		<%= helper_rating_show2(BZ_param("BazarId"), @empresa.id).html_safe %>
 	</td>
 </tr>
 

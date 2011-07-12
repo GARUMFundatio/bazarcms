@@ -14,13 +14,12 @@
 <tr>
 	
 	<td>
-		Destino <%= rating.des_empresa_nombre %>
+		<%= link_to(rating.des_empresa_nombre, bazarcms_empresa_path(rating.des_empresa_id, :bazar_id => rating.des_bazar_id)) %>
 	</td>
 	
 	<td>
 		<%= rating.des_fecha.strftime ("%d-%m-%Y") %>
 	</td>
-
 
 	
 </tr>
@@ -83,7 +82,7 @@
 <tr>
 	
 	<td>
-		Destino <%= rating.ori_empresa_nombre %>
+		<%= link_to(rating.ori_empresa_nombre, bazarcms_empresa_path(rating.ori_empresa_id, :bazar_id => rating.ori_bazar_id)) %>
 	</td>
 	
 	<td>
