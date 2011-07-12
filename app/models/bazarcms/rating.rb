@@ -35,18 +35,6 @@ module Bazarcms
           puts "------------> soy la empresa que inicia "
           if rat.role == 'C'
 
-            if (rat.des_cliente_plazos > 0)  
-              totrc += rat.des_cliente_plazos
-              totc += 1
-            end
-
-            if (rat.des_cliente_comunicacion > 0)  
-              totrc += rat.des_cliente_comunicacion
-              totc += 1
-            end
-
-          else 
-
             if (rat.des_proveedor_expectativas > 0)  
               totrp += rat.des_proveedor_expectativas
               totp += 1
@@ -60,9 +48,22 @@ module Bazarcms
             if (rat.des_proveedor_comunicacion > 0)  
               totrp += rat.des_proveedor_comunicacion
               totp += 1
-            end
+            end 
 
-          end
+          else 
+
+            if (rat.des_cliente_plazos > 0)  
+               totrc += rat.des_cliente_plazos
+               totc += 1
+             end
+
+             if (rat.des_cliente_comunicacion > 0)  
+               totrc += rat.des_cliente_comunicacion
+               totc += 1
+             end
+
+          end         
+
 
         end 
          
