@@ -205,7 +205,8 @@ module Bazarcms
       # @rating = Rating.find(params[:id])
       @empresa = Empresa.find_by_id(params[:id])
   
-      @ratings = Rating.where("(ori_empresa_id = ? and ori_bazar_id = ?) or (des_empresa_id = ? and des_bazar_id = ?) ", params[:id], BZ_param("BazarId"), params[:id], BZ_param("BazarId")).order("updated_at")
+      @ratings = Rating.where("(ori_empresa_id = ? and ori_bazar_id = ? ) or (des_empresa_id = ? and des_bazar_id = ? ) ", 
+        params[:id], BZ_param("BazarId"), params[:id], BZ_param("BazarId")).order("updated_at")
   
       respond_to do |format|
         if params[:display] == 'inside'

@@ -31,7 +31,7 @@ module Bazarcms
   
         puts "--->> bazar #{rat.ori_bazar_id} empresa #{rat.ori_empresa_id} "
         
-        if rat.ori_bazar_id == bazar && rat.ori_empresa_id == empresa
+        if rat.ori_bazar_id == bazar.to_i && rat.ori_empresa_id == empresa.to_i
           puts "------------> soy la empresa que inicia "
           if rat.role == 'C'
 
@@ -67,7 +67,7 @@ module Bazarcms
 
         end 
          
-        if rat.des_bazar_id == bazar && rat.des_empresa_id == empresa 
+        if rat.des_bazar_id == bazar.to_i && rat.des_empresa_id == empresa.to_i 
           puts "Estoy como empresa destino"
           puts "------------> soy la empresa evaluada "
           if rat.role == 'C'

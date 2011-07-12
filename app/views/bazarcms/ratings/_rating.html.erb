@@ -1,16 +1,18 @@
 
-<table class="tabla">
-	<tr>
-		<td>
-			<b>Empresa</b>
-		</td>
-		<td>
-			<b>Fecha</b>
-		</td>
-	</tr>
+
 
 <% if @empresa.id == rating.ori_empresa_id and rating.ori_bazar_id == BZ_param('BazarId') %>
 
+<table class="tabla">
+<tr>
+	<td>
+		<b>Empresa</b>
+	</td>
+	<td>
+		<b>Fecha</b>
+	</td>
+</tr>
+	
 <tr>
 	
 	<td>
@@ -20,52 +22,49 @@
 	<td>
 		<%= rating.des_fecha.strftime ("%d-%m-%Y") %>
 	</td>
-
 	
 </tr>
 
 <% if rating.role == 'C' %>
 
-<tr>
-	<td><b>Expectativas</b></td>
-	<td>
-		<%= helper_rating_show(rating.des_proveedor_expectativas, "/bazarcms/ficharating/#{rating.ori_empresa_id}?bazar_id=#{rating.ori_bazar_id}").html_safe %>
-	</td>
-</tr>
+	<tr>
+		<td><b>Expectativas</b></td>
+		<td>
+			<%= helper_rating_show(rating.des_proveedor_expectativas, "/bazarcms/ficharating/#{rating.ori_empresa_id}?bazar_id=#{rating.ori_bazar_id}").html_safe %>
+		</td>
+	</tr>
 
-<tr>
-	<td><b>Plazos</b></td>
-	<td>
-		<%= helper_rating_show(rating.des_proveedor_plazos, "").html_safe %>
-	</td>
-</tr>
+	<tr>
+		<td><b>Plazos</b></td>
+		<td>
+			<%= helper_rating_show(rating.des_proveedor_plazos, "").html_safe %>
+		</td>
+	</tr>
 
-<tr>
-	<td><b>Comunicación</b></td>
-	<td>
-		<%= helper_rating_show(rating.des_proveedor_comunicacion, "").html_safe %>
-	</td>
+	<tr>
+		<td><b>Comunicación</b></td>
+		<td>
+			<%= helper_rating_show(rating.des_proveedor_comunicacion, "").html_safe %>
+		</td>
 
-</tr>
+	</tr>
 
 <% else %>
 
-<tr>
-
-<tr>
-	<td><b>Plazos</b></td>
-	<td>
-		<%= helper_rating_show(rating.ori_cliente_plazos, "").html_safe %>
+	<tr>
+		<td><b>Plazos</b></td>
+		<td>
+			<%= helper_rating_show(rating.ori_cliente_plazos, "").html_safe %>
 		
-	</td>
-</tr>
-<tr>
-	<td><b>Comunicación</b></td>
-	<td>
-		<%= helper_rating_show(rating.ori_cliente_comunicacion, "").html_safe %>
-	</td>
+		</td>
+	</tr>
+	<tr>
+		<td><b>Comunicación</b></td>
+		<td>
+			<%= helper_rating_show(rating.ori_cliente_comunicacion, "").html_safe %>
+		</td>
 
-</tr>
+	</tr>
 
 
 <% end %>
@@ -77,7 +76,20 @@
 </tr>
 
 
-<% else %>
+<% end %>
+
+<% if @empresa.id == rating.des_empresa_id and rating.des_bazar_id == BZ_param('BazarId') %>
+
+<table class="tabla">
+
+<tr>
+	<td>
+		<b>Empresa</b>
+	</td>
+	<td>
+		<b>Fecha</b>
+	</td>
+</tr>
 
 <tr>
 	
@@ -95,47 +107,44 @@
 
 <% if rating.role == 'C' %>
 
-<tr>
-	<td><b>Expectativas</b></td>
-	<td>
-		<%= helper_rating_show(rating.ori_proveedor_expectativas, "/bazarcms/ficharating/#{rating.des_empresa_id}?bazar_id=#{rating.des_bazar_id}").html_safe %>
-	</td>
-</tr>
+	<tr>
+		<td><b>Expectativas</b></td>
+		<td>
+			<%= helper_rating_show(rating.ori_proveedor_expectativas, "/bazarcms/ficharating/#{rating.des_empresa_id}?bazar_id=#{rating.des_bazar_id}").html_safe %>
+		</td>
+	</tr>
 
-<tr>
-	<td><b>Plazos</b></td>
-	<td>
-		<%= helper_rating_show(rating.ori_proveedor_plazos, "").html_safe %>
-	</td>
-</tr>
+	<tr>
+		<td><b>Plazos</b></td>
+		<td>
+			<%= helper_rating_show(rating.ori_proveedor_plazos, "").html_safe %>
+		</td>
+	</tr>
 
-<tr>
-	<td><b>Comunicación</b></td>
-	<td>
-		<%= helper_rating_show(rating.ori_proveedor_comunicacion, "").html_safe %>
-	</td>
+	<tr>
+		<td><b>Comunicación</b></td>
+		<td>
+			<%= helper_rating_show(rating.ori_proveedor_comunicacion, "").html_safe %>
+		</td>
 
-</tr>
+	</tr>
 
 <% else %>
 
-<tr>
-
-<tr>
-	<td><b>Plazos</b></td>
-	<td>
-		<%= helper_rating_show(rating.ori_cliente_plazos, "").html_safe %>
+	<tr>
+		<td><b>Plazos</b></td>
+		<td>
+			<%= helper_rating_show(rating.ori_cliente_plazos, "").html_safe %>
 		
-	</td>
-</tr>
-<tr>
-	<td><b>Comunicación</b></td>
-	<td>
-		<%= helper_rating_show(rating.ori_cliente_comunicacion, "").html_safe %>
-	</td>
+		</td>
+	</tr>
+	<tr>
+		<td><b>Comunicación</b></td>
+		<td>
+			<%= helper_rating_show(rating.ori_cliente_comunicacion, "").html_safe %>
+		</td>
 
-</tr>
-
+	</tr>
 
 <% end %>
 
@@ -144,7 +153,7 @@
 		<b>Comentario:</b> <%= rating.ori_texto %>
 	</td>
 </tr>
+</table>
 
 <% end %>
 
-</table>
