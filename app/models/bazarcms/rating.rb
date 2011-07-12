@@ -27,16 +27,11 @@ module Bazarcms
         
         totrc = totrp = 0
         totc = totp = 0
-        
-        if rat.ori_bazar_id == bazar && rat.ori_empresa_id == empresa           
-          ori = true
-        else 
-          ori = false
-        end 
+                
   
         puts "--->> bazar #{rat.ori_bazar_id} empresa #{rat.ori_empresa_id} "
         
-        if ori == true
+        if rat.ori_bazar_id == bazar && rat.ori_empresa_id == empresa
           puts "------------> soy la empresa que inicia "
           if rat.role == 'C'
 
@@ -68,8 +63,10 @@ module Bazarcms
             end
 
           end
-            
-        else 
+
+        end 
+         
+        if rat.des_bazar_id == bazar && rat.des_empresa_id == empresa 
           puts "Estoy como empresa destino"
           puts "------------> soy la empresa evaluada "
           if rat.role == 'C'
