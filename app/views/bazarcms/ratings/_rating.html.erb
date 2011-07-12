@@ -1,3 +1,14 @@
+
+<table class="tabla">
+	<tr>
+		<td>
+			<b>Empresa</b>
+		</td>
+		<td>
+			<b>Fecha</b>
+		</td>
+	</tr>
+
 <% if @empresa.id == rating.ori_empresa_id and rating.ori_bazar_id == BZ_param('BazarId') %>
 
 <tr>
@@ -29,9 +40,7 @@
 		<%= rating.ori_fecha.strftime ("%d-%m-%Y") %>
 	</td>
 
-	<td>
-		<%= rating.ori_texto %>
-	</td>
+
 	
 </tr>
 
@@ -40,21 +49,21 @@
 <tr>
 	<td><b>Expectativas</b></td>
 	<td>
-		<%= rating.ori_proveedor_expectativas %>
+		<%= helper_rating_show(rating.ori_proveedor_expectativas, "/bazarcms/ficharating/#{rating.des_empresa_id}?bazar_id=#{rating.des_bazar_id}").html_safe %>
 	</td>
 </tr>
 
 <tr>
 	<td><b>Plazos</b></td>
 	<td>
-		<%= rating.ori_proveedor_plazos %>
+		<%= helper_rating_show(rating.ori_proveedor_plazos, "").html_safe %>
 	</td>
 </tr>
 
 <tr>
 	<td><b>Comunicación</b></td>
 	<td>
-		<%= rating.ori_proveedor_comunicacion %>
+		<%= helper_rating_show(rating.ori_proveedor_comunicacion, "").html_safe %>
 	</td>
 
 </tr>
@@ -66,25 +75,27 @@
 <tr>
 	<td><b>Plazos</b></td>
 	<td>
-		<%= rating.ori_cliente_plazos %>
+		<%= helper_rating_show(rating.ori_cliente_plazos, "").html_safe %>
+		
 	</td>
 </tr>
 <tr>
 	<td><b>Comunicación</b></td>
 	<td>
-		<%= rating.ori_cliente_comunicacion %>
+		<%= helper_rating_show(rating.ori_cliente_comunicacion, "").html_safe %>
 	</td>
 
 </tr>
 
 
 <% end %>
-
-
 
 <tr>
-	<td colspan="6">
-		<%= rating.inspect %>
+	<td colspan="2">
+		<b>Comentario:</b> <%= rating.ori_texto %>
 	</td>
 </tr>
+
 <% end %>
+
+</table>

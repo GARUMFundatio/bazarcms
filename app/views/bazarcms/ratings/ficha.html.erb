@@ -12,7 +12,7 @@
 		<b>Global</b>
 	</td>
 
-	<td>
+	<td colspan="3">
 		<%= helper_rating_show(@empresa.rating, "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}").html_safe %>
 	</td>
 	
