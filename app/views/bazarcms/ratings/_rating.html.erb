@@ -1,7 +1,6 @@
 
 
-
-<% if @empresa.id == rating.ori_empresa_id and rating.ori_bazar_id == BZ_param('BazarId') %>
+<% if @empresa.id == rating.ori_empresa_id && rating.ori_bazar_id == BZ_param('BazarId').to_i && !rating.des_fecha.nil? %>
 
 <table class="tabla">
 <tr>
@@ -66,7 +65,6 @@
 
 	</tr>
 
-
 <% end %>
 
 <tr>
@@ -75,10 +73,12 @@
 	</td>
 </tr>
 
+</table>
+
 
 <% end %>
 
-<% if @empresa.id == rating.des_empresa_id and rating.des_bazar_id == BZ_param('BazarId') %>
+<% if @empresa.id == rating.des_empresa_id && rating.des_bazar_id == BZ_param('BazarId').to_i && !rating.ori_fecha.nil? %>
 
 <table class="tabla">
 
