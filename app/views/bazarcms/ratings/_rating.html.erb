@@ -3,45 +3,46 @@
 <% if @empresa.id == rating.ori_empresa_id && rating.ori_bazar_id == BZ_param('BazarId').to_i && !rating.des_fecha.nil? %>
 
 <table class="tabla">
-<tr>
-	<td>
-		<b>Empresa</b>
-	</td>
-	<td>
-		<b>Fecha</b>
-	</td>
-</tr>
-	
-<tr>
-	
-	<td>
-		<%= link_to(rating.des_empresa_nombre, bazarcms_empresa_path(rating.des_empresa_id, :bazar_id => rating.des_bazar_id)) %>
-	</td>
-	
-	<td>
-		<%= rating.des_fecha.strftime ("%d-%m-%Y") %>
-	</td>
-	
-</tr>
+
 
 <% if rating.role == 'C' %>
 
 	<tr>
-		<td><b>Expectativas</b></td>
+		<td>
+			<b>Empresa</b>
+		</td>
+		<td>
+			<b>Fecha</b>
+		</td>
+		<td>
+			<b>Expectativas</b>
+		</td>
+		<td>
+			<b>Plazos</b>
+		</td>
+		<td>
+			<b>Comunicación</b>
+		</td>
+	</tr>
+	
+	<tr>
+	
+		<td>
+			<%= link_to(rating.des_empresa_nombre, bazarcms_empresa_path(rating.des_empresa_id, :bazar_id => rating.des_bazar_id)) %>
+		</td>
+	
+		<td>
+			<%= rating.des_fecha.strftime ("%d-%m-%Y") %>
+		</td>
+	
 		<td>
 			<%= helper_rating_show(rating.des_proveedor_expectativas, "/bazarcms/ficharating/#{rating.ori_empresa_id}?bazar_id=#{rating.ori_bazar_id}").html_safe %>
 		</td>
-	</tr>
 
-	<tr>
-		<td><b>Plazos</b></td>
 		<td>
 			<%= helper_rating_show(rating.des_proveedor_plazos, "").html_safe %>
 		</td>
-	</tr>
 
-	<tr>
-		<td><b>Comunicación</b></td>
 		<td>
 			<%= helper_rating_show(rating.des_proveedor_comunicacion, "").html_safe %>
 		</td>
@@ -51,14 +52,39 @@
 <% else %>
 
 	<tr>
-		<td><b>Plazos</b></td>
+		<td>
+			<b>Empresa</b>
+		</td>
+
+		<td>
+			<b>Fecha</b>
+		</td>
+
+		<td>
+			<b>Plazos</b>
+		</td>
+
+		<td>
+			<b>Comunicación</b>
+		</td>
+
+	</tr>
+
+	<tr>
+
+		<td>
+			<%= link_to(rating.des_empresa_nombre, bazarcms_empresa_path(rating.des_empresa_id, :bazar_id => rating.des_bazar_id)) %>
+		</td>
+
+		<td>
+			<%= rating.des_fecha.strftime ("%d-%m-%Y") %>
+		</td>
+
 		<td>
 			<%= helper_rating_show(rating.ori_cliente_plazos, "").html_safe %>
-		
+	
 		</td>
-	</tr>
-	<tr>
-		<td><b>Comunicación</b></td>
+
 		<td>
 			<%= helper_rating_show(rating.ori_cliente_comunicacion, "").html_safe %>
 		</td>
@@ -68,7 +94,7 @@
 <% end %>
 
 <tr>
-	<td colspan="2">
+	<td colspan="7">
 		<b>Comentario:</b> <%= rating.ori_texto %>
 	</td>
 </tr>
@@ -82,47 +108,49 @@
 
 <table class="tabla">
 
-<tr>
-	<td>
-		<b>Empresa</b>
-	</td>
-	<td>
-		<b>Fecha</b>
-	</td>
-</tr>
-
-<tr>
-	
-	<td>
-		<%= link_to(rating.ori_empresa_nombre, bazarcms_empresa_path(rating.ori_empresa_id, :bazar_id => rating.ori_bazar_id)) %>
-	</td>
-	
-	<td>
-		<%= rating.ori_fecha.strftime ("%d-%m-%Y") %>
-	</td>
-
-
-	
-</tr>
 
 <% if rating.role == 'C' %>
 
+
 	<tr>
-		<td><b>Expectativas</b></td>
+		<td>
+			<b>Empresa</b>
+		</td>
+		<td>
+			<b>Fecha</b>
+		</td>
+		<td>
+			<b>Expectativas</b>
+		</td>
+
+		<td>
+			<b>Plazos</b>
+		</td>
+
+		<td>
+			<b>Comunicación</b>
+		</td>
+
+	</tr>
+
+	<tr>
+	
+		<td>
+			<%= link_to(rating.ori_empresa_nombre, bazarcms_empresa_path(rating.ori_empresa_id, :bazar_id => rating.ori_bazar_id)) %>
+		</td>
+	
+		<td>
+			<%= rating.ori_fecha.strftime ("%d-%m-%Y") %>
+		</td>
+
 		<td>
 			<%= helper_rating_show(rating.ori_proveedor_expectativas, "/bazarcms/ficharating/#{rating.des_empresa_id}?bazar_id=#{rating.des_bazar_id}").html_safe %>
 		</td>
-	</tr>
 
-	<tr>
-		<td><b>Plazos</b></td>
 		<td>
 			<%= helper_rating_show(rating.ori_proveedor_plazos, "").html_safe %>
 		</td>
-	</tr>
 
-	<tr>
-		<td><b>Comunicación</b></td>
 		<td>
 			<%= helper_rating_show(rating.ori_proveedor_comunicacion, "").html_safe %>
 		</td>
@@ -132,14 +160,39 @@
 <% else %>
 
 	<tr>
-		<td><b>Plazos</b></td>
+		<td>
+			<b>Empresa</b>
+		</td>
+
+		<td>
+			<b>Fecha</b>
+		</td>
+
+		<td>
+			<b>Plazos</b>
+		</td>
+
+		<td>
+			<b>Comunicación</b>
+		</td>
+
+	</tr>
+
+	<tr>
+
+		<td>
+			<%= link_to(rating.ori_empresa_nombre, bazarcms_empresa_path(rating.ori_empresa_id, :bazar_id => rating.ori_bazar_id)) %>
+		</td>
+
+		<td>
+			<%= rating.ori_fecha.strftime ("%d-%m-%Y") %>
+		</td>
+
 		<td>
 			<%= helper_rating_show(rating.ori_cliente_plazos, "").html_safe %>
 		
 		</td>
-	</tr>
-	<tr>
-		<td><b>Comunicación</b></td>
+
 		<td>
 			<%= helper_rating_show(rating.ori_cliente_comunicacion, "").html_safe %>
 		</td>
@@ -149,7 +202,7 @@
 <% end %>
 
 <tr>
-	<td colspan="2">
+	<td colspan="6">
 		<b>Comentario:</b> <%= rating.ori_texto %>
 	</td>
 </tr>
