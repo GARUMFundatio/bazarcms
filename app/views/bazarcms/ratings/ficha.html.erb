@@ -46,12 +46,19 @@
 	
 </table>
 
-<br/>
-
-<a class="volver-home-link" href="<%= "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}".html_safe %>">Valorar esta empresa.</a>
 
 
-<br/>
+<% if BZ_param('BazarId').to_i == params[:bazar_id].to_i && @empresa.id.to_i == current_user.id %>
+	
+	<br/>
+
+<% else %>
+	<br/>
+	<a class="volver-home-link" href="<%= "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}".html_safe %>">Valorar esta empresa.</a>
+	<br/>
+
+<% end %>
+
 
 <%= render 'list' %>
 
