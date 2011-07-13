@@ -439,7 +439,10 @@ module Bazarcms
           @res.empresasconsulta_id = @consulta.id
           @res.cluster_id = micluster
           @res.empresa_id = resu.id 
-          @res.orden = resu.nombre
+          
+          num = resu.rating * 1000 + ( resu.rating_total_cliente + resu.rating_total_proveedor)
+          
+          @res.orden = "#{num}"
           @res.enlace = resu.url
           @res.info = "#{resu.nombre}"
           @res.save

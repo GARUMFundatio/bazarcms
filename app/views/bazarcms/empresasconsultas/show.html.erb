@@ -3,9 +3,9 @@
 <p class="total"><strong>Total:</strong> <%= @consulta.total_resultados %> empresas de <%= @consulta.total_respuestas %> bazares.</p>
 
 <% if params[:display] == 'inside' %>
-	<% @empresasresultados = @consulta.empresasresultados.limit(10) %>
+	<% @empresasresultados = @consulta.empresasresultados.order('orden desc').limit(10) %>
 <% else %> 
-	<% @empresasresultados = @consulta.empresasresultados %>
+	<% @empresasresultados = @consulta.empresasresultados.order('orden desc') %>
 <% end %>
 
 <table id="results" class="tabla" cellspacing="0">
@@ -19,7 +19,8 @@
 <% for resu in @empresasresultados %>
 <tr>
   <td>
-	<%= link_to(resu.info, bazarcms_empresa_path(resu.empresa_id, :bazar_id => resu.cluster_id)) %><%=  %>
+	<%= link_to(resu.info, bazarcms_empresa_path(resu.empresa_id, :bazar_id => resu.cluster_id)) %>
+	<%= helper_rating_show2(resu.cluster_id, resu.empresa_id).html_safe %>
   </td>
   <td>
 	<%= link_to(Cluster::find_by_id(resu.cluster_id).nombre, Cluster::find_by_id(resu.cluster_id).url)  %>
