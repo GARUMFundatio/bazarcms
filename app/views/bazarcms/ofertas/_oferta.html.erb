@@ -3,6 +3,7 @@
 	<td>
 		<!-- TODO: corregir y comprobar que pasa cuando integremos ofertas de otros bazares --> 
 		<%= link_to Bazarcms::Empresa.find(oferta.empresa_id).nombre, bazarcms_empresa_path(oferta.empresa_id, :bazar_id => oferta.bazar_id) %>
+		<%= helper_rating_show2(oferta.bazar_id, oferta.empresa_id).html_safe %>
 	</td>
 
 	<td class="dos-iconos">
