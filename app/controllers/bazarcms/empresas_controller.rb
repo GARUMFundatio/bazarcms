@@ -494,7 +494,8 @@ module Bazarcms
                   resu.cluster_id = cluster_id
                   resu.empresa_id = key['empresa']['id'] 
                   resu.enlace = key['empresa']['url']
-                  resu.orden = key['empresa']['nombre']
+                  num = key['empresa']['rating'].to_i * 1000 + ( key['empresa']['rating_total_cliente'].to_i + key['empresa']['rating_total_proveedor'].to_i)
+                  resu.orden = "#{num}"
                   resu.info = key['empresa']['nombre']
                   resu.save
                   conta2 += 1
