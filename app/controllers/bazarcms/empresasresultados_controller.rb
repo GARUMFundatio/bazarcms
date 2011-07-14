@@ -20,7 +20,7 @@ module Bazarcms
   def show
    
     @consulta = Empresasconsulta.find_by_empresa_id_and_id(current_user.id, params[:id])
-    @empresasresultados = Empresasresultado.where('empresasconsulta_id = ?', params[:id]).order('orden').paginate(:page => params[:page], :per_page => 30)
+    @empresasresultados = Empresasresultado.where('empresasconsulta_id = ?', params[:id]).order('orden desc').paginate(:page => params[:page], :per_page => 30)
 
     if request.xhr?
       render(:partial => "empresasresultado", :collection => @empresasresultados)

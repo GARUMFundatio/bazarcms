@@ -1,7 +1,7 @@
 <tr>
   <td>
 	<%= link_to(empresasresultado.info, bazarcms_empresa_path(empresasresultado.empresa_id, :bazar_id => empresasresultado.cluster_id)) %>
-	<%= helper_rating_show2(empresasresultados_cluster_id, empresasresultdos.empresa_id).html_safe %>
+	<%= helper_rating_show2(empresasresultado.cluster_id, empresasresultado.empresa_id).html_safe %>
   </td>
   <td>
 	<%= link_to(Cluster::find_by_id(empresasresultado.cluster_id).nombre, Cluster::find_by_id(empresasresultado.cluster_id).url)  %>
