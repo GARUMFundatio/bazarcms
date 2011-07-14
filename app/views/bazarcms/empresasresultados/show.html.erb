@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'jquery.pageless' -%>
 
 <h3><%=t(:text_resultados_de_la_b_squeda)%><span class="query-busqueda"></span></h3>
-<p class="total"><strong><%=t(:text_total)%></strong> <%= @consulta.total_resultados %><%=t(:text_empresas_de)%><%= @consulta.total_respuestas %><%=t(:text_bazares)%></p>
+<p class="total"> <strong> <%= t(:text_total) %></strong> <%= @consulta.total_resultados %> <%=t(:text_empresas_de)%> <%= @consulta.total_respuestas %> <%=t(:text_bazares)%></p>
 
 <table id="results" class="tabla" cellspacing="0">
 
