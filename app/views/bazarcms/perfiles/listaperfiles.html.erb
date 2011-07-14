@@ -1,8 +1,8 @@
 <% if @perfiles.count == 0 %>
-	<p>No tiene ningún sector asociado a su empresa.</p>
-	<p>Para encontrar el sector que más se ajusta a su empresa, escriba una o varias palabras que defina el sector al que pertenece.</p>
-	<p>Puede escoger tantos como crea convenientes y actualizarlos en cualquier momento.</p>
-	<p>Cuantos más dígitos tengo el código más especifica su actividad.</p>
+	<p><%=t(:text_no_tiene_ning_n_sector_asociado_a_su_empresa)%></p>
+	<p><%=t(:text_para_encontrar_el_sector_que_m_s_se_ajusta_a_su_empresa_escriba_una_o_varias_palabras_que_defina_el_sector_al_que_pertenece)%></p>
+	<p><%=t(:text_puede_escoger_tantos_como_crea_convenientes_y_actualizarlos_en_cualquier_momento)%></p>
+	<p><%=t(:text_cuantos_m_s_d_gitos_tengo_el_c_digo_m_s_especifica_su_actividad)%></p>
 
 <% else %>
 
@@ -20,7 +20,7 @@
     			<p>
     			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
     			</p>
-    			<a class="ocultar-link" href="#" onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').slideToggle(300);">Ocultar la descripción</a>
+    			<a class="ocultar-link" href="#" onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').slideToggle(300);"><%=t(:text_ocultar_la_descripci_n)%></a>
     		</div>
 		</div>
 	<% end %>

@@ -2,9 +2,9 @@
   <tr>
   	<td>
 		<% if empresasconsulta.desc == '*' %>
-			Cualquier empresa
+			<%=t(:text_cualquier_empresa)%>
 		<% else %>
-			Empresas que cumplen con: <%= empresasconsulta.desc %>
+			<%=t(:text_empresas_que_cumplen_con)%><%= empresasconsulta.desc %>
 		<% end %>
 	</td>
   	<td><%= empresasconsulta.total_consultas %>/<%= empresasconsulta.total_respuestas %></td>

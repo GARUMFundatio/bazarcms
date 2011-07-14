@@ -1,20 +1,20 @@
 <%= javascript_include_tag 'jquery.pageless' -%>
 
-<a class="volver-home-link" href="/home">&laquo; Volver a la página de búsquedas</a> 
-<% # link_to 'Borrar consultas realizadas', '/bazarcms/borrarconsultas', :confirm => 'Seguro?', :class => 'volver-home-link' %>
+<a class="volver-home-link" href="/home"><%=t(:text_laquo_volver_a_la_p_gina_de_b_squedas)%></a> 
+<% # link_to t(:label_borrar_consultas_realizadas), '/bazarcms/borrarconsultas', :confirm => 'Seguro?', :class => 'volver-home-link' %>
 
-<h3 class="page-title">Consultas Realizadas</h3>
+<h3 class="page-title"><%=t(:text_consultas_realizadas)%></h3>
 
 <table id="results" class="tabla" cellspacing="0">
 
 	<% if @empresasconsultas.current_page == 1 %>
 	<tr>
-	    <th>Desc</th>
-	    <th>Consultados</th>
-	    <th>Resultados</th>
-	    <th>SQL</th>
-	    <th>Lanzada</th>
-	    <th colspan="3">Acciones</th>
+	    <th><%=t(:text_desc)%></th>
+	    <th><%=t(:text_consultados)%></th>
+	    <th><%=t(:text_resultados)%></th>
+	    <th><%=t(:text_sql)%></th>
+	    <th><%=t(:text_lanzada)%></th>
+	    <th colspan="3"><%=t(:text_acciones)%></th>
 	 </tr>
 	<% end %>
 	

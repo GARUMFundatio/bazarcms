@@ -1,4 +1,4 @@
-<h3 class="page-title">Empresas</h3>
+<h3 class="page-title"><%=t(:text_empresas)%></h3>
 
 <table class="base" cellspacing="0">
 <tr>
@@ -6,7 +6,7 @@
 		<table class="tabla" cellspacing="0">
 		<tr>
 			<th colspan="2">
-				Ultimas Empresas
+				<%=t(:text_ultimas_empresas)%>
 			</th>
 		</tr>	
 		<% for emp in @ultimas %>
@@ -28,7 +28,7 @@
 		<table class="tabla" cellspacing="0">
 		<tr>
 			<th colspan="2">
-				Ultimas Actualizadas
+				<%=t(:text_ultimas_actualizadas)%>
 			</th>
 		</tr>	
 		<% for emp in @actualizadas %>
@@ -47,4 +47,4 @@
 	</td>	
 </tr>	
 </table>
-<p class="total">Total: <%= @total %></p>
+<p class="total"><%=t(:text_total)%><%= @total %></p>

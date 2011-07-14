@@ -1,24 +1,24 @@
 <%= javascript_include_tag "jquery.ui.datepicker-es.js" %>
 
-<h3 class="page-title">Publicar una Oferta / Demanda</h3>
+<h3 class="page-title"><%=t(:text_publicar_una_oferta_demanda)%></h3>
 
 <div id="ofer1">
-	<h3 class="paso-title"><em>1</em> Defina tipo y a quien va dirigida</h3>
+	<h3 class="paso-title"><em>1</em><%=t(:text_defina_tipo_y_a_quien_va_dirigida)%></h3>
 
 	<div>
 	<%= form_for(@oferta) do |f| %>
     <div id="publicar-od-tipo" class="publicar-seccion">
-        <h4><em>a</em> ¿Es una <strong>Oferta</strong> o una <strong>Demanda</strong>?</h4>
+        <h4><em>a</em><%=t(:text_es_una)%><strong><%=t(:text_oferta)%></strong><%=t(:text_o_una)%><strong><%=t(:text_demanda)%></strong>?</h4>
 
     	<p id="opciones-oferta">
-    	  <span><label id="check-ofertas"><input type="radio" name="tipo" value="oferta" checked="checked"> Oferta </label></span>
-    	  <span><label id="check-demandas"><input type="radio" name="tipo" value="demanda"> Demanda </label></span>
+    	  <span><label id="check-ofertas"><input type="radio" name="tipo" value="oferta" checked="checked"><%=t(:text_oferta)%></label></span>
+    	  <span><label id="check-demandas"><input type="radio" name="tipo" value="demanda"><%=t(:text_demanda)%></label></span>
     	</p>
 	
     </div><!-- /#publicar-od-tipo -->
     
     <div id="publicar-od-keywords" class="publicar-seccion">
-    	<h4><em>b</em> Defina las palabras clave que desea de las empresas que se van a seleccionar. Puede dejarlo vacío.</h4>
+    	<h4><em>b</em><%=t(:text_defina_las_palabras_clave_que_desea_de_las_empresas_que_se_van_a_seleccionar_puede_dejarlo_vac_o)%></h4>
 
     	<div class="demo">
 
@@ -104,36 +104,36 @@
     </div><!-- /#publicar-od-keywords -->
 
     <div id="publicar-od-sectores" class="publicar-seccion">
-        <h4><em>c</em> Seleccione los sectores.</h4>
+        <h4><em>c</em><%=t(:text_seleccione_los_sectores)%></h4>
 
     	<div id="filtro-perfiles">
         	<table cellspacing="0" class="tabla">
-        		<tr><th>Ofrecen:</th><th>Empresas que sean de estos sectores</th></tr>
+        		<tr><th><%=t(:text_ofrecen)%></th><th><%=t(:text_empresas_que_sean_de_estos_sectores)%></th></tr>
         		<tr>
         			<td valign="top" style="width: 420px;">
-        			 	<label for="query1">Buscar en sectores</label> <input type="text" name="q" id="query1" />
+        			 	<label for="query1"><%=t(:text_buscar_en_sectores)%></label> <input type="text" name="q" id="query1" />
         			 <input type="hidden" id="pofertan" style="border:0; color:#f6931f; font-weight:bold;" />
         			</td>
         			<td valign="top" >
         			<div id="filtroofertan">
-        				<p>Seleccione uno o varios sectores en la caja de búsqueda.</p>
-        				<p><b>Solo</b> las empresas que estén en <b>alguno</b> de estos sectores.</p>
+        				<p><%=t(:text_seleccione_uno_o_varios_sectores_en_la_caja_de_b_squeda)%></p>
+        				<p><b><%=t(:text_solo)%></b><%=t(:text_las_empresas_que_est_n_en)%><b><%=t(:text_alguno)%></b><%=t(:text_de_estos_sectores)%></p>
         			</div>
         			</td>
         		</tr>
         	</table>
 
         	<table cellspacing="0" class="tabla">
-        		<tr><th>Demandan:</th><th>Empresas que sean de estos sectores</th></tr>
+        		<tr><th><%=t(:text_demandan)%></th><th><%=t(:text_empresas_que_sean_de_estos_sectores)%></th></tr>
         		<tr>
         			<td valign="top" style="width: 420px;">
-        			 	<label for="query2">Buscar en sectores</label> <input type="text" name="q" id="query2" />
+        			 	<label for="query2"><%=t(:text_buscar_en_sectores)%></label> <input type="text" name="q" id="query2" />
         			 <input type="hidden" id="pdemandan" style="border:0; color:#f6931f; font-weight:bold;" />
         			</td>
         			<td valign="top">
         				<div id="filtrodemandan">
-        					<p>Seleccione uno o varios sectores en la caja de búsqueda.</p>
-        					<p><b>Solo<b/> las empresas que estén en <b>alguno</b> de estos sectores.</p>
+        					<p><%=t(:text_seleccione_uno_o_varios_sectores_en_la_caja_de_b_squeda)%></p>
+        					<p><b><%=t(:text_solo)%><b/><%=t(:text_las_empresas_que_est_n_en)%><b><%=t(:text_alguno)%></b><%=t(:text_de_estos_sectores)%></p>
         				</div>
         			</td>
         		</tr>
@@ -357,21 +357,21 @@
 
     <div id="publicar-od-paises" class="publicar-seccion">
 
-        <h4><em>d</em> Solo empresas que tengan presencia en estos Países</h4>
+        <h4><em>d</em><%=t(:text_solo_empresas_que_tengan_presencia_en_estos_pa_ses)%></h4>
 
     	<div id="filtro-pais">
 
     		<table cellspacing="0" class="tabla">
-    			<tr><th>Países:</th><th>Países Seleccionados:</th></tr>
+    			<tr><th><%=t(:text_pa_ses)%></th><th><%=t(:text_pa_ses_seleccionados)%></th></tr>
     			<tr>
     				<td valign="top" style="width: 420px;">
-    	                <label for="query3">Buscar Países</label>
+    	                <label for="query3"><%=t(:text_buscar_pa_ses)%></label>
     	                <input type="text" name="q" id="query3" />
 			 			<input type="hidden" id="ppaises" style="border:0; color:#f6931f; font-weight:bold;" />
     				</td>
     				<td>
     					<div id="mispaises">
-    						<p>Seleccione uno o varios países en la caja de búsqueda</p>
+    						<p><%=t(:text_seleccione_uno_o_varios_pa_ses_en_la_caja_de_b_squeda)%></p>
     					</div>
     				</td>
     			</tr>
@@ -496,13 +496,13 @@
 
     <div id="publicar-od-datos" class="publicar-seccion">
 
-    	<h4><em>e</em> Empresas que cuyos datos cumplan estas condiciones.</h4>
+    	<h4><em>e</em><%=t(:text_empresas_que_cuyos_datos_cumplan_estas_condiciones)%></h4>
 
     	<div id="filtro-datos-economicos">
     	<table border="0" cellspacing="0">
     		<tr>
     			<td width="350px">
-    				<label for="empleados">Nº Empleados:</label>
+    				<label for="empleados"><%=t(:text_n_empleados)%></label>
 
     			</td>
     			<td width="200px">
@@ -518,7 +518,7 @@
     	<table border="0" cellspacing="0">
     		<tr>
     			<td width="350px">
-    				<label for="compras">Compras:</label>
+    				<label for="compras"><%=t(:text_compras)%></label>
     			</td>
     			<td width="200px">
     				<div id="slider-range3"></div>
@@ -533,7 +533,7 @@
     	<table border="0" cellspacing="0">
     		<tr>
     			<td width="350px">
-    				<label for="ventas">Ventas:</label>
+    				<label for="ventas"><%=t(:text_ventas)%></label>
     			</td>
     			<td width="200px">
     				<div id="slider-range2"></div>
@@ -549,7 +549,7 @@
     	<table border="0" cellspacing="0">
     		<tr>
     			<td width="350px">
-    				<label for="resultados">Resultados:</label>
+    				<label for="resultados"><%=t(:text_resultados)%></label>
     			</td>
     			<td width="200px">
     				<div id="slider-range4"></div>
@@ -564,7 +564,7 @@
 
     </div><!-- /#publicar-od-datos -->
 
-        <a class="estimar-empresas" href="#navegar-publicar1" onclick="Estimar(); ">Estimar empresas con estas condiciones.</a>
+        <a class="estimar-empresas" href="#navegar-publicar1" onclick="Estimar(); "><%=t(:text_estimar_empresas_con_estas_condiciones)%></a>
 	
  
 	<div>
@@ -580,7 +580,7 @@
 	</div>
 
 	<div class="navegar-publicar" id="navegar-publicar1" style="display:none;">
-    	<a class="siguiente" href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); ">Siguiente Paso: Datos de la oferta <span>&rsaquo;</span></a>
+    	<a class="siguiente" href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); "><%=t(:text_siguiente_paso_datos_de_la_oferta)%><span><%=t(:text_rsaquo)%></span></a>
     </div>
     
 	</div>
@@ -589,7 +589,7 @@
 
 <div id="ofer2" style="display:none">
 
-	<h3 class="paso-title"><em>3</em> Información de la Oferta/Demanda</h3>
+	<h3 class="paso-title"><em>3</em><%=t(:text_informaci_n_de_la_oferta_demanda)%></h3>
 
 	
 	<input type="hidden" id="bazarcms_oferta_cid" name="bazarcms_oferta[cid]" />
@@ -597,7 +597,7 @@
 	<input type="hidden" id="bazarcms_oferta_filtro" name="bazarcms_oferta[filtro]" />
 	
     <div id="publicar-od-titulo" class="publicar-seccion">
-        <h4><em>a</em> Título</h4>
+        <h4><em>a</em><%=t(:text_t_tulo)%></h4>
 
 		<%= f.text_field :titulo, :size => "60" %>
 
@@ -605,7 +605,7 @@
 	
 	<div id="publicar-od-descripcion" class="publicar-seccion">
 
-        <h4><em>b</em> Descripción</h4>
+        <h4><em>b</em><%=t(:text_descripci_n)%></h4>
 		<%= f.text_area :texto, :size => "90x12" %>
 
 
@@ -613,7 +613,7 @@
 	
 	<div id="publicar-od-texto" class="publicar-seccion">
 		
-		<h4><em>c</em> Texto del correo</h4>
+		<h4><em>c</em><%=t(:text_texto_del_correo)%></h4>
 
 		<%= f.text_area :texto_correo, :size => "90x12" %>
 
@@ -622,11 +622,11 @@
 	
 	<div id="publicar-od-validez" class="publicar-seccion">
 
-		<h4><em>d</em> Validez </h4>
+		<h4><em>d</em><%=t(:text_validez)%></h4>
 
 		
 		 <div class="field"> 
-		    <label for="noticia_fecha">Desde Fecha</label> 
+		    <label for="noticia_fecha"><%=t(:text_desde_fecha)%></label> 
 
 				<script> 
 
@@ -642,7 +642,7 @@
 				<input type="text" size="10" name="bazarcms_oferta[fecha]" id="bazarcms_oferta_fecha" value="<%= DateTime.now.strftime("%d/%m/%Y")-%>"/> 
 		</div>		
 		 <div class="field"> 
-		    <label for="noticia_fecha">Hasta Fecha</label> 
+		    <label for="noticia_fecha"><%=t(:text_hasta_fecha)%></label> 
 
 				<script> 
 
@@ -664,8 +664,8 @@
  <% end %> 
 
     <div class="navegar-publicar">
-        <a class="anterior" href="#" onclick="$('#ofer2').toggle('slow'); $('#ofer1').toggle('slow'); "><span>&lsaquo;</span> Anterior</a>
-       	<a class="publicar-submit" href="#" onclick="publicar(); ">Publicar</a>
+        <a class="anterior" href="#" onclick="$('#ofer2').toggle('slow'); $('#ofer1').toggle('slow'); "><span><%=t(:text_lsaquo)%></span><%=t(:text_anterior)%></a>
+       	<a class="publicar-submit" href="#" onclick="publicar(); "><%=t(:text_publicar)%></a>
     </div>
 
 
@@ -675,17 +675,17 @@
 	
 	<div id="publicar-paso4a" class="publicar-seccion">
 	
-		<h3 class="paso-title"><em>3</em>Publicando la Oferta/Demanda.</h3>
+		<h3 class="paso-title"><em>3</em><%=t(:text_publicando_la_oferta_demanda)%></h3>
 
 		<br/>
 		<br/>
 		<br/>
 
-		<p>Estamos enviando su Oferta/Demanda. <img src="/images/spinner.gif" border="0" /></p>
+		<p><%=t(:text_estamos_enviando_su_oferta_demanda)%><img src="/images/spinner.gif" border="0" /></p>
 
 		<br/>
 
-		<p> <strong>No cierre</strong> esta página o navegue hasta que le <strong>confirmemos el envío.</strong></p>
+		<p> <strong><%=t(:text_no_cierre)%></strong><%=t(:text_esta_p_gina_o_navegue_hasta_que_le)%><strong><%=t(:text_confirmemos_el_env_o)%></strong></p>
 	
 	</div>
 	

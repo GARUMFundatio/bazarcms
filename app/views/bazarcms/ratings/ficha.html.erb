@@ -1,15 +1,15 @@
 <div id="ficharating">
 
-<a class="volver-home-link" href="/home">&laquo; Volver a la página de búsquedas</a>
+<a class="volver-home-link" href="/home"><%=t(:text_laquo_volver_a_la_p_gina_de_b_squedas)%></a>
 
 <br/>
 
-<h3>Rating Bazar: <%= @empresa.nombre -%></h3> 
+<h3><%=t(:text_rating_bazar)%><%= @empresa.nombre -%></h3> 
 
 <table class="tabla">
 <tr>
 	<td>
-		<b>Global</b>
+		<b><%=t(:text_global)%></b>
 	</td>
 
 	<td colspan="3">
@@ -20,24 +20,24 @@
 
 <tr>
 	<td>
-		<b>Valoración como Cliente</b>
+		<b><%=t(:text_valoraci_n_como_cliente)%></b>
 	</td>
 	
 	<td>
 		<%= helper_rating_show(@empresa.rating_cliente, "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}").html_safe %>
 		<% if @empresa.rating_total_cliente > 0 %>
-			<%= @empresa.rating_total_cliente %> Valoraciones
+			<%= @empresa.rating_total_cliente %><%=t(:text_valoraciones)%>
 		<% end %>
 	</td>
 	
 	<td>
-		<b>Valoración como Proveedor</b>
+		<b><%=t(:text_valoraci_n_como_proveedor)%></b>
 	</td>
 
 	<td>
 		<%= helper_rating_show(@empresa.rating_proveedor, "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}").html_safe %>
 		<% if @empresa.rating_total_proveedor > 0 %>
-			<%= @empresa.rating_total_proveedor %> Valoraciones
+			<%= @empresa.rating_total_proveedor %><%=t(:text_valoraciones)%>
 		<% end %>
 	</td>
 
@@ -54,7 +54,7 @@
 
 <% else %>
 	<br/>
-	<a class="volver-home-link" href="<%= "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}".html_safe %>">Valorar esta empresa.</a>
+	<a class="volver-home-link" href="<%= "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}".html_safe %>"><%=t(:text_valorar_esta_empresa)%></a>
 	<br/>
 
 <% end %>

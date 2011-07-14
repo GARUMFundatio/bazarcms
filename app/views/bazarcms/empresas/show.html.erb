@@ -20,12 +20,12 @@
 
 </br>
 
-<h4 class="titulo-seccion">Empresa</h4>
+<h4 class="titulo-seccion"><%=t(:text_empresa)%></h4>
 
 <table class="tabla" cellspacing="0">
 <tr>
 	<th scope="row">
-		Descripción:
+		<%=t(:text_descripci_n)%>
 	</th>
 	<td colspan=4>	
 		<%= @empresa.desc %>
@@ -34,7 +34,7 @@
 
 <tr>
 	<th scope="row">
-		Rating:
+		<%=t(:text_rating)%>
 	</th>
 
 	<td colspan="2">
@@ -44,7 +44,7 @@
 
 <tr>
 	<th scope="row">
-		Fundada:
+		<%=t(:text_fundada)%>
 	</th>
 	<td>	
 		<%= @empresa.fundada %>
@@ -53,7 +53,7 @@
 
 <tr>
     <th scope="row">
-		Moneda:
+		<%=t(:text_moneda)%>
 	</th>
 	<td>
 		<%= Bazarcms::Empresa.Monedastexto(@empresa.moneda) %>
@@ -62,7 +62,7 @@
 
 <tr>
 	<th scope="row">
-		Página Web:
+		<%=t(:text_p_gina_web)%>
 	</th>
 	<td colspan="3">
 		<% if !@empresa.url.nil? %> 	
@@ -75,7 +75,7 @@
 
 <tr>
 	<th scope="row">
-		Email:
+		<%=t(:text_email)%>
 	</th>
 	<td colspan="3">	
 		<%= @usuario.email %>
@@ -85,7 +85,7 @@
 
 <tr>
 	<th scope="row">
-		Ofrecen:
+		<%=t(:text_ofrecen)%>
 	</th>
 	<td colspan="4">	
 		<%= @empresa.actividad_list %>
@@ -94,7 +94,7 @@
 
 <tr>
 	<th scope="row">
-		Demandan:
+		<%=t(:text_demandan)%>
 	</th>
 	<td colspan="4">	
 		<%= @empresa.interes_list %>
@@ -105,7 +105,7 @@
 </table>
 
 
-<h4 class="titulo-seccion">Sectores que Ofertan</h4>
+<h4 class="titulo-seccion"><%=t(:text_sectores_que_ofertan)%></h4>
 
 <table class="tabla" cellspacing="0">
 
@@ -126,7 +126,7 @@
 
 <br/>
 
-<h4 class="titulo-seccion">Sectores que Demandan</h4>
+<h4 class="titulo-seccion"><%=t(:text_sectores_que_demandan)%></h4>
 
 <table class="tabla" cellspacing="0">
 
@@ -144,15 +144,15 @@
 <% end %>
 </table>
 
-<h4 class="titulo-seccion">Datos Económicos</h4>
+<h4 class="titulo-seccion"><%=t(:text_datos_econ_micos)%></h4>
 
 <table class="tabla" cellspacing="0">
 	<tr>
-		<th>Año</th>
-		<th>Empleados</th>
-		<th>Compras</th>
-		<th>Ventas</th>
-		<th>Resultados</th>
+		<th><%=t(:text_a_o)%></th>
+		<th><%=t(:text_empleados)%></th>
+		<th><%=t(:text_compras)%></th>
+		<th><%=t(:text_ventas)%></th>
+		<th><%=t(:text_resultados)%></th>
 	</tr>
 
 	<% for emp in @empresasdatos do %>
@@ -168,7 +168,7 @@
 	<% end %>
 </table>
 <br/>
-<h4 class="titulo-seccion">Ubicaciones</h4>
+<h4 class="titulo-seccion"><%=t(:text_ubicaciones)%></h4>
 
 <table class="tabla" cellspacing="0">
 
@@ -184,7 +184,7 @@
 	  	<%= link_to(ubi.ciudad.descripcion, ciudades_path+'/'+ubi.ciudad.friendly_id) %>, 
 		<%= link_to(ubi.ciudad.pais.descripcion, paises_path+'/'+ubi.ciudad.pais.friendly_id) %>
 	<% else %>
-		Ciudad Incorrecta.
+		<%=t(:text_ciudad_incorrecta)%>
 	<% end %>
 
 </td>
@@ -193,7 +193,7 @@
 <% end %>
 </table>
 
-<h4 class="titulo-seccion">Ofertas que ha realizado</h4>
+<h4 class="titulo-seccion"><%=t(:text_ofertas_que_ha_realizado)%></h4>
 
 <table class="tabla" cellspacing="0">
 
@@ -213,7 +213,7 @@
 
 <br/>
 
-<h4 class="titulo-seccion">Demandas que ha realizado</h4>
+<h4 class="titulo-seccion"><%=t(:text_demandas_que_ha_realizado)%></h4>
 
 <table class="tabla" cellspacing="0">
 

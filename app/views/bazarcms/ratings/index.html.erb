@@ -1,4 +1,4 @@
-<h1>Listado de rating</h1>
+<h1><%=t(:text_listado_de_rating)%></h1>
 
 <table>
   <tr>
@@ -9,9 +9,9 @@
 
 <% @ratings.each do |rating| %>
   <tr>
-    <td><%= link_to 'Show', rating %></td>
-    <td><%= link_to 'Edit', edit_bazarcms_rating_path(rating) %></td>
-    <td><%= link_to 'Destroy', rating, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to t(:label_show), rating %></td>
+    <td><%= link_to t(:label_edit), edit_bazarcms_rating_path(rating) %></td>
+    <td><%= link_to t(:label_destroy), rating, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -22,13 +22,13 @@
 <tr>
 	
   <td>
-  	<b>Cual fue su role:</b>
+  	<b><%=t(:text_cual_fue_su_role)%></b>
   </td>
 
   <td>
    	<p id="opciones-oferta">
-   		<span><label id="check-cliente"><input type="radio" name="tipo" value="C" checked="checked">Cliente</label></span>
-   		<span><label id="check-proveedor"><input type="radio" name="tipo" value="P">Proveedor</label></span>
+   		<span><label id="check-cliente"><input type="radio" name="tipo" value="C" checked="checked"><%=t(:text_cliente)%></label></span>
+   		<span><label id="check-proveedor"><input type="radio" name="tipo" value="P"><%=t(:text_proveedor)%></label></span>
    		<input id="cliente-proveedor" name="rating[cliente-proveedor]" type="hidden" value="C">
     </p>
   </td>
@@ -38,8 +38,8 @@
 <tr id="pre1">
 	
   <td>
-    <p><b>Satisfacción de expectativas:</b> ¿Se ajusta el producto/servicio a lo
-	descrito en la oferta?</p>
+    <p><b><%=t(:text_satisfacci_n_de_expectativas)%></b><%=t(:text_se_ajusta_el_producto_servicio_a_lo)%>
+	<%=t(:text_descrito_en_la_oferta)%></p>
   </td>
 
   <td>
@@ -53,7 +53,7 @@
 
 	</div>
 	<div id="eva1">
-		Sin evaluar.
+		<%=t(:text_sin_evaluar)%>
 	</div>
 	
 	<input id="proveedor_expectativas" name="rating[proveedor_expectativas]" type="hidden">
@@ -65,8 +65,8 @@
 <tr id="pre2">
 	
   <td>
-    <p><b>Cumplimiento de plazos:</b> ¿Se entregó el producto/servicio conforme a lo
-	acordado inicialmente?</p>
+    <p><b><%=t(:text_cumplimiento_de_plazos)%></b><%=t(:text_se_entreg_el_producto_servicio_conforme_a_lo)%>
+	<%=t(:text_acordado_inicialmente)%></p>
   </td>
 
   <td>
@@ -80,7 +80,7 @@
 
 	</div>
 	<div id="eva2">
-		Sin evaluar.
+		<%=t(:text_sin_evaluar)%>
 	</div>
 
 	<input id="proveedor_plazos" name="rating[proveedor_plazos]" type="hidden">
@@ -92,8 +92,8 @@
 <tr id="pre3">
 	
   <td>
-    <p><b>Comunicación:</b> ¿Cómo de fluida, armoniosa o duramente tensa fue la
-	comunicación con la otra parte?</p>
+    <p><b><%=t(:text_comunicaci_n)%></b><%=t(:text_c_mo_de_fluida_armoniosa_o_duramente_tensa_fue_la)%>
+	<%=t(:text_comunicaci_n_con_la_otra_parte)%></p>
   </td>
 
   <td>
@@ -107,7 +107,7 @@
 
 	</div>
 	<div id="eva3">
-		Sin evaluar.
+		<%=t(:text_sin_evaluar)%>
 	</div>
 	
     <input id="proveedor_comunicacion" name="rating[proveedor_comunicacion]" type="hidden">
@@ -119,7 +119,7 @@
 <tr id="pre4" style="display: none">
 	
   <td>
-    <p><b>Pago dentro de plazos:</b>  ¿se abonó el pago por el producto/servicio dentro de lo convenido durante el acuerdo?</p>
+    <p><b><%=t(:text_pago_dentro_de_plazos)%></b><%=t(:text_se_abon_el_pago_por_el_producto_servicio_dentro_de_lo_convenido_durante_el_acuerdo)%></p>
   </td>
 
   <td>
@@ -133,7 +133,7 @@
 
 	</div>
 	<div id="eva4">
-		Sin evaluar.
+		<%=t(:text_sin_evaluar)%>
 	</div>
 	
     <input id="cliente_plazos" name="rating[cliente_plazos]" type="hidden">
@@ -145,8 +145,8 @@
 <tr id="pre5" style="display: none">
 	
   <td>
-    <p><b>Comunicación:</b> ¿Cómo de fluida, armoniosa o duramente tensa fue la
-	comunicación con la otra parte?</p>
+    <p><b><%=t(:text_comunicaci_n)%></b><%=t(:text_c_mo_de_fluida_armoniosa_o_duramente_tensa_fue_la)%>
+	<%=t(:text_comunicaci_n_con_la_otra_parte)%></p>
   </td>
 
   <td>
@@ -160,7 +160,7 @@
 
 	</div>
 	<div id="eva5">
-		Sin evaluar.
+		<%=t(:text_sin_evaluar)%>
 	</div>
 	
    <input id="cliente_comunicacion" name="rating[cliente_comunicacion]" type="hidden">

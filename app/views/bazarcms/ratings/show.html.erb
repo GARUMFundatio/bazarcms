@@ -1,6 +1,6 @@
 <div id="nuevaubicacion">
 
-<h3>Rating 	<%= @rating.des_empresa_nombre %>:</b>
+<h3><%=t(:text_rating)%><%= @rating.des_empresa_nombre %>:</b>
 </h3>
 
 
@@ -26,7 +26,7 @@
 
 <br/>
 
-<h3>Detalle de las valoraciones de esta empresa</h3> 
+<h3><%=t(:text_detalle_de_las_valoraciones_de_esta_empresa)%></h3> 
 
 <%= render 'list' %>
 

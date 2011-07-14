@@ -1,4 +1,4 @@
-<a class="volver-home-link" href="/home">&laquo; Volver a la página de búsquedas</a>
+<a class="volver-home-link" href="/home"><%=t(:text_laquo_volver_a_la_p_gina_de_b_squedas)%></a>
 
 <script>
 	$(function() {
@@ -10,12 +10,12 @@
 
     <div id="tabs" style="text-align: left;">
     	<ul>
-    	    <li><a href="#tabs-1">Información</a></li>
-    	    <li><a href="#tabs-2">Datos</a></li>
-    	    <li><a href="#tabs-3">Ubicaciones</a></li>
-    	    <li><a href="#tabs-4">Sectores</a></li>
-    	    <li><a href="#tabs-5">Ficheros</a></li>
-    	    <li><a href="#tabs-6">Actividad</a></li>
+    	    <li><a href="#tabs-1"><%=t(:text_informaci_n)%></a></li>
+    	    <li><a href="#tabs-2"><%=t(:text_datos)%></a></li>
+    	    <li><a href="#tabs-3"><%=t(:text_ubicaciones)%></a></li>
+    	    <li><a href="#tabs-4"><%=t(:text_sectores)%></a></li>
+    	    <li><a href="#tabs-5"><%=t(:text_ficheros)%></a></li>
+    	    <li><a href="#tabs-6"><%=t(:text_actividad)%></a></li>
     	</ul>
 
         <div id="tabs-1">
@@ -24,7 +24,7 @@
 
               <% if @empresa.errors.any? %>
                 <div id="error_explanation">
-                  <h2><%= pluralize(@user.errors.count, "error") %> No se ha podido salvar los datos de la empresa:</h2>
+                  <h2><%= pluralize(@user.errors.count, "error") %><%=t(:text_no_se_ha_podido_salvar_los_datos_de_la_empresa)%></h2>
 
                   <ul>
                   <% @empresa.errors.full_messages.each do |msg| %>
@@ -49,10 +49,10 @@
             <p><%= f.label :Web %>
             <%= f.text_field :url, :size => 40 %></p>
 
-            <p><label for="bazarcms_empresa_actividad_list">Ofrecemos: <span class="form-help">(tags separados por comas)</span></label>
+            <p><label for="bazarcms_empresa_actividad_list"><%=t(:text_ofrecemos)%><span class="form-help"><%=t(:text_tags_separados_por_comas)%></span></label>
             <%= f.text_area :actividad_list, :size => "60x4" %></p>
 
-            <p><label for="bazarcms_empresa_interes_list">Nos Interesa: <span class="form-help">(tags separados por comas)</span></label>
+            <p><label for="bazarcms_empresa_interes_list"><%=t(:text_nos_interesa)%><span class="form-help"><%=t(:text_tags_separados_por_comas)%></span></label>
             <%= f.text_area :interes_list, :size => "60x4" %></p>
 
 
@@ -65,17 +65,17 @@
 
         <div id="tabs-2">
 
-            <h3>Información Económica</h3>
+            <h3><%=t(:text_informaci_n_econ_mica)%></h3>
 
 
             <table class="tabla" cellspacing="0">
             	<tr>
-            		<th>Año</th>
-            		<th>Empleados</th>
-            		<th>Compras</th>
-            		<th>Ventas</th>
-            		<th>Resultados</th>
-            		<th>Acción</th>
+            		<th><%=t(:text_a_o)%></th>
+            		<th><%=t(:text_empleados)%></th>
+            		<th><%=t(:text_compras)%></th>
+            		<th><%=t(:text_ventas)%></th>
+            		<th><%=t(:text_resultados)%></th>
+            		<th><%=t(:text_acci_n)%></th>
             	</tr>
 
             	<% for emp in @empresasdatos do %>
@@ -99,7 +99,7 @@
             <table class="tabla" cellspacing="0">
             <tr>
               <th colspan="3">
-                Ubicaciones:
+                <%=t(:text_ubicaciones)%>
               </th>
             </tr>
 
@@ -113,7 +113,7 @@
 				<% if !ubi.ciudad.nil? %>
             		<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
 				<% else %>
-					Seleccione una ciudad para esta ubicación
+					<%=t(:text_seleccione_una_ciudad_para_esta_ubicaci_n)%>
 				<% end %>
             </td>
 
@@ -131,41 +131,41 @@
             </div>
 
             <p><a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png") %></a>
-            <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);">Añadir una nueva Ubicación</a></p>
+            <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%=t(:text_a_adir_una_nueva_ubicaci_n)%></a></p>
 
         </div>
 
         <div id="tabs-4">
 
-			<h3>Nuestra Actividad</h3>	
+			<h3><%=t(:text_nuestra_actividad)%></h3>	
 			<table cellspacing="0" class="tabla">
-				<tr><th>Sectores Disponibles</th><th>Mis Sectores</th></tr>
+				<tr><th><%=t(:text_sectores_disponibles)%></th><th><%=t(:text_mis_sectores)%></th></tr>
 				<tr>
 					<td valign="top" style="width: 400px;">
 					<form action="#loquesea" >
-					 	Buscar en sectores <input type="text" name="q" id="query1" />
+					 	<%=t(:text_buscar_en_sectores)%><input type="text" name="q" id="query1" />
 					 </form>
 					</td>					
 					<td>
 						<div id="missectores">
-							Seleccione algún sector en la caja de búsqueda
+							<%=t(:text_seleccione_alg_n_sector_en_la_caja_de_b_squeda)%>
 						</div>
 					</td>
 				</tr>
 			</table>
 
-			<h3>Nos interesa</h3>	
+			<h3><%=t(:text_nos_interesa)%></h3>	
 			<table cellspacing="0" class="tabla">
-				<tr><th>Sectores Disponibles</th><th>Sectores Seleccionados</th></tr>
+				<tr><th><%=t(:text_sectores_disponibles)%></th><th><%=t(:text_sectores_seleccionados)%></th></tr>
 				<tr>
 					<td valign="top" style="width: 400px;">
 					<form action="#" >
-					 	Buscar en sectores <input type="text" name="q" id="query2" />
+					 	<%=t(:text_buscar_en_sectores)%><input type="text" name="q" id="query2" />
 					 </form>
 					</td>					
 					<td>
 						<div id="misdemandas">
-							Seleccione algún sector en la caja de búsqueda
+							<%=t(:text_seleccione_alg_n_sector_en_la_caja_de_b_squeda)%>
 						</div>
 					</td>
 				</tr>
@@ -174,11 +174,11 @@
         </div>
 
         <div id="tabs-5">
-          <p>Coming Soon!!!</p>
+          <p><%=t(:text_coming_soon)%></p>
         </div>
 
         <div id="tabs-6">
-          <p>Coming Soon!!!</p>
+          <p><%=t(:text_coming_soon)%></p>
         </div>
 
     </div>

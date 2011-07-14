@@ -1,4 +1,4 @@
-<h1>Listing ubicaciones</h1>
+<h1><%=t(:text_listing_ubicaciones)%></h1>
 
 <table>
   <tr>
@@ -9,13 +9,13 @@
 
 <% @ubicaciones.each do |ubicacion| %>
   <tr>
-    <td><%= link_to 'Show', ubicacion %></td>
-    <td><%= link_to 'Edit', edit_bazarcms_ubicacion_path(ubicacion) %></td>
-    <td><%= link_to 'Destroy', ubicacion, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to t(:label_show), ubicacion %></td>
+    <td><%= link_to t(:label_edit), edit_bazarcms_ubicacion_path(ubicacion) %></td>
+    <td><%= link_to t(:label_destroy), ubicacion, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Ubicacion', new_bazarcms_ubicacion_path %>
+<%= link_to t(:label_new_ubicacion), new_bazarcms_ubicacion_path %>

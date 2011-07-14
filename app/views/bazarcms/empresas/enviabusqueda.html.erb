@@ -1,11 +1,11 @@
 <% if @consulta.total_resultados == 0 %>
 
-	<h3> ¡No hay empresas con los criterios seleccionados revíselos y vuelva a realizar la consulta!</h3>
+	<h3><%=t(:text_no_hay_empresas_con_los_criterios_seleccionados_rev_selos_y_vuelva_a_realizar_la_consulta)%></h3>
 <% else %>
 
-	<h3> Con estos criterios de búsqueda hay <b><%= @consulta.total_resultados -%></b> empresas.</h3>
+	<h3><%=t(:text_con_estos_criterios_de_b_squeda_hay)%><b><%= @consulta.total_resultados -%></b><%=t(:text_empresas)%></h3>
 	<input type="hidden" id="consultaid" value="<%= @consulta.id -%>"/>
-	<p>Si la cantidad le parece adecuada, puede proceder a rellenar los de la oferta/demanda.</p>
+	<p><%=t(:text_si_la_cantidad_le_parece_adecuada_puede_proceder_a_rellenar_los_de_la_oferta_demanda)%></p>
 	<script>
 	
 	$(function() {

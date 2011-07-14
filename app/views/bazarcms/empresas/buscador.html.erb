@@ -2,12 +2,12 @@
 <div id="cajabusqueda">
 <div class="demo">
 
-<h3 class="page-title">Busca Empresas</h3>
+<h3 class="page-title"><%=t(:text_busca_empresas)%></h3>
 
 <p class="busqueda-principal">
 <input id="busca" name="busqueda" size="30" type="text">
-<label for="busca" class="form-help">Puede introducir varios términos de busqueda separados por espacios. Por ejemplo: madrid web<br />
-Puede usar * para términos parciales. Por ejemplo: herramientas*</label>
+<label for="busca" class="form-help"><%=t(:text_puede_introducir_varios_t_rminos_de_busqueda_separados_por_espacios_por_ejemplo_madrid_web)%><br />
+<%=t(:text_puede_usar_para_t_rminos_parciales_por_ejemplo_herramientas)%></label>
 </p>
 
 	<style>
@@ -84,7 +84,7 @@ Puede usar * para términos parciales. Por ejemplo: herramientas*</label>
 <table border="0" cellspacing="0">
 	<tr>
 		<td width="350px">
-			<label for="empleados">Nº Empleados:</label>
+			<label for="empleados"><%=t(:text_n_empleados)%></label>
 
 		</td>
 		<td width="200px">
@@ -100,7 +100,7 @@ Puede usar * para términos parciales. Por ejemplo: herramientas*</label>
 <table border="0" cellspacing="0">
 	<tr>
 		<td width="350px">
-			<label for="compras">Compras:</label>
+			<label for="compras"><%=t(:text_compras)%></label>
 		</td>
 		<td width="200px">
 			<div id="slider-range3"></div>
@@ -115,7 +115,7 @@ Puede usar * para términos parciales. Por ejemplo: herramientas*</label>
 <table border="0" cellspacing="0">
 	<tr>
 		<td width="350px">
-			<label for="ventas">Ventas:</label>
+			<label for="ventas"><%=t(:text_ventas)%></label>
 		</td>
 		<td width="200px">
 			<div id="slider-range2"></div>
@@ -132,7 +132,7 @@ Puede usar * para términos parciales. Por ejemplo: herramientas*</label>
 <table border="0" cellspacing="0">
 	<tr>
 		<td width="350px">
-			<label for="resultados">Resultados:</label>
+			<label for="resultados"><%=t(:text_resultados)%></label>
 		</td>
 		<td width="200px">
 			<div id="slider-range4"></div>
@@ -144,7 +144,7 @@ Puede usar * para términos parciales. Por ejemplo: herramientas*</label>
 	</tr>
 </table>
 
-  <button>Buscar</button>
+  <button><%=t(:text_buscar)%></button>
 </div>
 
 </div>
@@ -166,7 +166,7 @@ Puede usar * para términos parciales. Por ejemplo: herramientas*</label>
 </div>
 
 <div id="resultados">
-<h3>Cómo optimizar la búsqueda <a id="ayuda-busqueda-link" href="#ayuda-busqueda">Ver/ocultar</a></h3>
+<h3><%=t(:text_c_mo_optimizar_la_b_squeda)%><a id="ayuda-busqueda-link" href="#ayuda-busqueda"><%=t(:text_ver_ocultar)%></a></h3>
 <script>
 $('#ayuda-busqueda-link').click(function() {
   $('#ayuda-busqueda').toggle();
@@ -176,34 +176,34 @@ $('#ayuda-busqueda-link').click(function() {
      <div id="ayuda-busqueda">
           <ul id="pasos-container">
           <li class="paso" id="paso1">
-               <div>Introduzca los términos de la busqueda</div>
+               <div><%=t(:text_introduzca_los_t_rminos_de_la_busqueda)%></div>
                <img src="/images/ayuda-busqueda-paso1.gif" alt="" />
           </li>
           <li class="paso" id="paso2">
-               <div>Puede usar asteriscos o espacios para buscar por varias palabras.</div>
+               <div><%=t(:text_puede_usar_asteriscos_o_espacios_para_buscar_por_varias_palabras)%></div>
                <img src="/images/ayuda-busqueda-paso2.gif" alt="" />
           </li>
           <li class="paso" id="paso3">
-               <div>Use los desplazadores para limitar la búsqueda.</div>
+               <div><%=t(:text_use_los_desplazadores_para_limitar_la_b_squeda)%></div>
                <img src="/images/ayuda-busqueda-paso3.gif" alt="" />
           </li>
           <li class="paso" id="paso4">
-               <div>Pulse Buscar para empezar la búsqueda</div>
+               <div><%=t(:text_pulse_buscar_para_empezar_la_b_squeda)%></div>
                <img src="/images/ayuda-busqueda-paso4.gif" alt="" />
           </li>
           <li class="paso" id="paso5">
-               <div>Progreso de la búsqueda</div>
+               <div><%=t(:text_progreso_de_la_b_squeda)%></div>
                <img src="/images/ayuda-busqueda-paso5.gif" alt="" />
           </li>
           <li class="paso" id="paso6">
-               <div>Navegue por los resultados.</div>
+               <div><%=t(:text_navegue_por_los_resultados)%></div>
                <img src="/images/ayuda-busqueda-paso6.gif" alt="" />
           </li>
           </ul>
 
           <div class="pasos-nav-pyn">
-          <a href="#" id="prev-paso">Anterior</a>
-          <a href="#" id="next-paso">Siguiente</a>
+          <a href="#" id="prev-paso"><%=t(:text_anterior)%></a>
+          <a href="#" id="next-paso"><%=t(:text_siguiente)%></a>
           </div>
 
      </div><!-- /#ayuda-busuqeda-->

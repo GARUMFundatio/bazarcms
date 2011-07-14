@@ -2,9 +2,9 @@
   <tr>
   	<td>
 		<% if ofertasconsulta.desc == '*' %>
-			Cualquier Oferta/Demanda
+			<%=t(:text_cualquier_oferta_demanda)%>
 		<% else %>
-			Ofertas que cumplen con: <%= ofertasconsulta.desc %>
+			<%=t(:text_ofertas_que_cumplen_con)%><%= ofertasconsulta.desc %>
 		<% end %>
 	</td>
   	<td><%= ofertasconsulta.total_consultas %>/<%= ofertasconsulta.total_respuestas %></td>

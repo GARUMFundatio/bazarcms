@@ -1,6 +1,6 @@
 
-<h3>Resultados de la búsqueda: <span class="query-busqueda"></span></h3>
-<p class="total"><strong>Total:</strong> <%= @consulta.total_resultados %> empresas de <%= @consulta.total_respuestas %> bazares.</p>
+<h3><%=t(:text_resultados_de_la_b_squeda)%><span class="query-busqueda"></span></h3>
+<p class="total"><strong><%=t(:text_total)%></strong> <%= @consulta.total_resultados %><%=t(:text_empresas_de)%><%= @consulta.total_respuestas %><%=t(:text_bazares)%></p>
 
 <% if params[:display] == 'inside' %>
 	<% @empresasresultados = @consulta.empresasresultados.order('orden desc').limit(10) %>
@@ -11,8 +11,8 @@
 <table id="results" class="tabla" cellspacing="0">
 
 <tr>
-  <th>Empresa</th>
-  <th>Origen</th>
+  <th><%=t(:text_empresa)%></th>
+  <th><%=t(:text_origen)%></th>
   <th></th>
 </tr>	
 

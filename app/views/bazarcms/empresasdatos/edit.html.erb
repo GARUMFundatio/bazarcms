@@ -4,7 +4,7 @@
 
   <% if @empresasdatos.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> No se ha podido salvar los datos de este periodo:</h2>
+      <h2><%= pluralize(@user.errors.count, "error") %><%=t(:text_no_se_ha_podido_salvar_los_datos_de_este_periodo)%></h2>
 
       <ul>
       <% @empresasdatos.errors.full_messages.each do |msg| %>
