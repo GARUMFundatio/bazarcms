@@ -29,7 +29,7 @@ module Bazarcms
     # cargamos los locales de bazarcms 
     
     path=File.dirname(__FILE__)
-    I18n.load_path += Dir[ File.join(path, 'config/locales/bazarcms', '*.{rb,yml}') ]
+    I18n.load_path += Dir[ File.join(path, '../locales/bazarcms', '*.{rb,yml}') ]
 
     puts "-----> Cargamos los locales de: #{path}"
     
