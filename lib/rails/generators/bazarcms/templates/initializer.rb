@@ -26,6 +26,16 @@ module Bazarcms
       
     end
      
+    # cargamos los locales de bazarcms 
+    
+    path=File.dirname(__FILE__)
+    I18n.load_path += Dir[ File.join(path, 'config/locales/bazarcms', '*.{rb,yml}') ]
+
+    puts "-----> Cargamos los locales de: #{path}"
+    
+    puts "-----> Cargamos los locales de: #{I18n.load_path.inspect}"
+    
+     
 #     Bazarcms::Application.config.middleware.use ::ExceptionNotifier,
 #        :email_prefix => "[Bazar Garum] ",
 #        :sender_address => %{"Notifier" <juantomas@geofun.es>},
