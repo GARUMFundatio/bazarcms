@@ -37,7 +37,7 @@ module Bazarcms
 
       puts "Me traigo la información del rating de su bazar"
 
-      res = dohttpget(params[:bazar_id], "/bazarcms/ratings/rating?bazar_id=#{params[:bazar_id]}&display=inside")
+      res = dohttpget(params[:bazar_id], "/bazarcms/ficharating/#{params[:empresa_id]}?bazar_id=#{params[:bazar_id]}&display=inside")
 
       if (res == "")
         res = "Información temporalmente no disponible."
