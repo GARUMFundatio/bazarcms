@@ -154,7 +154,7 @@ module Bazarcms
           # @empresa.updated_at = DateTime.now 
           # @empresa.save
           
-          format.html { redirect_to('/bazarcms/ficharating/'+"#{@rating.des_empresa_id}") }
+          format.html { redirect_to('/bazarcms/ficharating/'+"#{@rating.des_empresa_id}?bazar_id=#{@rating.des_bazar_id}") }
           format.xml  { render :xml => @rating, :status => :created, :location => @rating }
         else
           format.html { render :action => "new" }
