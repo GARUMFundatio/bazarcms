@@ -1,4 +1,4 @@
-<a class="volver-home-link" href="/home"><%=t(:text_laquo_volver_a_la_p_gina_de_b_squedas)%></a>
+<a class="volver-home-link" href="/home"><%=t(:text_volver_a_la_pagina_de_busquedas)%></a>
 
 <script>
 	$(function() {
@@ -10,7 +10,7 @@
 
     <div id="tabs" style="text-align: left;">
     	<ul>
-    	    <li><a href="#tabs-1"><%=t(:text_informaci_n)%></a></li>
+    	    <li><a href="#tabs-1"><%=t(:text_informacion)%></a></li>
     	    <li><a href="#tabs-2"><%=t(:text_datos)%></a></li>
     	    <li><a href="#tabs-3"><%=t(:text_ubicaciones)%></a></li>
     	    <li><a href="#tabs-4"><%=t(:text_sectores)%></a></li>
@@ -65,17 +65,17 @@
 
         <div id="tabs-2">
 
-            <h3><%=t(:text_informaci_n_econ_mica)%></h3>
+            <h3><%=t(:text_informacion_economica)%></h3>
 
 
             <table class="tabla" cellspacing="0">
             	<tr>
-            		<th><%=t(:text_a_o)%></th>
+            		<th><%=t(:text_ano)%></th>
             		<th><%=t(:text_empleados)%></th>
             		<th><%=t(:text_compras)%></th>
             		<th><%=t(:text_ventas)%></th>
             		<th><%=t(:text_resultados)%></th>
-            		<th><%=t(:text_acci_n)%></th>
+            		<th><%=t(:text_accion)%></th>
             	</tr>
 
             	<% for emp in @empresasdatos do %>
@@ -113,7 +113,7 @@
 				<% if !ubi.ciudad.nil? %>
             		<%= ubi.ciudad.descripcion -%>, <%= ubi.ciudad.pais.descripcion -%>
 				<% else %>
-					<%=t(:text_seleccione_una_ciudad_para_esta_ubicaci_n)%>
+					<%=t(:text_seleccione_una_ciudad_para_esta_ubicacion)%>
 				<% end %>
             </td>
 
@@ -131,7 +131,7 @@
             </div>
 
             <p><a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%= image_tag("add.png") %></a>
-            <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%=t(:text_a_adir_una_nueva_ubicaci_n)%></a></p>
+            <a href="#" onclick="$('#addubi').load('<%= new_bazarcms_ubicacion_path -%>?empresa='+<%= params[:id] -%>);"><%=t(:text_anadir_una_nueva_ubicacion)%></a></p>
 
         </div>
 
@@ -148,7 +148,7 @@
 					</td>					
 					<td>
 						<div id="missectores">
-							<%=t(:text_seleccione_alg_n_sector_en_la_caja_de_b_squeda)%>
+							<%=t(:text_seleccione_algun_sector_en_la_caja_de_busqueda)%>
 						</div>
 					</td>
 				</tr>
@@ -165,7 +165,7 @@
 					</td>					
 					<td>
 						<div id="misdemandas">
-							<%=t(:text_seleccione_alg_n_sector_en_la_caja_de_b_squeda)%>
+							<%=t(:text_seleccione_algun_sector_en_la_caja_de_busqueda)%>
 						</div>
 					</td>
 				</tr>
