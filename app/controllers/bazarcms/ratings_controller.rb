@@ -238,7 +238,7 @@ module Bazarcms
 
       respond_to do |format|
         if (params[:bazar_id].to_i != BZ_param("BazarId").to_i)
-          render :text => res
+          format.html {render :text => res, :layout => 'bazar'}
         else 
           if (params[:display] == "inside")
             format.html { render :layout => false }
