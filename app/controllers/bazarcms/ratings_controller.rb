@@ -48,7 +48,16 @@ module Bazarcms
     @ratings = Bazarcms::Rating.all
 
     respond_to do |format|
-      format.html # show.html.erb
+      if (params[:bazar_id].to_i != BZ_param("BazarId").to_i)
+        render :text => res
+      else 
+        if (params[:display] == "inside")
+          render :text => res, :layout => false
+        else
+          format.html
+        end 
+      end
+      
       format.xml  { render :xml => @rating }
     end
 
