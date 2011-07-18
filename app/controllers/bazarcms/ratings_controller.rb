@@ -212,18 +212,43 @@ module Bazarcms
 
     def ficha
       # @rating = Rating.find(params[:id])
-      @empresa = Empresa.find_by_id(params[:id])
-  
-      @ratings = Rating.where("(ori_empresa_id = ? and ori_bazar_id = ? ) or (des_empresa_id = ? and des_bazar_id = ? ) ", 
-        params[:id], BZ_param("BazarId"), params[:id], BZ_param("BazarId")).order("updated_at")
-  
-      respond_to do |format|
-        if params[:display] == 'inside'
-          format.html { render :layout => false }
-        else 
-          format.html { render }
+      
+      if (params[:bazar_id].to_i != BZ_param("BazarId").to_i)
+
+        puts "Me traigo la información del rating de su bazar"
+
+        res = dohttpget(params[:bazar_id], "/bazarcms/ficharating/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside")
+
+        if (res == "")
+          res = "Información temporalmente no disponible."
         end
+
+      else 
+      
+        @empresa = Empresa.find_by_id(params[:id])
+  
+        # comprobar si este query era el optimo
+        # @ratings = Rating.where("(ori_empresa_id = ? and ori_bazar_id = ? ) or (des_empresa_id = ? and des_bazar_id = ? ) ", 
+        #  params[:id], BZ_param("BazarId"), params[:id], BZ_param("BazarId")).order("updated_at")
+
+        @ratings = Bazarcms::Rating.all
+        
       end
+
+
+      respond_to do |format|
+        if (params[:bazar_id].to_i != BZ_param("BazarId").to_i)
+          render :text => res
+        else 
+          if (params[:display] == "inside")
+            render :text => res, :layout => false
+          else
+            format.html
+          end 
+        end
+
+      end
+        
     end
 
 
