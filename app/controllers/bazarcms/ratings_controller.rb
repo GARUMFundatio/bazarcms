@@ -241,7 +241,7 @@ module Bazarcms
           render :text => res
         else 
           if (params[:display] == "inside")
-            render :text => res, :layout => false
+            format.html :layout => false
           else
             format.html
           end 
