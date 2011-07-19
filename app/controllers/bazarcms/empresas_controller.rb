@@ -256,7 +256,7 @@ module Bazarcms
       @consulta.save
 
       if (params[:q] == '*')
-        resultados = Empresa.all.order('rating desc').limit(100)
+        resultados = Empresa.where('1 =1').order('rating desc').limit(100)
       else 
         resultados = Empresa.find_with_ferret(params[:q], :limit => :all)        
       end
