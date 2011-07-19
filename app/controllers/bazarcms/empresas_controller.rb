@@ -255,7 +255,12 @@ module Bazarcms
       @consulta.total_respuestas = @consulta.total_respuestas + 1;
       @consulta.save
 
-      resultados = Empresa.find_with_ferret(params[:q], :limit => 100)
+      if (params[:q] == '*')
+        resultados = Empresa.find_with_ferret(params[:q], :limit => 100)
+      else 
+        resultados = Empresa.find_with_ferret(params[:q], :limit => :all)        
+      end
+      
       logger.debug "resu: (#{resultados.inspect}) <-------"
            
       conta2 = 0
@@ -611,8 +616,12 @@ module Bazarcms
     logger.debug "decodeado #{params[:pofertan]}"
     logger.debug "decodeado #{params[:pdemandan]}"
     logger.debug "decodeado #{params[:ppaises]}"
-    
-    resultados = Empresa.find_with_ferret(params[:q])
+        
+    if (params[:q] == '*')
+      resultados = Empresa.find_with_ferret(params[:q], :limit => 100)
+    else 
+      resultados = Empresa.find_with_ferret(params[:q], :limit => :all)        
+    end
     
     logger.debug "#{resultados.inspect}"
     resultados2 = []
