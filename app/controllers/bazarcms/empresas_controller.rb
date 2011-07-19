@@ -618,7 +618,7 @@ module Bazarcms
     logger.debug "decodeado #{params[:ppaises]}"
         
     if (params[:q] == '*')
-      resultados = Empresa.find_with_ferret(params[:q], :limit => 100)
+      resultados = Empresa.where('1 =1').order('rating desc').limit(100)
     else 
       resultados = Empresa.find_with_ferret(params[:q], :limit => :all)        
     end

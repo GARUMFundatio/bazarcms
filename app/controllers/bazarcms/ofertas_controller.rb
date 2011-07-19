@@ -271,7 +271,7 @@ module Bazarcms
       @consulta.save
       
       if (params[:q] == '*')
-        resultados = Oferta.find_with_ferret(params[:q], :limit => 100)
+        resultados = Oferta.where('1 = 1').order('fecha desc').limit(100)
       else 
         resultados = Oferta.find_with_ferret(params[:q], :limit => :all)        
       end
@@ -556,7 +556,7 @@ module Bazarcms
       logger.debug "decodeado #{params[:qtipo]}"
 
       if (params[:q] == '*')
-        resultados = Oferta.find_with_ferret(params[:q], :limit => 100)
+        resultados = Oferta.where('1 = 1').order('fecha desc').limit(100)
       else 
         resultados = Oferta.find_with_ferret(params[:q], :limit => :all)        
       end
