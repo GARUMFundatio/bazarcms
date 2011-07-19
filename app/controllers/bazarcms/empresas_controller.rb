@@ -255,7 +255,7 @@ module Bazarcms
       @consulta.total_respuestas = @consulta.total_respuestas + 1;
       @consulta.save
 
-      resultados = Empresa.find_with_ferret(params[:q], {:limit => 100})
+      resultados = Empresa.find_with_ferret(params[:q], :limit => 100)
       logger.debug "resu: (#{resultados.inspect}) <-------"
            
       conta2 = 0
