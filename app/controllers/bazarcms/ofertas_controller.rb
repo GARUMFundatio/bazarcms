@@ -269,8 +269,13 @@ module Bazarcms
       
       @consulta.total_respuestas = @consulta.total_respuestas + 1;
       @consulta.save
-
-      resultados = Oferta.find_with_ferret(params[:q])
+      
+      if (params[:q] == '*')
+        resultados = Oferta.where('1 = 1').order('fecha desc').limit(100)
+      else 
+        resultados = Oferta.find_with_ferret(params[:q], :limit => :all)        
+      end
+      
       logger.debug "resu: (#{resultados.inspect}) <-------"
            
       conta2 = 0
@@ -550,8 +555,12 @@ module Bazarcms
       logger.debug "decodeado #{params[:ppaises]}"
       logger.debug "decodeado #{params[:qtipo]}"
 
-      resultados = Oferta.find_with_ferret(params[:q])
-
+      if (params[:q] == '*')
+        resultados = Oferta.where('1 = 1').order('fecha desc').limit(100)
+      else 
+        resultados = Oferta.find_with_ferret(params[:q], :limit => :all)        
+      end
+     
       logger.debug "#{resultados.inspect}"
       resultados2 = []
       resultados2 = [:cluster_id => BZ_param('BazarId')]
