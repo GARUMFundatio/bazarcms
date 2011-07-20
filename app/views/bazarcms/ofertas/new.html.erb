@@ -18,7 +18,7 @@
     </div><!-- /#publicar-od-tipo -->
     
     <div id="publicar-od-keywords" class="publicar-seccion">
-    	<h4><em>b</em><%=t(:text_defina_las_palabras_clave_que_desea_de_las_empresas_que_se_van_a_seleccionar_puede_dejarlo_vac_o)%></h4>
+    	<h4><em>b</em><%=t(:text_defina_las_palabras_clave_que_desea_de_las_empresas_que_se_van_a_seleccionar_puede_dejarlo_vacio)%></h4>
 
     	<div class="demo">
 
@@ -116,8 +116,8 @@
         			</td>
         			<td valign="top" >
         			<div id="filtroofertan">
-        				<p><%=t(:text_seleccione_uno_o_varios_sectores_en_la_caja_de_b_squeda)%></p>
-        				<p><b><%=t(:text_solo)%></b><%=t(:text_las_empresas_que_est_n_en)%><b><%=t(:text_alguno)%></b><%=t(:text_de_estos_sectores)%></p>
+        				<p><%=t(:text_seleccione_uno_o_varios_sectores_en_la_caja_de_busqueda)%></p>
+        				<p><b><%=t(:text_solo)%> </b><%=t(:text_las_empresas_que_est_n_en)%><b> <%=t(:text_alguno)%></b> <%=t(:text_de_estos_sectores)%></p>
         			</div>
         			</td>
         		</tr>
@@ -132,8 +132,8 @@
         			</td>
         			<td valign="top">
         				<div id="filtrodemandan">
-        					<p><%=t(:text_seleccione_uno_o_varios_sectores_en_la_caja_de_b_squeda)%></p>
-        					<p><b><%=t(:text_solo)%><b/><%=t(:text_las_empresas_que_est_n_en)%><b><%=t(:text_alguno)%></b><%=t(:text_de_estos_sectores)%></p>
+        					<p><%=t(:text_seleccione_uno_o_varios_sectores_en_la_caja_de_busqueda)%></p>
+        					<p><b><%=t(:text_solo)%> <b/><%=t(:text_las_empresas_que_est_n_en)%><b><%=t(:text_alguno)%></b> <%=t(:text_de_estos_sectores)%></p>
         				</div>
         			</td>
         		</tr>
@@ -357,21 +357,21 @@
 
     <div id="publicar-od-paises" class="publicar-seccion">
 
-        <h4><em>d</em><%=t(:text_solo_empresas_que_tengan_presencia_en_estos_pa_ses)%></h4>
+        <h4><em>d</em><%=t(:text_solo_empresas_que_tengan_presencia_en_estos_paises)%></h4>
 
     	<div id="filtro-pais">
 
     		<table cellspacing="0" class="tabla">
-    			<tr><th><%=t(:text_pa_ses)%></th><th><%=t(:text_pa_ses_seleccionados)%></th></tr>
+    			<tr><th><%=t(:text_paises)%></th><th><%=t(:text_paises_seleccionados)%></th></tr>
     			<tr>
     				<td valign="top" style="width: 420px;">
-    	                <label for="query3"><%=t(:text_buscar_pa_ses)%></label>
+    	                <label for="query3"><%=t(:text_buscar_paises)%></label>
     	                <input type="text" name="q" id="query3" />
 			 			<input type="hidden" id="ppaises" style="border:0; color:#f6931f; font-weight:bold;" />
     				</td>
     				<td>
     					<div id="mispaises">
-    						<p><%=t(:text_seleccione_uno_o_varios_pa_ses_en_la_caja_de_b_squeda)%></p>
+    						<p><%=t(:text_seleccione_uno_o_varios_paises_en_la_caja_de_busqueda)%></p>
     					</div>
     				</td>
     			</tr>
@@ -502,7 +502,7 @@
     	<table border="0" cellspacing="0">
     		<tr>
     			<td width="350px">
-    				<label for="empleados"><%=t(:text_n_empleados)%></label>
+    				<label for="empleados"><%=t(:text_numero_empleados)%></label>
 
     			</td>
     			<td width="200px">
@@ -580,7 +580,7 @@
 	</div>
 
 	<div class="navegar-publicar" id="navegar-publicar1" style="display:none;">
-    	<a class="siguiente" href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); "><%=t(:text_siguiente_paso_datos_de_la_oferta)%><span><%=t(:text_rsaquo)%></span></a>
+    	<a class="siguiente" href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); "><%=t(:text_siguiente_paso_datos_de_la_oferta)%><span>»</span></a>
     </div>
     
 	</div>
@@ -589,7 +589,7 @@
 
 <div id="ofer2" style="display:none">
 
-	<h3 class="paso-title"><em>3</em><%=t(:text_informaci_n_de_la_oferta_demanda)%></h3>
+	<h3 class="paso-title"><em>3</em><%=t(:text_informacion_de_la_oferta_demanda)%></h3>
 
 	
 	<input type="hidden" id="bazarcms_oferta_cid" name="bazarcms_oferta[cid]" />
@@ -597,7 +597,7 @@
 	<input type="hidden" id="bazarcms_oferta_filtro" name="bazarcms_oferta[filtro]" />
 	
     <div id="publicar-od-titulo" class="publicar-seccion">
-        <h4><em>a</em><%=t(:text_t_tulo)%></h4>
+        <h4><em>a</em><%=t(:text_titulo)%></h4>
 
 		<%= f.text_field :titulo, :size => "60" %>
 
@@ -605,7 +605,7 @@
 	
 	<div id="publicar-od-descripcion" class="publicar-seccion">
 
-        <h4><em>b</em><%=t(:text_descripci_n)%></h4>
+        <h4><em>b</em><%=t(:text_descripcion)%></h4>
 		<%= f.text_area :texto, :size => "90x12" %>
 
 
@@ -685,7 +685,7 @@
 
 		<br/>
 
-		<p> <strong><%=t(:text_no_cierre)%></strong><%=t(:text_esta_p_gina_o_navegue_hasta_que_le)%><strong><%=t(:text_confirmemos_el_env_o)%></strong></p>
+		<p> <strong><%=t(:text_no_cierre)%></strong><%=t(:text_esta_pagina_o_navegue_hasta_que_le)%><strong><%=t(:text_confirmemos_el_envio)%></strong></p>
 	
 	</div>
 	
