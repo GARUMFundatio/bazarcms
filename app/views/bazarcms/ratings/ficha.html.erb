@@ -26,7 +26,7 @@
 	<td>
 		<%= helper_rating_show(@empresa.rating_cliente, "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}").html_safe %>
 		<% if @empresa.rating_total_cliente > 0 %>
-			<%= @empresa.rating_total_cliente %><%=t(:text_valoraciones)%>
+			<%= @empresa.rating_total_cliente %>&nbsp;<%=t(:text_valoraciones)%>
 		<% end %>
 	</td>
 	
@@ -37,7 +37,7 @@
 	<td>
 		<%= helper_rating_show(@empresa.rating_proveedor, "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}").html_safe %>
 		<% if @empresa.rating_total_proveedor > 0 %>
-			<%= @empresa.rating_total_proveedor %><%=t(:text_valoraciones)%>
+			<%= @empresa.rating_total_proveedor %>&nbsp;<%=t(:text_valoraciones)%>
 		<% end %>
 	</td>
 
