@@ -50,13 +50,13 @@ class BazarcmsGenerator < Rails::Generators::Base
     remove_file 'tmp/~migration_ready.rb'      
 
 
-    for i in 2..8
+    for i in 2..9
       # vemos si ya existe un fichero de migracion vN ubicaciones
       sleep 2
       existe = false; 
       Dir.foreach("db/migrate") { |f|
         if File.fnmatch('*_create_bazarcms_tables'+i.to_s+'.rb', f) then
-          puts 'ya existe!!!!'
+          puts "ya existe #{f} !!!!"
           existe = true
         end
       }
