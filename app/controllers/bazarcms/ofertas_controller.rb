@@ -418,7 +418,11 @@ module Bazarcms
           @res = Ofertasresultado.new(); 
           @res.ofertasconsulta_id = @consulta.id
           @res.cluster_id = micluster
-          @res.empresa_id = resu.id 
+          @res.empresa_id = resu.empresa_id
+          @res.oferta_id = resu.id
+          @res.tipo = resu.tipo
+          @res.nombre_empresa = "poner nombre bien"
+                     
           @res.orden = resu.fecha.strftime('%Y%m%d%H%M')
           @res.enlace = "poner el enlace bien" # resu.url
           @res.info = "#{resu.titulo}"
@@ -468,7 +472,10 @@ module Bazarcms
                   resu = Bazarcms::Ofertasresultado.new()    
                   resu.ofertasconsulta_id = @consulta.id
                   resu.cluster_id = cluster_id
-                  resu.empresa_id = key['oferta']['id'] 
+                  resu.oferta_id = key['oferta']['id']
+                  resu.tipo =  key['oferta']['id']
+                  resu.empresa_id = key['oferta']['empresa_id'] 
+                  resu.nombre_empresa = "poner nombre bien"
                   resu.enlace = "Poner el enlace bien 2" # key['oferta']['url']
                   resu.orden = key['oferta']['fecha'] # .strftime('%Y%m%d%H%M')
                   resu.info = key['oferta']['titulo']
