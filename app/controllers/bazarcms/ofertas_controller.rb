@@ -473,7 +473,7 @@ module Bazarcms
                   resu.ofertasconsulta_id = @consulta.id
                   resu.cluster_id = cluster_id
                   resu.oferta_id = key['oferta']['id']
-                  resu.tipo =  key['oferta']['id']
+                  resu.tipo =  key['oferta']['tipo']
                   resu.empresa_id = key['oferta']['empresa_id'] 
                   resu.nombre_empresa = "poner nombre bien"
                   resu.enlace = "Poner el enlace bien 2" # key['oferta']['url']
