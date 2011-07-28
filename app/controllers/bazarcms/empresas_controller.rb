@@ -131,8 +131,15 @@ module Bazarcms
       
     end
     
-    $i = @empresa.fundada;
-    $num = DateTime.now.year;
+    if !@empresa.fundada.nil? 
+      $i = @empresa.fundada
+    else
+      $i = DateTime.now.year
+      @empresa.fundada = DateTime.now.year
+      @empresa.save
+    end
+    
+    $num = DateTime.now.year
 
 # relleno los datos financieros si no existen
     while $i <= $num  do
