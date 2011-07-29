@@ -681,7 +681,7 @@ module Bazarcms
 
             for cc in cam 
               if (cc != "")
-                datos = Bazarcms::Ofertaspais.where("empresa_id = ? and codigo = ? ", ofe.id, cc)
+                datos = Bazarcms::Ofertaspais.where("consulta_id = ? and codigo = ? ", ofe.id, cc)
 
                 if datos.count > 0
                   logger.debug "ENTRA --------> #{cc}"
