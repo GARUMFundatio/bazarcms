@@ -390,6 +390,8 @@ module Bazarcms
                         logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
                         alguna += 1
                       end
+                    else 
+                      logger.debug "NO ENTRA --------> No tiene país #{ubi.ciudad.descripcion}"
                     end
                   end
                 end 
