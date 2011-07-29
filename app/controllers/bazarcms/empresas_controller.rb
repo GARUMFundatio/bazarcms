@@ -744,9 +744,11 @@ module Bazarcms
               
               if datos.count > 0
                 for ubi in datos
-                  if (ubi.ciudad.pais.id == cc.to_i)
-                    logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
-                    alguna += 1
+                  if !ubi.ciudad.nil?
+                    if (ubi.ciudad.pais.id == cc.to_i)
+                      logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
+                      alguna += 1
+                    end
                   end
                 end
               end 
