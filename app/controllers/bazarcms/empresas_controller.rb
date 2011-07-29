@@ -742,7 +742,7 @@ module Bazarcms
             if (cc != "")
               datos = Bazarcms::Ubicacion.where("empresa_id = ? ", [empre.id])
               
-              if !datos.nil? > 0
+              if !datos.nil?
                 for ubi in datos
                   if !ubi.ciudad.nil?
                     if (ubi.ciudad.pais.id == cc.to_i)
