@@ -394,8 +394,8 @@ module Bazarcms
               if (cc != "")
                 
                 # TODO: en ofertaspaises deberíamos grabar los paises para ahora poder hacer la consulta bien
-                
-                datos = Bazarcms::Ofertaspais.where("consulta_id = ? and codigo = ? ", [resu.id, cc])
+                logger.debug "Paises que buscamos -------> #{resu.id} #{cc}"
+                datos = Bazarcms::Ofertaspais.where("consulta_id = ? and codigo = ? ", resu.id, cc)
                 
                 if datos.count > 0
                   logger.debug "ENTRA --------> #{datos.codigo}"
