@@ -162,7 +162,7 @@ module Bazarcms
             for sec in cam[1].split(',')
               logger.debug "sec (#{sec})"  
               @perfil = Ofertasperfil.new
-              @perfil.consulta_id = @oferta.id
+              @perfil.oferta_id = @oferta.id
               @perfil.codigo = sec
               if (cam[0] == 'pofertan')
                 @perfil.tipo = 'O'
@@ -179,7 +179,7 @@ module Bazarcms
             for sec in cam[1].split(',')
               logger.debug "sec (#{sec})"  
               @pais = Ofertaspais.new
-              @pais.consulta_id = @oferta.id
+              @pais.oferta_id = @oferta.id
               @pais.codigo = sec
               @pais.save
             end
@@ -329,7 +329,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
                 
-                datos = Bazarcms::Ofertasperfil.where("consulta_id = ? and tipo = 'O' and codigo between ? and ? ", resu.id, cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'O' and codigo between ? and ? ", resu.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -372,7 +372,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
                 
-                datos = Bazarcms::Ofertasperfil.where("consulta_id = ? and tipo = 'D' and codigo between ? and ? ", resu.id, cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'D' and codigo between ? and ? ", resu.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -410,7 +410,7 @@ module Bazarcms
                 
                 # TODO: en ofertaspaises deberíamos grabar los paises para ahora poder hacer la consulta bien
                 logger.debug "Paises que buscamos -------> #{resu.id} #{cc}"
-                datos = Bazarcms::Ofertaspais.where("consulta_id = ? and codigo = ? ", resu.id, cc)
+                datos = Bazarcms::Ofertaspais.where("oferta_id = ? and codigo = ? ", resu.id, cc)
                 
                 if datos.count > 0
                   logger.debug "ENTRA --------> #{datos.codigo}"
@@ -624,7 +624,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
 
-                datos = Bazarcms::Ofertasperfil.where("empresa_id = ? and tipo = 'O' and codigo between ? and ? ", [ofe.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'O' and codigo between ? and ? ", ofe.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -643,7 +643,7 @@ module Bazarcms
           logger.debug "pofertan viene vacio !!!"
         end 
 
-        # primero miramos si demandan lo que buscamos
+        # luego miramos si demandan lo que buscamos
 
         if params[:pdemandan].length > 0
 
@@ -666,7 +666,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
 
-                datos = Bazarcms::Ofertasperfil.where("empresa_id = ? and tipo = 'D' and codigo between ? and ? ", [ofe.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'D' and codigo between ? and ? ", ofe.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -696,7 +696,7 @@ module Bazarcms
 
             for cc in cam 
               if (cc != "")
-                datos = Bazarcms::Ofertaspais.where("consulta_id = ? and codigo = ? ", ofe.id, cc)
+                datos = Bazarcms::Ofertaspais.where("oferta_id = ? and codigo = ? ", ofe.id, cc)
 
                 if datos.count > 0
                   logger.debug "ENTRA --------> #{cc}"
