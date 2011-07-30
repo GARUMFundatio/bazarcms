@@ -13,9 +13,7 @@ module Bazarcms
     
     belongs_to :empresa
   
-    # has_many :ubicaciones
     has_many :ofertasconsultas
-    has_many :ofertasperfiles
   
     acts_as_ferret :fields => [ :titulo, :texto ]
     
@@ -29,7 +27,7 @@ module Bazarcms
         oferta.vistas += 1
         oferta.save
 
-        # TODO: actualizar en remoto si oferta es de otro bazar    
+        # TODO: comprobar si hace falta actualizar en remoto si oferta es de otro bazar    
         
       end
       

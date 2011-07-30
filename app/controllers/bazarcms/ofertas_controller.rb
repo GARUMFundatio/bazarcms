@@ -410,10 +410,10 @@ module Bazarcms
                 
                 # TODO: en ofertaspaises deberíamos grabar los paises para ahora poder hacer la consulta bien
                 logger.debug "Paises que buscamos -------> #{resu.id} #{cc}"
-                datos = Bazarcms::Ofertaspais.where("oferta_id = ? and codigo = ? ", resu.id, cc)
+                paises = Bazarcms::Ofertaspais.where("oferta_id = ? and codigo = ? ", resu.id, cc)
                 
-                if datos.count > 0
-                  logger.debug "ENTRA --------> #{datos.codigo}"
+                if paises.count > 0
+                  logger.debug "ENTRA esta oferta por pais --------> #{paises.inspect}"
                   alguna += 1                
                 end 
               end
@@ -748,8 +748,7 @@ module Bazarcms
 
   end 
   
-  # TODO desactivada la respuesta asincrona que solo hay una máquina externa 
-  # para hacer pruebas y está detrás de un NAT
+  
   def estadobusqueda 
     estado = Bazarcms::Ofertasconsulta.where("empresa_id = ?", current_user[:id]).order('fecha_inicio desc').limit(1)
     logger.debug "Estado de la oferta para el usuario #{current_user[:id]}: #{estado.inspect}"
