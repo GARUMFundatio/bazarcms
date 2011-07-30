@@ -155,6 +155,8 @@ module Bazarcms
       logger.debug "filtro (#{fil})"
       cam = fil.split('=')  
 
+        # información de los sectores a los que está dirigida la oferta
+        
         if (cam[0] == 'pofertan' ||cam[0] == 'pdemandan' )
           if (!cam[1].nil?)
             for sec in cam[1].split(',')
@@ -172,6 +174,19 @@ module Bazarcms
           end 
         end
     
+        if (cam[0] == 'ppaises' )
+          if (!cam[1].nil?)
+            for sec in cam[1].split(',')
+              logger.debug "sec (#{sec})"  
+              @pais = Ofertaspais.new
+              @pais.consulta_id = @oferta.id
+              @pais.codigo = sec
+              @pais.save
+            end
+          end 
+        end
+
+
     end 
       
     
@@ -314,7 +329,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
                 
-                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'O' and codigo between ? and ? ", [resu.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("consulta_id = ? and tipo = 'O' and codigo between ? and ? ", resu.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -357,7 +372,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
                 
-                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'D' and codigo between ? and ? ", [resu.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("consulta_id = ? and tipo = 'D' and codigo between ? and ? ", resu.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
