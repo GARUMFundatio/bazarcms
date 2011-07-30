@@ -700,7 +700,7 @@ module Bazarcms
 
                 if pais.count > 0
                   logger.debug "ENTRA por pais --------> #{pais.inspect}"
-                  alguna++
+                  alguna += 1
                 end 
 
               end
