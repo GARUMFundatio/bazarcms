@@ -2,38 +2,32 @@
 
 	<td>
 		<!-- TODO: corregir y comprobar que pasa cuando integremos ofertas de otros bazares --> 
-		<%= link_to Bazarcms::Empresa.find(oferta.empresa_id).nombre, bazarcms_empresa_path(oferta.empresa_id, :bazar_id => oferta.bazar_id) %>
-		<%= helper_rating_show2(oferta.bazar_id, oferta.empresa_id).html_safe %>
+		<% if oferta.cluster_id.to_i == BZ_param('BazarId').to_i %>
+			<%= link_to Bazarcms::Empresa.find(oferta.empresa_id).nombre, bazarcms_empresa_path(oferta.empresa_id, :bazar_id => oferta.cluster_id) %>
+		<% else %>
+			<%= link_to datos_empresa_remota(oferta.cluster_id, oferta.empresa_id)['nombre'], bazarcms_empresa_path(oferta.empresa_id, :bazar_id => oferta.cluster_id) %>
+		
+		<% end %>
+		<%= helper_rating_show2(oferta.cluster_id, oferta.empresa_id).html_safe %>
 	</td>
 
 	<td class="dos-iconos">
 		<!-- TODO: corregir y comprobar que todos los mensajes controlan si es local o de otro bazar --> 
 		<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{oferta.empresa_id}&tipo=M", :title => 'Enviar Mensaje de Correo' %>
-		<%= helper_favo(oferta.bazar_id, oferta.empresa_id, Bazarcms::Empresa.find(oferta.empresa_id).nombre, "oferta") %>
+		<%= helper_favo(oferta.cluster_id, oferta.empresa_id, Bazarcms::Empresa.find(oferta.empresa_id).nombre, "oferta") %>
 	</td>
 
-	<td>
-		<% if oferta.tipo == 'O' %>
-			<%=t(:text_oferta)%>
-		<% else %>
-			<%=t(:text_demanda)%>
-		<% end %>
-	</td>
 	
 	<td>
-		<%= link_to oferta.titulo, bazarcms_oferta_path(oferta.id, :bazar_id => oferta.bazar_id) %>	
+		<%= link_to oferta.info, bazarcms_oferta_path(oferta.oferta_id, :bazar_id => oferta.cluster_id) %>	
 	</td>
 
 	<td class="dos-iconos">
-		<%= helper_favoofe(oferta.bazar_id, oferta.empresa_id, Bazarcms::Empresa.find(oferta.empresa_id).nombre, oferta.id, oferta.titulo) %>
+		<%= helper_favoofe(oferta.cluster_id, oferta.empresa_id, Bazarcms::Empresa.find(oferta.empresa_id).nombre, oferta.oferta_id, oferta.info) %>
 	</td>
 
-
-	<td>
-		<%= oferta.fecha.strftime("%d-%m-%Y") %>	
-	</td>
 
 
 </tr>
 
-<% Bazarcms::Oferta.mostrada(oferta.bazar_id, oferta.id) %>
+<% Bazarcms::Oferta.mostrada(oferta.cluster_id, oferta.oferta_id) %>

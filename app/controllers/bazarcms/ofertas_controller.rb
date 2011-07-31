@@ -11,7 +11,9 @@ module Bazarcms
   layout "bazar"
   def index
 
-    @ofertas = Oferta.where("1 = 1").order("fecha desc").paginate(:per_page => 30, :page => params[:page])
+    # @ofertas = Oferta.where("1 = 1").order("fecha desc").paginate(:per_page => 30, :page => params[:page])
+
+    @ofertas = Ofertasresultado.select("cluster_id, oferta_id, empresa_id, info, orden").where("oferta_id is not null").group("cluster_id, oferta_id").order("orden desc").paginate(:per_page => 30, :page => params[:page])
 
     if request.xhr?
       render :partial => 'oferta', :collection => @ofertas
@@ -762,9 +764,14 @@ module Bazarcms
   end 
 
   def dashboard 
+    # select cluster_id, oferta_id, empresa_id, info, orden  from ofertasresultados  
+    # where oferta_id is not null
+    # group by cluster_id, oferta_id 
+    # order by orden desc
+    # limit 15;
     
-    @ofertas = Oferta.where("1 = 1").order("fecha desc").limit(5)
-    @total = Oferta.count_by_sql("select count(*) from ofertas ;")
+    @ofertas = Ofertasresultado.select("cluster_id, oferta_id, empresa_id, info, orden").where("oferta_id is not null").group("cluster_id, oferta_id").order("orden desc").limit(5)
+    @total = Ofertasresultado.count_by_sql("select count(*) from ofertasresultados where oferta_id is not null group by cluster_id, oferta_id ;")
 
     respond_to do |format|
       format.html { render :layout => false }
