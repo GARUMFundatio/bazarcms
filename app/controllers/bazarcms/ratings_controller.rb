@@ -202,13 +202,40 @@ module Bazarcms
     
     def destroy
       @rating = Rating.find(params[:id])
-      @rating.destroy
+      # TODO no se puede borrar un rating @rating.destroy
 
       respond_to do |format|
         format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
         format.xml  { head :ok }
       end
     end
+
+    def sendrating
+      
+      logger.debug "Voy a enviar el rating ---> #{params[:id]}"
+      
+      @rating = Rating.find_by_id(params[:id])
+      
+      if (!@rating.nil?)
+        logger.debug "rating ----> #{@rating.inspect}"
+        if (@rating.des_bazar_id.to_i != BZ_param('BazarId').to_i)
+          logger.debug "Enviando rating a #{@rating.des_bazar_id}"
+          dohttppost(@rating.des_bazar_id, "/bazarcms/recrating", @rating.to_json)
+        else 
+          logger.debug "el rating #{params[:id]} era un rating local"
+        end
+      else 
+        logger.debug "ufff no existe este rating" 
+      end 
+     end 
+
+    def recrating
+      
+      @rating = Rating.find_by_id(params[:id])
+            
+    end 
+
+
 
     def ficha
       # @rating = Rating.find(params[:id])

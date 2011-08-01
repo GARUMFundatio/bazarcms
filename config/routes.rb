@@ -100,5 +100,8 @@ Bazar::Application.routes.draw do
   match "/ofertasfavorito/dashboard" => "bazarcms/ofertasfavoritos#dashboard"
 
   match "/bazarcms/ficharating/:id" => "bazarcms/ratings#ficha", :constrants => { :id => /\d+/ }
+  match "/bazarcms/sendrating/:id" => "bazarcms/ratings#sendrating", :constrants => { :id => /\d+/ }
+  match "/bazarcms/recrating/" => "bazarcms/ratings#recrating"
+  
       
 end
