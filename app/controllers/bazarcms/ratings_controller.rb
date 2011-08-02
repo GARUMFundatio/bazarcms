@@ -6,7 +6,7 @@ module Bazarcms
   layout "bazar"
   
   def index
-    @ratings = Rating.all
+    @ratings = Rating.where(' 1 = 1').order('ori_fecha desc')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -151,7 +151,7 @@ module Bazarcms
           # avisamos con un correo a la empresa destinataria
 
 
-          if (rating.des_bazar_id.to_i == BZ_param("BazarId").to_i)
+          if (@rating.des_bazar_id.to_i == BZ_param("BazarId").to_i)
 
             logger.debug "Es un mensaje con una empresa local!!!"
 
@@ -242,7 +242,7 @@ module Bazarcms
 
           end
 
-          Actividad.graba("Ha añadido a favoritos la empresa: <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/bazarcms/empresas/#{params[:bazar]}?bazar_id=#{params[:bazar]}'>#{params[:nombre_empresa].gsub('_',' ')}</a>.", "USER",  BZ_param("BazarId"), current_user.id, nombre)
+          Actividad.graba("Ha evaluado la empresa: <a href='#{Cluster.find_by_id(@rating.des_bazar_id).url}/bazarcms/empresas/#{@rating.des_empresa_id}?bazar_id=#{@rating.des_bazar_id}'>#{@rating.des_empresa_nombre.gsub('_',' ')}</a>.", "USER",  BZ_param("BazarId"), current_user.id, nombre)
 
           # forzamos que se actulicen los caches relacionados con favoritos. 
 
@@ -383,7 +383,7 @@ module Bazarcms
         # @ratings = Rating.where("(ori_empresa_id = ? and ori_bazar_id = ? ) or (des_empresa_id = ? and des_bazar_id = ? ) ", 
         #  params[:id], BZ_param("BazarId"), params[:id], BZ_param("BazarId")).order("updated_at")
 
-        @ratings = Bazarcms::Rating.all
+        @ratings = Bazarcms::Rating.where('1 = 1').order('ori_fecha desc')
         
       end
 
