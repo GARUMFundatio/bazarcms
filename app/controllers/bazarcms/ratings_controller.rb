@@ -235,13 +235,13 @@ module Bazarcms
       body = request.body.read
       logger.debug ">>>#{body}<<<"
 
-      rating = JSON.parse(body)
+      r = JSON.parse(body)
       
-      logger.debug "Rating: #{rating.inspect}"
+      logger.debug "Rating: #{r.inspect}"
       
-      rat = Rating.find_by_iden_and_token(rating.iden, rating.token)
+      rat = Rating.find_by_iden_and_token(r.rating.iden, r.rating.token)
       if (rat.nil?)
-        logger.debug "No parece que exista con estos datos: #{rating.iden} - #{rating.token}"
+        logger.debug "No parece que exista con estos datos: #{r.rating.iden} - #{r.rating.token}"
       else 
         logger.debug "rat: #{rat.inspect}"
       end 
