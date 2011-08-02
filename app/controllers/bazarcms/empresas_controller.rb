@@ -131,8 +131,15 @@ module Bazarcms
       
     end
     
-    $i = @empresa.fundada;
-    $num = DateTime.now.year;
+    if !@empresa.fundada.nil? 
+      $i = @empresa.fundada
+    else
+      $i = DateTime.now.year
+      @empresa.fundada = DateTime.now.year
+      @empresa.save
+    end
+    
+    $num = DateTime.now.year
 
 # relleno los datos financieros si no existen
     while $i <= $num  do
@@ -378,9 +385,13 @@ module Bazarcms
                 
                 if datos.count > 0
                   for ubi in datos
-                    if (ubi.ciudad.pais.id == cc.to_i)
-                      logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
-                      alguna += 1
+                    if !ubi.ciudad.nil?
+                      if (ubi.ciudad.pais.id == cc.to_i)
+                        logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
+                        alguna += 1
+                      end
+                    else 
+                      logger.debug "NO ENTRA --------> No tiene país #{ubi.ciudad.descripcion}"
                     end
                   end
                 end 
@@ -731,11 +742,13 @@ module Bazarcms
             if (cc != "")
               datos = Bazarcms::Ubicacion.where("empresa_id = ? ", [empre.id])
               
-              if datos.count > 0
+              if !datos.nil?
                 for ubi in datos
-                  if (ubi.ciudad.pais.id == cc.to_i)
-                    logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
-                    alguna += 1
+                  if !ubi.ciudad.nil?
+                    if (ubi.ciudad.pais.id == cc.to_i)
+                      logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
+                      alguna += 1
+                    end
                   end
                 end
               end 

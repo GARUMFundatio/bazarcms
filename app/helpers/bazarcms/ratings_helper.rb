@@ -8,7 +8,7 @@ module Bazarcms
     def helper_rating_show(valor, url)
       
       val = "#{valor}".split('.')[0]
-      str = "<div><a href='#{url}'>" 
+      str = "<div><a href='#{url}' rel='nofollow'>" 
       
       for ii in ['1', '2', '3', '4', '5'] 
       

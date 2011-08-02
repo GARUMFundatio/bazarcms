@@ -11,7 +11,9 @@ module Bazarcms
   layout "bazar"
   def index
 
-    @ofertas = Oferta.where("1 = 1").order("fecha desc").paginate(:per_page => 30, :page => params[:page])
+    # @ofertas = Oferta.where("1 = 1").order("fecha desc").paginate(:per_page => 30, :page => params[:page])
+
+    @ofertas = Ofertasresultado.select("cluster_id, oferta_id, empresa_id, info, orden").where("oferta_id is not null").group("cluster_id, oferta_id").order("orden desc").paginate(:per_page => 30, :page => params[:page])
 
     if request.xhr?
       render :partial => 'oferta', :collection => @ofertas
@@ -155,12 +157,14 @@ module Bazarcms
       logger.debug "filtro (#{fil})"
       cam = fil.split('=')  
 
+        # información de los sectores a los que está dirigida la oferta
+        
         if (cam[0] == 'pofertan' ||cam[0] == 'pdemandan' )
           if (!cam[1].nil?)
             for sec in cam[1].split(',')
               logger.debug "sec (#{sec})"  
               @perfil = Ofertasperfil.new
-              @perfil.consulta_id = @oferta.id
+              @perfil.oferta_id = @oferta.id
               @perfil.codigo = sec
               if (cam[0] == 'pofertan')
                 @perfil.tipo = 'O'
@@ -172,6 +176,19 @@ module Bazarcms
           end 
         end
     
+        if (cam[0] == 'ppaises' )
+          if (!cam[1].nil?)
+            for sec in cam[1].split(',')
+              logger.debug "sec (#{sec})"  
+              @pais = Ofertaspais.new
+              @pais.oferta_id = @oferta.id
+              @pais.codigo = sec
+              @pais.save
+            end
+          end 
+        end
+
+
     end 
       
     
@@ -314,7 +331,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
                 
-                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'O' and codigo between ? and ? ", [resu.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'O' and codigo between ? and ? ", resu.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -357,7 +374,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
                 
-                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'D' and codigo between ? and ? ", [resu.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'D' and codigo between ? and ? ", resu.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -394,11 +411,11 @@ module Bazarcms
               if (cc != "")
                 
                 # TODO: en ofertaspaises deberíamos grabar los paises para ahora poder hacer la consulta bien
+                logger.debug "Paises que buscamos -------> #{resu.id} #{cc}"
+                paises = Bazarcms::Ofertaspais.where("oferta_id = ? and codigo = ? ", resu.id, cc)
                 
-                datos = Bazarcms::Ofertaspais.where("consulta_id = ? and codigo = ? ", [resu.id, cc])
-                
-                if datos.count > 0
-                  logger.debug "ENTRA --------> #{datos.codigo}"
+                if paises.count > 0
+                  logger.debug "ENTRA esta oferta por pais --------> #{paises.inspect}"
                   alguna += 1                
                 end 
               end
@@ -609,7 +626,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
 
-                datos = Bazarcms::Ofertasperfil.where("empresa_id = ? and tipo = 'O' and codigo between ? and ? ", [ofe.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'O' and codigo between ? and ? ", ofe.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -628,7 +645,7 @@ module Bazarcms
           logger.debug "pofertan viene vacio !!!"
         end 
 
-        # primero miramos si demandan lo que buscamos
+        # luego miramos si demandan lo que buscamos
 
         if params[:pdemandan].length > 0
 
@@ -651,7 +668,7 @@ module Bazarcms
                     cc2 = cc2 + "9"
                 end
 
-                datos = Bazarcms::Ofertasperfil.where("empresa_id = ? and tipo = 'D' and codigo between ? and ? ", [ofe.id], cc, cc2)
+                datos = Bazarcms::Ofertasperfil.where("oferta_id = ? and tipo = 'D' and codigo between ? and ? ", ofe.id, cc, cc2)
                 logger.debug "para #{cc} al #{cc2}-----------> ("+datos.inspect+")"
 
                 if datos.count > 0
@@ -681,10 +698,11 @@ module Bazarcms
 
             for cc in cam 
               if (cc != "")
-                datos = Bazarcms::Ubicacion.where("empresa_id = ? and codigo = ? ", [ofe.id, cc])
+                pais = Bazarcms::Ofertaspais.where("oferta_id = ? and codigo = ? ", ofe.id, cc)
 
-                if datos.count > 0
-                  logger.debug "ENTRA --------> #{cc}"
+                if pais.count > 0
+                  logger.debug "ENTRA por pais --------> #{pais.inspect}"
+                  alguna += 1
                 end 
 
               end
@@ -733,8 +751,7 @@ module Bazarcms
 
   end 
   
-  # TODO desactivada la respuesta asincrona que solo hay una máquina externa 
-  # para hacer pruebas y está detrás de un NAT
+  
   def estadobusqueda 
     estado = Bazarcms::Ofertasconsulta.where("empresa_id = ?", current_user[:id]).order('fecha_inicio desc').limit(1)
     logger.debug "Estado de la oferta para el usuario #{current_user[:id]}: #{estado.inspect}"
@@ -747,9 +764,14 @@ module Bazarcms
   end 
 
   def dashboard 
+    # select cluster_id, oferta_id, empresa_id, info, orden  from ofertasresultados  
+    # where oferta_id is not null
+    # group by cluster_id, oferta_id 
+    # order by orden desc
+    # limit 15;
     
-    @ofertas = Oferta.where("1 = 1").order("fecha desc").limit(5)
-    @total = Oferta.count_by_sql("select count(*) from ofertas ;")
+    @ofertas = Ofertasresultado.select("cluster_id, oferta_id, empresa_id, info, orden").where("oferta_id is not null").group("cluster_id, oferta_id").order("orden desc").limit(5)
+    @total = Ofertasresultado.count_by_sql("select count(*) from ofertasresultados where oferta_id is not null group by cluster_id, oferta_id ;")
 
     respond_to do |format|
       format.html { render :layout => false }

@@ -4,7 +4,7 @@
 
 <br/>
 
-<h3><%=t(:text_rating_bazar)%><%= @empresa.nombre -%></h3> 
+<h3><%=t(:text_rating_bazar)%> <%= @empresa.nombre -%></h3> 
 
 <table class="tabla">
 <tr>
@@ -54,7 +54,7 @@
 
 <% else %>
 	<br/>
-	<a class="volver-home-link" href="<%= "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}".html_safe %>"><%=t(:text_valorar_esta_empresa)%></a>
+	<a class="volver-home-link" href="<%= "/bazarcms/ratings/new?bazar_id=#{BZ_param('BazarId')}&empresa_id=#{@empresa.id}&empresa_nombre=#{@empresa.nombre.gsub(' ','_')}".html_safe %>" rel='nofollow'><%=t(:text_valorar_esta_empresa)%></a>
 	<br/>
 
 <% end %>
