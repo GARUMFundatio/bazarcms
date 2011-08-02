@@ -102,6 +102,6 @@ Bazar::Application.routes.draw do
   match "/bazarcms/ficharating/:id" => "bazarcms/ratings#ficha", :constrants => { :id => /\d+/ }
   match "/bazarcms/sendrating/:id" => "bazarcms/ratings#sendrating", :constrants => { :id => /\d+/ }
   match "/bazarcms/recrating/" => "bazarcms/ratings#recrating"
-  
+  match "/bazarcms/evaluar/:id" => "bazarcms/ratings#evaluar", :constrants => { :id => /\d+/ }
       
 end
