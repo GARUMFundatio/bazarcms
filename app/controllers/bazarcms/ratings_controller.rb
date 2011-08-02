@@ -139,17 +139,126 @@ module Bazarcms
           @rating.save 
           
           if (@rating.des_bazar_id == BZ_param('BazarId').to_i)
-          
+            # TODO: hay que desactivar esto cuando este completo el simétrico 
+            
             @rating.calculo(@rating.des_bazar_id, @rating.des_empresa_id)
-          
+          else
+            # lo enviamos a destino
+            logger.debug "Enviando rating a #{@rating.des_bazar_id}"
+            dohttppost(@rating.des_bazar_id, "/bazarcms/recrating", @rating.to_json)
           end 
           
-          @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
+          # avisamos con un correo a la empresa destinataria
+
+
+          if (rating.des_bazar_id.to_i == BZ_param("BazarId").to_i)
+
+            logger.debug "Es un mensaje con una empresa local!!!"
+
+            emp = Bazarcms::Empresa.find_by_id(current_user.id)
+            nombre = emp.nombre
+
+            user = User.find_by_id(params[:empresa])
+
+            para = user.email
+
+            texto = "
+
+            La empresa: #{nombre} ha evaluado su empresa.
+            </br>
+            Le sugerimos: 
+            </br>
+            * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/home'>Evalue a la empresa #{nombre}.</a> 
+            Esta acción le aparecerá en tareas pendientes. Recuerde que hasta que no evalue a la otra empresa no afectará al rating de las dos empresas.
+            </br>
+            * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/bazarcms/empresas/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver la ficha de empresa de #{nombre}</a>
+            </br>
+            * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/bazarcms/ficharating/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver el rating de #{nombre}</a>
+            </br>
+            * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/favorito/addfav?bazar=#{BZ_param('BazarId')}&empresa=#{current_user.id}&pre=auto'>Añadir #{nombre} a sus favoritos</a>
+
+            "
+
+            BazarMailer.enviamensaje("#{BZ_param('Titular')} <noreplay@garumfundatio.org>", 
+                                        para, 
+                                        "#{BZ_param('Titular')}: La empresa #{nombre} ha evaluado su empresa.", 
+                                        texto).deliver      
+
+          else  
+
+            emp = Bazarcms::Empresa.find_by_id(current_user.id)
+            nombre = emp.nombre
+
+            user = User.find_by_id(current_user.id)
+            para = user.email
+
+            @mensaje2 = Mensaje.new()
+            @mensaje2.fecha = DateTime.now
+
+            @mensaje2.bazar_origen = BZ_param('BazarId')
+            @mensaje2.de = user.id
+            @mensaje2.de_nombre = emp.nombre
+            @mensaje2.de_email = user.email
+
+
+            @mensaje2.bazar_destino = @rating.des_bazar_id
+            @mensaje2.para = @rating.des_empresa_id
+
+            # Estos datos los coge en remoto
+
+            @mensaje2.para_nombre = "" 
+            @mensaje2.para_email = "" 
+
+
+            @mensaje2.tipo = "M"
+            @mensaje2.leido = nil 
+            @mensaje2.borrado = nil
+
+            @mensaje2.asunto = "#{BZ_param('Titular')}: La empresa #{nombre} ha evaluado su empresa."
+            @mensaje2.texto = "
+
+            <br/>
+            La empresa: #{nombre} le ha añadido a sus favoritos.
+            </br>
+            Le sugerimos: 
+            </br>
+            * <a href='#{Cluster.find_by_id(@rating.des_bazar_id).url}/home'>Evalue a la empresa #{nombre}.</a> 
+            Esta acción le aparecerá en tareas pendientes. Recuerde que hasta que no evalue a la otra empresa no afectará al rating de las dos empresas.
+            </br>
+            * <a href='#{Cluster.find_by_id(@rating.des_bazar_id).url}/bazarcms/empresas/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver la ficha de empresa de #{nombre}</a>
+            </br>
+            * <a href='#{Cluster.find_by_id(@rating.des_bazar_id).url}/bazarcms/ficharating/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver el rating de #{nombre}</a>
+            </br>
+            * <a href='#{Cluster.find_by_id(@rating.des_bazar_id).url}/favorito/addfav?bazar=#{BZ_param('BazarId')}&empresa=#{current_user.id}&pre=auto'>Añadir #{nombre} a sus favoritos</a>
+
+            "
+
+
+            logger.debug "Enviando el mensaje a #{@mensaje2.bazar_destino}"
+
+            dohttppost(@mensaje2.bazar_destino, "/mensajeremoto", @mensaje2.to_json)
+
+            @mensaje2.destroy
+
+          end
+
+          Actividad.graba("Ha añadido a favoritos la empresa: <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/bazarcms/empresas/#{params[:bazar]}?bazar_id=#{params[:bazar]}'>#{params[:nombre_empresa].gsub('_',' ')}</a>.", "USER",  BZ_param("BazarId"), current_user.id, nombre)
+
+          # forzamos que se actulicen los caches relacionados con favoritos. 
+
+
+          expire_fragment "bazar_favoritos_dash_#{current_user.id}"
+          expire_fragment "ofertasdash"
+          expire_fragment "bazar_actividades_dashboard"
+
+          
           
           expire_fragment "bazar_actividades_dashboard"
           
           
+          
           # actualizamos cuando se ha actualizado la empresa para que además se reindexe
+          @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
           
           # @empresa.updated_at = DateTime.now 
           # @empresa.save
