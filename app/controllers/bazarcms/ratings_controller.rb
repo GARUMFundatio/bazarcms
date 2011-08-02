@@ -242,6 +242,9 @@ module Bazarcms
       rat = Rating.find_by_iden_and_token(r['rating']['iden'], r['rating']['token'])
       if (rat.nil?)
         logger.debug "No parece que exista con estos datos: #{r['rating']['iden']} - #{r['rating']['token']}"
+        rat = Rating.new(r['rating'])
+        rat.id = 0
+        tat.save 
       else 
         logger.debug "rat: #{rat.inspect}"
       end 
