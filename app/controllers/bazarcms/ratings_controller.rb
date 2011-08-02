@@ -158,7 +158,7 @@ module Bazarcms
             emp = Bazarcms::Empresa.find_by_id(current_user.id)
             nombre = emp.nombre
 
-            user = User.find_by_id(params[:empresa])
+            user = User.find_by_id(@rating.des_empresa_id)
 
             para = user.email
 
