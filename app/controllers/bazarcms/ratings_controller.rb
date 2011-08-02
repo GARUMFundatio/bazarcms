@@ -175,7 +175,7 @@ module Bazarcms
             </br>
             * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/bazarcms/ficharating/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver el rating de #{nombre}</a>
             </br>
-            * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/favorito/addfav?bazar=#{BZ_param('BazarId')}&empresa=#{current_user.id}&pre=auto'>Añadir #{nombre} a sus favoritos</a>
+            * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/favorito/addfav?bazar=#{BZ_param('BazarId')}&empresa=#{current_user.id}&nombre_empresa=#{nombre.gsub(' ','_')}&pre=auto'>Añadir #{nombre} a sus favoritos</a>
 
             "
 
@@ -229,7 +229,7 @@ module Bazarcms
             </br>
             * <a href='#{Cluster.find_by_id(@rating.des_bazar_id).url}/bazarcms/ficharating/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver el rating de #{nombre}</a>
             </br>
-            * <a href='#{Cluster.find_by_id(@rating.des_bazar_id).url}/favorito/addfav?bazar=#{BZ_param('BazarId')}&empresa=#{current_user.id}&pre=auto'>Añadir #{nombre} a sus favoritos</a>
+            * <a href='#{Cluster.find_by_id(@rating.des_bazar_id).url}/favorito/addfav?bazar=#{BZ_param('BazarId')}&empresa=#{current_user.id}&nombre_empresa=#{nombre.gsub(' ','_')}&pre=auto'>Añadir #{nombre} a sus favoritos</a>
 
             "
 
