@@ -231,7 +231,13 @@ module Bazarcms
 
     def recrating
       
-      @rating = Rating.find_by_id(params[:id])
+      logger.debug "Rating remoto <-----------"
+      body = request.body.read
+      logger.debug ">>>#{body}<<<"
+
+      rating = JSON.parse(body)
+      
+      logger.debug "Rating: #{rating.inspect}"
             
     end 
 
