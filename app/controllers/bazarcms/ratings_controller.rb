@@ -218,7 +218,7 @@ module Bazarcms
             @mensaje2.texto = "
 
             <br/>
-            La empresa: #{nombre} le ha añadido a sus favoritos.
+            La empresa: #{nombre} ha evaluado su empresa.
             </br>
             Le sugerimos: 
             </br>
@@ -274,29 +274,11 @@ module Bazarcms
 
     def update
       @rating = Rating.find(params[:id])
+      # TODO esto hay que eliminarlo!!!!! no lo vamos a hacer con una vista normal. 
       
       respond_to do |format|
         if @rating.update_attributes(params[:bazarcms_rating])
-          
-          @empresa = Bazarcms::Empresa.find_by_id(current_user.id)
-
-          if !@rating.ciudad.nil?
-              Actividad.graba("Actualizada ubicación: '#{@rating.desc}' <a href='#{ciudades_path+'/'+@rating.ciudad.friendly_id}'>#{@rating.ciudad.descripcion}</a> - <a href='#{paises_path+'/'+@rating.ciudad.pais.friendly_id}'>#{@rating.ciudad.pais.descripcion}</a>",
-                  "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
-
-        	else
-            Actividad.graba("Actualizada ubicación: #{@rating.desc}", "USER", BZ_param("BazarId"), current_user.id, @empresa.nombre)
-        	end
-          
-          # invalidamos los caches para que aparezca la oferta inmediatamente en la home page
-
-          expire_fragment "bazar_actividades_dashboard"
-          
-          # actualizamos cuando se ha actualizado la empresa para que además se reindexe
-          
-          @empresa.updated_at = DateTime.now 
-          @empresa.save
-          
+                              
           format.html { redirect_to(edit_bazarcms_empresa_url(current_user.id)+'#tabs-3') }
           format.xml  { head :ok }
         else
@@ -356,6 +338,14 @@ module Bazarcms
         rat.save 
       else 
         logger.debug "rat: #{rat.inspect}"
+        if rat.ori_fecha.nil? || rat.des_fecha.nil? 
+          logger.debug "Actualizamos el registro local"
+          id = rat.id 
+          rat.update_attributes(r['rating'])
+          rat.id = id 
+          rat.save
+        else 
+        end 
       end 
             
     end 
@@ -403,7 +393,173 @@ module Bazarcms
         
     end
 
+    def evaluar 
+  
+      @rating = Rating.find_by_id(params[:id])
+      
+    end 
+    
+    def evaluado
 
+      @rating = Rating.find_by_id(params[:id])
+    
+      puts "empresa id: "+params.inspect
+      puts "rating : "+@rating.inspect
+
+      # datos generales del rating
+
+      @rating.des_fecha = DateTime.now
+      @rating.des_texto = params[:rating][:des_texto]
+      
+      if (@rating.role == 'P')
+        
+        @rating.des_cliente_plazos = 0
+        @rating.des_cliente_comunicacion = 0
+         
+        @rating.des_proveedor_expectativas = params[:rating][:proveedor_expectativas]
+        @rating.des_proveedor_plazos = params[:rating][:proveedor_plazos]
+        @rating.des_proveedor_comunicacion = params[:rating][:proveedor_comunicacion]
+          
+      else 
+        
+        @rating.des_cliente_plazos = params[:rating][:cliente_plazos]
+        @rating.des_cliente_comunicacion = params[:rating][:cliente_comunicacion]
+         
+        @rating.des_proveedor_expectativas = 0
+        @rating.des_proveedor_plazos = 0
+        @rating.des_proveedor_comunicacion = 0
+                  
+      end
+
+
+    respond_to do |format|
+      if @rating.save
+        
+        if (@rating.des_bazar_id == BZ_param('BazarId').to_i)
+          # TODO: hay que desactivar esto cuando este completo el simétrico 
+          
+          @rating.calculo(@rating.des_bazar_id, @rating.des_empresa_id)
+
+        else
+          # lo enviamos a destino
+          logger.debug "Enviando rating a #{@rating.des_bazar_id}"
+          dohttppost(@rating.des_bazar_id, "/bazarcms/recrating", @rating.to_json)
+        end 
+        
+        # avisamos con un correo a la empresa destinataria
+
+        if (@rating.ori_bazar_id.to_i == BZ_param("BazarId").to_i)
+
+          logger.debug "Es un mensaje con una empresa local!!!"
+
+          emp = Bazarcms::Empresa.find_by_id(current_user.id)
+          nombre = emp.nombre
+
+          user = User.find_by_id(@rating.ori_empresa_id)
+
+          para = user.email
+
+          texto = "
+
+          La empresa: #{nombre} ha completado la evaluación de su empresa.
+          </br>
+          Le sugerimos: 
+          </br>
+          * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/bazarcms/empresas/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver la ficha de empresa de #{nombre}</a>
+          </br>
+          * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/bazarcms/ficharating/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver el rating de #{nombre}</a>
+          </br>
+          * <a href='#{Cluster.find_by_id(BZ_param('BazarId')).url}/favorito/addfav?bazar=#{BZ_param('BazarId')}&empresa=#{current_user.id}&nombre_empresa=#{nombre.gsub(' ','_')}&pre=auto'>Añadir #{nombre} a sus favoritos</a>
+
+          "
+
+          BazarMailer.enviamensaje("#{BZ_param('Titular')} <noreplay@garumfundatio.org>", 
+                                      para, 
+                                      "#{BZ_param('Titular')}: #{nombre} ha completado la evaluación de su empresa.", 
+                                      texto).deliver      
+
+        else  
+
+          emp = Bazarcms::Empresa.find_by_id(current_user.id)
+          nombre = emp.nombre
+
+          user = User.find_by_id(current_user.id)
+          para = user.email
+
+          @mensaje2 = Mensaje.new()
+          @mensaje2.fecha = DateTime.now
+
+          @mensaje2.bazar_origen = BZ_param('BazarId')
+          @mensaje2.de = user.id
+          @mensaje2.de_nombre = emp.nombre
+          @mensaje2.de_email = user.email
+
+
+          @mensaje2.bazar_destino = @rating.ori_bazar_id
+          @mensaje2.para = @rating.ori_empresa_id
+
+          # Estos datos los coge en remoto
+
+          @mensaje2.para_nombre = "" 
+          @mensaje2.para_email = "" 
+
+
+          @mensaje2.tipo = "M"
+          @mensaje2.leido = nil 
+          @mensaje2.borrado = nil
+
+          @mensaje2.asunto = "#{BZ_param('Titular')}: #{nombre} ha completado la evaluación su empresa."
+          @mensaje2.texto = "
+
+          <br/>
+          La empresa: #{nombre} ha completado la evaluación de su empresa. Esta información se podrá consultar en unos minutos.
+          </br>
+          Le sugerimos: 
+          </br>
+          * <a href='#{Cluster.find_by_id(@rating.ori_bazar_id).url}/bazarcms/empresas/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver la ficha de empresa de #{nombre}</a>
+          </br>
+          * <a href='#{Cluster.find_by_id(@rating.ori_bazar_id).url}/bazarcms/ficharating/#{current_user.id}?bazar_id=#{BZ_param('BazarId')}'>Ver el rating de #{nombre}</a>
+          </br>
+          * <a href='#{Cluster.find_by_id(@rating.ori_bazar_id).url}/favorito/addfav?bazar=#{BZ_param('BazarId')}&empresa=#{current_user.id}&nombre_empresa=#{nombre.gsub(' ','_')}&pre=auto'>Añadir #{nombre} a sus favoritos</a>
+
+          "
+
+          logger.debug "Enviando el mensaje a #{@mensaje2.bazar_destino}"
+
+          dohttppost(@mensaje2.bazar_destino, "/mensajeremoto", @mensaje2.to_json)
+
+          @mensaje2.destroy
+
+        end
+
+        Actividad.graba("Rating actualizado de: <a href='#{Cluster.find_by_id(@rating.ori_bazar_id).url}/bazarcms/empresas/#{@rating.ori_empresa_id}?bazar_id=#{@rating.ori_bazar_id}'>#{@rating.ori_empresa_nombre.gsub('_',' ')}</a>.", "USER",  BZ_param("BazarId"), current_user.id, nombre)
+
+        # forzamos que se actulicen los caches relacionados con favoritos. 
+
+
+        expire_fragment "bazar_favoritos_dash_#{current_user.id}"
+        expire_fragment "ofertasdash"
+        expire_fragment "bazar_actividades_dashboard"              
+        
+        
+        # actualizamos cuando se ha actualizado la empresa para que además se reindexe
+        @empresa = Bazarcms::Empresa.find_by_id(current_user.id)          
+        
+        # @empresa.updated_at = DateTime.now 
+        # @empresa.save
+        
+        format.html { redirect_to('/bazarcms/ficharating/'+"#{@rating.ori_empresa_id}?bazar_id=#{@rating.ori_bazar_id}") }
+        format.xml  { render :xml => @rating, :status => :created, :location => @rating }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @rating.errors, :status => :unprocessable_entity }
+      end
+    end
+      
+    
+    
+    end 
+    
   end
 
 end

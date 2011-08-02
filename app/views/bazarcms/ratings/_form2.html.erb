@@ -1,0 +1,370 @@
+
+
+<div id="rating" style="display:block;">
+
+<%= form_for(@rating, :url => "/bazarcms/ratings/evaluado/#{params[:id]}") do |f| %>
+
+
+<%= f.hidden_field :ori_empresa_id, :value => @rating.ori_empresa_id %>
+<%= f.hidden_field :ori_bazar_id, :value => @rating.ori_bazar_id %>
+<%= f.hidden_field :ori_empresa_nombre, :value => @rating.ori_empresa_nombre %>
+
+<%= f.hidden_field :des_empresa_id, :value => @rating.des_empresa_id %>
+<%= f.hidden_field :des_bazar_id, :value => @rating.des_bazar_id %>
+<%= f.hidden_field :des_empresa_nombre, :value => @rating.des_empresa_nombre %>
+
+
+
+<table class="tabla" cellspacing="0">
+
+<tr>
+	
+  <td>
+  	<b><%=t(:text_cual_fue_su_rol)%></b>
+  </td>
+
+  <td>
+   	<p id="opciones-oferta">
+	 	<% if @rating.role == 'C'%>
+			<%= t(:text_proveedor) %>
+	  		<input id="cliente-proveedor" name="rating[cliente-proveedor]" type="hidden" value="C">
+		<% else %>
+			<%= t(:text_cliente) %>
+	  		<input id="cliente-proveedor" name="rating[cliente-proveedor]" type="hidden" value="P">		
+		<% end %>
+    </p>
+  </td>
+
+</tr>
+
+<% if @rating.role == 'P' %>
+
+<tr id="pre1">
+	
+  <td>
+    <p><b><%=t(:text_satisfaccion_de_expectativas)%></b><%=t(:text_se_ajusta_el_producto_servicio_a_lo)%>
+	<%=t(:text_descrito_en_la_oferta)%></p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1" class='rat1' src='/images/addfav.png'>
+		<img id="2" class='rat1' src='/images/addfav.png'>
+		<img id="3" class='rat1' src='/images/addfav.png'>
+		<img id="4" class='rat1' src='/images/addfav.png'>
+		<img id="5" class='rat1' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva1">
+		<%=t(:text_sin_evaluar)%>
+	</div>
+	
+	<input id="proveedor_expectativas" name="rating[proveedor_expectativas]" type="hidden">
+
+  </td>
+
+</tr>
+
+<tr id="pre2">
+	
+  <td>
+    <p><b><%=t(:text_cumplimiento_de_plazos)%></b><%=t(:text_se_entrego_el_producto_servicio_conforme_a_lo)%>
+	<%=t(:text_acordado_inicialmente)%></p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1-2" class='rat2' src='/images/addfav.png'>
+		<img id="2-2" class='rat2' src='/images/addfav.png'>
+		<img id="3-2" class='rat2' src='/images/addfav.png'>
+		<img id="4-2" class='rat2' src='/images/addfav.png'>
+		<img id="5-2" class='rat2' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva2">
+		<%=t(:text_sin_evaluar)%>
+	</div>
+
+	<input id="proveedor_plazos" name="rating[proveedor_plazos]" type="hidden">
+
+  </td>
+
+</tr>
+
+<tr id="pre3">
+	
+  <td>
+    <p><b><%=t(:text_comunicacion)%></b><%=t(:text_como_de_fluida_armoniosa_o_duramente_tensa_fue_la)%>
+	<%=t(:text_comunicacion_con_la_otra_parte)%></p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1-3" class='rat3' src='/images/addfav.png'>
+		<img id="2-3" class='rat3' src='/images/addfav.png'>
+		<img id="3-3" class='rat3' src='/images/addfav.png'>
+		<img id="4-3" class='rat3' src='/images/addfav.png'>
+		<img id="5-3" class='rat3' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva3">
+		<%=t(:text_sin_evaluar)%>
+	</div>
+	
+    <input id="proveedor_comunicacion" name="rating[proveedor_comunicacion]" type="hidden">
+	
+  </td>
+
+</tr>
+
+<% else %>
+
+<tr id="pre4" >
+	
+  <td>
+    <p><b><%=t(:text_pago_dentro_de_plazos)%></b><%=t(:text_se_abono_el_pago_por_el_producto_servicio_dentro_de_lo_convenido_durante_el_acuerdo)%></p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1-4" class='rat4' src='/images/addfav.png'>
+		<img id="2-4" class='rat4' src='/images/addfav.png'>
+		<img id="3-4" class='rat4' src='/images/addfav.png'>
+		<img id="4-4" class='rat4' src='/images/addfav.png'>
+		<img id="5-4" class='rat4' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva4">
+		<%=t(:text_sin_evaluar)%>
+	</div>
+	
+    <input id="cliente_plazos" name="rating[cliente_plazos]" type="hidden">
+	
+  </td>
+
+</tr>
+
+<tr id="pre5" >
+	
+  <td>
+    <p><b><%=t(:text_comunicacion)%></b><%=t(:text_como_de_fluida_armoniosa_o_duramente_tensa_fue_la)%>
+	<%=t(:text_comunicacion_con_la_otra_parte)%></p>
+  </td>
+
+  <td>
+	<div>
+		
+		<img id="1-5" class='rat5' src='/images/addfav.png'>
+		<img id="2-5" class='rat5' src='/images/addfav.png'>
+		<img id="3-5" class='rat5' src='/images/addfav.png'>
+		<img id="4-5" class='rat5' src='/images/addfav.png'>
+		<img id="5-5" class='rat5' src='/images/addfav.png'>
+
+	</div>
+	<div id="eva5">
+		<%=t(:text_sin_evaluar)%>
+	</div>
+	
+   <input id="cliente_comunicacion" name="rating[cliente_comunicacion]" type="hidden">
+
+  </td>
+
+</tr>
+
+<% end %>
+
+<tr>
+
+  <td>
+  <b><%= f.label :Comentario %>:</b>
+  </td>
+  <td>
+  <%= f.text_area(:des_texto, :size => "60x5") %>
+  </td>
+
+</tr>
+
+</table>
+
+  <div class="actions">
+    <%= f.submit "Guardar" %> <a href="/home" title="Cancelar"</a>
+  </div>
+
+<% end %>
+
+
+</div>
+
+
+
+<script>
+
+function ponvalor(valor, lab, sufi) {
+var ii; 
+
+	for (ii=1 ; ii <= 5; ii++) {
+		
+		if (ii <= valor ) {
+			$('#'+ii+sufi).attr("src", '/images/rating.png');
+		}
+		else {
+			$('#'+ii+sufi).attr("src", '/images/addfav.png');				
+		} 
+		
+	}
+				
+	switch (parseInt(valor))
+	{
+	case 0:
+	  $(lab).html("Sin Evaluar");
+	  break;
+	case 1:
+	  $(lab).html("Mala");
+	  break;
+	case 2:
+	  $(lab).html("Regular");
+	  break;
+	case 3:
+	  $(lab).html("Normal");
+	  break;
+	case 4:
+	  $(lab).html("Buena");
+	  break;
+	case 5:
+	  $(lab).html("Excelente");
+	  break;
+	}	
+	
+};
+
+
+
+$(function() {
+
+    $("img.rat1")
+        .click(function() {
+			// window.alert("pulsado 1 "+$(this).attr("id") );
+			var ii; 
+			var valor ; 
+			
+			valor = parseInt($(this).attr("id"));
+			ponvalor(valor, "#eva1", "");
+
+		$('#proveedor_expectativas').val(valor);
+
+        });
+
+
+
+    $("img.rat2")
+        .click(function() {
+			// window.alert("pulsado 1 "+$(this).attr("id") );
+			var ii; 
+			var valor ; 
+			
+			valor = parseInt($(this).attr("id"));
+			
+			ponvalor(valor, "#eva2", "-2");
+
+			$('#proveedor_plazos').val(valor);
+
+        });
+
+
+
+	    $("img.rat3")
+	        .click(function() {
+				// window.alert("pulsado 1 "+$(this).attr("id") );
+				var ii; 
+				var valor ; 
+
+				valor = parseInt($(this).attr("id"));
+
+				ponvalor(valor, "#eva3", "-3");
+				
+				$('#proveedor_comunicacion').val(valor);
+
+	        });
+
+
+		    $("img.rat4")
+		        .click(function() {
+					// window.alert("pulsado 1 "+$(this).attr("id") );
+					var ii; 
+					var valor ; 
+
+					valor = parseInt($(this).attr("id"));
+
+					ponvalor(valor, "#eva4", "-4");
+					
+					$('#cliente_plazos').val(valor);
+
+		        });
+
+
+
+		    $("img.rat5")
+		        .click(function() {
+					// window.alert("pulsado 1 "+$(this).attr("id") );
+					var ii; 
+					var valor ; 
+
+					valor = parseInt($(this).attr("id"));
+					ponvalor(valor, "#eva5", "-5");
+
+				$('#cliente_comunicacion').val(valor);
+
+		        });
+
+
+			    $("#check-cliente")
+			        .click(function() {
+						$('#pre1').show();
+						$('#pre2').show();
+						$('#pre3').show();
+						$('#pre4').hide();
+						$('#pre5').hide();
+						
+						$('#cliente_plazos').val(0);
+						$('#cliente_comunicacion').val(0);
+						
+						ponvalor(0, "#eva4", "-4");
+						ponvalor(0, "#eva5", "-5");
+
+						$('#cliente-proveedor').val('C');
+						
+			     });
+
+
+			    $("#check-proveedor")
+			        .click(function() {
+						$('#pre1').hide();
+						$('#pre2').hide();
+						$('#pre3').hide();
+						$('#pre4').show();
+						$('#pre5').show();
+
+						$('#proveedor_plazos').val(0);
+						$('#proveedor_expectativas').val(0);
+						$('#proveedor_comunicacion').val(0);
+						
+						ponvalor(0, "#eva1", "");
+						ponvalor(0, "#eva2", "-2");
+						ponvalor(0, "#eva3", "-3");
+						
+						$('#cliente-proveedor').val('P');
+						
+			     });
+
+
+
+});
+
+
+
+</script>
+
