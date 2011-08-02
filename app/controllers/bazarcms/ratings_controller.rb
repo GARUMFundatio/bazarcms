@@ -244,7 +244,7 @@ module Bazarcms
         logger.debug "No parece que exista con estos datos: #{r['rating']['iden']} - #{r['rating']['token']}"
         rat = Rating.new(r['rating'])
         rat.id = 0
-        tat.save 
+        rat.save 
       else 
         logger.debug "rat: #{rat.inspect}"
       end 
