@@ -1,3 +1,7 @@
+<% if !current_user.nil? %>
+	<a class="volver-home-link" href="/home"><%=t(:text_volver_a_la_pagina_de_busquedas)%></a>
+<% end %>
+
 <div id="nuevaubicacion">
 
 <h3 class="page-title"><%=t(:text_evalue_su_relacion_la_empresa)%> <%= @rating.ori_empresa_nombre %>:</b></h3>
