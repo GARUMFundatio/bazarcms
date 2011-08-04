@@ -4,6 +4,7 @@ module Bazarcms
 
   unloadable 
   layout "bazar"
+  before_filter :require_user, :only => [:new]
   
   def index
     @ratings = Rating.where(' 1 = 1').order('ori_fecha desc')
@@ -373,7 +374,7 @@ module Bazarcms
         # @ratings = Rating.where("(ori_empresa_id = ? and ori_bazar_id = ? ) or (des_empresa_id = ? and des_bazar_id = ? ) ", 
         #  params[:id], BZ_param("BazarId"), params[:id], BZ_param("BazarId")).order("updated_at")
 
-        @ratings = Bazarcms::Rating.where('1 = 1').order('ori_fecha desc')
+        @ratings = Bazarcms::Rating.where('ori_fecha is not null and des_fecha is not null').order('ori_fecha desc')
         
       end
 
@@ -409,7 +410,7 @@ module Bazarcms
       # datos generales del rating
 
       @rating.des_fecha = DateTime.now
-      @rating.des_texto = params[:rating][:des_texto]
+      @rating.des_texto = params[:bazarcms_rating][:des_texto]
       
       if (@rating.role == 'P')
         
