@@ -3,7 +3,7 @@
 
 <table class="tabla">
 
-<% if rating.role == 'C' %>
+<% if rating.role == 'P' %>
 
 	<tr>
 		<td>
@@ -102,7 +102,7 @@
 
 <% end %>
 
-<% if @empresa.id == rating.des_empresa_id && rating.des_bazar_id == BZ_param('BazarId').to_i && !rating.ori_fecha.nil? %>
+<% if @empresa.id == rating.des_empresa_id && rating.des_bazar_id == BZ_param('BazarId').to_i %>
 
 <table class="tabla">
 
