@@ -271,8 +271,10 @@ module Bazarcms
       logger.debug "resu: (#{resultados.inspect}) <-------"
            
       conta2 = 0
-      for resu in resultados 
-
+      for resu in resultados
+        
+        next if resu.nombre =~ /^Escriba /
+        
         entra = 0
         total = 0
 
@@ -641,6 +643,8 @@ module Bazarcms
     for empre in resultados
       entra = 0
       total = 0
+      
+      next if empre.nombre =~ /^Escriba /
       
       # buscamos en los sectores 
 
