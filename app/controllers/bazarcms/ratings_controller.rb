@@ -346,6 +346,7 @@ module Bazarcms
           rat.update_attributes(r['rating'])
           rat.id = id 
           rat.save
+          rat.calculo(rat.des_bazar_id, rat.des_empresa_id)
         else 
         end 
       end 
