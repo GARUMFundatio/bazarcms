@@ -17,23 +17,32 @@ module Bazarcms
       total_val_proveedor = 0 
     
       puts "Calculando la ficha de rating para bazar #{bazar} empresa #{empresa} "
-      rats = Rating.where("(ori_bazar_id = ? and ori_empresa_id = ?) or (des_bazar_id = ? and des_empresa_id = ?)", bazar, empresa, bazar, empresa)
+      # rats = Rating.where("(ori_bazar_id = ? and ori_empresa_id = ?) or (des_bazar_id = ? and des_empresa_id = ?)", bazar, empresa, bazar, empresa)
 
+      rats = Rating.where("( ori_bazar_id = ? and ori_empresa_id = ? ) or ( des_bazar_id = ? and des_empresa_id = ? )", bazar, empresa, bazar, empresa)
+      
       hay = false 
   
       for rat in rats 
       
         # primero determinamos si la empresa es la que ha originado el rating 
+        puts "--->> bazar #{rat.ori_bazar_id} empresa #{rat.ori_empresa_id} #{rat.ori_empresa_nombre} --->> bazar #{rat.des_bazar_id} empresa #{rat.des_empresa_id} #{rat.des_empresa_nombre} (#{rat.role})"
+        
+        if rat.ori_fecha.nil? || rat.des_fecha.nil?
+          # TODO: hay que penalizar las imcompletas
+          puts "No entra por que está incompleta y se debería penalizar al que no ha respondido"
+          next
+        
+        end 
         
         totrc = totrp = 0
         totc = totp = 0
                 
   
-        puts "--->> bazar #{rat.ori_bazar_id} empresa #{rat.ori_empresa_id} "
         
         if rat.ori_bazar_id == bazar.to_i && rat.ori_empresa_id == empresa.to_i
           puts "------------> soy la empresa que inicia "
-          if rat.role == 'C'
+          if rat.role == 'P'
 
             if (rat.des_proveedor_expectativas > 0)  
               totrp += rat.des_proveedor_expectativas

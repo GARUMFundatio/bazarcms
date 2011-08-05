@@ -374,7 +374,7 @@ module Bazarcms
         # @ratings = Rating.where("(ori_empresa_id = ? and ori_bazar_id = ? ) or (des_empresa_id = ? and des_bazar_id = ? ) ", 
         #  params[:id], BZ_param("BazarId"), params[:id], BZ_param("BazarId")).order("updated_at")
 
-        @ratings = Bazarcms::Rating.where('ori_fecha is not null and des_fecha is not null and ( ori_empresa_id = ? or des_empresa_id = ?)', params[:id], params[:id]).order('ori_fecha desc')
+        @ratings = Bazarcms::Rating.where('ori_fecha is not null and des_fecha is not null and ( (ori_empresa_id = ? and ori_bazar_id = ? ) or (des_empresa_id = ? and des_bazar_id = ?) )', params[:id], BZ_param("BazarId"), params[:id], BZ_param("BazarId")).order('ori_fecha desc')
         
       end
 
