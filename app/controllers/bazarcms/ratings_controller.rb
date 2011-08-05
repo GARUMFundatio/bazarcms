@@ -534,8 +534,8 @@ module Bazarcms
           # enviamos el rating al destino
           
           logger.debug "rating ----> #{@rating.inspect}"
-          logger.debug "Enviando rating a #{@rating.des_bazar_id}"
-          dohttppost(@rating.des_bazar_id, "/bazarcms/recrating", @rating.to_json)
+          logger.debug "Enviando rating a #{@rating.ori_bazar_id}"
+          dohttppost(@rating.ori_bazar_id, "/bazarcms/recrating", @rating.to_json)
 
         end
 
