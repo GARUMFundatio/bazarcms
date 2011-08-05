@@ -3,9 +3,9 @@
 <p class="total"> <strong><%=t(:text_total)%> </strong> <%= @consulta.total_resultados %> <%=t(:text_ofertas_demandas_de)%> <%= @consulta.total_respuestas %> <%=t(:text_bazares)%></p>
 
 <% if params[:display] == 'inside' %>
-	<% @ofertasresultados = Bazarcms::Ofertasresultado.where("ofertasconsulta_id = ?", @consulta.id).limit(10) %>
+	<% @ofertasresultados = Bazarcms::Ofertasresultado.where("ofertasconsulta_id = ?", @consulta.id).order('orden desc').limit(10) %>
 <% else %> 
-	<% @ofertasresultados = Bazarcms::Ofertasresultado.where("ofertasconsulta_id = ?", @consulta.id) %>
+	<% @ofertasresultados = Bazarcms::Ofertasresultado.where("ofertasconsulta_id = ?", @consulta.id).order('orden desc') %>
 <% end %>
 
 <table id="results" class="tabla" cellspacing="0">
