@@ -347,18 +347,23 @@ module Bazarcms
           rat.id = id 
           rat.save
           
-          if rat.des_bazar_id.to_i == BZ_param('BazarId').to_i
-            logger.debug "----> Recalculo #{rat.des_bazar_id} #{ rat.des_empresa_id}"
-            rat.calculo(rat.des_bazar_id, rat.des_empresa_id)
-          end
-
-          if rat.ori_bazar_id.to_i == BZ_param('BazarId').to_i
-            logger.debug "----> Recalculo #{rat.ori_bazar_id} #{ rat.ori_empresa_id}"
-            rat.calculo(rat.ori_bazar_id, rat.ori_empresa_id)
-          end
           
         end 
       end 
+      
+      # recalculamos los ratings si procede
+      
+      logger.debug "******** Recalculando *********"
+      if rat.des_bazar_id.to_i == BZ_param('BazarId').to_i
+        logger.debug "----> Recalculo #{rat.des_bazar_id} #{ rat.des_empresa_id}"
+        rat.calculo(rat.des_bazar_id, rat.des_empresa_id)
+      end
+
+      if rat.ori_bazar_id.to_i == BZ_param('BazarId').to_i
+        logger.debug "----> Recalculo #{rat.ori_bazar_id} #{ rat.ori_empresa_id}"
+        rat.calculo(rat.ori_bazar_id, rat.ori_empresa_id)
+      end
+      
             
     end 
 
