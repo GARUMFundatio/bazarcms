@@ -7,7 +7,7 @@
 
 	<tr>
 		<td>
-			<b><%=t(:text_empresa)%></b>
+			<b><%=t(:text_como_cliente)%></b>
 		</td>
 		<td>
 			<b><%=t(:text_fecha)%></b>
@@ -47,11 +47,18 @@
 
 	</tr>
 
+	<tr>
+		<td colspan="7">
+			<b><%=t(:text_comentario)%></b> <%= rating.des_texto %>
+		</td>
+	</tr>
+
+
 <% else %>
 
 	<tr>
 		<td>
-			<b><%=t(:text_empresa)%></b>
+			<b><%=t(:text_como_proveedor)%></b>
 		</td>
 
 		<td>
@@ -88,14 +95,16 @@
 		</td>
 
 	</tr>
+	
+	<tr>
+		<td colspan="7">
+			<b><%=t(:text_comentario)%></b> <%= rating.des_texto %>
+		</td>
+	</tr>
+	
 
 <% end %>
 
-<tr>
-	<td colspan="7">
-		<b><%=t(:text_comentario)%></b> <%= rating.ori_texto %>
-	</td>
-</tr>
 
 </table>
 
@@ -112,7 +121,7 @@
 
 	<tr>
 		<td>
-			<b><%=t(:text_empresa)%></b>
+			<b><%=t(:text_como_cliente)%></b>
 		</td>
 		<td>
 			<b><%=t(:text_fecha)%></b>
@@ -155,11 +164,17 @@
 
 	</tr>
 
+	<tr>
+		<td colspan="6">
+			<b><%=t(:text_comentario)%></b> <%= rating.ori_texto %>
+		</td>
+	</tr>
+
 <% else %>
 
 	<tr>
 		<td>
-			<b><%=t(:text_empresa)%></b>
+			<b><%=t(:text_como_proveedor)%></b>
 		</td>
 
 		<td>
@@ -197,13 +212,15 @@
 
 	</tr>
 
+	<tr>
+		<td colspan="6">
+			<b><%=t(:text_comentario)%></b> <%= rating.ori_texto %>
+		</td>
+	</tr>
+	
 <% end %>
 
-<tr>
-	<td colspan="6">
-		<b><%=t(:text_comentario)%></b> <%= rating.ori_texto %>
-	</td>
-</tr>
+
 </table>
 
 <% end %>
