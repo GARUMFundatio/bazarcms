@@ -346,8 +346,15 @@ module Bazarcms
           rat.update_attributes(r['rating'])
           rat.id = id 
           rat.save
-          rat.calculo(rat.des_bazar_id, rat.des_empresa_id)
-        else 
+          
+          if rat.des_bazar_id == BZ_param('BazarId')
+            rat.calculo(rat.des_bazar_id, rat.des_empresa_id)
+          end
+
+          if rat.ori_bazar_id == BZ_param('BazarId')
+            rat.calculo(rat.ori_bazar_id, rat.ori_empresa_id)
+          end
+          
         end 
       end 
             
@@ -548,6 +555,16 @@ module Bazarcms
         expire_fragment "bazar_favoritos_dash_#{current_user.id}"
         expire_fragment "ofertasdash"
         expire_fragment "bazar_actividades_dashboard"              
+        
+        # recalculamos el rating
+        
+        if @rating.des_bazar_id == BZ_param('BazarId')
+          @rating.calculo(@rating.des_bazar_id, @rating.des_empresa_id)
+        end
+
+        if @rating.ori_bazar_id == BZ_param('BazarId')
+          @rating.calculo(@rating.ori_bazar_id, @rating.ori_empresa_id)
+        end
         
         
         # actualizamos cuando se ha actualizado la empresa para que además se reindexe
