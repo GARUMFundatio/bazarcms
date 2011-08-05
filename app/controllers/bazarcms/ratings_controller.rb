@@ -319,7 +319,8 @@ module Bazarcms
       else 
         logger.debug "ufff no existe este rating" 
       end 
-     end 
+    
+    end 
 
     def recrating
       
@@ -529,6 +530,12 @@ module Bazarcms
           dohttppost(@mensaje2.bazar_destino, "/mensajeremoto", @mensaje2.to_json)
 
           @mensaje2.destroy
+          
+          # enviamos el rating al destino
+          
+          logger.debug "rating ----> #{@rating.inspect}"
+          logger.debug "Enviando rating a #{@rating.des_bazar_id}"
+          dohttppost(@rating.des_bazar_id, "/bazarcms/recrating", @rating.to_json)
 
         end
 
