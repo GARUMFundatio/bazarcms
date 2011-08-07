@@ -745,7 +745,7 @@ function Estimar() {
 				
 				$("#progressbar").progressbar({ value: (data[0].empresasconsulta.total_respuestas * 100) / data[0].empresasconsulta.total_consultas});
 				$("#estadotexto").html(data[0].empresasconsulta.total_resultados +' Empresas de '+ data[0].empresasconsulta.total_respuestas +' Bazares');
-				
+				window.alert(data[0].empresasconsulta.total_resultados);
 				if (data[0].empresasconsulta.total_resultados > 0) {
 					$("#navegar-publicar1").show();
 				}
