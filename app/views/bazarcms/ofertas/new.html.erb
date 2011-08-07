@@ -583,7 +583,7 @@
 	</div>
 
 	<div class="navegar-publicar" id="navegar-publicar1" style="display:none;">
-    	<a class="siguiente" href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); "><%=t(:text_siguiente_paso_datos_de_la_oferta)%><span>»</span></a>
+    	<a class="siguiente"  href="#" onclick="$('#ofer1').toggle('slow'); $('#ofer2').toggle('slow'); "><%=t(:text_siguiente_paso_datos_de_la_oferta)%><span>»</span></a>
     </div>
     
 	</div>
@@ -750,6 +750,7 @@ function Estimar() {
 				if (data[0].empresasconsulta.total_resultados > 0) {
 					$("#navegar-publicar1").show();
 					$("#navegar-publicar1").focus();
+					//$("#siguiente1").focus();
 				}
 				else {
 					$("#navegar-publicar1").hide();					
