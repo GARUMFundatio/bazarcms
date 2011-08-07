@@ -1,4 +1,3 @@
-<tr>
 
 	<% if oferta.cluster_id.to_i == BZ_param('BazarId').to_i %>
 		<% nombre_empresa = Bazarcms::Empresa.find(oferta.empresa_id).nombre %>
@@ -6,9 +5,15 @@
 		<% emp = datos_empresa_remota(oferta.cluster_id, oferta.empresa_id) %>
 		<% if !emp.nil? %>
 			<% nombre_empresa = emp['nombre'] %>
+		<% else %>
+			<% nombre_empresa = "" %>		
 		<% end %>
 	<% end %>
-	
+
+
+<% if nombre_empresa != "" %>
+<tr>
+		
 	<td>
 		<% if oferta.cluster_id.to_i == BZ_param('BazarId').to_i %>
 			<%= link_to nombre_empresa, bazarcms_empresa_path(oferta.empresa_id, :bazar_id => oferta.cluster_id) %>
@@ -37,3 +42,5 @@
 </tr>
 
 <% Bazarcms::Oferta.mostrada(oferta.cluster_id, oferta.oferta_id) %>
+
+<% end %>
