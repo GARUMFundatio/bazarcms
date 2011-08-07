@@ -699,7 +699,8 @@
  //<![CDATA[
 
 function Estimar() {
-	
+		cuanto = 100;
+		
 		s = $("#busca").val();
 		if (s.length == 0) {
 			s = '*';
@@ -752,9 +753,9 @@ function Estimar() {
 				else {
 					$("#navegar-publicar1").hide();					
 				}
-				
+				cuanto = cuanto + 300;
 			});
-	     },1000);
+	     },cuanto);
 		
 		
 		return false;
