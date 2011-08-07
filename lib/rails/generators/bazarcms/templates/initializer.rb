@@ -31,9 +31,9 @@ module Bazarcms
     path=File.dirname(__FILE__)
     I18n.load_path += Dir[ File.join(path, '../locales/bazarcms', '*.{rb,yml}') ]
 
-    puts "-----> Cargamos los locales de: #{path}"
+#    puts "-----> Cargamos los locales de: #{path}"
     
-    puts "-----> Cargamos los locales de: #{I18n.load_path.inspect}"
+#    puts "-----> Cargamos los locales de: #{I18n.load_path.inspect}"
     
      
 #     Bazarcms::Application.config.middleware.use ::ExceptionNotifier,

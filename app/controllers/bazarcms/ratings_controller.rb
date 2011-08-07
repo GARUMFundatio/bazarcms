@@ -140,7 +140,6 @@ module Bazarcms
           @rating.save 
           
           if (@rating.des_bazar_id == BZ_param('BazarId').to_i)
-            # TODO: hay que desactivar esto cuando este completo el simétrico 
             
             @rating.calculo(@rating.des_bazar_id, @rating.des_empresa_id)
           else
