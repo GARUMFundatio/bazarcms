@@ -11,11 +11,12 @@ module Bazarcms
   
   layout "bazar"
   def index
-    @empresas = Empresa.all.paginate(:page => params[:page], :per_page => 15)
+    @empresas = Empresa.where('1 = 1').order("nombre asc")
     logger.debug @empresas.size
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @empresas }
+      # TODO: devolver un listado de empresas en formato xml y json con la información que decidamos
+      # format.xml  { render :xml => @empresas }
     end
   end
 
@@ -102,7 +103,7 @@ module Bazarcms
   end
 
   def new
-    @empresa = Empresa.new
+    # TODO: @empresa = Empresa.new
 
     respond_to do |format|
       format.html # new.html.erb
