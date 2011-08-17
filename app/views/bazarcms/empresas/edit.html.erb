@@ -53,7 +53,7 @@
             <%= f.text_field :url, :size => 40 %></p>
 
 			<p><%= f.label :Logo %></p>
-			<p><%= image_tag @empresa.logo.url %></p>
+			<p><%= image_tag @empresa.logo.url(:small) %></p>
 			<p><%= f.file_field :logo%></p>
 
 
