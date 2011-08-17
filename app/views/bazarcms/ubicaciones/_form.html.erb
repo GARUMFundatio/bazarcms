@@ -1,5 +1,5 @@
 
-<%= form_for(@ubicacion) do |f| %>
+<%= form_for(@ubicacion, :html => { :onsubmit => "return validar();" }) do |f| %>
   <% if @ubicacion.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@ubicacion.errors.count, "error") %><%=t(:text_prohibited_this_ubicacion_from_being_saved)%></h2>
@@ -41,16 +41,46 @@
 </tr>
 </table>
 
-  <div class="actions">
+  <div class="actions" style="display:block;">
     <%= f.submit "Guardar" %> <a href="#" title="Cancelar" onclick="$('#nuevaubicacion').css('display','none');"><%= image_tag('delete.png')%></a>
   </div>
 <% end %>
 
 <script type="text/javascript">
+
+function validar() {
+	
+	valido = 1; 
+
+	if ($("#bazarcms_ubicacion_desc" ).val() == "") {
+		window.alert ("Rellene el campo descripción de la ubicación. Ejemplo: Oficinas centrales.");
+		valido = 0;
+	}
+
+	if ($("#bazarcms_ubicacion_ciudad_id" ).val() == "") {
+		window.alert ("Debe seleccionar una ciudad de la lista que aparece mientras escribe el nombre de su ciudad.");
+		$("#ciudad_id" ).val( $("#ciudad_id").val().substring(0,3) );
+		$("#ciudad_id" ).focus();
+		valido = 0;
+	}
+
+//	window.alert ("Rellene el campo descripción y escoja una ciudad de la lista."+valido+" "+$("#bazarcms_ubicacion_ciudad_id" ).val()+" "+$("#bazarcms_ubicacion_desc" ).val());
+
+	if (valido == 0) {
+		return false;		
+	}
+	else {
+		return true;		
+	}
+
+};
+
+
 $(document).ready(function() {
 	
 	$(".auto_search_complete").autocomplete({
 	    source: "/busquedaciudades.json",
+		delay: 200,
 	    minLength: 2,
 		select: function(event, ui) {
 			$("#ciudad_id").val( ui.item.label );
@@ -59,6 +89,8 @@ $(document).ready(function() {
 		}
 	
 	});
+
+
 
 });
 </script>

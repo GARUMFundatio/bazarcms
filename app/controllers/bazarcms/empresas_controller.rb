@@ -200,11 +200,9 @@ module Bazarcms
     respond_to do |format|
       if @empresa.update_attributes(params[:bazarcms_empresa])
         # format.html { redirect_to(@empresa, :notice => 'Se ha actualizado correctamente la empresa.') }
-        format.html { render :action => "edit", :bazar_id => BZ_param("BazarId") }
-        format.xml  { head :ok }
+        format.html { redirect_to "/bazarcms/empresas/#{@empresa.id}/edit"}
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @empresa.errors, :status => :unprocessable_entity }
+        format.html { redirect_to "/bazarcms/empresas/#{@empresa.id}/edit?bazar_id=#{BZ_param("BazarId")}" }
       end
     end
   end
