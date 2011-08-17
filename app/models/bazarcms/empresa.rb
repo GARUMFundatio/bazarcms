@@ -11,6 +11,11 @@ module Bazarcms
     acts_as_taggable
     acts_as_taggable_on :actividades, :intereses
     
+    has_attached_file :logo, :styles => {
+          :thumb=> "100x100#",
+          :small  => "150x150>" }
+    
+    
     # TODO deberíamos incluir nombre de la ciudad y el pais en la indexación
     
     
