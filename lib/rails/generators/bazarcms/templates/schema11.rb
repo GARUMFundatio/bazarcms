@@ -1,4 +1,4 @@
-class AddPhotoToUser < ActiveRecord::Migration
+class CreateBazarcmsTables11 < ActiveRecord::Migration
   def self.up
     add_column :empresas, :logo_file_name, :string 
     add_column :empresas, :logo_content_type, :string 
