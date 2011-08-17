@@ -53,11 +53,9 @@
             <%= f.text_field :url, :size => 40 %></p>
 
 			<p><%= f.label :Logo %></p>
-			<p><%= image_tag @empresa.logo.url(:small) %></p>
 			<p><%= image_tag @empresa.logo.url(:thumb) %></p>
-			<p><%= f.file_field :logo%></p>
-
-			<p> <%= @empresa.logo.url(:thumb) %></p>
+			
+			<p><%= f.file_field :logo %></p>
 
             <p><label for="bazarcms_empresa_actividad_list"><%=t(:text_ofrecemos)%><span class="form-help"><%=t(:text_tags_separados_por_comas)%></span></label>
             <%= f.text_area :actividad_list, :size => "60x4" %></p>

@@ -12,7 +12,7 @@ module Bazarcms
     acts_as_taggable_on :actividades, :intereses
     
     has_attached_file :logo, :styles => {
-          :thumb=> "75x50#",
+          :thumb=> "175x50>",
           :small  => "150x150>" },
           :path => ":rails_root/public/:class/:attachment/:id/:style_:basename.:extension",
           :url => "/:class/:attachment/:id/:style_:basename.:extension",
