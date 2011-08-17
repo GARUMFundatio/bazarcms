@@ -16,7 +16,7 @@ module Bazarcms
           :small  => "150x150>" },
           :path => ":rails_root/public/:class/:attachment/:id/:style_:basename.:extension",
           :url => "/:class/:attachment/:id/:style_:basename.:extension",
-          :default_url => "/:class/:attachment/missing_:style.png"
+          :default_url => "/images/sinlogo.png"
     
     
     # TODO deberíamos incluir nombre de la ciudad y el pais en la indexación
