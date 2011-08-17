@@ -52,8 +52,9 @@
             <p><%= f.label :Web %>
             <%= f.text_field :url, :size => 40 %></p>
 
-			<p><%= f.label :Logo %>
-			<%= f.file_field :logo%></p>
+			<p><%= f.label :Logo %></p>
+			<p><%= image_tag @empresa.logo.url %></p>
+			<p><%= f.file_field :logo%></p>
 
 
             <p><label for="bazarcms_empresa_actividad_list"><%=t(:text_ofrecemos)%><span class="form-help"><%=t(:text_tags_separados_por_comas)%></span></label>
