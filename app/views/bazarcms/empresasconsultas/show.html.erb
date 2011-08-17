@@ -11,13 +11,20 @@
 <table id="results" class="tabla" cellspacing="0">
 
 <tr>
-  <th><%=t(:text_empresa)%></th>
+  <th colspan="2"><%=t(:text_empresa)%></th>
   <th><%=t(:text_origen)%></th>
   <th></th>
 </tr>	
 
 <% for resu in @empresasresultados %>
 <tr>
+  <td width="102px">
+    <% img = logo_helper(resu.cluster_id, resu.empresa_id) %>
+	<% if !img.nil? %>
+		<%= link_to(image_tag(img), bazarcms_empresa_path(resu.empresa_id, :bazar_id => resu.cluster_id)) %> 
+	<% end %>
+  </td>	
+
   <td>
 	<%= link_to(resu.info, bazarcms_empresa_path(resu.empresa_id, :bazar_id => resu.cluster_id)) %>
 	<%= helper_rating_show2(resu.cluster_id, resu.empresa_id).html_safe %>
