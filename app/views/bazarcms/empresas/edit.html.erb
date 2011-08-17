@@ -22,15 +22,16 @@
 
         <div id="tabs-1">
 
-            <%= form_for(@empresa) do |f| %>
+            <%= form_for(@empresa, :html => { :multipart => true }) do |f| %>
 
               <% if @empresa.errors.any? %>
                 <div id="error_explanation">
-                  <h2><%= pluralize(@user.errors.count, "error") %><%=t(:text_no_se_ha_podido_salvar_los_datos_de_la_empresa)%></h2>
+                  <h2>
+					<%=t(:text_no_se_ha_podido_salvar_los_datos_de_la_empresa)%></h2>
 
                   <ul>
                   <% @empresa.errors.full_messages.each do |msg| %>
-                    <li><%= msg %></li>
+                    <li><%= msg %><br/></li>
                   <% end %>
                   </ul>
                 </div>
@@ -50,6 +51,10 @@
 
             <p><%= f.label :Web %>
             <%= f.text_field :url, :size => 40 %></p>
+
+			<p><%= f.label :Logo %>
+			<%= f.file_field :logo%></p>
+
 
             <p><label for="bazarcms_empresa_actividad_list"><%=t(:text_ofrecemos)%><span class="form-help"><%=t(:text_tags_separados_por_comas)%></span></label>
             <%= f.text_area :actividad_list, :size => "60x4" %></p>
