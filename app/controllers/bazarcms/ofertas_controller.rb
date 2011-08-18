@@ -440,7 +440,7 @@ module Bazarcms
           @res.tipo = resu.tipo
           @res.nombre_empresa = "poner nombre bien"
                      
-          @res.orden = resu.fecha.strftime('%Y%m%d%H%M')
+          @res.orden = resu.fecha
           @res.enlace = "poner el enlace bien" # resu.url
           @res.info = "#{resu.titulo}"
           @res.save
