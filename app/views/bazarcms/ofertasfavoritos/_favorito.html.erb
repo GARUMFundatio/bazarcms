@@ -1,14 +1,12 @@
 	<tr>
 
-		<td>
-			<%= link_to(favorito.titulo_oferta, bazarcms_oferta_path(favorito.empresa_id, :bazar_id => favorito.bazar_id)) %>
-		</td>
+	    <td width="102px">
+			<% img = logo_helper(favorito.bazar_id, favorito.empresa_id) %>
+			<% if !img.nil? %>
+				<%= link_to(image_tag(img), bazarcms_empresa_path(favorito.empresa_id, :bazar_id => favorito.bazar_id)) %> 
+			<% end %>
+	    </td>
 
-		<td class="dos-iconos">
-		
-			<%= helper_favoofe(favorito.bazar_id, favorito.empresa_id, favorito.nombre_empresa, favorito.oferta_id, favorito.titulo_oferta) %>
-		</td>
-		
 		<td>
 			<%= link_to(favorito.nombre_empresa, bazarcms_empresa_path(favorito.empresa_id, :bazar_id => favorito.bazar_id)) %>
 			<%= helper_rating_show2(favorito.bazar_id, favorito.empresa_id).html_safe %>
@@ -20,5 +18,15 @@
 			<%= helper_favo(favorito.bazar_id, favorito.empresa_id, favorito.nombre_empresa, "") %>
 
 		</td>
+
+		<td>
+			<%= link_to(favorito.titulo_oferta, bazarcms_oferta_path(favorito.empresa_id, :bazar_id => favorito.bazar_id)) %>
+		</td>
+
+		<td class="dos-iconos">
+		
+			<%= helper_favoofe(favorito.bazar_id, favorito.empresa_id, favorito.nombre_empresa, favorito.oferta_id, favorito.titulo_oferta) %>
+		</td>
+		
 
 	</tr>

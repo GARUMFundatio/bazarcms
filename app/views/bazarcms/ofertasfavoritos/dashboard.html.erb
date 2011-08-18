@@ -7,13 +7,12 @@
 <% for fav in @favoritos %>
 <tr>
 
-	<td>
-		<%= link_to(fav.titulo_oferta, bazarcms_oferta_path(fav.oferta_id, :bazar_id => fav.bazar_id)) %>
-	</td>
-
-	<td class="dos-iconos">
-		<%= helper_favoofe(fav.bazar_id, fav.empresa_id, fav.nombre_empresa, fav.oferta_id, fav.titulo_oferta) %>
-	</td>
+    <td width="102px">
+		<% img = logo_helper(fav.bazar_id, fav.empresa_id) %>
+		<% if !img.nil? %>
+			<%= link_to(image_tag(img), bazarcms_empresa_path(fav.empresa_id, :bazar_id => fav.bazar_id)) %> 
+		<% end %>
+    </td>
 
 	<td>
 		<%= link_to(fav.nombre_empresa, bazarcms_empresa_path(fav.empresa_id, :bazar_id => fav.bazar_id)) %>
@@ -26,6 +25,16 @@
 		<%= helper_favo(fav.bazar_id, fav.empresa_id, fav.nombre_empresa, "") %>
 		
 	</td>
+
+
+	<td>
+		<%= link_to(fav.titulo_oferta, bazarcms_oferta_path(fav.oferta_id, :bazar_id => fav.bazar_id)) %>
+	</td>
+
+	<td class="dos-iconos">
+		<%= helper_favoofe(fav.bazar_id, fav.empresa_id, fav.nombre_empresa, fav.oferta_id, fav.titulo_oferta) %>
+	</td>
+
 	
 
 </tr>
