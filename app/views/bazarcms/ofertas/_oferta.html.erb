@@ -13,7 +13,13 @@
 
 <% if nombre_empresa != "" %>
 <tr>
-		
+	<td width="102px">
+		<% img = logo_helper(oferta.cluster_id, oferta.empresa_id) %>
+		<% if !img.nil? %>
+			<%= link_to(image_tag(img), bazarcms_empresa_path(oferta.empresa_id, :bazar_id => oferta.cluster_id)) %> 
+		<% end %>
+    </td>
+
 	<td>
 		<% if oferta.cluster_id.to_i == BZ_param('BazarId').to_i %>
 			<%= link_to nombre_empresa, bazarcms_empresa_path(oferta.empresa_id, :bazar_id => oferta.cluster_id) %>
