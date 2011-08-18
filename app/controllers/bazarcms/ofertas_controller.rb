@@ -764,14 +764,10 @@ module Bazarcms
   end 
 
   def dashboard 
-    # select cluster_id, oferta_id, empresa_id, info, orden  from ofertasresultados  
-    # where oferta_id is not null
-    # group by cluster_id, oferta_id 
-    # order by orden desc
-    # limit 15;
-    
+ 
     @ofertas = Ofertasresultado.select("cluster_id, oferta_id, empresa_id, info, orden").where("oferta_id is not null").group("cluster_id, oferta_id").order("orden desc").limit(5)
-    @total = @ofertas.size
+    # TODO: revisar el contador total debería funcionar
+    # @total = @ofertas.size
 
     respond_to do |format|
       format.html { render :layout => false }
