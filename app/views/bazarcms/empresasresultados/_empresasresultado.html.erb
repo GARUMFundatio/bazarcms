@@ -1,4 +1,11 @@
 <tr>
+   <td width="102px">
+		<% img = logo_helper(empresasresultado.cluster_id, empresasresultado.empresa_id) %>
+		<% if !img.nil? %>
+			<%= link_to(image_tag(img), bazarcms_empresa_path(empresasresultado.empresa_id, :bazar_id => empresasresultado.cluster_id)) %> 
+		<% end %>
+  </td>
+  
   <td>
 	<%= link_to(empresasresultado.info, bazarcms_empresa_path(empresasresultado.empresa_id, :bazar_id => empresasresultado.cluster_id)) %>
 	<%= helper_rating_show2(empresasresultado.cluster_id, empresasresultado.empresa_id).html_safe %>
