@@ -771,7 +771,7 @@ module Bazarcms
     # limit 15;
     
     @ofertas = Ofertasresultado.select("cluster_id, oferta_id, empresa_id, info, orden").where("oferta_id is not null").group("cluster_id, oferta_id").order("orden desc").limit(5)
-    @total = @oferta.size
+    @total = @ofertas.size
 
     respond_to do |format|
       format.html { render :layout => false }
