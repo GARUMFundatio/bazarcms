@@ -90,6 +90,7 @@ Bazar::Application.routes.draw do
   match "/bazarcms/buscaofertas" => "bazarcms/ofertas#busca"
   match "/bazarcms/estadobusquedaofertas" => "bazarcms/ofertas#estadobusqueda"
   match "/ofertas.rss" => 'bazarcms/ofertas#rss'
+  match "/ofertas2.rss" => 'bazarcms/ofertas#rss2'
 
   match "/bazarcms/hydra" => 'bazarcms/empresas#hydra', :as => :hydra
   

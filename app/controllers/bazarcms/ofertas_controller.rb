@@ -775,9 +775,15 @@ module Bazarcms
   end
 
   def rss
-    @ofertas = Oferta.where("bazar_id = ?", BZ_param('BazarId')).order("fecha desc").limit(30)
+    @ofertas = Oferta.where("bazar_id = ?", BZ_param('BazarId')).order("fecha desc").limit(100)
     render :layout => false
   end
+
+  def rss2
+    @ofertas = Ofertasresultado.select("cluster_id, oferta_id, empresa_id, info, orden").where("oferta_id is not null").group("cluster_id, oferta_id").order("orden desc").limit(300)
+    render :layout => false
+  end
+
   
 end
 
