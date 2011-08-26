@@ -52,7 +52,8 @@
 </td>
 
   <td>
-	<%= link_to(resu.info, bazarcms_oferta_path(resu.oferta_id, :bazar_id => resu.cluster_id)) %><%=  %>
+	<%= link_to(resu.info, bazarcms_oferta_path(resu.oferta_id, :bazar_id => resu.cluster_id)) %>
+	<%= helper_favoofe(resu.cluster_id, resu.empresa_id, nombre_empresa, resu.oferta_id, resu.info) %>
   </td>
 
   <td>
