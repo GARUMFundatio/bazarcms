@@ -11,8 +11,8 @@ module Bazarcms
   
   def busqueda
     
-   
-   terms = params[:term].split(' ')
+    terms = params[:term].split(' ')
+    logger.debug "Busqueda en perfiles: --------------> #{params[:term].inspect} #{terms.inspect}"
    
    condi = []
    condi << ""
@@ -41,6 +41,9 @@ module Bazarcms
       format.json {
          @info = []
          for perfil in @perfiles
+           if perfil.ayuda.nil? 
+             perfil.ayuda = ""
+           end 
            @info << {:label => "#{perfil.codigo}:#{perfil.desc} (~ #{perfil.total_empresas_mercado} empresas)", :value => "#{perfil.desc}", :id => "#{perfil.codigo}", :total => "#{perfil.total_empresas_mercado}", :ayuda => "#{perfil.ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>')}"}
          end
          render :json =>  @info  }
