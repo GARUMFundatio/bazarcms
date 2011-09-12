@@ -65,8 +65,8 @@
 		<%=t(:text_pagina_web)%>
 	</th>
 	<td colspan="3">
-		<% if !@empresa.url.nil? %> 	
-			<%= link_to(@empresa.url,  @empresa.url) %>
+		<% if !@empresa.url.nil? %>
+			<a href="http://<%= @empresa.url %>"><%= @empresa.url %></a>
 		<% else %>
 			-
 		<% end %>
