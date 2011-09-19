@@ -18,8 +18,13 @@
             </span>
             <div class="descripcion-perfil" id="<%= perfil.tipo -%><%= perfil.codigo-%>" style="display:none">
     			<p>
-    			<%=  Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
-    			</p>
+				<% ayuda = Bazarcms::Perfil.find_by_codigo(perfil.codigo).ayuda %>
+    			<% if !ayuda.nil? %>
+					<%= ayuda.sub(/.*\n/,'').gsub(/\n/,'<br/>').html_safe -%>
+    			<% else %>
+					-
+				<% end %>
+				</p>
     			<a class="ocultar-link" href="#" onclick="$('#<%= perfil.tipo -%><%= perfil.codigo-%>').slideToggle(300);"><%=t(:text_ocultar_la_descripcion)%></a>
     		</div>
 		</div>
