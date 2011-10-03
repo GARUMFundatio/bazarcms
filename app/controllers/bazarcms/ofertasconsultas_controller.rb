@@ -9,7 +9,7 @@ module Bazarcms
   # registrado 
   
   def index
-    @ofertasconsultas = Ofertasconsulta.where('oferta_id = ?', current_user.id).order('fecha_inicio desc').paginate(:page => params[:page], :per_page => 10)
+    @ofertasconsultas = Ofertasconsulta.where('oferta_id = ?', current_user.id).order('fecha_inicio desc').paginate(:page => params[:page], :per_page => 40)
 
     respond_to do |format|
       format.html 

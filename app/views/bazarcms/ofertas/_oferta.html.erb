@@ -1,6 +1,10 @@
-
 	<% if oferta.cluster_id.to_i == BZ_param('BazarId').to_i %>
-		<% nombre_empresa = Bazarcms::Empresa.find(oferta.empresa_id).nombre %>
+		<% emp = Bazarcms::Empresa.find(oferta.empresa_id) %>
+		<% if !emp.nil? %>
+			<% nombre_empresa = emp.nombre %>
+		<% else %>
+			<% nombre_empresa = "" %>		
+		<% end %>
 	<% else %>
 		<% emp = datos_empresa_remota(oferta.cluster_id, oferta.empresa_id) %>
 		<% if !emp.nil? %>
