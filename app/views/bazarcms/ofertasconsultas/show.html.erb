@@ -32,7 +32,13 @@
 <td>
 	
 	<% if resu.cluster_id.to_i == BZ_param('BazarId').to_i %>
-		<% nombre_empresa = Bazarcms::Empresa.find(resu.empresa_id).nombre %>
+		<% emp = Bazarcms::Empresa.where("id = ?", resu.empresa_id).limit(1) %>
+		<% if !emp[0].nil? %>
+			<% nombre_empresa = emp[0].nombre %>
+		<% else %>
+			<% nombre_empresa = "" %>		
+		<% end %>
+		
 	<% else %>
 		<% emp = datos_empresa_remota(resu.cluster_id, resu.empresa_id) %>
 		<% if !emp.nil? %>
