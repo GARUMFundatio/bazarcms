@@ -1,5 +1,5 @@
 	<% if oferta.cluster_id.to_i == BZ_param('BazarId').to_i %>
-		<% emp = Bazarcms::Empresa.where ("id = ?", oferta.empresa_id).limit(1) %>
+		<% emp = Bazarcms::Empresa.where("id = ?", oferta.empresa_id).limit(1) %>
 		<% if !emp.nil? %>
 			<% nombre_empresa = emp.first.nombre %>
 		<% else %>
