@@ -35,7 +35,7 @@
 
 	<td class="dos-iconos">
 		<%= link_to image_tag("email.png"), new_mensaje_url+"?aquien=#{oferta.empresa_id}&bazar_destino=#{oferta.cluster_id}&nombre=#{nombre_empresa}&tipo=M", :title => 'Enviar Mensaje de Correo' %>
-		<%= helper_favo(oferta.clu => ster_id, oferta.empresa_id, nombre_empresa, "oferta") %>
+		<%= helper_favo(oferta.cluster_id, oferta.empresa_id, nombre_empresa, "oferta") %>
 	</td>
 
 	
