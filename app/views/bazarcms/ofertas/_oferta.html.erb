@@ -1,6 +1,6 @@
 	<% if oferta.cluster_id.to_i == BZ_param('BazarId').to_i %>
 		<% emp = Bazarcms::Empresa.where ("id = ?", oferta.empresa_id).limit(1) %>
-		<% if !emp.first.nil? %>
+		<% if !emp.nil? %>
 			<% nombre_empresa = emp.first.nombre %>
 		<% else %>
 			<% nombre_empresa = "" %>		
