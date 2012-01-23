@@ -83,10 +83,21 @@ module Bazarcms
 
       puts sectores.inspect
       
+      res = {}
+      
       empresas = Bazarcms::Empresasperfil.select("distinct empresa_id").where("empresa_id <> ? and codigo in (?)", self.id, sectores).order("empresa_id")
       
+      for emp in empresas
+
+        if res[emp.id.to_s].nil? 
+          res[emp.id.to_s] = 1
+        else 
+          puts "ya estaba #{emp.id}"
+        end
       
+      end 
       
+      return res
 
     end
     
