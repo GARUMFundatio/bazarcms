@@ -83,7 +83,7 @@ module Bazarcms
 
       puts sectores.inspect
       
-      empresas = Bazarcms::Empresasperfil.select("distinct empresa_id").where("empresa_id = ? and codigo in (?)", self.id, sectores).order("empresa_id")
+      empresas = Bazarcms::Empresasperfil.select("distinct empresa_id").where("empresa_id <> ? and codigo in (?)", self.id, sectores).order("empresa_id")
       
       
       
