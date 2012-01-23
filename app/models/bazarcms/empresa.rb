@@ -70,8 +70,24 @@ module Bazarcms
       return tmp
     end
     
-    def self.interesantes
+    def interesantes
       puts "Empresas interesantes para: #{self.id} #{self.nombre}"
+      
+      missectores = Bazarcms::Empresasperfil.select("distinct codigo").where("empresa_id = ?", self.id).order("codigo")
+
+      sectores = []
+
+      for sector in missectores 
+        sectores << sector.codigo
+      end
+
+      puts sectores.inspect
+      
+      empresas = Bazarcms::Empresasperfil.select("distinct empresa_id").where("empresa_id = ? and codigo in (?)", self.id, sectores).order("empresa_id")
+      
+      
+      
+
     end
     
   end
