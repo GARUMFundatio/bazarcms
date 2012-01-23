@@ -70,5 +70,9 @@ module Bazarcms
       return tmp
     end
     
+    def self.interesantes
+      puts "Empresas interesantes para: #{self.id} #{self.nombre}"
+    end
+    
   end
 end
