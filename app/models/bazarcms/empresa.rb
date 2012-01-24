@@ -88,15 +88,31 @@ module Bazarcms
       empresas = Bazarcms::Empresasperfil.select("distinct empresa_id").where("empresa_id <> ? and codigo in (?)", self.id, sectores).order("empresa_id")
       puts empresas.inspect 
       
-      for emp in empresas
+      if empresas.count <= 0
+        
+        empresas = Bazarcms::Empresa.select("id").where("id <> ? ", self.id).order("id desc").limit(18)
+        puts "no habia empresas para recomendar"
+        puts empresas.inspect 
 
-        if res[emp.empresa_id.to_s].nil? 
-          res[emp.empresa_id.to_s] = 1
-        else 
-          puts "ya estaba #{emp.empresa_id}"
-        end
+        for emp in empresas
+          if res[emp.id.to_s].nil? 
+            res[emp.id.to_s] = 1
+          else 
+            puts "ya estaba #{emp.empresa_id}"
+          end
+        end    
+
+      else 
       
-      end 
+        for emp in empresas
+          if res[emp.empresa_id.to_s].nil? 
+            res[emp.empresa_id.to_s] = 1
+          else 
+            puts "ya estaba #{emp.empresa_id}"
+          end
+        end    
+
+      end
       
       return res
 
