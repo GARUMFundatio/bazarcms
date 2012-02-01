@@ -278,7 +278,7 @@ module Bazarcms
     @consulta.save
     
     conta = 0
-    micluster = BZ_param("BazarId").to_i;
+    micluster = ApplicationController.BZ_param("BazarId").to_i
     logger.debug "ID de mi cluster #{micluster} <------"
     
     # primero buscamos en local para ofrecer los primeros resultados antes
@@ -286,7 +286,7 @@ module Bazarcms
       logger.debug "busco en local"
       conta += 1 
       
-      @consulta.total_respuestas = @consulta.total_respuestas + 1;
+      @consulta.total_respuestas = @consulta.total_respuestas + 1
       @consulta.save
       
       if (params[:q] == '*')
