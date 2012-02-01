@@ -33,7 +33,38 @@ module Bazarcms
       
     end 
   
-  
+    def self.busca(*p)
+      tipo = 'O'
+      q = "*"
+      p[0].each do |k,v|
+        puts "#{k} ---> #{v}"
+        
+        case k 
+        when :tipo
+          tipo = v
+          puts "tipo ahora vale: #{tipo}"
+        when :q
+          q = v 
+          puts "q ahora vale: #{q}"
+        end 
+        
+      end
+      
+      q = "*" if q == ""
+
+      puts "tipo  : #{tipo}"
+      puts "q     : #{q}"
+
+      if (q == "*")
+        resultados = Bazarcms::Oferta.where("tipo = 'O'")
+      else 
+        resultados = Bazarcms::Oferta.find_with_ferret(q, :limit => :all)        
+      end
+
+      return resultados
+      
+    end 
+    
   end
 
 end
