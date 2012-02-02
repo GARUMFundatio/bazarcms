@@ -446,6 +446,12 @@ module Bazarcms
           @res.enlace = "poner el enlace bien" # resu.url
           @res.info = "#{resu.titulo}"
           @res.save
+          
+          # increment views counter 
+          
+          resu.vistas += 1 
+          resu.save 
+          
           conta2 += 1
         end 
          
@@ -723,6 +729,7 @@ module Bazarcms
 
         if (entra == total)
           ofe.vistas += 1
+          logger.debug "incrementado vistas ------->  #{ofe.vistas}"
           ofe.save
           resultados2 << ofe
         end 
