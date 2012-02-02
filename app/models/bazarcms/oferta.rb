@@ -131,10 +131,10 @@ module Bazarcms
           @res.empresa_id = resu.empresa_id
           @res.oferta_id = resu.id
           @res.tipo = resu.tipo
-          @res.nombre_empresa = "poner nombre bien"
+          @res.nombre_empresa = "#{resu.texto}"
                      
           @res.orden = resu.fecha
-          @res.enlace = "poner el enlace bien" # resu.url
+          @res.enlace = "#{resu.fecha_hasta}"
           @res.info = "#{resu.titulo}"
           @res.save
           conta2 += 1
@@ -191,8 +191,8 @@ module Bazarcms
                     resu.oferta_id = key['oferta']['id']
                     resu.tipo =  key['oferta']['tipo']
                     resu.empresa_id = key['oferta']['empresa_id'] 
-                    resu.nombre_empresa = "poner nombre bien"
-                    resu.enlace = "Poner el enlace bien 2" # key['oferta']['url']
+                    resu.nombre_empresa = key['oferta']['texto']
+                    resu.enlace = key['oferta']['fecha_hasta'] # key['oferta']['url']
                     resu.orden = key['oferta']['fecha'] # .strftime('%Y%m%d%H%M')
                     resu.info = key['oferta']['titulo']
                     resu.save
@@ -228,12 +228,11 @@ module Bazarcms
 
       @consulta.save
 
-
-
-
+      @consultasresultados = Bazarcms::Ofertasresultado.where("ofertasconsulta_id = ?", @consulta.id).order("orden desc")
+      
       # we return the results of the search 
       
-      return resultados
+      return resultados, @consultasresultados
       
     end 
     
