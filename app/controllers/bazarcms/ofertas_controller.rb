@@ -722,6 +722,8 @@ module Bazarcms
 
 
         if (entra == total)
+          ofe.vistas += 1
+          ofe.save
           resultados2 << ofe
         end 
 

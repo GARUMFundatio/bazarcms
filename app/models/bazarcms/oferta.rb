@@ -137,6 +137,12 @@ module Bazarcms
           @res.enlace = "#{resu.fecha_hasta}"
           @res.info = "#{resu.titulo}"
           @res.save
+          
+          # increment the counter of views
+
+          resu.vistas += 1 
+          resu.save
+          
           conta2 += 1
         end 
          
