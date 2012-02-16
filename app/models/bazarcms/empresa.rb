@@ -232,7 +232,7 @@ module Bazarcms
           @res.save
           # increment the counter of views
 
-          resu.vistas += 1 
+          resu.total_mostradas += 1 
           resu.save
           conta2 += 1
         end 
