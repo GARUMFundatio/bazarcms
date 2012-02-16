@@ -177,11 +177,11 @@ module Bazarcms
       @clusters = Cluster.where("activo = 'S'")
 
       @consulta = Empresasconsulta.new
-      @consulta.empresa_id = current_user.id 
+      @consulta.empresa_id = user 
 
       logger.debug "------> (#{q}) unscaped (#{CGI.unescape(q)})"
 
-      @consulta.desc = CGI.unescape(params[:q])
+      @consulta.desc = q
       @consulta.total_consultas = @clusters.count()
       @consulta.total_respuestas = 0
       @consulta.total_resultados = 0
@@ -191,7 +191,7 @@ module Bazarcms
       @consulta.save
 
       conta = 0
-      micluster = BZ_param("BazarId").to_i;
+      micluster = bazar
       logger.debug "ID de mi cluster #{micluster} <------"
 
 
