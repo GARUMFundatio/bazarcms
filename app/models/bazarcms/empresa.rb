@@ -13,7 +13,9 @@ module Bazarcms
     
     has_attached_file :logo, :styles => {
           :thumb=> "100x50>",
-          :small  => "150x150>" },
+          :small  => "150x150>",
+          :s223 => "223x223",
+          :s60 => "60x60" },
           :path => ":rails_root/public/:class/:attachment/:id/:style_:basename.:extension",
           :url => "/:class/:attachment/:id/:style_:basename.:extension",
           :default_url => "/images/sinlogo.png"
