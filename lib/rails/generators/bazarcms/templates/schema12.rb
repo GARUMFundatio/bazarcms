@@ -5,7 +5,6 @@ class CreateBazarcmsTables12 < ActiveRecord::Migration
     add_column :empresas, :ambito, :string
     add_column :empresas, :linkedin, :string
     add_column :empresas, :facebook, :string
-    add_column :empresas, :color, :string
     
     add_column :ofertas, :ambito, :string
     add_column :ofertas, :sector, :string
