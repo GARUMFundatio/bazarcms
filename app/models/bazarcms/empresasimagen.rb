@@ -9,12 +9,18 @@ module Bazarcms
           :thumb=> "100x50>",
           :small  => "150x150>",
           :s223 => "223x223",
-          :s60 => "60x60" },
+          :s60 => "60x60",
+          :c223 => "223x223^",
+          :c60 => "60x60^"
+          },
+          :convert_options => {
+            :c223 => " -gravity center -extent 223x223^",
+            :c60 => " -gravity center -extent 60x60^"
+          },
           :path => ":rails_root/public/:class/:attachment/:id/:style_:basename.:extension",
           :url => "/:class/:attachment/:id/:style_:basename.:extension",
           :default_url => "/images/sinlogo.png"
-    
- 
+          
   end
   
 end
