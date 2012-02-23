@@ -57,6 +57,23 @@ module Bazarcms
       return "No definido"
     end 
     
+    def self.Ambitos
+        {
+         "Local" => "0", 
+         "Nacional"  => "1",
+         "Internacional" => "2"       
+         }
+    end
+    
+    def self.Ambitostexto(ind)
+      self.Ambitos.each do |k,v| 
+        if v.to_i == ind 
+          return k
+        end
+      end
+      return "No definido"
+    end 
+
     def sectores
       tmp = []
       for per in empresasperfiles
@@ -71,6 +88,7 @@ module Bazarcms
       logger.debug "sectores añadidos a la busqueda: "+tmp.inspect
       return tmp
     end
+        
     
     def interesantes
       puts "Empresas interesantes para: #{self.id} #{self.nombre}"
