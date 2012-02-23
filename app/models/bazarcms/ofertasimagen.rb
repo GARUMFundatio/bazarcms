@@ -20,6 +20,8 @@ module Bazarcms
           :path => ":rails_root/public/:class/:attachment/:id/:style_:basename.:extension",
           :url => "/:class/:attachment/:id/:style_:basename.:extension",
           :default_url => "/images/sinlogo.png"
+    
+    validates_attachment_content_type :imagen, :content_type=>['image/jpeg', 'image/png', 'image/gif']
           
   end
   
