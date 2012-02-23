@@ -67,7 +67,7 @@ module Bazarcms
     
     def self.Ambitostexto(ind)
       self.Ambitos.each do |k,v| 
-        if v.to_i == ind 
+        if v.to_i == ind.to_i
           return k
         end
       end
