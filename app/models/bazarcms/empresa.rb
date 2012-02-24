@@ -74,6 +74,36 @@ module Bazarcms
       return "No definido"
     end 
 
+    def self.Sectores
+        {
+         "Industria"     => "01", 
+         "Distribución"  => "02",
+         "Finanzas"      => "03",
+         "Conocimiento"  => "04",
+         "Cooperativa"   => "05"
+         }
+    end
+    
+    def self.Sectorestexto(ind)
+      self.Sectores.each do |k,v| 
+        if v.to_i == ind.to_i
+          return k
+        end
+      end
+      return "No definido"
+    end 
+
+    def self.Sectoresicono(ind)
+      self.Sectores.each do |k,v| 
+        if v.to_i == ind.to_i
+          return k
+        end
+      end
+      return "No definido"
+    end 
+
+
+
     def sectores
       tmp = []
       for per in empresasperfiles
