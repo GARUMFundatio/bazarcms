@@ -141,11 +141,12 @@ module Bazarcms
             query = ""
             qor = "" 
             for pal in pals 
+              next if pal.strip.length <= 0
               if qor == ""
-                 query += pal
+                 query += pal.strip
                  qor = " OR "
               else 
-                query += qor + pal              
+                query += qor + pal.strip              
               end 
             end 
 
