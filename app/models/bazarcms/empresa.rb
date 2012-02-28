@@ -119,6 +119,40 @@ module Bazarcms
       return tmp
     end
         
+    def self.empresasestimadas(ambito, pal)
+      
+      total = "todas"
+
+      if pal.nil?
+        pals = pal.split(" ")
+      else 
+        pals = []
+      end 
+
+      if pals.count <= 0 and ambito.nil? 
+        total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
+      else 
+        total = "23"
+        case ambito 
+        when "0"
+        
+        when "1"
+          
+        when "2"
+          if pals.count <= 0 
+            total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
+          else 
+            # tenemos que lanzar una busqueda a todos los paises con las palabras claves 
+            total = "todas"
+          end 
+          
+        else 
+          total = "error"
+        end
+      end 
+      
+      return total 
+    end
     
     def interesantes
       puts "Empresas interesantes para: #{self.id} #{self.nombre}"
