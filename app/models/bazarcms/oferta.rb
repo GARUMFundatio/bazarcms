@@ -33,6 +33,23 @@ module Bazarcms
       
     end 
   
+    def self.Ambitos
+        {
+         "Mi Bazar" => "0", 
+         "Nacional"  => "1",
+         "Internacional" => "2"       
+         }
+    end
+    
+    def self.Ambitostexto(ind)
+      self.Ambitos.each do |k,v| 
+        if v.to_i == ind.to_i
+          return k
+        end
+      end
+      return "No definido"
+    end 
+    
     def self.busca(*p)
 
       # default values 
