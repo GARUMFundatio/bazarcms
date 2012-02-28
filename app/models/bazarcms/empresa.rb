@@ -136,8 +136,21 @@ module Bazarcms
         when "0"
           if pals.count <= 0 
             total = Empresa.count_by_sql("select count(*) from empresas")
-          else 
-            # tenemos que lanzar una busqueda a todos los paises con las palabras claves 
+            resultados = Empresa.where('1 = 1')
+          else
+            query = ""
+            qor = "" 
+            for pal in pals 
+              if qor == ""
+                 query += pal
+                 qor = " OR "
+              else 
+                query += qor + pal              
+              end 
+            end 
+
+            resultados = Empresa.find_with_ferret(query, :limit => :all)
+            total = resultados.count        
           end
         when "1"
           
