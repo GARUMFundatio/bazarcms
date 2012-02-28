@@ -123,7 +123,7 @@ module Bazarcms
       
       total = "todas"
 
-      if pal.nil?
+      if !pal.nil?
         pals = pal.split(" ")
       else 
         pals = []
@@ -147,7 +147,7 @@ module Bazarcms
           end 
           
         else 
-          total = "error"
+          total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
         end
       end 
       
