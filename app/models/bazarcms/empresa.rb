@@ -1,6 +1,7 @@
 module Bazarcms
   
   unloadable
+  require 'open-uri'
   
   class Empresa < ActiveRecord::Base
     set_table_name "empresas"
@@ -120,12 +121,16 @@ module Bazarcms
     end
         
     def self.empresasestimadas(ambito, pal)
+
+      logger.debug "Me llega ------------> pal #{pal.inspect}"
       
       if !pal.nil?
         pals = pal.split(",")
       else 
-        pals = []
+        pals = ["*"]
       end 
+      
+      logger.debug "Me llega(2) ------------> pal #{pal.inspect} encoded #{URI::encode(pal)} pals #{pals.inspect}"
       
       total = ambito+" : "+pals.inspect+" ->"+pals.count.to_s
 
@@ -172,19 +177,22 @@ module Bazarcms
             logger.debug "lanzo las peticiones "+DateTime.now.to_s
             @clusters = Cluster.where("activo = 'S'")
             micluster = Conf.find_by_nombre("BazarId").valor.to_i
+
+            tmp = query.gsub(" OR ", ",").gsub(" ", "+")
             
             for cluster in @clusters
 
               if micluster != cluster.id 
 
-                uri = "#{cluster.url}//home/empresasestimadas?pals="+CGI.escape(pal)+"&ambito=0"
-                logger.debug "Enviando Petición a ------------> #{uri}"
+                uri = "#{cluster.url}//home/empresasestimadas?pals="+tmp+"&ambito=0"
+                logger.debug "Enviando Petición a ------------> pal #{pal} tmp #{tmp.inspect} encoded #{tmp} #{uri}"
 
                 r = Typhoeus::Request.new(uri, :timeout => 5000)
                 r.on_complete do |response|
                   logger.debug "-------------> "+response.inspect
                   case response.curl_return_code
                   when 0
+                    logger.debug "OK Peticion ---------->"+response.inspect
                     total += response.body.to_i
                   else
                     logger.debug "ERROR en la petición ---------->"+response.inspect
