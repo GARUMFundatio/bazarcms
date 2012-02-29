@@ -129,7 +129,7 @@ module Bazarcms
       
       total = ambito+" : "+pals.inspect+" ->"+pals.count.to_s
 
-      if (pals.count <= 0)
+      if (pals.count >= 1)
         query = ""
         qor = "" 
         for pal in pals 
@@ -163,9 +163,39 @@ module Bazarcms
             total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
           else 
             # tenemos que lanzar una busqueda a todos los paises con las palabras claves 
+            
+            resultados = Empresa.find_with_ferret(query, :limit => :all)
+            total = resultados.count        
 
+            hydra = Typhoeus::Hydra.new
+
+            logger.debug "lanzo las peticiones "+DateTime.now.to_s
+            @clusters = Cluster.where("activo = 'S'")
+            micluster = Conf.find_by_nombre("BazarId").valor.to_i
+            
+            for cluster in @clusters
+
+              if micluster != cluster.id 
+
+                uri = "#{cluster.url}//home/empresasestimadas?pals="+CGI.escape(pal)+"&ambito=0"
+                logger.debug "Enviando Petición a ------------> #{uri}"
+
+                r = Typhoeus::Request.new(uri, :timeout => 5000)
+                r.on_complete do |response|
+                  logger.debug "-------------> "+response.inspect
+                  case response.curl_return_code
+                  when 0
+                    total += response.body.to_i
+                  else
+                    logger.debug "ERROR en la petición ---------->"+response.inspect
+                  end
+                end
+                hydra.queue r        
+              end
+            end 
+            hydra.run
+            logger.debug "servidas "+DateTime.now.to_s
           end 
-          
         else 
           total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
         end
