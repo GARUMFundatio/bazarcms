@@ -129,6 +129,20 @@ module Bazarcms
       
       total = ambito+" : "+pals.inspect+" ->"+pals.count.to_s
 
+      if (pals.count <= 0)
+        query = ""
+        qor = "" 
+        for pal in pals 
+          next if pal.strip.length <= 0
+          if qor == ""
+             query += pal.strip
+             qor = " OR "
+          else 
+            query += qor + pal.strip              
+          end 
+        end
+      end 
+      
       if pals.count <= 0 and ambito.nil? 
         total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
       else 
@@ -138,17 +152,6 @@ module Bazarcms
             total = Empresa.count_by_sql("select count(*) from empresas")
             resultados = Empresa.where('1 = 1')
           else
-            query = ""
-            qor = "" 
-            for pal in pals 
-              next if pal.strip.length <= 0
-              if qor == ""
-                 query += pal.strip
-                 qor = " OR "
-              else 
-                query += qor + pal.strip              
-              end 
-            end 
 
             resultados = Empresa.find_with_ferret(query, :limit => :all)
             total = resultados.count        
@@ -160,7 +163,7 @@ module Bazarcms
             total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
           else 
             # tenemos que lanzar una busqueda a todos los paises con las palabras claves 
-            
+
           end 
           
         else 
