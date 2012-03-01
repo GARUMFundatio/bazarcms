@@ -178,7 +178,15 @@ module Bazarcms
             @clusters = Cluster.where("activo = 'S'")
             micluster = Conf.find_by_nombre("BazarId").valor.to_i
 
-            tmp = query.gsub(" OR ", ",").gsub(" ", "+")
+            if (pals.count >= 1)
+              tmp = ""
+              qor = "" 
+              for pal in pals 
+                next if pal.strip.length <= 0
+                   tmp += pal.gsub(" ", "+").strip+","
+                end 
+              end
+            end
             
             for cluster in @clusters
 
