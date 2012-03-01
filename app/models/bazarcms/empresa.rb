@@ -183,7 +183,8 @@ module Bazarcms
               qor = "" 
               for pal in pals 
                 next if pal.strip.length <= 0
-                tmp += pal.gsub(" ", "+").strip+","
+#                tmp += CGI::escape(pal.gsub(" ", "+").strip)+","
+                  tmp += CGI::escape(pal)+","
               end
             end
             
