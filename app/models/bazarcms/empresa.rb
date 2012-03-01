@@ -183,8 +183,7 @@ module Bazarcms
               qor = "" 
               for pal in pals 
                 next if pal.strip.length <= 0
-                   tmp += pal.gsub(" ", "+").strip+","
-                end 
+                tmp += pal.gsub(" ", "+").strip+","
               end
             end
             
