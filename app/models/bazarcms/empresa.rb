@@ -165,6 +165,25 @@ module Bazarcms
             resultados = Empresa.find_with_ferret(query, :limit => :all)
             total = resultados.count        
           end
+          
+          if paises.length >= 1 
+            if !paises.include? 'all'
+              total = 0 
+              for resu in resultados 
+                ubis = resu.ubicaciones
+                entra = 0  
+                for ubi in ubis 
+                  if pais.include?(ubi.ciudad.pais_codigo)
+                    entra += 1 
+                  end 
+                end 
+                total += 1 if entra >= 1
+                
+              end 
+            end 
+          end 
+          
+          return total 
         when "1"
 
           total = 0 
