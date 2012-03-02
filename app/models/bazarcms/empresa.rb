@@ -124,6 +124,10 @@ module Bazarcms
 
       logger.debug "Me llega ------------> pal #{pal.inspect} paises #{paises}"
       
+      if paises.length <= 0 
+        paises = "all "
+      end 
+      
       if !pal.nil?
         pals = pal.split(",")
       else 
@@ -172,13 +176,19 @@ module Bazarcms
             resultados = Empresa.find_with_ferret(query, :limit => :all)            
           end 
           
-          for resu in resultados             
-            ubis = resu.ubicaciones 
+          for resu in resultados
+            if pais[0] == "all"
+              total += 1 
+              next 
+            end             
+            ubis = resu.ubicaciones
+            entra = 0  
             for ubi in ubis 
               if pais.include?(ubi.ciudad.pais_codigo)
-                total += 1 
+                entra += 1 
               end 
             end 
+            total += 1 if entra >= 1
           end 
          
           hydra = Typhoeus::Hydra.new
@@ -190,8 +200,11 @@ module Bazarcms
           if !paises.nil? 
             tmp2 = paises.gsub(" ", "+")
           else 
-            tmp2 = ""
+            tmp2 = "all+"
           end 
+          
+          logger.debug "paises #{paises}"
+          logger.debug "tmp2 #{tmp2}"
           
           if (pals.count >= 1)
             tmp = ""
@@ -201,6 +214,8 @@ module Bazarcms
 #                tmp += CGI::escape(pal.gsub(" ", "+").strip)+","
                 tmp += CGI::escape(pal)+","
             end
+          else 
+            tmp = ""
           end
 
           for cluster in @clusters
@@ -224,7 +239,7 @@ module Bazarcms
           end 
           hydra.run
           logger.debug "servidas "+DateTime.now.to_s
-        end 
+       
           
         when "2"
           if pals.count <= 0 
