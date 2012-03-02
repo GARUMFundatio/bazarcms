@@ -120,9 +120,9 @@ module Bazarcms
       return tmp
     end
         
-    def self.empresasestimadas(ambito, pal)
+    def self.empresasestimadas(ambito, pal, paises)
 
-      logger.debug "Me llega ------------> pal #{pal.inspect}"
+      logger.debug "Me llega ------------> pal #{pal.inspect} paises #{paises}"
       
       if !pal.nil?
         pals = pal.split(",")
