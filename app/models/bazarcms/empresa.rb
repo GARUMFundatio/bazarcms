@@ -173,6 +173,7 @@ module Bazarcms
                 ubis = resu.ubicaciones
                 entra = 0  
                 for ubi in ubis 
+                  next if ubi.ciudad.pais_codigo.nil? 
                   if pais.include?(ubi.ciudad.pais_codigo)
                     entra += 1 
                   end 
@@ -203,6 +204,9 @@ module Bazarcms
             ubis = resu.ubicaciones
             entra = 0  
             for ubi in ubis 
+              
+              next if ubi.ciudad.pais_codigo.nil? 
+              
               if pais.include?(ubi.ciudad.pais_codigo)
                 entra += 1 
               end 
