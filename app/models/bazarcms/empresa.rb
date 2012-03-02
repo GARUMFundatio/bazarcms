@@ -162,6 +162,69 @@ module Bazarcms
             total = resultados.count        
           end
         when "1"
+
+          total = 0 
+          
+          pais = paises.split(" ")
+          if pals.count <= 0 
+            resultados = Empresa.where("1 = 1")
+          else 
+            resultados = Empresa.find_with_ferret(query, :limit => :all)            
+          end 
+          
+          for resu in resultados             
+            ubis = resu.ubicaciones 
+            for ubi in ubis 
+              if pais.include?(ubi.ciudad.pais_codigo)
+                total += 1 
+              end 
+            end 
+          end 
+         
+          hydra = Typhoeus::Hydra.new
+
+          logger.debug "lanzo las peticiones "+DateTime.now.to_s
+          @clusters = Cluster.where("activo = 'S'")
+          micluster = Conf.find_by_nombre("BazarId").valor.to_i
+
+          if !paises.nil? 
+            tmp2 = paises.gsub(" ", "+")
+          else 
+            tmp2 = ""
+          end 
+          
+          if (pals.count >= 1)
+            tmp = ""
+            qor = "" 
+            for pal in pals 
+              next if pal.strip.length <= 0
+#                tmp += CGI::escape(pal.gsub(" ", "+").strip)+","
+                tmp += CGI::escape(pal)+","
+            end
+          end
+
+          for cluster in @clusters
+            if micluster != cluster.id 
+              uri = "#{cluster.url}//home/empresasestimadas?pals="+tmp+"&ambito=0&paises="+tmp2
+              logger.debug "Enviando Petición a ------------> pal #{pal} tmp #{tmp.inspect} encoded #{tmp} #{uri}"
+
+              r = Typhoeus::Request.new(uri, :timeout => 5000)
+              r.on_complete do |response|
+                logger.debug "-------------> "+response.inspect
+                case response.curl_return_code
+                when 0
+                  logger.debug "OK Peticion ---------->"+response.inspect
+                  total += response.body.to_i
+                else
+                  logger.debug "ERROR en la petición ---------->"+response.inspect
+                end
+              end
+              hydra.queue r        
+            end
+          end 
+          hydra.run
+          logger.debug "servidas "+DateTime.now.to_s
+        end 
           
         when "2"
           if pals.count <= 0 
