@@ -417,6 +417,7 @@ module Bazarcms
         return total
       else 
         logger.debug "datos finales: "+total.inspect 
+        logger.debug "datos json: "+total.to_json 
         return total.to_json
       end 
        
