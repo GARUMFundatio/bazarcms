@@ -2,7 +2,6 @@ module Bazarcms
   
   unloadable
 
-
   # TODO: incluir sectores y paises 
   
   class Oferta < ActiveRecord::Base
@@ -18,6 +17,9 @@ module Bazarcms
     acts_as_ferret :fields => [ :titulo, :texto ]
     
     has_friendly_id :titulo, :use_slug => true, :approximate_ascii => true
+    
+    acts_as_taggable
+    acts_as_taggable_on :palabrasclave
     
     def self.mostrada(bazar_id, oferta_id)
 
