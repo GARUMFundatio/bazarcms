@@ -318,10 +318,10 @@ module Bazarcms
                     total += response.body.to_i
                   else
                     logger.debug "llega esto de data"+response.body 
-                    if response.code.to_i != 404
+                    if response.code.to_i == 200
                       total += JSON.parse(response.body)
                     else 
-                      logger.debug "OJO que no lo proceso por que da un 404"
+                      logger.debug "OJO que no lo proceso por que NO da un 200"
                     end
                    
                   end 
@@ -400,10 +400,10 @@ module Bazarcms
                     if tipo == "total"
                       total += response.body.to_i
                     else 
-                      if response.code.to_i != 404
+                      if response.code.to_i == 200
                         total += JSON.parse(response.body)
                       else 
-                        logger.debug "OJO que no lo proceso por que da un 404"
+                        logger.debug "OJO que no lo proceso por que NO da un 200"
                       end                     
                     end 
                     
