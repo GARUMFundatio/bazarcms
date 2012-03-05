@@ -314,8 +314,9 @@ module Bazarcms
                   logger.debug "OK Peticion ---------->"+response.inspect
                   if (tipo == "total")
                     total += response.body.to_i
-                  else 
-                    total += JSON.parse(response.body)                   
+                  else
+                    logger.debug "llega esto de data"+response.body 
+                    # total += JSON.parse(response.body)                   
                   end 
                 else
                   logger.debug "ERROR en la petición ---------->"+response.inspect
