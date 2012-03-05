@@ -318,7 +318,12 @@ module Bazarcms
                     total += response.body.to_i
                   else
                     logger.debug "llega esto de data"+response.body 
-                    total += JSON.parse(response.body)                   
+                    if response.code.to_i != 404
+                      total += JSON.parse(response.body)
+                    else 
+                      logger.debug "OJO que no lo proceso por que da un 404"
+                    end
+                   
                   end 
                 else
                   logger.debug "ERROR en la petición ---------->"+response.inspect
@@ -395,7 +400,7 @@ module Bazarcms
                     if tipo == "total"
                       total += response.body.to_i
                     else 
-                      if response.code != 404
+                      if response.code.to_i != 404
                         total += JSON.parse(response.body)
                       else 
                         logger.debug "OJO que no lo proceso por que da un 404"
