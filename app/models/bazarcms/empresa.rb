@@ -395,7 +395,11 @@ module Bazarcms
                     if tipo == "total"
                       total += response.body.to_i
                     else 
-                      total += JSON.parse(response.body)                    
+                      if response.code != 404
+                        total += JSON.parse(response.body)
+                      else 
+                        logger.debug "OJO que no lo proceso por que da un 404"
+                      end                     
                     end 
                     
                   else
