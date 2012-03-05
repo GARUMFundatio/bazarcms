@@ -120,9 +120,9 @@ module Bazarcms
       return tmp
     end
         
-    def self.empresasestimadas(ambito, pal, paises)
+    def self.empresasestimadas(ambito, pal, paises, tipo)
 
-      logger.debug "Me llega ------------> pal #{pal.inspect} paises #{paises}"
+      logger.debug "Me llega ------------> pal #{pal.inspect} paises (#{paises}) tipo #{tipo}"
       
       if paises.length <= 0 
         paises = "all "
@@ -153,44 +153,88 @@ module Bazarcms
       end 
       
       if pals.count <= 0 and ambito.nil? 
-        total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
+        if (tipo == "total")
+          total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
+        else 
+          total = []
+          Empresa.where('1 = 1').each do |empre| 
+            total << empre.attributes
+          end 
+          logger.debug "resultados en tipo data: "+total.inspect
+        end 
       else 
         case ambito 
         when "0"
-          if pals.count <= 0 
-            total = Empresa.count_by_sql("select count(*) from empresas")
+          pais = paises.split(" ")
+          if pals.count <= 0
             resultados = Empresa.where('1 = 1')
+            if (tipo == "total") 
+              total = Empresa.count_by_sql("select count(*) from empresas")
+            else 
+              total = []
+              resultados.each do |empre| 
+                total << empre.attributes
+              end 
+              logger.debug "Resultado para ambito 0 y sin palabras: "+total.inspect
+            end 
           else
-
             resultados = Empresa.find_with_ferret(query, :limit => :all)
-            total = resultados.count        
+            if (tipo == "total")
+              total = resultados.count        
+            else 
+              total = []
+              resultados.each do |empre| 
+                total << empre.attributes
+              end 
+            end 
           end
+
+          logger.debug "----> paises #{paises}"
           
           if paises.length >= 1 
+            logger.debug "voy a revisar los paises #{paises}"
             if !paises.include? 'all'
-              total = 0 
+              logger.debug "No es all reviso uno a uno"
+              if (tipo == "total")
+                total = 0
+              else 
+                total = []
+              end 
+               
               for resu in resultados 
                 ubis = resu.ubicaciones
+                logger.debug ("revisando ubicaciones de #{resu.nombre} "+ubis.inspect)
                 entra = 0  
                 for ubi in ubis 
                   next if ubi.ciudad.nil?                   
                   next if ubi.ciudad.pais_codigo.nil? 
                   if pais.include?(ubi.ciudad.pais_codigo)
+                    logger.debug "Ubi paises #{paises} pais #{pais} ubi #{ubi.ciudad.pais_codigo}"
                     entra += 1 
                   end 
                 end 
-                total += 1 if entra >= 1
-                
+                if entra >= 1
+                  if (tipo == "total")
+                    total += 1 
+                  else 
+                    total << resu.attributes
+                    logger.debug "Entra -----> #{resu.nombre}"
+                  end 
+                end
               end 
             end 
           end 
           
-          return total 
         when "1"
 
-          total = 0 
+          if (tipo == "total")
+            total = 0 
+          else 
+            total = []
+          end 
           
           pais = paises.split(" ")
+          
           if pals.count <= 0 
             resultados = Empresa.where("1 = 1")
           else 
@@ -199,7 +243,11 @@ module Bazarcms
           
           for resu in resultados
             if pais[0] == "all"
-              total += 1 
+              if tipo == "total"
+                total += 1
+              else 
+                total << resu.attributes 
+              end 
               next 
             end             
             ubis = resu.ubicaciones
@@ -212,7 +260,13 @@ module Bazarcms
                 entra += 1 
               end 
             end 
-            total += 1 if entra >= 1
+            if entra >= 1
+              if tipo == "total"
+                total += 1
+              else 
+                total << resu.attributes
+              end 
+            end 
           end 
          
           hydra = Typhoeus::Hydra.new
@@ -244,7 +298,12 @@ module Bazarcms
 
           for cluster in @clusters
             if micluster != cluster.id 
-              uri = "#{cluster.url}//home/empresasestimadas?pals="+tmp+"&ambito=0&paises="+tmp2
+              if tipo == "total"
+                uri = "#{cluster.url}//home/empresasestimadas?pals="+tmp+"&ambito=0&paises="+tmp2+"&tipo=total"
+              else 
+                uri = "#{cluster.url}//home/empresasestimadas?pals="+tmp+"&ambito=0&paises="+tmp2+"&tipo=data"                
+              end 
+              
               logger.debug "Enviando Petición a ------------> pal #{pal} tmp #{tmp.inspect} encoded #{tmp} #{uri}"
 
               r = Typhoeus::Request.new(uri, :timeout => 5000)
@@ -253,7 +312,11 @@ module Bazarcms
                 case response.curl_return_code
                 when 0
                   logger.debug "OK Peticion ---------->"+response.inspect
-                  total += response.body.to_i
+                  if (tipo == "total")
+                    total += response.body.to_i
+                  else 
+                    total += JSON.parse(response.body)                   
+                  end 
                 else
                   logger.debug "ERROR en la petición ---------->"+response.inspect
                 end
@@ -266,14 +329,31 @@ module Bazarcms
        
           
         when "2"
-          if pals.count <= 0 
-            total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
+          if pals.count <= 0
+            if tipo = "total" 
+              total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
+            else
+              total = []
+              resultados = Empresa.where("1 = 1") 
+              resuldados.each do |empre|
+                total << empre.attributes
+              end 
+            end 
           else 
             # tenemos que lanzar una busqueda a todos los paises con las palabras claves 
             
             resultados = Empresa.find_with_ferret(query, :limit => :all)
-            total = resultados.count        
-
+            
+            if tipo == "total"
+              total = resultados.count        
+            else 
+              total = []
+              resuldados.each do |empre|
+                total << empre.attributes
+              end 
+              
+            end 
+            
             hydra = Typhoeus::Hydra.new
 
             logger.debug "lanzo las peticiones "+DateTime.now.to_s
@@ -294,7 +374,12 @@ module Bazarcms
 
               if micluster != cluster.id 
 
-                uri = "#{cluster.url}//home/empresasestimadas?pals="+tmp+"&ambito=0"
+                if tipo == "total"
+                  uri = "#{cluster.url}//home/empresasestimadas?pals="+tmp+"&ambito=0&tipo=total"
+                else 
+                  uri = "#{cluster.url}//home/empresasestimadas?pals="+tmp+"&ambito=0&tipo=data"                  
+                end 
+                
                 logger.debug "Enviando Petición a ------------> pal #{pal} tmp #{tmp.inspect} encoded #{tmp} #{uri}"
 
                 r = Typhoeus::Request.new(uri, :timeout => 5000)
@@ -303,7 +388,12 @@ module Bazarcms
                   case response.curl_return_code
                   when 0
                     logger.debug "OK Peticion ---------->"+response.inspect
-                    total += response.body.to_i
+                    if tipo == "total"
+                      total += response.body.to_i
+                    else 
+                      total += JSON.parse(response.body)                    
+                    end 
+                    
                   else
                     logger.debug "ERROR en la petición ---------->"+response.inspect
                   end
@@ -319,7 +409,13 @@ module Bazarcms
         end
       end 
       
-      return total 
+      if (tipo == "total")
+        return total
+      else 
+        logger.debug "datos finales: "+total.inspect 
+        return total.to_json
+      end 
+       
     end
     
     def interesantes

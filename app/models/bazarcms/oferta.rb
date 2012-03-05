@@ -14,12 +14,13 @@ module Bazarcms
   
     has_many :ofertasconsultas
   
-    acts_as_ferret :fields => [ :titulo, :texto ]
+    acts_as_taggable
+    acts_as_taggable_on :palabrasclave
+  
+    acts_as_ferret :fields => [ :titulo, :texto, :palabrasclave ]
     
     has_friendly_id :titulo, :use_slug => true, :approximate_ascii => true
     
-    acts_as_taggable
-    acts_as_taggable_on :palabrasclave
     
     def self.mostrada(bazar_id, oferta_id)
 
