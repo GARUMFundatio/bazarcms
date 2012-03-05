@@ -152,13 +152,15 @@ module Bazarcms
         end
       end 
       
+      micluster = Conf.find_by_nombre("BazarId").valor.to_i
+      
       if pals.count <= 0 and ambito.nil? 
         if (tipo == "total")
           total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
         else 
           total = []
           Empresa.where('1 = 1').each do |empre| 
-            total << empre.attributes
+            total << [micluster, empre.id]
           end 
           logger.debug "resultados en tipo data: "+total.inspect
         end 
@@ -173,7 +175,7 @@ module Bazarcms
             else 
               total = []
               resultados.each do |empre| 
-                total << empre.attributes
+                total << [micluster, empre.id]
               end 
               logger.debug "Resultado para ambito 0 y sin palabras: "+total.inspect
             end 
@@ -184,7 +186,7 @@ module Bazarcms
             else 
               total = []
               resultados.each do |empre| 
-                total << empre.attributes
+                total << [micluster, empre.id]
               end 
             end 
           end
@@ -217,7 +219,7 @@ module Bazarcms
                   if (tipo == "total")
                     total += 1 
                   else 
-                    total << resu.attributes
+                    total << [micluster, resu.id]
                     logger.debug "Entra -----> #{resu.nombre}"
                   end 
                 end
@@ -227,6 +229,7 @@ module Bazarcms
           
         when "1"
 
+          micluster = Conf.find_by_nombre("BazarId").valor.to_i
           if (tipo == "total")
             total = 0 
           else 
@@ -246,7 +249,7 @@ module Bazarcms
               if tipo == "total"
                 total += 1
               else 
-                total << resu.attributes 
+                total << [micluster, resu.id]
               end 
               next 
             end             
@@ -264,7 +267,7 @@ module Bazarcms
               if tipo == "total"
                 total += 1
               else 
-                total << resu.attributes
+                total << [micluster, resu.id]
               end 
             end 
           end 
@@ -273,7 +276,6 @@ module Bazarcms
 
           logger.debug "lanzo las peticiones "+DateTime.now.to_s
           @clusters = Cluster.where("activo = 'S'")
-          micluster = Conf.find_by_nombre("BazarId").valor.to_i
 
           if !paises.nil? 
             tmp2 = paises.gsub(" ", "+")
@@ -316,7 +318,7 @@ module Bazarcms
                     total += response.body.to_i
                   else
                     logger.debug "llega esto de data"+response.body 
-                    # total += JSON.parse(response.body)                   
+                    total += JSON.parse(response.body)                   
                   end 
                 else
                   logger.debug "ERROR en la petición ---------->"+response.inspect
@@ -330,6 +332,8 @@ module Bazarcms
        
           
         when "2"
+          micluster = Conf.find_by_nombre("BazarId").valor.to_i
+
           if pals.count <= 0
             if tipo = "total" 
               total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
@@ -337,7 +341,7 @@ module Bazarcms
               total = []
               resultados = Empresa.where("1 = 1") 
               resuldados.each do |empre|
-                total << empre.attributes
+                total << [micluster, empre.id]
               end 
             end 
           else 
@@ -350,7 +354,7 @@ module Bazarcms
             else 
               total = []
               resuldados.each do |empre|
-                total << empre.attributes
+                total << [micluster, empre.id]
               end 
               
             end 
@@ -359,7 +363,6 @@ module Bazarcms
 
             logger.debug "lanzo las peticiones "+DateTime.now.to_s
             @clusters = Cluster.where("activo = 'S'")
-            micluster = Conf.find_by_nombre("BazarId").valor.to_i
 
             if (pals.count >= 1)
               tmp = ""
