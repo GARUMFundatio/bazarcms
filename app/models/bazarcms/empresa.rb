@@ -205,7 +205,7 @@ module Bazarcms
                
               for resu in resultados 
                 ubis = resu.ubicaciones
-                logger.debug ("revisando ubicaciones de #{resu.nombre} "+ubis.inspect)
+                logger.debug("revisando ubicaciones de #{resu.nombre} "+ubis.inspect)
                 entra = 0  
                 for ubi in ubis 
                   next if ubi.ciudad.nil?                   
@@ -340,7 +340,7 @@ module Bazarcms
           micluster = Conf.find_by_nombre("BazarId").valor.to_i
 
           if pals.count <= 0
-            if tipo = "total" 
+            if tipo == "total" 
               total = Cluster.count_by_sql("select sum(empresas) from clusters where activo = 'S' ")
             else
               total = []
