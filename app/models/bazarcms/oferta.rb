@@ -116,7 +116,7 @@ module Bazarcms
       @consulta = Ofertasconsulta.new
       @consulta.empresa_id = user 
 
-      logger.debug "------> (#{q}) unscaped (#{CGI.unescape(q)})"
+      logger.debug "------> (#{q}) "
 
       @consulta.desc = CGI.unescape(q)
       @consulta.total_consultas = @clusters.count()
