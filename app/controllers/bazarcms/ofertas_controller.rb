@@ -728,7 +728,12 @@ module Bazarcms
 
 
         if (entra == total)
-          ofe.vistas += 1
+          if !ofe.vistas.nil?
+            ofe.vistas += 1
+          else 
+            ofe.vistas = 1
+          end 
+          
           logger.debug "incrementado vistas ------->  #{ofe.vistas}"
           ofe.save
           resultados2 << ofe
