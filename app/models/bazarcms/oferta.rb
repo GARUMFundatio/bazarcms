@@ -160,7 +160,12 @@ module Bazarcms
           
           # increment the counter of views
 
-          resu.vistas += 1 
+          if !resu.vistas.nil? 
+            resu.vistas += 1
+          else 
+            resu.vistas = 1
+          end 
+          
           resu.save
           
           conta2 += 1
