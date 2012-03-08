@@ -345,7 +345,7 @@ module Bazarcms
             else
               total = []
               resultados = Empresa.where("1 = 1") 
-              resuldados.each do |empre|
+              resultados.each do |empre|
                 total << [micluster, empre.id]
               end 
             end 
@@ -358,7 +358,7 @@ module Bazarcms
               total = resultados.count        
             else 
               total = []
-              resuldados.each do |empre|
+              resultados.each do |empre|
                 total << [micluster, empre.id]
               end 
               
