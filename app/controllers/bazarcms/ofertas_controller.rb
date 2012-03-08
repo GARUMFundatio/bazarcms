@@ -38,9 +38,14 @@ module Bazarcms
     if ( params[:bazar_id].to_i == BZ_param("BazarId").to_i )
       
       @oferta = Oferta.find(params[:id])
-      @oferta.clicks += 1
-      @oferta.save 
-
+      if !@oferta.nil? 
+        if !@oferta.clicks.nil?
+          @oferta.clicks += 1
+        else 
+          @oferta.clicks = 1
+        end 
+        @oferta.save 
+      end 
       # @infoempresa = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{@oferta.empresa_id}?bazar_id=#{@oferta.bazar_id}&display=inside")
       # @infoempresa = ""
       #if (@infoempresa == "")
