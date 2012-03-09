@@ -96,7 +96,7 @@ module Bazarcms
         
       end
       
-      q = "*" if q == ""
+      q = "*" if q.nil?
 
       logger.debug "tipo  : #{tipo}"
       logger.debug "q     : #{q}"
@@ -118,7 +118,7 @@ module Bazarcms
 
       logger.debug "------> (#{q}) "
 
-      @consulta.desc = CGI.unescape(q)
+      @consulta.desc = q
       @consulta.total_consultas = @clusters.count()
       @consulta.total_respuestas = 0
       @consulta.total_resultados = 0
