@@ -39,9 +39,11 @@ module Bazarcms
         if mieval == [] 
           logger.debug "Esta empresa no ha evaludado a #{rat.ori_bazar_id} -> #{rat.ori_empresa_id}"
           logger.debug "Hay que avisarla y penalizarla"
+          puts "Esta empresa no ha evaludado a #{rat.ori_bazar_id} -> #{rat.ori_empresa_id}"
           next
         else 
           logger.debug "Tenemos doble rating, calculamos"
+          puts "Tenemos doble rating, calculamos"
         end 
                 
         totrc = totrp = 0
