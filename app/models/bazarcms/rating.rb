@@ -17,101 +17,59 @@ module Bazarcms
       total_val_proveedor = 0 
     
       puts "Calculando la ficha de rating para bazar #{bazar} empresa #{empresa} "
-      # rats = Rating.where("(ori_bazar_id = ? and ori_empresa_id = ?) or (des_bazar_id = ? and des_empresa_id = ?)", bazar, empresa, bazar, empresa)
-
-      rats = Rating.where("( ori_bazar_id = ? and ori_empresa_id = ? ) or ( des_bazar_id = ? and des_empresa_id = ? )", bazar, empresa, bazar, empresa)
+    
+      rats = Rating.where(" des_bazar_id = ? and des_empresa_id = ? ", bazar, empresa)
       
       hay = false 
-  
+      
+      if rats == []
+        logger.debug "Nadie le ha evaluado todavía"
+        return
+      end 
+      
       for rat in rats 
       
         # primero determinamos si la empresa es la que ha originado el rating 
         puts "--->> bazar #{rat.ori_bazar_id} empresa #{rat.ori_empresa_id} #{rat.ori_empresa_nombre} --->> bazar #{rat.des_bazar_id} empresa #{rat.des_empresa_id} #{rat.des_empresa_nombre} (#{rat.role})"
         
-        if rat.ori_fecha.nil? || rat.des_fecha.nil?
-          # TODO: hay que penalizar las imcompletas
-          puts "No entra por que está incompleta y se debería penalizar al que no ha respondido"
+        mieval = Bazarcms::Rating.where("ori_bazar_id = ? and ori_empresa_id = ? and des_bazar_id = ? and des_empresa_id = ?",
+                                        bazar, empresa, rat.ori_bazar_id, rat.ori_empresa_id).limit(1)
+        
+        # si yo he evaluado esta empresa podemos calcular el ratio, si no pasamos al siguiente rating                                  
+        if mieval == [] 
+          logger.debug "Esta empresa no ha evaludado a #{rat.ori_bazar_id} -> #{rat.ori_empresa_id}"
+          logger.debug "Hay que avisarla y penalizarla"
           next
-        
+        else 
+          logger.debug "Tenemos doble rating, calculamos"
         end 
-        
+                
         totrc = totrp = 0
         totc = totp = 0
-                
-  
+
+        # hay que añadir los roles cuando volvamos al modo no pajaru
         
-        if rat.ori_bazar_id == bazar.to_i && rat.ori_empresa_id == empresa.to_i
-          puts "------------> soy la empresa que inicia "
-          if rat.role == 'P'
-
-            if (rat.des_proveedor_expectativas > 0)  
-              totrp += rat.des_proveedor_expectativas
-              totp += 1
-            end
-
-            if (rat.des_proveedor_plazos > 0)  
-              totrp += rat.des_proveedor_plazos
-              totp += 1
-            end
-
-            if (rat.des_proveedor_comunicacion > 0)  
-              totrp += rat.des_proveedor_comunicacion
-              totp += 1
-            end 
-
-          else 
-
-            if (rat.des_cliente_plazos > 0)  
-               totrc += rat.des_cliente_plazos
-               totc += 1
-             end
-
-             if (rat.des_cliente_comunicacion > 0)  
-               totrc += rat.des_cliente_comunicacion
-               totc += 1
-             end
-
-          end         
-
-
-        end 
-         
-        if rat.des_bazar_id == bazar.to_i && rat.des_empresa_id == empresa.to_i 
-          puts "Estoy como empresa destino"
-          puts "------------> soy la empresa evaluada "
-          if rat.role == 'C'
-
-            if (rat.ori_proveedor_expectativas > 0)  
-              totrp += rat.ori_proveedor_expectativas
-              totp += 1
-            end
-
-            if (rat.ori_proveedor_plazos > 0)  
-              totrp += rat.ori_proveedor_plazos
-              totp += 1
-            end
-
-            if (rat.ori_proveedor_comunicacion > 0)  
-              totrp += rat.ori_proveedor_comunicacion
-              totp += 1
-            end 
-
-          else 
-
-            if (rat.ori_cliente_plazos > 0)  
-               totrc += rat.ori_cliente_plazos
-               totc += 1
-             end
-
-             if (rat.ori_cliente_comunicacion > 0)  
-               totrc += rat.ori_cliente_comunicacion
-               totc += 1
-             end
-
-          end         
-          
+        if (rat.ori_proveedor_expectativas > 0)  
+          totrp += rat.ori_proveedor_expectativas
+          totp += 1
         end
-
+        if (rat.ori_proveedor_plazos > 0)  
+          totrp += rat.ori_proveedor_plazos
+          totp += 1
+        end
+        if (rat.ori_proveedor_comunicacion > 0)  
+          totrp += rat.ori_proveedor_comunicacion
+          totp += 1
+        end 
+        if (rat.ori_cliente_plazos > 0)  
+           totrc += rat.ori_cliente_plazos
+           totc += 1
+        end
+        
+        if (rat.ori_cliente_comunicacion > 0)  
+          totrc += rat.ori_cliente_comunicacion
+          totc += 1
+        end
 
         if (totc > 0)
           total_rating_cliente += (totrc/totc)
@@ -122,7 +80,6 @@ module Bazarcms
           total_rating_proveedor += (totrp/totp)
           total_val_proveedor += 1
         end  
-
 
       end 
 
@@ -149,9 +106,7 @@ module Bazarcms
       end 
       
       empresa.rating_total_cliente = total_val_cliente
-      
       empresa.rating_total_proveedor = total_val_proveedor
-
       empresa.save
     
     end 

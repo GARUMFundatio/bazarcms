@@ -331,7 +331,7 @@ module Bazarcms
       
       logger.debug "Rating: #{r.inspect}"
       
-      rat = Rating.find_by_iden_and_token(r['rating']['iden'], r['rating']['token'])
+      rat = Rating.find_by_iden(r['rating']['iden'])
       if (rat.nil?)
         logger.debug "No parece que exista con estos datos: #{r['rating']['iden']} - #{r['rating']['token']}"
         rat = Rating.new(r['rating'])
@@ -344,9 +344,7 @@ module Bazarcms
           id = rat.id 
           rat.update_attributes(r['rating'])
           rat.id = id 
-          rat.save
-          
-          
+          rat.save          
         end 
       end 
       
