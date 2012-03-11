@@ -613,9 +613,22 @@ module Bazarcms
     logger.debug "he recibido una peticion de busqueda #{params.inspect} "
     params[:q] = CGI.unescape(params[:q])
     params[:qe] = CGI.unescape(params[:qe])
+    if params[:qe].nil?
+      params[:qe] = "0 10"
+    end
     params[:qv] = CGI.unescape(params[:qv])
+    if params[:qv].nil?
+      params[:qv] = "0 10"
+    end
     params[:qc] = CGI.unescape(params[:qc])
+    if params[:qc].nil?
+      params[:qc] = "0 10"
+    end
     params[:qr] = CGI.unescape(params[:qr])
+    if params[:qr].nil?
+      params[:qr] = "0 10"
+    end
+
     params[:pofertan] = CGI.unescape(params[:pofertan])
     params[:pdemandan] = CGI.unescape(params[:pdemandan])
     params[:ppaises] = CGI.unescape(params[:ppaises])
