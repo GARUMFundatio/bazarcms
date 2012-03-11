@@ -782,8 +782,6 @@ module Bazarcms
         logger.debug "ppaises viene vacio !!!"
       end 
       
-      
-      
       # miramos los resultados económicos 
       
       datos = Bazarcms::Empresasdato.where("empresa_id = ?", [empre[:id]]).order('periodo desc').limit(1)

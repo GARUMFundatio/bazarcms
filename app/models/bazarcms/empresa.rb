@@ -479,6 +479,7 @@ module Bazarcms
       return res
 
     end
+
     def self.busca(*p)
 
       # default values 
@@ -556,8 +557,6 @@ module Bazarcms
       micluster = bazar
       logger.debug "ID de mi cluster #{micluster} <------"
 
-
-
       if (q == "*")
         resultados = Bazarcms::Oferta.where("tipo = ?", tipo).order(orden).limit(limit)
       else 
@@ -620,7 +619,7 @@ module Bazarcms
           # /bazarcms/buscaofertas?q=bazar&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&ppaises=&qtipo=D&bid=1&cid=8
           #uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&ppaises="+CGI.escape(params[:ppaises])+"&bid=#{@consulta.id}&cid=#{micluster}"
 
-          uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(q)+"&qe="+CGI.escape("0")+"&qv="+CGI.escape("0")+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape("")+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
+          uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(q)+"&qe="+CGI.escape("0 10")+"&qv="+CGI.escape("0 10")+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape("")+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
           logger.debug "Enviando Petición a ------------> #{uri}"
 
           r = Typhoeus::Request.new(uri, :timeout => 5000)
