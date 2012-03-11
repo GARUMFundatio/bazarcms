@@ -277,15 +277,13 @@ module Bazarcms
       
       for ofe in ofes 
         logger.debug "bazar #{ofe.cluster_id} empresa #{ofe.empresa_id} "
-        if ofe.cluster_id == micluster
-            sector = Bazarcms::Empresa.damesector(ofe.cluster_id, ofe.empresa_id)
-            logger.debug "bazar #{ofe.cluster_id} empresa #{ofe.empresa_id} sector #{sector}"
-            if !sector.nil?
-              resu[sector] += 1
-            else 
-              resu["01"] += 1 
-            end
-        end 
+        sector = Bazarcms::Empresa.damesector(ofe.cluster_id, ofe.empresa_id)
+        logger.debug "bazar #{ofe.cluster_id} empresa #{ofe.empresa_id} sector #{sector}"
+        if !sector.nil?
+          resu[sector] += 1
+        else 
+          resu["01"] += 1 
+        end
       end 
       
       return resu

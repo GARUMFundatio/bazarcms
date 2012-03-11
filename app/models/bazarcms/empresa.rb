@@ -718,16 +718,15 @@ module Bazarcms
       
       for res in resus 
         logger.debug "bazar #{res.cluster_id} empresa #{res.empresa_id} "
-        if res.cluster_id == micluster
-            sector = Bazarcms::Empresa.damesector(res.cluster_id, res.empresa_id)
-            logger.debug "bazar #{res.cluster_id} empresa #{res.empresa_id} sector #{sector}"
-            if !sector.nil?
-              resu[sector] += 1
-            else 
-              # TODO: consultarlo remotamente
-              resu["01"] += 1 
-            end
-        end 
+
+        sector = Bazarcms::Empresa.damesector(res.cluster_id, res.empresa_id)
+        logger.debug "bazar #{res.cluster_id} empresa #{res.empresa_id} sector #{sector}"
+        if !sector.nil?
+          resu[sector] += 1
+        else 
+          resu["01"] += 1 
+        end
+
       end 
       
       return resu
