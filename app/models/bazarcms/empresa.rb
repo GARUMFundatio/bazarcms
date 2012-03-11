@@ -695,7 +695,8 @@ module Bazarcms
     def self.damesector(bazar, empresa)
       micluster = Conf.find_by_nombre("BazarId").valor.to_i
       if (micluster == bazar)
-        empre = Bazarcms::Empresa.find(empresa)
+        empre = Bazarcms::Empresa.find_by_id(empresa)
+        return "01" if empre.nil?
         if !empre.sector.nil?
           return empre.sector
         else 
@@ -706,6 +707,37 @@ module Bazarcms
         return "01"
       end 
     end
+    
+    def self.ambitos()
+      
+      resu = {"01" => 0, "02" => 0, "03" => 0, "04" => 0, "05" => 0}
+      
+      resus = Bazarcms::Empresasresultado.select("distinct cluster_id, empresa_id").order("cluster_id, empresa_id")
+      
+      micluster = Conf.find_by_nombre("BazarId").valor.to_i
+      
+      for res in resus 
+        logger.debug "bazar #{res.cluster_id} empresa #{res.empresa_id} "
+        if res.cluster_id == micluster
+            sector = Bazarcms::Empresa.damesector(res.cluster_id, res.empresa_id)
+            logger.debug "bazar #{res.cluster_id} empresa #{res.empresa_id} sector #{sector}"
+            if !sector.nil?
+              resu[sector] += 1
+            else 
+              # TODO: consultarlo remotamente
+              resu["01"] += 1 
+            end
+        end 
+      end 
+      
+      return resu
+      
+    end
+    
+    
+    
+    
+    
   end
   
 end
