@@ -267,11 +267,11 @@ module Bazarcms
       
     end 
     
-    def self.ambitos 
+    def self.ambitos(tipo)
       
       resu = {"01" => 0, "02" => 0, "03" => 0, "04" => 0, "05" => 0}
       
-      ofes = Bazarcms::Ofertasresultado.select("distinct cluster_id, empresa_id, oferta_id").order("cluster_id, empresa_id, oferta_id")
+      ofes = Bazarcms::Ofertasresultado.select("distinct cluster_id, empresa_id, oferta_id").where("tipo = ?", tipo).order("cluster_id, empresa_id, oferta_id")
       
       micluster = Conf.find_by_nombre("BazarId").valor.to_i
       
