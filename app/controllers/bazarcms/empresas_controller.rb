@@ -782,7 +782,9 @@ module Bazarcms
       # puede que existan empresas que todavía no tienen datos!!!!
       if (!datos.nil?)
         if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
-          entra += 1 
+          entra += 1
+        else 
+          logger.debug "empleados #{datos[0].empleados} no está en el rango #{rangoe[0].to_i} - #{rangoe[1].to_i}"
         end
       end
       total+=1
@@ -791,6 +793,8 @@ module Bazarcms
       if (!datos.nil?)
         if datos[0].compras >= rangoc[0].to_i && datos[0].compras <= rangoc[1].to_i
           entra += 1 
+        else 
+          logger.debug "compras #{datos[0].compras} no está en el rango #{rangoc[0].to_i} - #{rangoc[1].to_i}"          
         end
       end
       total+=1
@@ -799,6 +803,9 @@ module Bazarcms
       if (!datos.nil?)
         if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
           entra += 1 
+        else 
+          logger.debug "ventas #{datos[0].ventas} no está en el rango #{rangov[0].to_i} - #{rangov[1].to_i}"          
+          
         end
       end
       total+=1
@@ -807,12 +814,16 @@ module Bazarcms
       if (!datos.nil?)
         if datos[0].resultados >= rangor[0].to_i && datos[0].resultados <= rangor[1].to_i
           entra += 1 
+        else 
+          logger.debug "resultados #{datos[0].resultados} no está en el rango #{rangor[0].to_i} - #{rangor[1].to_i}"          
         end
       end
       total+=1
       
       if (entra == total)
         resultados2 << empre
+      else 
+        logger.debug "No entra por datos económicos!!!"
       end 
       
     end 
