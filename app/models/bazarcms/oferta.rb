@@ -271,17 +271,17 @@ module Bazarcms
       
       resu = {"01" => 0, "02" => 0, "03" => 0, "04" => 0, "05" => 0}
       
-      ofes = Bazarcms::Ofertasresultado.select("distinct cluster_id, oferta_id, empresa_id").order("cluster_id, oferta_id, empresa_id")
+      ofes = Bazarcms::Ofertasresultado.select("distinct cluster_id, empresa_id, oferta_id").order("cluster_id, empresa_id, oferta_id")
       
       micluster = Conf.find_by_nombre("BazarId").valor.to_i
       
       for ofe in ofes 
         logger.debug "bazar #{ofe.cluster_id} empresa #{ofe.empresa_id} "
         if ofe.cluster_id == micluster
-            empre = Bazarcms::Empresa.find_by_id(ofe.empresa_id)
-            logger.debug "bazar #{ofe.cluster_id} empresa #{ofe.empresa_id} #{empre.nombre} sector #{empre.sector}"
-            if !empre.sector.nil?
-              resu[empre.sector] += 1
+            sector = Bazarcms::Empresa.damesector(ofe.cluster_id, ofe.empresa_id)
+            logger.debug "bazar #{ofe.cluster_id} empresa #{ofe.empresa_id} sector #{sector}"
+            if !sector.nil?
+              resu[sector] += 1
             else 
               resu["01"] += 1 
             end

@@ -692,6 +692,20 @@ module Bazarcms
 
     end 
     
+    def self.damesector(bazar, empresa)
+      micluster = Conf.find_by_nombre("BazarId").valor.to_i
+      if (micluster == bazar)
+        empre = Bazarcms::Empresa.find(empresa)
+        if !empre.sector.nil?
+          return empre.sector
+        else 
+          return "01"
+        end 
+      else 
+        # TODO: hay que cogerlo en remoto
+        return "01"
+      end 
+    end
   end
   
 end
