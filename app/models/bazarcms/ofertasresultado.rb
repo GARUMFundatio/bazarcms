@@ -6,7 +6,8 @@ module Bazarcms
     set_table_name "ofertasresultados"
 
     belongs_to :ofertasresultado
-        
+
+    
   end
 
 end

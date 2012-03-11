@@ -267,6 +267,14 @@ module Bazarcms
       
     end 
     
-  end
+    def self.ambitos 
+      
+      resu = {"01" => 0, "02" => 0, "03" => 0, "04" => 0, "05" => 0}
+      
+      return resu
+    end
 
+
+  end
+    
 end
