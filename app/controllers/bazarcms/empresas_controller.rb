@@ -633,14 +633,14 @@ module Bazarcms
     params[:pdemandan] = CGI.unescape(params[:pdemandan])
     params[:ppaises] = CGI.unescape(params[:ppaises])
     
-    logger.debug "decodeado #{params[:q]}"
-    logger.debug "decodeado #{params[:qe]}"
-    logger.debug "decodeado #{params[:qv]}"
-    logger.debug "decodeado #{params[:qc]}"
-    logger.debug "decodeado #{params[:qr]}"
-    logger.debug "decodeado #{params[:pofertan]}"
-    logger.debug "decodeado #{params[:pdemandan]}"
-    logger.debug "decodeado #{params[:ppaises]}"
+    logger.debug "q  decodeado #{params[:q]}"
+    logger.debug "qe decodeado #{params[:qe]}"
+    logger.debug "qv decodeado #{params[:qv]}"
+    logger.debug "qc decodeado #{params[:qc]}"
+    logger.debug "qr decodeado #{params[:qr]}"
+    logger.debug "pofertan  decodeado #{params[:pofertan]}"
+    logger.debug "pdemandan decodeado #{params[:pdemandan]}"
+    logger.debug "ppaises   decodeado #{params[:ppaises]}"
         
     if (params[:q] == '*')
       resultados = Empresa.where('1 =1').order('rating desc').limit(100)
