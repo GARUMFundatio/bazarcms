@@ -491,7 +491,9 @@ module Bazarcms
       filtro = "all"
       orden = "rating desc"
       limit = 180
-
+      empleados = "0 10"
+      ventas = "0 10"
+      
       # processing the params
 
       p[0].each do |k,v|
@@ -518,7 +520,13 @@ module Bazarcms
           puts "orden ahora vale: #{orden}"          
         when :limit
           limit = v
-          puts "orden ahora vale: #{limit}"          
+          puts "limit ahora vale: #{limit}"          
+        when :empleados
+          empleados = v
+          puts "empleados ahora vale: #{empleados}"          
+        when :ventas
+          ventas = v
+          puts "ventas ahora vale: #{ventas}"          
         end 
 
       end
@@ -532,6 +540,9 @@ module Bazarcms
       logger.debug "filtro: #{filtro}"
       logger.debug "orden : #{orden}"
       logger.debug "limit : #{limit}"
+      logger.debug "emplea: #{empleados}"
+      logger.debug "ventas: #{ventas}"
+      
 
       # starting the searching
 
@@ -619,7 +630,7 @@ module Bazarcms
           # /bazarcms/buscaofertas?q=bazar&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&ppaises=&qtipo=D&bid=1&cid=8
           #uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&ppaises="+CGI.escape(params[:ppaises])+"&bid=#{@consulta.id}&cid=#{micluster}"
 
-          uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(q)+"&qe="+CGI.escape("0 10")+"&qv="+CGI.escape("0 10")+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape("")+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
+          uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(q)+"&qe="+CGI.escape(empleados)+"&qv="+CGI.escape(ventas)+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape("")+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
           logger.debug "Enviando Petición a ------------> #{uri}"
 
           r = Typhoeus::Request.new(uri, :timeout => 5000)
