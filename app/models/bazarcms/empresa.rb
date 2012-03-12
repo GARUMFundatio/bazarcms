@@ -587,7 +587,37 @@ module Bazarcms
 
         entra = 0
         total = 0
+        
+        # miramos los datos económicos de la empresa de la oferta
 
+        datos = Bazarcms::Empresasdato.where("empresa_id = ?", resu.id).order('periodo desc').limit(1)
+
+        logger.debug "datos seleccionados para el filtro #{datos.inspect}"
+        
+        # aplicamos el filtro de empleados 
+
+        rangoe = empleados.split(' ')
+
+        if (!datos.nil?)
+          if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
+            entra += 1
+          else 
+            logger.debug "empleados #{datos[0].empleados} no está en el rango #{rangoe[0].to_i} - #{rangoe[1].to_i}"
+          end
+        end
+
+        total+=1
+
+        rangov = ventas.split(' ')
+        if (!datos.nil?)
+          if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
+            entra += 1 
+          else 
+            logger.debug "ventas #{datos[0].ventas} no está en el rango #{rangov[0].to_i} - #{rangov[1].to_i}"          
+
+          end
+        end
+        total+=1
         # TODO: new filters here
 
         if (entra == total)
