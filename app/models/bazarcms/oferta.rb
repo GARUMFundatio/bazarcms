@@ -154,7 +154,7 @@ module Bazarcms
 
         # miramos los datos económicos de la empresa de la oferta
 
-        datos = Bazarcms::Empresasdato.where("empresa_id = ?", resu.oferta_id).order('periodo desc').limit(1)
+        datos = Bazarcms::Empresasdato.where("empresa_id = ?", resu.empresa_id).order('periodo desc').limit(1)
 
         logger.debug "datos seleccionados para el filtro #{datos.inspect}"
         
@@ -172,7 +172,7 @@ module Bazarcms
 
         total+=1
 
-        rangov = params[:qv].split(' ')
+        rangov = ventas.split(' ')
         if (!datos.nil?)
           if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
             entra += 1 

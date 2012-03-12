@@ -611,7 +611,36 @@ module Bazarcms
         entra = 0
         total = 0
 
-        # TODO: comprobar el tipo de oferta 
+        # comprobamos si la empresa está en los limites de búsqueda
+        
+        datos = Bazarcms::Empresasdato.where("empresa_id = ?", ofe.empresa_id).order('periodo desc').limit(1)
+
+        logger.debug "datos seleccionados para el filtro #{datos.inspect}"
+        
+        # aplicamos el filtro de empleados 
+
+        rangoe = params[:qe].split(' ')
+
+        if (!datos.nil?)
+          if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
+            entra += 1
+          else 
+            logger.debug "empleados #{datos[0].empleados} no está en el rango #{rangoe[0].to_i} - #{rangoe[1].to_i}"
+          end
+        end
+
+        total+=1
+
+        rangov = params[:qv].split(' ')
+        if (!datos.nil?)
+          if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
+            entra += 1 
+          else 
+            logger.debug "ventas #{datos[0].ventas} no está en el rango #{rangov[0].to_i} - #{rangov[1].to_i}"          
+
+          end
+        end
+        total+=1
         
         # buscamos en los sectores 
 
