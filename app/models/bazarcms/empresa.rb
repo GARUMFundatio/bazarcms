@@ -628,7 +628,7 @@ module Bazarcms
 
           num = resu.rating * 1000 + ( resu.rating_total_cliente + resu.rating_total_proveedor)
 
-          @res.orden = "#{num}"
+          @res.orden = "#{num}"+resu.created_at.strftime("%Y-%m-%d")
           @res.enlace = resu.url
           @res.info = "#{resu.nombre}"
           @res.save
@@ -690,7 +690,7 @@ module Bazarcms
                   resu.empresa_id = key['empresa']['id'] 
                   resu.enlace = key['empresa']['url']
                   num = key['empresa']['rating'].to_i * 1000 + ( key['empresa']['rating_total_cliente'].to_i + key['empresa']['rating_total_proveedor'].to_i)
-                  resu.orden = "#{num}"
+                  resu.orden = "#{num}"+key['empresa']['created_at']
                   resu.info = key['empresa']['nombre']
                   resu.save
                   conta2 += 1
