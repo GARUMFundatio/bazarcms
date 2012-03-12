@@ -64,6 +64,8 @@ module Bazarcms
       filtro = "all"
       orden = "fecha desc"
       limit = 180
+      empleados = "0 10"
+      ventas = "0 10"
       
       # processing the params
       
@@ -91,7 +93,13 @@ module Bazarcms
           puts "orden ahora vale: #{orden}"          
         when :limit
           limit = v
-          puts "orden ahora vale: #{limit}"          
+          puts "limit ahora vale: #{limit}"          
+        when :empleados
+          empleados = v
+          puts "empleados ahora vale: #{empleados}"
+        when :ventas 
+          ventas = v 
+          puts "ventas ahora vale: #{ventas}"          
         end 
         
       end
@@ -105,6 +113,8 @@ module Bazarcms
       logger.debug "filtro: #{filtro}"
       logger.debug "orden : #{orden}"
       logger.debug "limit : #{limit}"
+      logger.debug "emplea: #{empleados}"
+      logger.debug "ventas: #{ventas}"
 
       # starting the searching
 
@@ -141,6 +151,37 @@ module Bazarcms
            
         entra = 0
         total = 0
+
+        # miramos los datos económicos de la empresa de la oferta
+
+        datos = Bazarcms::Empresasdato.where("empresa_id = ?", resu.oferta_id).order('periodo desc').limit(1)
+
+        logger.debug "datos seleccionados para el filtro #{datos.inspect}"
+        
+        # aplicamos el filtro de empleados 
+
+        rangoe = empleados.split(' ')
+
+        if (!datos.nil?)
+          if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
+            entra += 1
+          else 
+            logger.debug "empleados #{datos[0].empleados} no está en el rango #{rangoe[0].to_i} - #{rangoe[1].to_i}"
+          end
+        end
+
+        total+=1
+
+        rangov = params[:qv].split(' ')
+        if (!datos.nil?)
+          if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
+            entra += 1 
+          else 
+            logger.debug "ventas #{datos[0].ventas} no está en el rango #{rangov[0].to_i} - #{rangov[1].to_i}"          
+
+          end
+        end
+        total+=1
 
         # TODO: new filters here
 
@@ -191,7 +232,7 @@ module Bazarcms
           # uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(q)+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
           # /bazarcms/buscaofertas?q=bazar&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&ppaises=&qtipo=D&bid=1&cid=8
           
-          uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(q)+"&qe="+CGI.escape("0 10")+"&qv="+CGI.escape("0 10")+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape("")+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
+          uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(q)+"&qe="+CGI.escape(empleados)+"&qv="+CGI.escape(ventas)+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape("")+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
           logger.debug "Enviando Petición a ------------> #{uri}"
 
           r = Typhoeus::Request.new(uri, :timeout => 5000)
