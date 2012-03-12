@@ -590,7 +590,7 @@ module Bazarcms
         
         # miramos los datos económicos de la empresa de la oferta
 
-        datos = Bazarcms::Empresasdato.where("empresa_id = ?", resu.id).order('periodo desc').limit(1)
+        datos = Bazarcms::Empresasdato.where("id = ?", resu.id).order('periodo desc').limit(1)
 
         logger.debug "datos seleccionados para el filtro #{datos.inspect}"
         
