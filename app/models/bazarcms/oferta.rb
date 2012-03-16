@@ -66,6 +66,7 @@ module Bazarcms
       limit = 180
       empleados = "0 10"
       ventas = "0 10"
+      paises = ""
       
       # processing the params
       
@@ -100,6 +101,9 @@ module Bazarcms
         when :ventas 
           ventas = v 
           puts "ventas ahora vale: #{ventas}"          
+        when :paises 
+          paises = v 
+          puts "paises ahora vale: #{paises}"          
         end 
         
       end
@@ -115,6 +119,7 @@ module Bazarcms
       logger.debug "limit : #{limit}"
       logger.debug "emplea: #{empleados}"
       logger.debug "ventas: #{ventas}"
+      logger.debug "paises: #{paises}"
 
       # starting the searching
 
@@ -232,7 +237,7 @@ module Bazarcms
           # uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(q)+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
           # /bazarcms/buscaofertas?q=bazar&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&ppaises=&qtipo=D&bid=1&cid=8
           
-          uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(q)+"&qe="+CGI.escape(empleados)+"&qv="+CGI.escape(ventas)+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape("")+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
+          uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(q)+"&qe="+CGI.escape(empleados)+"&qv="+CGI.escape(ventas)+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape(paises)+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
           logger.debug "Enviando Petición a ------------> #{uri}"
 
           r = Typhoeus::Request.new(uri, :timeout => 5000)
