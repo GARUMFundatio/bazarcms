@@ -187,6 +187,38 @@ module Bazarcms
           end
         end
         total+=1
+        
+        # buscamos en las ubicaciones
+        if params[:ppaises].length > 0
+          total += 1
+          alguna = 0 
+
+          cam = params[:ppaises].split(' ')
+
+          if cam.count > 0
+
+            for cc in cam 
+              if (cc != "")
+                pais = Bazarcms::Ofertaspais.where("oferta_id = ? and codigo = ? ", ofe.id, cc)
+
+                if pais.count > 0
+                  logger.debug "ENTRA por pais --------> #{pais.inspect}"
+                  alguna += 1
+                end 
+
+              end
+            end 
+          end
+
+          if alguna > 0
+            entra += 1 
+            logger.debug "Entra en la busqueda de momento"
+          end
+
+        else 
+          logger.debug "ppaises viene vacio !!!"
+        end 
+        
 
         # TODO: new filters here
 
@@ -232,7 +264,7 @@ module Bazarcms
 
       for cluster in @clusters
 
-        if micluster != cluster.id 
+        if micluster != cluster.id and cluster.id != 1
 
           # uri = "#{cluster.url}/bazarcms/buscaofertas?q="+CGI.escape(q)+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
           # /bazarcms/buscaofertas?q=bazar&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&ppaises=&qtipo=D&bid=1&cid=8
