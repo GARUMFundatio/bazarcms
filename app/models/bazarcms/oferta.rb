@@ -193,8 +193,8 @@ module Bazarcms
           total += 1
           alguna = 0 
 
-          cam = paises.split(' |,')
-
+          cam = paises.split(/ |,/)
+          logger.debug "Paises: ----------------------->"+cam.inspect
           if cam.count > 0
 
             for cc in cam 
