@@ -748,7 +748,7 @@ module Bazarcms
                   next if ubi.ciudad.pais.codigo.nil?
                   
                   if ubi.ciudad.pais.codigo == cc 
-                    logger.debug "ENTRA por pais --------> #{pais.inspect}"
+                    logger.debug "ENTRA por pais --------> #{ubi.inspect}"
                     alguna += 1
                   end
                 end
