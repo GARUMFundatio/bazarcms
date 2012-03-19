@@ -493,6 +493,7 @@ module Bazarcms
       limit = 180
       empleados = "0 10"
       ventas = "0 10"
+      paises = ""
       
       # processing the params
 
@@ -527,6 +528,9 @@ module Bazarcms
         when :ventas
           ventas = v
           puts "ventas ahora vale: #{ventas}"          
+        when :paises
+          paises = v
+          puts "paises ahora vale: #{paises}"          
         end 
 
       end
@@ -542,6 +546,8 @@ module Bazarcms
       logger.debug "limit : #{limit}"
       logger.debug "emplea: #{empleados}"
       logger.debug "ventas: #{ventas}"
+      logger.debug "paises: #{paises}"
+      
       
 
       # starting the searching
@@ -588,9 +594,9 @@ module Bazarcms
         entra = 0
         total = 0
         
-        # miramos los datos económicos de la empresa de la oferta
+        # miramos los datos económicos de la empresa 
 
-        datos = Bazarcms::Empresasdato.where("id = ?", resu.id).order('periodo desc').limit(1)
+        datos = Bazarcms::Empresasdato.where("empresa_id = ?", resu.id).order('periodo desc').limit(1)
 
         logger.debug "datos seleccionados para el filtro #{datos.inspect}"
         
@@ -618,6 +624,46 @@ module Bazarcms
           end
         end
         total+=1
+        
+        
+        if paises.length > 0
+          total += 1
+          alguna = 0 
+
+          cam = paises.split(/ |,/)
+          logger.debug "Paises: ----------------------->"+cam.inspect
+          if cam.count > 0
+
+            for cc in cam 
+              if (cc != "")
+                
+                ubis = Bazarcms::Ubicacion.where("empresa_id = ?", resu.id)
+                for ubi in ubis 
+                  logger.debug "cc: "+cc
+                  next if ubi.ciudad.nil?
+                  logger.debug "ubi: "+ubi.inspect 
+                  next if ubi.ciudad.pais.nil?
+                  logger.debug "pais: "+ubi.ciudad.pais.inspect 
+                   
+                  next if ubi.ciudad.pais.codigo.nil?
+                  
+                  if ubi.ciudad.pais.codigo == cc 
+                    logger.debug "ENTRA por pais --------> #{ubi.inspect}"
+                    alguna += 1
+                  end 
+                end
+              end
+            end 
+          end
+
+          if alguna > 0
+            entra += 1 
+            logger.debug "Entra en la busqueda de momento"
+          end
+
+        else 
+          logger.debug "paises viene vacio !!!"
+        end
         # TODO: new filters here
 
         if (entra == total)
@@ -660,7 +706,7 @@ module Bazarcms
           # /bazarcms/buscaofertas?q=bazar&qe=0+10&qv=0+10&qc=0+10&qr=0+10&pofertan=&pdemandan=&ppaises=&qtipo=D&bid=1&cid=8
           #uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(params[:q])+"&qe="+CGI.escape(params[:qe])+"&qv="+CGI.escape(params[:qv])+"&qc="+CGI.escape(params[:qc])+"&qr="+CGI.escape(params[:qr])+"&pofertan="+CGI.escape(params[:pofertan])+"&pdemandan="+CGI.escape(params[:pdemandan])+"&ppaises="+CGI.escape(params[:ppaises])+"&bid=#{@consulta.id}&cid=#{micluster}"
 
-          uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(q)+"&qe="+CGI.escape(empleados)+"&qv="+CGI.escape(ventas)+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape("")+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
+          uri = "#{cluster.url}/bazarcms/buscaempresas?q="+CGI.escape(q)+"&qe="+CGI.escape(empleados)+"&qv="+CGI.escape(ventas)+"&qc="+CGI.escape("0 10")+"&qr="+CGI.escape("0 10")+"&pofertan="+CGI.escape("")+"&pdemandan="+CGI.escape("")+"&ppaises="+CGI.escape(paises)+"&qtipo="+CGI.escape(tipo)+"&bid=#{@consulta.id}&cid=#{micluster}"
           logger.debug "Enviando Petición a ------------> #{uri}"
 
           r = Typhoeus::Request.new(uri, :timeout => 5000)

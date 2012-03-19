@@ -750,24 +750,26 @@ module Bazarcms
         total += 1
         alguna = 0 
 
-        cam = params[:ppaises].split(',')
+        cam = params[:ppaises].split(/ |,/)
         
         if cam.count > 0
           
           for cc in cam 
             if (cc != "")
-              datos = Bazarcms::Ubicacion.where("empresa_id = ? ", [empre.id])
-              
-              if !datos.nil?
-                for ubi in datos
-                  if !ubi.ciudad.nil?
-                    if (ubi.ciudad.pais.id == cc.to_i)
-                      logger.debug "ENTRA --------> #{ubi.ciudad.descripcion}"
-                      alguna += 1
-                    end
-                  end
-                end
-              end 
+              for ubi in ubis 
+                logger.debug "cc: "+cc
+                next if ubi.ciudad.nil?
+                logger.debug "ubi: "+ubi.inspect 
+                next if ubi.ciudad.pais.nil?
+                logger.debug "pais: "+ubi.ciudad.pais.inspect 
+                 
+                next if ubi.ciudad.pais.codigo.nil?
+                
+                if ubi.ciudad.pais.codigo == cc 
+                  logger.debug "ENTRA por pais --------> #{ubi.inspect}"
+                  alguna += 1
+                end 
+              end
 
             end
           end 
