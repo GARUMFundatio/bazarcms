@@ -734,7 +734,7 @@ module Bazarcms
           total += 1
           alguna = 0 
 
-          cam = params[:ppaises].split(/, /)
+          cam = params[:ppaises].split(/,\ /)
 
           if cam.count > 0
 
