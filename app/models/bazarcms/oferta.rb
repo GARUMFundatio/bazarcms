@@ -200,7 +200,7 @@ module Bazarcms
             for cc in cam 
               if (cc != "")
                 
-                ubis = Bazarcms::Ubicacion.where("empresa_id", resu.empresa_id)
+                ubis = Bazarcms::Ubicacion.where("empresa_id = ?", resu.empresa_id)
                 for ubi in ubis 
                   next if ubi.ciudad.nil? 
                   next if ubi.ciudad.pais.nil? 
