@@ -740,12 +740,14 @@ module Bazarcms
 
             for cc in cam 
               if (cc != "")
-                pais = Bazarcms::Ofertaspais.where("oferta_id = ? and codigo = ? ", ofe.id, cc)
 
-                if pais.count > 0
-                  logger.debug "ENTRA por pais --------> #{pais.inspect}"
-                  alguna += 1
-                end 
+                ubis = Bazarcms::Ubicacion.where("empresa_id", resu.empresa_id)
+                for ubi in ubis 
+                  if ubi.ciudad.pais.codigo == cc 
+                    logger.debug "ENTRA por pais --------> #{pais.inspect}"
+                    alguna += 1
+                  end 
+                end
 
               end
             end 
