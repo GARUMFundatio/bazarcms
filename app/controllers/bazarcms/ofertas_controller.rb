@@ -743,9 +743,12 @@ module Bazarcms
 
                 ubis = Bazarcms::Ubicacion.where("empresa_id = ? ", ofe.empresa_id)
                 for ubi in ubis 
+                  logger.debug "cc: "+cc
                   next if ubi.ciudad.nil? 
+                  logger.debug "ubi: "+ubi.inspect 
                   next if ubi.ciudad.pais.nil? 
                   next if ubi.ciudad.pais.codigo.nil?
+                  logger.debug "ubi: "+ubi.ciudad.pais.inspect 
                   
                   if ubi.ciudad.pais.codigo == cc 
                     logger.debug "ENTRA por pais --------> #{ubi.inspect}"
