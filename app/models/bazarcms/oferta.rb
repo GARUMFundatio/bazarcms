@@ -193,7 +193,7 @@ module Bazarcms
           total += 1
           alguna = 0 
 
-          cam = paises.split(' ')
+          cam = paises.split(' |,')
 
           if cam.count > 0
 
