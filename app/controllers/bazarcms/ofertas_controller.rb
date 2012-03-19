@@ -741,7 +741,7 @@ module Bazarcms
             for cc in cam 
               if (cc != "")
 
-                ubis = Bazarcms::Ubicacion.where("empresa_id", resu.empresa_id)
+                ubis = Bazarcms::Ubicacion.where("empresa_id", ofe.empresa_id)
                 for ubi in ubis 
                   if ubi.ciudad.pais.codigo == cc 
                     logger.debug "ENTRA por pais --------> #{pais.inspect}"
