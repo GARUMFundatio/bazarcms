@@ -604,7 +604,7 @@ module Bazarcms
 
         rangoe = empleados.split(' ')
 
-        if (!datos.nil?)
+        if (!datos[0].nil?)
           if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
             entra += 1
           else 
@@ -615,7 +615,7 @@ module Bazarcms
         total+=1
 
         rangov = ventas.split(' ')
-        if (!datos.nil?)
+        if (!datos[0].nil?)
           if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
             entra += 1 
           else 
