@@ -434,49 +434,70 @@ module Bazarcms
     
     def interesantes
       puts "Empresas interesantes para: #{self.id} #{self.nombre}"
+ 
+      q = ""
+      separador = ""
+      tags = self.actividad_list 
+      logger.debug "tags: "+tags.inspect
       
-      missectores = Bazarcms::Empresasperfil.select("distinct codigo").where("empresa_id = ?", self.id).order("codigo")
+      for tag in tags 
+        q = separador + tag
+        separador = " OR " if separador == ""
+      end 
 
-      sectores = []
-
-      for sector in missectores 
-        sectores << sector.codigo
-      end
-
-      puts sectores.inspect
+      logger.debug "query: "+q
       
-      res = {}
+      resu = Bazarcms::Empresa.find_with_ferret(q, :limit => 18)
+ 
+      for res in resu 
+        #resu. if resu.id == self.id 
+      end 
       
-      empresas = Bazarcms::Empresasperfil.select("distinct empresa_id").where("empresa_id <> ? and codigo in (?)", self.id, sectores).order("empresa_id")
-      puts empresas.inspect 
+      logger.debug "seleccionadas: "+resu.inspect
+      return resu 
       
-      if empresas.count <= 0
-        
-        empresas = Bazarcms::Empresa.select("id").where("id <> ? ", self.id).order("id desc").limit(18)
-        puts "no habia empresas para recomendar"
-        puts empresas.inspect 
-
-        for emp in empresas
-          if res[emp.id.to_s].nil? 
-            res[emp.id.to_s] = 1
-          else 
-            puts "ya estaba #{emp.empresa_id}"
-          end
-        end    
-
-      else 
-      
-        for emp in empresas
-          if res[emp.empresa_id.to_s].nil? 
-            res[emp.empresa_id.to_s] = 1
-          else 
-            puts "ya estaba #{emp.empresa_id}"
-          end
-        end    
-
-      end
-      
-      return res
+#     missectores = Bazarcms::Empresasperfil.select("distinct codigo").where("empresa_id = ?", self.id).order("codigo")
+#
+#     sectores = []
+#
+#     for sector in missectores 
+#       sectores << sector.codigo
+#     end
+#
+#     puts sectores.inspect
+#     
+#     res = {}
+#     
+#     empresas = Bazarcms::Empresasperfil.select("distinct empresa_id").where("empresa_id <> ? and codigo in (?)", self.id, sectores).order("empresa_id")
+#     puts empresas.inspect 
+#     
+#     if empresas.count <= 0
+#       
+#       empresas = Bazarcms::Empresa.select("id").where("id <> ? ", self.id).order("id desc").limit(18)
+#       puts "no habia empresas para recomendar"
+#       puts empresas.inspect 
+#
+#       for emp in empresas
+#         if res[emp.id.to_s].nil? 
+#           res[emp.id.to_s] = 1
+#         else 
+#           puts "ya estaba #{emp.empresa_id}"
+#         end
+#       end    
+#
+#     else 
+#     
+#       for emp in empresas
+#         if res[emp.empresa_id.to_s].nil? 
+#           res[emp.empresa_id.to_s] = 1
+#         else 
+#           puts "ya estaba #{emp.empresa_id}"
+#         end
+#       end    
+#
+#     end
+#     
+#    return res
 
     end
 
