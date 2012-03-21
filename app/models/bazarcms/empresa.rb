@@ -441,8 +441,8 @@ module Bazarcms
       logger.debug "tags: "+tags.inspect
       
       for tag in tags 
-        q = separador + tag
-        separador += " OR " if separador == ""
+        q += separador + tag
+        separador = " OR " if separador == ""
       end 
 
       logger.debug "query: "+q
