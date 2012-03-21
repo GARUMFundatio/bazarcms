@@ -449,10 +449,8 @@ module Bazarcms
       
       resu = Bazarcms::Empresa.find_with_ferret(q, :limit => 18)
  
-      for res in resu 
-        #resu. if resu.id == self.id 
-      end 
-      
+      # resu.delete_if{|res| if res.id == self.id }
+        
       logger.debug "seleccionadas: "+resu.inspect
       return resu 
       
