@@ -442,7 +442,7 @@ module Bazarcms
       
       for tag in tags 
         q = separador + tag
-        separador = " OR " if separador == ""
+        separador += " OR " if separador == ""
       end 
 
       logger.debug "query: "+q
