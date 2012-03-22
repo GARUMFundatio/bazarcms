@@ -156,7 +156,9 @@ module Bazarcms
            
         entra = 0
         total = 0
-
+        
+        next if resu.tipo != tipo 
+        
         # miramos los datos económicos de la empresa de la oferta
 
         datos = Bazarcms::Empresasdato.where("empresa_id = ?", resu.empresa_id).order('periodo desc').limit(1)
