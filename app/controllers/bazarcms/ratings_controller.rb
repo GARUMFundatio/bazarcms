@@ -331,6 +331,8 @@ module Bazarcms
       
       logger.debug "Rating: #{r.inspect}"
       
+      # TODO: revisar si seguimos usando el token o guardamos solo la última
+      
       rat = Rating.find_by_iden(r['rating']['iden'])
       if (rat.nil?)
         logger.debug "No parece que exista con estos datos: #{r['rating']['iden']} - #{r['rating']['token']}"
