@@ -621,7 +621,7 @@ module Bazarcms
 
         rangoe = params[:qe].split(' ')
 
-        if (!datos.nil?)
+        if (!datos[0].nil?)
           if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
             entra += 1
           else 
