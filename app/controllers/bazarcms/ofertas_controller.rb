@@ -632,7 +632,7 @@ module Bazarcms
         total+=1
 
         rangov = params[:qv].split(' ')
-        if (!datos.nil?)
+        if (!datos[0].nil?)
           if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
             entra += 1 
           else 
