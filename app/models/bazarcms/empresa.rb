@@ -124,8 +124,13 @@ module Bazarcms
 
       logger.debug "Me llega ------------> pal #{pal.inspect} paises (#{paises}) tipo #{tipo}"
       
-      if paises.length <= 0 
-        paises = "all "
+      if !paises.nil? 
+        
+        if paises.length <= 0 
+          paises = "all "
+        end 
+      else 
+        paises = "all"
       end 
       
       if !pal.nil?
