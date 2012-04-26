@@ -608,6 +608,8 @@ module Bazarcms
           next
         end 
         
+        next if ofe.fecha_hasta < Time.now 
+        
         entra = 0
         total = 0
 
