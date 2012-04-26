@@ -157,6 +157,8 @@ module Bazarcms
         entra = 0
         total = 0
         
+        next if resu.fecha_hasta < Time.now
+        
         next if resu.tipo != tipo 
         
         # miramos los datos económicos de la empresa de la oferta
