@@ -838,7 +838,7 @@ module Bazarcms
   end
 
   def rss
-    @ofertas = Oferta.where("bazar_id = ? and (tipo = 'D' or tipo 'O')", BZ_param('BazarId')).order("fecha desc").limit(100)
+    @ofertas = Oferta.where("bazar_id = ? and (tipo = 'D' or tipo = 'O')", BZ_param('BazarId')).order("fecha desc").limit(100)
     render :layout => false
   end
 
