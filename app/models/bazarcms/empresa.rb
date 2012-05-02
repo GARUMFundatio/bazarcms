@@ -62,7 +62,7 @@ module Bazarcms
         {
          "Local" => "0", 
          "Nacional"  => "1",
-         "Internacional" => "2"       
+         "Red de Bazares" => "2"       
          }
     end
     
