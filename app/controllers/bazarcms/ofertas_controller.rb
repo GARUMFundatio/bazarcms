@@ -608,6 +608,10 @@ module Bazarcms
           next
         end 
         
+        next if ofe.fecha_hasta.nil? 
+        
+        next if ofe.fecha_hasta < Time.now 
+        
         entra = 0
         total = 0
 
@@ -621,7 +625,7 @@ module Bazarcms
 
         rangoe = params[:qe].split(' ')
 
-        if (!datos.nil?)
+        if (!datos[0].nil?)
           if datos[0].empleados >= rangoe[0].to_i && datos[0].empleados <= rangoe[1].to_i
             entra += 1
           else 
@@ -632,7 +636,7 @@ module Bazarcms
         total+=1
 
         rangov = params[:qv].split(' ')
-        if (!datos.nil?)
+        if (!datos[0].nil?)
           if datos[0].ventas >= rangov[0].to_i && datos[0].ventas <= rangov[1].to_i
             entra += 1 
           else 
@@ -834,7 +838,7 @@ module Bazarcms
   end
 
   def rss
-    @ofertas = Oferta.where("bazar_id = ?", BZ_param('BazarId')).order("fecha desc").limit(100)
+    @ofertas = Oferta.where("bazar_id = ? and (tipo = 'D' or tipo = 'O')", BZ_param('BazarId')).order("fecha desc").limit(100)
     render :layout => false
   end
 

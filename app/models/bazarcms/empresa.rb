@@ -124,8 +124,13 @@ module Bazarcms
 
       logger.debug "Me llega ------------> pal #{pal.inspect} paises (#{paises}) tipo #{tipo}"
       
-      if paises.length <= 0 
-        paises = "all "
+      if !paises.nil? 
+        
+        if paises.length <= 0 
+          paises = "all "
+        end 
+      else 
+        paises = "all"
       end 
       
       if !pal.nil?
@@ -593,11 +598,11 @@ module Bazarcms
       micluster = bazar
       logger.debug "ID de mi cluster #{micluster} <------"
 
-      if (q == "*")
-        resultados = Bazarcms::Oferta.where("tipo = ?", tipo).order(orden).limit(limit)
-      else 
-        resultados = Bazarcms::Oferta.find_with_ferret(q, :limit => :all)        
-      end
+      # if (q == "*")
+      #  resultados = Bazarcms::Oferta.where("tipo = ?", tipo).order(orden).limit(limit)
+      # else 
+      #  resultados = Bazarcms::Oferta.find_with_ferret(q, :limit => :all)        
+      # end
 
       if (q == '*')
         resultados = Empresa.where('1 =1').order(orden).limit(limit)
