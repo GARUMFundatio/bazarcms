@@ -13,10 +13,10 @@ xml.rss :version => "2.0" do
         next if oferta.texto.nil? 
         
         xml.title oferta.titulo
-        xml.description oferta.texto+"<br/><br/>"+"Más Información de esta oferta/demanda:\n\n<a href='#{Cluster.find(BZ_param("BazarId")).url}/home/fichaoferta/#{oferta.bazar_id}/#{oferta.id}'>#{oferta.titulo}</a>"
+        xml.description oferta.texto+"<br/><br/>"+"Más Información de esta oferta/demanda:\n\n<a href='#{Cluster.find(BZ_param("BazarId")).url}/home/fichaempresa/#{oferta.bazar_id}/#{oferta.empresa_id}/?go=oferta&oferta=#{oferta.id}'>#{oferta.titulo}</a>"
         xml.pubDate oferta.fecha.to_s(:rfc822)
-        xml.link Cluster.find(BZ_param("BazarId")).url+"/home/fichaoferta/#{oferta.bazar_id}/#{oferta.id}"
-        xml.guid Cluster.find(BZ_param("BazarId")).url+"/home/fichaoferta/#{oferta.bazar_id}/#{oferta.id}"
+        xml.link Cluster.find(BZ_param("BazarId")).url+"/home/fichaempresa/#{oferta.bazar_id}/#{oferta.empresa_id}/?go=oferta&oferta=#{oferta.id}"
+        xml.guid Cluster.find(BZ_param("BazarId")).url+"/home/fichaempresa/#{oferta.bazar_id}/#{oferta.empresa_id}/?go=oferta&oferta=#{oferta.id}"
       end
     end
   end
