@@ -756,6 +756,7 @@ module Bazarcms
           
           for cc in cam 
             if (cc != "")
+              ubis = Bazarcms::Empresa.find_by_id(current_user.id).ubicaciones
               for ubi in ubis 
                 logger.debug "cc: "+cc
                 next if ubi.ciudad.nil?
