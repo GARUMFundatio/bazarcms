@@ -33,60 +33,7 @@ module Bazarcms
 
   def show
     
-    # TODO limitar el acceso a bots o no, pero hay que tomar una decisión. 
-    
-    # si la empresa es local extraemos la información de la base de datos
-    # si de otro bazar la pedimos al bazar
-    puts "Bazar #{BZ_param("BazarId").to_i} -> #{params[:bazar_id].to_i}"
-    if ( params[:bazar_id].to_i == BZ_param("BazarId").to_i )
-      
-      @empresa = Empresa.find(params[:id])
-      @empresasdatos = Empresasdato.where("empresa_id = ? and periodo >= ?", params[:id], @empresa.fundada).order("periodo")
-      @usuario = User.find(params[:id])
-    
-      respond_to do |format|
-        if !params[:display].nil? 
-          if params[:display] == "inside"
-            format.html { render :action => "show", :layout => false }
-          end 
-        else 
-          format.html { render :action => "show" }
-        end 
-        format.xml  { render :xml => @empresa }
-      end
-    
-    else 
-      
-      puts "empresa de otro bazar"
-      
-      if params[:display].nil? 
-        params[:display] = ""
-        puts "no viene display"
-      end 
-      
-      if params[:display] == "inside"
-        puts "Es para pintar inside"
-        res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside&user_id=#{current_user.id}")
-
-        if (res == "")
-          res = "Información temporalmente no disponible."
-        end
-
-        render :text => res, :layout => false
-        
-      else 
-        puts "lo pinto con el layout"
-        res = dohttpget(params[:bazar_id], "/bazarcms/empresas/#{params[:id]}?bazar_id=#{params[:bazar_id]}&display=inside&user_id=#{current_user.id}")
-
-        if (res == "")
-          res = "Información temporalmente no disponible."
-        end
-
-        render :text => res, :layout => 'bazar'
-
-      end          
-
-    end         
+    redirect_to "/home/fichaempresa/#{params[:bazar_id]}/#{params[:id]}"       
 
   end
 
