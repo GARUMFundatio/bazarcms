@@ -247,7 +247,7 @@ module Bazarcms
           @res.nombre_empresa = "#{resu.texto}"
                      
           @res.orden = resu.fecha
-          @res.enlace = "#{resu.fecha_hasta}"
+          @res.enlace = "#{resu.fecha_hasta}|#{resu.fecha}"
           @res.info = "#{resu.titulo}"
           @res.save
           
@@ -316,7 +316,7 @@ module Bazarcms
                     resu.tipo =  key['oferta']['tipo']
                     resu.empresa_id = key['oferta']['empresa_id'] 
                     resu.nombre_empresa = key['oferta']['texto']
-                    resu.enlace = key['oferta']['fecha_hasta'] # key['oferta']['url']
+                    resu.enlace = key['oferta']['fecha_hasta']+"|"+key['oferta']['fecha']# key['oferta']['url']
                     resu.orden = key['oferta']['fecha'] # .strftime('%Y%m%d%H%M')
                     resu.info = key['oferta']['titulo']
                     resu.save
